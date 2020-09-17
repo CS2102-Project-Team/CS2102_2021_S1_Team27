@@ -1,0 +1,44 @@
+﻿Constraints
+
+
+1. Each Account can be uniquely identified by a username (not null), and it has one username, password, phone number, email, and email verified status.
+2. Each User must have exactly one user profile (which is the address, profile picture URL, self introduction).
+3. Each Pet must belong to exactly one Pet Category, and must be owned by exactly one Pet Owner.
+4. A Pet Owner can only bid for service when the Care Taker is available on every day during the service period.
+5. A Pet Owner cannot submit duplicate bids for the same Pet under the same Care Taker for the same period of time. 
+6. Each credit card is owned by exactly one user.
+
+
+Above constraints are represented by the ER diagram. Below are some extra constraints.
+
+
+7. Each Account is either a User or PCS Administrator or both (satisfies Covering Constraint).
+8. Each User is either a Care Taker or Pet Owner or both (satisfies Covering Constraint). 
+9. For each Account, the Password, Phone Number and Email cannot be null. Phone Number and Email are both unique. Email and Phone Number formats must be of specific styles(Email format: %_@_%._%, Phone Number format: integers only).
+10. For each User, the Address cannot be null.
+11. For each Credit Card, CVV and Expiry Date cannot be null.
+12. For Looks After, Daily Price cannot be null.
+13. For Is Available, Status cannot be null.
+14. For Orders, the status and delivery mode cannot be null.
+15. For Transactions, the payment method cannot be null.
+16. The Care Taker can only take care of Pets belonging to Pet Categories he can take care of.
+17. A Care Taker must not exceed the number of pets allowed to be taken care of at any given time.
+18. Each Care Taker is either a Full-time or Part-Time Employee (satisfies Covering Constraint, but does not satisfy Overlapping Constraint).
+19. The Pet Owner should specify only one of the three Delivery Modes given in the project description while bidding. We assume Full Time Care Takers accept any transfer method. Part Time Care Taker shall consider the Delivery Mode while accepting the bid. Accepting the bid indicates accepting the Delivery Mode and guarantees availability.
+20. The Pet Owner should specify the Payment Method while Bidding. 
+21. We assume Pet Owners do not need to place a deposit when placing a bid. However, if they do not pay for orders after their bids being accepted for two times, their account will be blocked. 
+22. For a Full-Time Care Taker, we assume he is able to satisfy any special requirement due to training provided by PCS. Therefore, he will accept the bid immediately if he is able to (available & can take care of that pet category). For a Part-Time Care Taker, he will always accept the bid by himself.
+23. An order is immediately placed after a bidding is accepted. All attributes inside the original successful bidding will be inserted to the order and no attributes can be modified.
+24. The Pet Owner can give at most one Rating and Review after each caretaking service finished.
+25. A Full-Time Care Taker must have at least 2*150 consecutive available days each year.
+26. Every day, a Full-Time Care Taker is by default available, while a Part-Time Care Taker is by default unavailable. Only PCS Administrator can set Full-Time Care Taker to be unavailable (when care taker applies for leave and admin approves).
+27. A Care Taker has one of the three statuses on each day, available means on working and can take at least one more pet, busy means on working but already taking 5 pets (For Part Time Care Takers, it can be 2 or 5), unavailable means not working/on leave. The status needs to be updated when an order status is changed.
+28. An order can have a status of ‘Pending Payment’, ‘Payment Received’, ‘Service Finished’.
+29. A bid can have a status of ‘Pending’, ‘Accepted’, ‘Rejected’. 
+30. A Full-Time Care Taker cannot apply for leave on a day when there is a Pet to take care of (even when there is a pending payment order).
+31. For Full-Time Care Taker, the admin specifies Daily Price of each category (based on rating) of Care Taker for each Pet Category. Part Time Care Takers specify their own daily prices for each Pet Category.
+
+
+Justification for serial type
+1. When a bid is accepted, an order will be created. To identify each order, an orderID will be automatically generated, so serial type will be used. 
+2. When a pet is created, an ID will be automatically generated to identify it and serial type shall be used.
