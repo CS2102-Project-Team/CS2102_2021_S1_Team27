@@ -12,7 +12,7 @@ The recommanded deelopment envireonment is Linux/Mac/Windows WSL + VSCode.
    - `code CS2102_2021_S1_Team27`
 3. Install the following extensions in VSCode:
    - ESLint (Dirk Baeumer)
-4. ~~Create a `.env` file in the project root directory, with environment variables needed~~
+4. ~~Create a `.env` file under the `backend` directory, with environment variables needed~~
 5. Open a terminal in VSCode (Ctrl+`). Install node dependencies:
    - `cd backend; npm i`
 6. To run the dev server:
