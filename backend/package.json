@@ -14,7 +14,8 @@
   },
   "keywords": [
     "express",
-    "postgres"
+    "postgres",
+    "petcare"
   ],
   "author": "cs2102_2021_s1_team27",
   "license": "UNLICENSED",
@@ -23,8 +24,13 @@
   },
   "homepage": "https://github.com/CS2102-Project-Team/CS2102_2021_S1_Team27#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "dotenv": "^8.2.0"
+    "gmail-send": "^1.8.10",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "eslint": "^7.9.0",

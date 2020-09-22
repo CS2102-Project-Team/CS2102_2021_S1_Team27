@@ -12,7 +12,10 @@ The recommanded deelopment envireonment is Linux/Mac/Windows WSL + VSCode.
    - `code CS2102_2021_S1_Team27`
 3. Install the following extensions in VSCode:
    - ESLint (Dirk Baeumer)
-4. ~~Create a `.env` file under the `backend` directory, with environment variables needed~~
+4. Create a `.env` file under the `backend` directory, with the following environment variables:
+   - EMAILUSER (gmail account to send emails from)
+   - EMAILPASS (gmail *app password*)
+   - EMAILTO (the email receiver for /api/v1/auth/test endpoint, just for testing)
 5. Open a terminal in VSCode (Ctrl+`). Install node dependencies:
    - `cd backend; npm i`
 6. To run the dev server:
