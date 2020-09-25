@@ -722,6 +722,40 @@
   }
 };
             defs["body_10"] = {
+  "required" : [ "name" ],
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "type" : "string",
+      "example" : "MyRoom"
+    }
+  }
+};
+            defs["body_11"] = {
+  "required" : [ "name" ],
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "type" : "string",
+      "example" : "room11"
+    }
+  }
+};
+            defs["body_12"] = {
+  "required" : [ "role", "username" ],
+  "type" : "object",
+  "properties" : {
+    "username" : {
+      "type" : "string",
+      "example" : "asdf"
+    },
+    "role" : {
+      "type" : "string",
+      "example" : "member"
+    }
+  }
+};
+            defs["body_13"] = {
   "required" : [ "name", "role", "username" ],
   "type" : "object",
   "properties" : {
@@ -739,7 +773,7 @@
     }
   }
 };
-            defs["body_11"] = {
+            defs["body_14"] = {
   "required" : [ "new_name", "old_name" ],
   "type" : "object",
   "properties" : {
@@ -753,7 +787,7 @@
     }
   }
 };
-            defs["body_12"] = {
+            defs["body_15"] = {
   "required" : [ "name", "type" ],
   "type" : "object",
   "properties" : {
@@ -786,26 +820,6 @@
   }
 };
             defs["body_3"] = {
-  "required" : [ "token" ],
-  "type" : "object",
-  "properties" : {
-    "refresh_token" : {
-      "type" : "string",
-      "example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-    }
-  }
-};
-            defs["body_4"] = {
-  "required" : [ "token" ],
-  "type" : "object",
-  "properties" : {
-    "refresh_token" : {
-      "type" : "string",
-      "example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-    }
-  }
-};
-            defs["body_5"] = {
   "required" : [ "email", "otp" ],
   "type" : "object",
   "properties" : {
@@ -819,7 +833,7 @@
     }
   }
 };
-            defs["body_6"] = {
+            defs["body_4"] = {
   "required" : [ "email", "new_password", "old_password" ],
   "type" : "object",
   "properties" : {
@@ -837,47 +851,91 @@
     }
   }
 };
-            defs["body_7"] = {
-  "required" : [ "name" ],
+            defs["body_5"] = {
+  "required" : [ "email" ],
   "type" : "object",
   "properties" : {
-    "name" : {
+    "email" : {
       "type" : "string",
-      "example" : "MyRoom"
+      "example" : "yao@yu.ming"
     }
   }
 };
-            defs["body_8"] = {
-  "required" : [ "name" ],
-  "type" : "object",
-  "properties" : {
-    "name" : {
-      "type" : "string",
-      "example" : "room11"
-    }
-  }
-};
-            defs["body_9"] = {
-  "required" : [ "role", "username" ],
+            defs["body_6"] = {
+  "required" : [ "email", "otp", "password", "username" ],
   "type" : "object",
   "properties" : {
     "username" : {
       "type" : "string",
-      "example" : "asdf"
+      "example" : "adam"
     },
-    "role" : {
+    "email" : {
       "type" : "string",
-      "example" : "member"
+      "example" : "adam@bob.charlie"
+    },
+    "password" : {
+      "type" : "string",
+      "example" : "adamistheboss"
+    },
+    "otp" : {
+      "type" : "string",
+      "example" : "118429"
+    }
+  }
+};
+            defs["body_7"] = {
+  "required" : [ "password" ],
+  "type" : "object",
+  "properties" : {
+    "username" : {
+      "type" : "string",
+      "example" : "bob"
+    },
+    "email" : {
+      "type" : "string",
+      "example" : "bob@charlie.adam"
+    },
+    "password" : {
+      "type" : "string",
+      "example" : "bobisthebest"
+    }
+  }
+};
+            defs["body_8"] = {
+  "required" : [ "email", "otp" ],
+  "type" : "object",
+  "properties" : {
+    "email" : {
+      "type" : "string",
+      "example" : "adam@bob.charlie"
+    },
+    "otp" : {
+      "type" : "string",
+      "example" : "118429"
+    }
+  }
+};
+            defs["body_9"] = {
+  "required" : [ "email", "new_password", "old_password" ],
+  "type" : "object",
+  "properties" : {
+    "email" : {
+      "type" : "string",
+      "example" : "adam@bob.charlie"
+    },
+    "old_password" : {
+      "type" : "string",
+      "example" : "118429"
+    },
+    "new_password" : {
+      "type" : "string",
+      "example" : "357689"
     }
   }
 };
             defs["inline_response_200"] = {
   "type" : "object",
   "properties" : {
-    "refresh_token" : {
-      "type" : "string",
-      "example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-    },
     "access_token" : {
       "type" : "string",
       "example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
@@ -885,15 +943,6 @@
   }
 };
             defs["inline_response_200_1"] = {
-  "type" : "object",
-  "properties" : {
-    "access_token" : {
-      "type" : "string",
-      "example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-    }
-  }
-};
-            defs["inline_response_200_2"] = {
   "required" : [ "name", "role", "uid" ],
   "type" : "object",
   "properties" : {
@@ -908,7 +957,7 @@
     }
   }
 };
-            defs["inline_response_200_3"] = {
+            defs["inline_response_200_2"] = {
   "type" : "object",
   "properties" : {
     "room_id" : {
@@ -917,7 +966,7 @@
     }
   }
 };
-            defs["inline_response_200_4"] = {
+            defs["inline_response_200_3"] = {
   "required" : [ "role", "username" ],
   "type" : "object",
   "properties" : {
@@ -929,7 +978,7 @@
     }
   }
 };
-            defs["inline_response_200_5"] = {
+            defs["inline_response_200_4"] = {
   "required" : [ "name", "type" ],
   "type" : "object",
   "properties" : {
@@ -943,7 +992,7 @@
     }
   }
 };
-            defs["inline_response_200_6"] = {
+            defs["inline_response_200_5"] = {
   "required" : [ "name" ],
   "type" : "object",
   "properties" : {
@@ -954,7 +1003,7 @@
     }
   }
 };
-            defs["inline_response_200_7"] = {
+            defs["inline_response_200_6"] = {
   "required" : [ "date", "usage" ],
   "type" : "object",
   "properties" : {
@@ -1056,6 +1105,22 @@
             -->
             <li class="nav-fixed nav-header active" data-group="_"><a href="#api-_">API Summary</a></li>
 
+                  <li class="nav-header" data-group="AdminAuthentication"><a href="#api-AdminAuthentication">API Methods - AdminAuthentication</a></li>
+                    <li data-group="AdminAuthentication" data-name="fgtpswda" class="">
+                      <a href="#api-AdminAuthentication-fgtpswda">fgtpswda</a>
+                    </li>
+                    <li data-group="AdminAuthentication" data-name="getotpa" class="">
+                      <a href="#api-AdminAuthentication-getotpa">getotpa</a>
+                    </li>
+                    <li data-group="AdminAuthentication" data-name="logina" class="">
+                      <a href="#api-AdminAuthentication-logina">logina</a>
+                    </li>
+                    <li data-group="AdminAuthentication" data-name="registera" class="">
+                      <a href="#api-AdminAuthentication-registera">registera</a>
+                    </li>
+                    <li data-group="AdminAuthentication" data-name="updatepswda" class="">
+                      <a href="#api-AdminAuthentication-updatepswda">updatepswda</a>
+                    </li>
                   <li class="nav-header" data-group="Dashboard"><a href="#api-Dashboard">API Methods - Dashboard</a></li>
                     <li data-group="Dashboard" data-name="getdata" class="">
                       <a href="#api-Dashboard-getdata">getdata</a>
@@ -1074,14 +1139,8 @@
                     <li data-group="UserAuthentication" data-name="login" class="">
                       <a href="#api-UserAuthentication-login">login</a>
                     </li>
-                    <li data-group="UserAuthentication" data-name="logout" class="">
-                      <a href="#api-UserAuthentication-logout">logout</a>
-                    </li>
                     <li data-group="UserAuthentication" data-name="register" class="">
                       <a href="#api-UserAuthentication-register">register</a>
-                    </li>
-                    <li data-group="UserAuthentication" data-name="token" class="">
-                      <a href="#api-UserAuthentication-token">token</a>
                     </li>
                     <li data-group="UserAuthentication" data-name="updatepswd" class="">
                       <a href="#api-UserAuthentication-updatepswd">updatepswd</a>
@@ -1148,6 +1207,2336 @@
           </div>
         </div>
         <div id="sections">
+                <section id="api-AdminAuthentication">
+                  <h1>AdminAuthentication</h1>
+                    <div id="api-AdminAuthentication-fgtpswda">
+                      <article id="api-AdminAuthentication-fgtpswda-0" data-group="User" data-name="fgtpswda" data-version="0">
+                        <div class="pull-left">
+                          <h1>fgtpswda</h1>
+                          <p>Reset password</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/auth/admin/fgtpswd</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-AdminAuthentication-fgtpswda-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-fgtpswda-0-java">Java</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-fgtpswda-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-AdminAuthentication-fgtpswda-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-AdminAuthentication-fgtpswda-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-fgtpswda-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-AdminAuthentication-fgtpswda-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-AdminAuthentication-fgtpswda-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-fgtpswda-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-fgtpswda-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-fgtpswda-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-AdminAuthentication-fgtpswda-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+-H "Accept: application/json"\
+-H "Content-Type: application/json"\
+"http://homital.ml:2333/api/auth/admin/fgtpswd"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-AdminAuthentication-fgtpswda-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.AdminAuthenticationApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AdminAuthenticationApiExample {
+
+    public static void main(String[] args) {
+        
+        AdminAuthenticationApi apiInstance = new AdminAuthenticationApi();
+        Body_8 body = ; // Body_8 | Email and OTP
+        try {
+            apiInstance.fgtpswda(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminAuthenticationApi#fgtpswda");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-AdminAuthentication-fgtpswda-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.AdminAuthenticationApi;
+
+public class AdminAuthenticationApiExample {
+
+    public static void main(String[] args) {
+        AdminAuthenticationApi apiInstance = new AdminAuthenticationApi();
+        Body_8 body = ; // Body_8 | Email and OTP
+        try {
+            apiInstance.fgtpswda(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminAuthenticationApi#fgtpswda");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-AdminAuthentication-fgtpswda-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-AdminAuthentication-fgtpswda-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Body_8 *body = ; // Email and OTP
+
+AdminAuthenticationApi *apiInstance = [[AdminAuthenticationApi alloc] init];
+
+// Reset password
+[apiInstance fgtpswdaWith:body
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-fgtpswda-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
+
+var api = new Cs2102.AdminAuthenticationApi()
+var body = ; // {{Body_8}} Email and OTP
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.fgtpswda(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-AdminAuthentication-fgtpswda-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-AdminAuthentication-fgtpswda-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class fgtpswdaExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new AdminAuthenticationApi();
+            var body = new Body_8(); // Body_8 | Email and OTP
+
+            try
+            {
+                // Reset password
+                apiInstance.fgtpswda(body);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AdminAuthenticationApi.fgtpswda: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-fgtpswda-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiAdminAuthenticationApi();
+$body = ; // Body_8 | Email and OTP
+
+try {
+    $api_instance->fgtpswda($body);
+} catch (Exception $e) {
+    echo 'Exception when calling AdminAuthenticationApi->fgtpswda: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-fgtpswda-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::AdminAuthenticationApi;
+
+my $api_instance = WWW::SwaggerClient::AdminAuthenticationApi->new();
+my $body = WWW::SwaggerClient::Object::Body_8->new(); # Body_8 | Email and OTP
+
+eval { 
+    $api_instance->fgtpswda(body => $body);
+};
+if ($@) {
+    warn "Exception when calling AdminAuthenticationApi->fgtpswda: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-fgtpswda-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.AdminAuthenticationApi()
+body =  # Body_8 | Email and OTP
+
+try: 
+    # Reset password
+    api_instance.fgtpswda(body)
+except ApiException as e:
+    print("Exception when calling AdminAuthenticationApi->fgtpswda: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+                                <td>
+                                
+                                
+                                <script>
+                                $(document).ready(function() {
+                                  var schemaWrapper = {
+  "description" : "Email and OTP",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/body_8"
+      }
+    }
+  },
+  "required" : true
+};
+                                  var schema = schemaWrapper.content["application/json"].schema;
+                                  if (schema.$ref != null) {
+                                    schema = defsParser.$refs.get(schema.$ref);
+                                  } else {
+                                    schemaWrapper.components = {};
+                                    schemaWrapper.components.schemas = Object.assign({}, defs);
+                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                      console.log(err);
+                                    });
+                                  }
+                                
+                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                  var result = $('#d2e199_fgtpswda_body');
+                                  result.empty();
+                                  result.append(view.render());
+                                });
+                                </script>
+                                <div id="d2e199_fgtpswda_body"></div>
+                                </td>
+                                </tr>
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 422 - Unprocessable entity </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-fgtpswda-422-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-fgtpswda-422-schema">
+                                  <div id='responses-fgtpswda-422-schema-422' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Unprocessable entity",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_422_1"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-fgtpswda-422-schema-data').val(stringify(schema));
+                                        var result = $('#responses-fgtpswda-422-schema-422');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-fgtpswda-422-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - Internal server error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - User not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-fgtpswda-404-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-fgtpswda-404-schema">
+                                  <div id='responses-fgtpswda-404-schema-404' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "User not found",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-fgtpswda-404-schema-data').val(stringify(schema));
+                                        var result = $('#responses-fgtpswda-404-schema-404');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-fgtpswda-404-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 403 - Wrong OTP </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-fgtpswda-403-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-fgtpswda-403-schema">
+                                  <div id='responses-fgtpswda-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Wrong OTP",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-fgtpswda-403-schema-data').val(stringify(schema));
+                                        var result = $('#responses-fgtpswda-403-schema-403');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-fgtpswda-403-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-AdminAuthentication-getotpa">
+                      <article id="api-AdminAuthentication-getotpa-0" data-group="User" data-name="getotpa" data-version="0">
+                        <div class="pull-left">
+                          <h1>getotpa</h1>
+                          <p>Request for email verification OTP</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/auth/admin/getotp</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-AdminAuthentication-getotpa-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-getotpa-0-java">Java</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-getotpa-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-AdminAuthentication-getotpa-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-AdminAuthentication-getotpa-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-getotpa-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-AdminAuthentication-getotpa-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-AdminAuthentication-getotpa-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-getotpa-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-getotpa-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-getotpa-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-AdminAuthentication-getotpa-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+-H "Accept: application/json"\
+-H "Content-Type: application/json"\
+"http://homital.ml:2333/api/auth/admin/getotp"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-AdminAuthentication-getotpa-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.AdminAuthenticationApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AdminAuthenticationApiExample {
+
+    public static void main(String[] args) {
+        
+        AdminAuthenticationApi apiInstance = new AdminAuthenticationApi();
+        Body_5 body = ; // Body_5 | 
+        try {
+            apiInstance.getotpa(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminAuthenticationApi#getotpa");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-AdminAuthentication-getotpa-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.AdminAuthenticationApi;
+
+public class AdminAuthenticationApiExample {
+
+    public static void main(String[] args) {
+        AdminAuthenticationApi apiInstance = new AdminAuthenticationApi();
+        Body_5 body = ; // Body_5 | 
+        try {
+            apiInstance.getotpa(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminAuthenticationApi#getotpa");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-AdminAuthentication-getotpa-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-AdminAuthentication-getotpa-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Body_5 *body = ; // 
+
+AdminAuthenticationApi *apiInstance = [[AdminAuthenticationApi alloc] init];
+
+// Request for email verification OTP
+[apiInstance getotpaWith:body
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-getotpa-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
+
+var api = new Cs2102.AdminAuthenticationApi()
+var body = ; // {{Body_5}} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.getotpa(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-AdminAuthentication-getotpa-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-AdminAuthentication-getotpa-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class getotpaExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new AdminAuthenticationApi();
+            var body = new Body_5(); // Body_5 | 
+
+            try
+            {
+                // Request for email verification OTP
+                apiInstance.getotpa(body);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AdminAuthenticationApi.getotpa: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-getotpa-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiAdminAuthenticationApi();
+$body = ; // Body_5 | 
+
+try {
+    $api_instance->getotpa($body);
+} catch (Exception $e) {
+    echo 'Exception when calling AdminAuthenticationApi->getotpa: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-getotpa-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::AdminAuthenticationApi;
+
+my $api_instance = WWW::SwaggerClient::AdminAuthenticationApi->new();
+my $body = WWW::SwaggerClient::Object::Body_5->new(); # Body_5 | 
+
+eval { 
+    $api_instance->getotpa(body => $body);
+};
+if ($@) {
+    warn "Exception when calling AdminAuthenticationApi->getotpa: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-getotpa-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.AdminAuthenticationApi()
+body =  # Body_5 | 
+
+try: 
+    # Request for email verification OTP
+    api_instance.getotpa(body)
+except ApiException as e:
+    print("Exception when calling AdminAuthenticationApi->getotpa: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+                                <td>
+                                
+                                
+                                <script>
+                                $(document).ready(function() {
+                                  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/body_5"
+      }
+    }
+  },
+  "required" : true
+};
+                                  var schema = schemaWrapper.content["application/json"].schema;
+                                  if (schema.$ref != null) {
+                                    schema = defsParser.$refs.get(schema.$ref);
+                                  } else {
+                                    schemaWrapper.components = {};
+                                    schemaWrapper.components.schemas = Object.assign({}, defs);
+                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                      console.log(err);
+                                    });
+                                  }
+                                
+                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                  var result = $('#d2e199_getotpa_body');
+                                  result.empty();
+                                  result.append(view.render());
+                                });
+                                </script>
+                                <div id="d2e199_getotpa_body"></div>
+                                </td>
+                                </tr>
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - Internal server error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getotpa-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getotpa-500-schema">
+                                  <div id='responses-getotpa-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Internal server error",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getotpa-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getotpa-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getotpa-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 422 - Unprocessable entity (email format checking failed) </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getotpa-422-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getotpa-422-schema">
+                                  <div id='responses-getotpa-422-schema-422' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Unprocessable entity (email format checking failed)",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_422"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getotpa-422-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getotpa-422-schema-422');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getotpa-422-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - Bad request (invalid json or wrong type) </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getotpa-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getotpa-400-schema">
+                                  <div id='responses-getotpa-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Bad request (invalid json or wrong type)",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getotpa-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getotpa-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getotpa-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-AdminAuthentication-logina">
+                      <article id="api-AdminAuthentication-logina-0" data-group="User" data-name="logina" data-version="0">
+                        <div class="pull-left">
+                          <h1>logina</h1>
+                          <p>Login, request for a access token</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/auth/admin/login</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-AdminAuthentication-logina-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-logina-0-java">Java</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-logina-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-AdminAuthentication-logina-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-AdminAuthentication-logina-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-logina-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-AdminAuthentication-logina-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-AdminAuthentication-logina-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-logina-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-logina-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-logina-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-AdminAuthentication-logina-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+-H "Accept: application/json"\
+-H "Content-Type: application/json"\
+"http://homital.ml:2333/api/auth/admin/login?by="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-AdminAuthentication-logina-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.AdminAuthenticationApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AdminAuthenticationApiExample {
+
+    public static void main(String[] args) {
+        
+        AdminAuthenticationApi apiInstance = new AdminAuthenticationApi();
+        Body_7 body = ; // Body_7 | User particulars for registration
+        String by = by_example; // String | login method
+        try {
+            inline_response_200 result = apiInstance.logina(body, by);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminAuthenticationApi#logina");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-AdminAuthentication-logina-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.AdminAuthenticationApi;
+
+public class AdminAuthenticationApiExample {
+
+    public static void main(String[] args) {
+        AdminAuthenticationApi apiInstance = new AdminAuthenticationApi();
+        Body_7 body = ; // Body_7 | User particulars for registration
+        String by = by_example; // String | login method
+        try {
+            inline_response_200 result = apiInstance.logina(body, by);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminAuthenticationApi#logina");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-AdminAuthentication-logina-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-AdminAuthentication-logina-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Body_7 *body = ; // User particulars for registration
+String *by = by_example; // login method (optional)
+
+AdminAuthenticationApi *apiInstance = [[AdminAuthenticationApi alloc] init];
+
+// Login, request for a access token
+[apiInstance loginaWith:body
+    by:by
+              completionHandler: ^(inline_response_200 output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-logina-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
+
+var api = new Cs2102.AdminAuthenticationApi()
+var body = ; // {{Body_7}} User particulars for registration
+var opts = { 
+  'by': by_example // {{String}} login method
+};
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.logina(body, opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-AdminAuthentication-logina-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-AdminAuthentication-logina-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class loginaExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new AdminAuthenticationApi();
+            var body = new Body_7(); // Body_7 | User particulars for registration
+            var by = by_example;  // String | login method (optional) 
+
+            try
+            {
+                // Login, request for a access token
+                inline_response_200 result = apiInstance.logina(body, by);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AdminAuthenticationApi.logina: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-logina-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiAdminAuthenticationApi();
+$body = ; // Body_7 | User particulars for registration
+$by = by_example; // String | login method
+
+try {
+    $result = $api_instance->logina($body, $by);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AdminAuthenticationApi->logina: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-logina-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::AdminAuthenticationApi;
+
+my $api_instance = WWW::SwaggerClient::AdminAuthenticationApi->new();
+my $body = WWW::SwaggerClient::Object::Body_7->new(); # Body_7 | User particulars for registration
+my $by = by_example; # String | login method
+
+eval { 
+    my $result = $api_instance->logina(body => $body, by => $by);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling AdminAuthenticationApi->logina: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-logina-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.AdminAuthenticationApi()
+body =  # Body_7 | User particulars for registration
+by = by_example # String | login method (optional)
+
+try: 
+    # Login, request for a access token
+    api_response = api_instance.logina(body, by=by)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AdminAuthenticationApi->logina: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+                                <td>
+                                
+                                
+                                <script>
+                                $(document).ready(function() {
+                                  var schemaWrapper = {
+  "description" : "User particulars for registration",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/body_7"
+      }
+    }
+  },
+  "required" : true
+};
+                                  var schema = schemaWrapper.content["application/json"].schema;
+                                  if (schema.$ref != null) {
+                                    schema = defsParser.$refs.get(schema.$ref);
+                                  } else {
+                                    schemaWrapper.components = {};
+                                    schemaWrapper.components.schemas = Object.assign({}, defs);
+                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                      console.log(err);
+                                    });
+                                  }
+                                
+                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                  var result = $('#d2e199_logina_body');
+                                  result.empty();
+                                  result.append(view.render());
+                                });
+                                </script>
+                                <div id="d2e199_logina_body"></div>
+                                </td>
+                                </tr>
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">by</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_logina_by">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    String
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        login method
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-logina-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-logina-200-schema">
+                                  <div id='responses-logina-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Successful operation",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_200"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-logina-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-logina-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-logina-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - Internal server error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-logina-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-logina-500-schema">
+                                  <div id='responses-logina-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Internal server error",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-logina-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-logina-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-logina-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 501 - Login method not supported </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-logina-501-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-logina-501-schema">
+                                  <div id='responses-logina-501-schema-501' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Login method not supported",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-logina-501-schema-data').val(stringify(schema));
+                                        var result = $('#responses-logina-501-schema-501');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-logina-501-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 422 - Unprocessable entity </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-logina-422-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-logina-422-schema">
+                                  <div id='responses-logina-422-schema-422' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Unprocessable entity",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_422_1"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-logina-422-schema-data').val(stringify(schema));
+                                        var result = $('#responses-logina-422-schema-422');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-logina-422-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - Bad request (invalid json or wrong type) </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-logina-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-logina-400-schema">
+                                  <div id='responses-logina-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Bad request (invalid json or wrong type)",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-logina-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-logina-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-logina-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 404 - User does not exist </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-logina-404-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-logina-404-schema">
+                                  <div id='responses-logina-404-schema-404' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "User does not exist",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-logina-404-schema-data').val(stringify(schema));
+                                        var result = $('#responses-logina-404-schema-404');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-logina-404-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 403 - Incorrect password </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-logina-403-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-logina-403-schema">
+                                  <div id='responses-logina-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Incorrect password",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-logina-403-schema-data').val(stringify(schema));
+                                        var result = $('#responses-logina-403-schema-403');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-logina-403-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-AdminAuthentication-registera">
+                      <article id="api-AdminAuthentication-registera-0" data-group="User" data-name="registera" data-version="0">
+                        <div class="pull-left">
+                          <h1>registera</h1>
+                          <p>Register a new account with OTP</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/auth/admin/register</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-AdminAuthentication-registera-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-registera-0-java">Java</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-registera-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-AdminAuthentication-registera-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-AdminAuthentication-registera-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-registera-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-AdminAuthentication-registera-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-AdminAuthentication-registera-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-registera-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-registera-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-registera-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-AdminAuthentication-registera-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+-H "Accept: application/json"\
+-H "Content-Type: application/json"\
+"http://homital.ml:2333/api/auth/admin/register"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-AdminAuthentication-registera-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.AdminAuthenticationApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AdminAuthenticationApiExample {
+
+    public static void main(String[] args) {
+        
+        AdminAuthenticationApi apiInstance = new AdminAuthenticationApi();
+        Body_6 body = ; // Body_6 | User particulars for registration
+        try {
+            apiInstance.registera(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminAuthenticationApi#registera");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-AdminAuthentication-registera-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.AdminAuthenticationApi;
+
+public class AdminAuthenticationApiExample {
+
+    public static void main(String[] args) {
+        AdminAuthenticationApi apiInstance = new AdminAuthenticationApi();
+        Body_6 body = ; // Body_6 | User particulars for registration
+        try {
+            apiInstance.registera(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminAuthenticationApi#registera");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-AdminAuthentication-registera-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-AdminAuthentication-registera-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Body_6 *body = ; // User particulars for registration
+
+AdminAuthenticationApi *apiInstance = [[AdminAuthenticationApi alloc] init];
+
+// Register a new account with OTP
+[apiInstance registeraWith:body
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-registera-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
+
+var api = new Cs2102.AdminAuthenticationApi()
+var body = ; // {{Body_6}} User particulars for registration
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.registera(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-AdminAuthentication-registera-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-AdminAuthentication-registera-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class registeraExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new AdminAuthenticationApi();
+            var body = new Body_6(); // Body_6 | User particulars for registration
+
+            try
+            {
+                // Register a new account with OTP
+                apiInstance.registera(body);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AdminAuthenticationApi.registera: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-registera-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiAdminAuthenticationApi();
+$body = ; // Body_6 | User particulars for registration
+
+try {
+    $api_instance->registera($body);
+} catch (Exception $e) {
+    echo 'Exception when calling AdminAuthenticationApi->registera: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-registera-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::AdminAuthenticationApi;
+
+my $api_instance = WWW::SwaggerClient::AdminAuthenticationApi->new();
+my $body = WWW::SwaggerClient::Object::Body_6->new(); # Body_6 | User particulars for registration
+
+eval { 
+    $api_instance->registera(body => $body);
+};
+if ($@) {
+    warn "Exception when calling AdminAuthenticationApi->registera: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-registera-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.AdminAuthenticationApi()
+body =  # Body_6 | User particulars for registration
+
+try: 
+    # Register a new account with OTP
+    api_instance.registera(body)
+except ApiException as e:
+    print("Exception when calling AdminAuthenticationApi->registera: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+                                <td>
+                                
+                                
+                                <script>
+                                $(document).ready(function() {
+                                  var schemaWrapper = {
+  "description" : "User particulars for registration",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/body_6"
+      }
+    }
+  },
+  "required" : true
+};
+                                  var schema = schemaWrapper.content["application/json"].schema;
+                                  if (schema.$ref != null) {
+                                    schema = defsParser.$refs.get(schema.$ref);
+                                  } else {
+                                    schemaWrapper.components = {};
+                                    schemaWrapper.components.schemas = Object.assign({}, defs);
+                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                      console.log(err);
+                                    });
+                                  }
+                                
+                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                  var result = $('#d2e199_registera_body');
+                                  result.empty();
+                                  result.append(view.render());
+                                });
+                                </script>
+                                <div id="d2e199_registera_body"></div>
+                                </td>
+                                </tr>
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - Internal server error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-registera-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-registera-500-schema">
+                                  <div id='responses-registera-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Internal server error",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-registera-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-registera-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-registera-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 403 - Wrong OTP </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-registera-403-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-registera-403-schema">
+                                  <div id='responses-registera-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Wrong OTP",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-registera-403-schema-data').val(stringify(schema));
+                                        var result = $('#responses-registera-403-schema-403');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-registera-403-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 422 - Unprocessable entity </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-registera-422-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-registera-422-schema">
+                                  <div id='responses-registera-422-schema-422' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Unprocessable entity",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_422_1"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-registera-422-schema-data').val(stringify(schema));
+                                        var result = $('#responses-registera-422-schema-422');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-registera-422-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - Bad request (invalid json or wrong type) </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-registera-400-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-registera-400-schema">
+                                  <div id='responses-registera-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Bad request (invalid json or wrong type)",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-registera-400-schema-data').val(stringify(schema));
+                                        var result = $('#responses-registera-400-schema-400');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-registera-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-AdminAuthentication-updatepswda">
+                      <article id="api-AdminAuthentication-updatepswda-0" data-group="User" data-name="updatepswda" data-version="0">
+                        <div class="pull-left">
+                          <h1>updatepswda</h1>
+                          <p>Update password</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/auth/admin/updatepswd</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-AdminAuthentication-updatepswda-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-updatepswda-0-java">Java</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-updatepswda-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-AdminAuthentication-updatepswda-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-AdminAuthentication-updatepswda-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-updatepswda-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-AdminAuthentication-updatepswda-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-AdminAuthentication-updatepswda-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-updatepswda-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-updatepswda-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-AdminAuthentication-updatepswda-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-AdminAuthentication-updatepswda-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+-H "Accept: application/json"\
+-H "Content-Type: application/json"\
+"http://homital.ml:2333/api/auth/admin/updatepswd"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-AdminAuthentication-updatepswda-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.AdminAuthenticationApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AdminAuthenticationApiExample {
+
+    public static void main(String[] args) {
+        
+        AdminAuthenticationApi apiInstance = new AdminAuthenticationApi();
+        Body_9 body = ; // Body_9 | Email, old password, new password
+        try {
+            apiInstance.updatepswda(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminAuthenticationApi#updatepswda");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-AdminAuthentication-updatepswda-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.AdminAuthenticationApi;
+
+public class AdminAuthenticationApiExample {
+
+    public static void main(String[] args) {
+        AdminAuthenticationApi apiInstance = new AdminAuthenticationApi();
+        Body_9 body = ; // Body_9 | Email, old password, new password
+        try {
+            apiInstance.updatepswda(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminAuthenticationApi#updatepswda");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-AdminAuthentication-updatepswda-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-AdminAuthentication-updatepswda-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Body_9 *body = ; // Email, old password, new password
+
+AdminAuthenticationApi *apiInstance = [[AdminAuthenticationApi alloc] init];
+
+// Update password
+[apiInstance updatepswdaWith:body
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-updatepswda-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
+
+var api = new Cs2102.AdminAuthenticationApi()
+var body = ; // {{Body_9}} Email, old password, new password
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.updatepswda(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-AdminAuthentication-updatepswda-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-AdminAuthentication-updatepswda-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class updatepswdaExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new AdminAuthenticationApi();
+            var body = new Body_9(); // Body_9 | Email, old password, new password
+
+            try
+            {
+                // Update password
+                apiInstance.updatepswda(body);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AdminAuthenticationApi.updatepswda: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-updatepswda-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiAdminAuthenticationApi();
+$body = ; // Body_9 | Email, old password, new password
+
+try {
+    $api_instance->updatepswda($body);
+} catch (Exception $e) {
+    echo 'Exception when calling AdminAuthenticationApi->updatepswda: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-updatepswda-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::AdminAuthenticationApi;
+
+my $api_instance = WWW::SwaggerClient::AdminAuthenticationApi->new();
+my $body = WWW::SwaggerClient::Object::Body_9->new(); # Body_9 | Email, old password, new password
+
+eval { 
+    $api_instance->updatepswda(body => $body);
+};
+if ($@) {
+    warn "Exception when calling AdminAuthenticationApi->updatepswda: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AdminAuthentication-updatepswda-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.AdminAuthenticationApi()
+body =  # Body_9 | Email, old password, new password
+
+try: 
+    # Update password
+    api_instance.updatepswda(body)
+except ApiException as e:
+    print("Exception when calling AdminAuthenticationApi->updatepswda: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+                                <td>
+                                
+                                
+                                <script>
+                                $(document).ready(function() {
+                                  var schemaWrapper = {
+  "description" : "Email, old password, new password",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/body_9"
+      }
+    }
+  },
+  "required" : true
+};
+                                  var schema = schemaWrapper.content["application/json"].schema;
+                                  if (schema.$ref != null) {
+                                    schema = defsParser.$refs.get(schema.$ref);
+                                  } else {
+                                    schemaWrapper.components = {};
+                                    schemaWrapper.components.schemas = Object.assign({}, defs);
+                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                      console.log(err);
+                                    });
+                                  }
+                                
+                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                  var result = $('#d2e199_updatepswda_body');
+                                  result.empty();
+                                  result.append(view.render());
+                                });
+                                </script>
+                                <div id="d2e199_updatepswda_body"></div>
+                                </td>
+                                </tr>
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 422 - Unprocessable entity </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-updatepswda-422-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-updatepswda-422-schema">
+                                  <div id='responses-updatepswda-422-schema-422' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Unprocessable entity",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_422_1"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-updatepswda-422-schema-data').val(stringify(schema));
+                                        var result = $('#responses-updatepswda-422-schema-422');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-updatepswda-422-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - Internal server error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - User not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-updatepswda-404-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-updatepswda-404-schema">
+                                  <div id='responses-updatepswda-404-schema-404' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "User not found",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-updatepswda-404-schema-data').val(stringify(schema));
+                                        var result = $('#responses-updatepswda-404-schema-404');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-updatepswda-404-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 403 - Wrong OTP </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-updatepswda-403-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-updatepswda-403-schema">
+                                  <div id='responses-updatepswda-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Wrong OTP",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-updatepswda-403-schema-data').val(stringify(schema));
+                                        var result = $('#responses-updatepswda-403-schema-403');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-updatepswda-403-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
                 <section id="api-Dashboard">
                   <h1>Dashboard</h1>
                     <div id="api-Dashboard-getdata">
@@ -1206,7 +3595,7 @@ public class DashboardApiExample {
         String uid = uid_example; // String | room uid
         String devicename = devicename_example; // String | device name
         try {
-            array[inline_response_200_7] result = apiInstance.getdata(uid, devicename);
+            array[inline_response_200_6] result = apiInstance.getdata(uid, devicename);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardApi#getdata");
@@ -1226,7 +3615,7 @@ public class DashboardApiExample {
         String uid = uid_example; // String | room uid
         String devicename = devicename_example; // String | device name
         try {
-            array[inline_response_200_7] result = apiInstance.getdata(uid, devicename);
+            array[inline_response_200_6] result = apiInstance.getdata(uid, devicename);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DashboardApi#getdata");
@@ -1249,7 +3638,7 @@ DashboardApi *apiInstance = [[DashboardApi alloc] init];
 // Get usage data
 [apiInstance getdataWith:uid
     devicename:devicename
-              completionHandler: ^(array[inline_response_200_7] output, NSError* error) {
+              completionHandler: ^(array[inline_response_200_6] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -1306,7 +3695,7 @@ namespace Example
             try
             {
                 // Get usage data
-                array[inline_response_200_7] result = apiInstance.getdata(uid, devicename);
+                array[inline_response_200_6] result = apiInstance.getdata(uid, devicename);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1452,7 +3841,7 @@ except ApiException as e:
       "schema" : {
         "type" : "array",
         "items" : {
-          "$ref" : "#/components/schemas/inline_response_200_7"
+          "$ref" : "#/components/schemas/inline_response_200_6"
         },
         "x-content-type" : "application/json"
       }
@@ -2071,7 +4460,7 @@ public class UserAuthenticationApiExample {
     public static void main(String[] args) {
         
         UserAuthenticationApi apiInstance = new UserAuthenticationApi();
-        Body_5 body = ; // Body_5 | Email and OTP
+        Body_3 body = ; // Body_3 | Email and OTP
         try {
             apiInstance.fgtpswd(body);
         } catch (ApiException e) {
@@ -2089,7 +4478,7 @@ public class UserAuthenticationApiExample {
 
     public static void main(String[] args) {
         UserAuthenticationApi apiInstance = new UserAuthenticationApi();
-        Body_5 body = ; // Body_5 | Email and OTP
+        Body_3 body = ; // Body_3 | Email and OTP
         try {
             apiInstance.fgtpswd(body);
         } catch (ApiException e) {
@@ -2104,7 +4493,7 @@ public class UserAuthenticationApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-UserAuthentication-fgtpswd-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Body_5 *body = ; // Email and OTP
+                              <pre class="prettyprint"><code class="language-cpp">Body_3 *body = ; // Email and OTP
 
 UserAuthenticationApi *apiInstance = [[UserAuthenticationApi alloc] init];
 
@@ -2122,7 +4511,7 @@ UserAuthenticationApi *apiInstance = [[UserAuthenticationApi alloc] init];
                               <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
 
 var api = new Cs2102.UserAuthenticationApi()
-var body = ; // {{Body_5}} Email and OTP
+var body = ; // {{Body_3}} Email and OTP
 
 var callback = function(error, data, response) {
   if (error) {
@@ -2153,7 +4542,7 @@ namespace Example
         {
 
             var apiInstance = new UserAuthenticationApi();
-            var body = new Body_5(); // Body_5 | Email and OTP
+            var body = new Body_3(); // Body_3 | Email and OTP
 
             try
             {
@@ -2175,7 +4564,7 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\ApiUserAuthenticationApi();
-$body = ; // Body_5 | Email and OTP
+$body = ; // Body_3 | Email and OTP
 
 try {
     $api_instance->fgtpswd($body);
@@ -2191,7 +4580,7 @@ use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::UserAuthenticationApi;
 
 my $api_instance = WWW::SwaggerClient::UserAuthenticationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_5->new(); # Body_5 | Email and OTP
+my $body = WWW::SwaggerClient::Object::Body_3->new(); # Body_3 | Email and OTP
 
 eval { 
     $api_instance->fgtpswd(body => $body);
@@ -2210,7 +4599,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.UserAuthenticationApi()
-body =  # Body_5 | Email and OTP
+body =  # Body_3 | Email and OTP
 
 try: 
     # Reset password
@@ -2241,7 +4630,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_5"
+        "$ref" : "#/components/schemas/body_3"
       }
     }
   },
@@ -2845,7 +5234,7 @@ except ApiException as e:
                       <article id="api-UserAuthentication-login-0" data-group="User" data-name="login" data-version="0">
                         <div class="pull-left">
                           <h1>login</h1>
-                          <p>Login, request for a refresh token</p>
+                          <p>Login, request for a access token</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -2934,7 +5323,7 @@ String *by = by_example; // login method (optional)
 
 UserAuthenticationApi *apiInstance = [[UserAuthenticationApi alloc] init];
 
-// Login, request for a refresh token
+// Login, request for a access token
 [apiInstance loginWith:body
     by:by
               completionHandler: ^(inline_response_200 output, NSError* error) {
@@ -2990,7 +5379,7 @@ namespace Example
 
             try
             {
-                // Login, request for a refresh token
+                // Login, request for a access token
                 inline_response_200 result = apiInstance.login(body, by);
                 Debug.WriteLine(result);
             }
@@ -3052,7 +5441,7 @@ body =  # Body_2 | User particulars for registration
 by = by_example # String | login method (optional)
 
 try: 
-    # Login, request for a refresh token
+    # Login, request for a access token
     api_response = api_instance.login(body, by=by)
     pprint(api_response)
 except ApiException as e:
@@ -3471,317 +5860,6 @@ except ApiException as e:
                                     </script>
                                   </div>
                                   <input id='responses-login-403-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                        </article>
-                      </div>
-                      <hr>
-                    <div id="api-UserAuthentication-logout">
-                      <article id="api-UserAuthentication-logout-0" data-group="User" data-name="logout" data-version="0">
-                        <div class="pull-left">
-                          <h1>logout</h1>
-                          <p>Logout, nullify refresh token</p>
-                        </div>
-                        <div class="pull-right"></div>
-                        <div class="clearfix"></div>
-                        <p></p>
-                        <p class="marked"></p>
-                        <p></p>
-                        <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/auth/user/logout</span></code></pre>
-                        <p>
-                          <h3>Usage and SDK Samples</h3>
-                        </p>
-                        <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-UserAuthentication-logout-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-UserAuthentication-logout-0-java">Java</a></li>
-                          <li class=""><a href="#examples-UserAuthentication-logout-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-UserAuthentication-logout-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-UserAuthentication-logout-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-UserAuthentication-logout-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-UserAuthentication-logout-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-UserAuthentication-logout-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-UserAuthentication-logout-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-UserAuthentication-logout-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-UserAuthentication-logout-0-python">Python</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="examples-UserAuthentication-logout-0-curl">
-                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
--H "Accept: application/json"\
--H "Content-Type: application/json"\
-"http://homital.ml:2333/api/auth/user/logout"</code></pre>
-                          </div>
-                          <div class="tab-pane" id="examples-UserAuthentication-logout-0-java">
-                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.UserAuthenticationApi;
-
-import java.io.File;
-import java.util.*;
-
-public class UserAuthenticationApiExample {
-
-    public static void main(String[] args) {
-        
-        UserAuthenticationApi apiInstance = new UserAuthenticationApi();
-        Body_4 body = ; // Body_4 | Refresh token
-        try {
-            apiInstance.logout(body);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UserAuthenticationApi#logout");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-UserAuthentication-logout-0-android">
-                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.UserAuthenticationApi;
-
-public class UserAuthenticationApiExample {
-
-    public static void main(String[] args) {
-        UserAuthenticationApi apiInstance = new UserAuthenticationApi();
-        Body_4 body = ; // Body_4 | Refresh token
-        try {
-            apiInstance.logout(body);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UserAuthenticationApi#logout");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-  <!--
-  <div class="tab-pane" id="examples-UserAuthentication-logout-0-groovy">
-  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-  </div> -->
-                            <div class="tab-pane" id="examples-UserAuthentication-logout-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Body_4 *body = ; // Refresh token
-
-UserAuthenticationApi *apiInstance = [[UserAuthenticationApi alloc] init];
-
-// Logout, nullify refresh token
-[apiInstance logoutWith:body
-              completionHandler: ^(NSError* error) {
-                            if (error) {
-                                NSLog(@"Error: %@", error);
-                            }
-                        }];
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-UserAuthentication-logout-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
-
-var api = new Cs2102.UserAuthenticationApi()
-var body = ; // {{Body_4}} Refresh token
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-};
-api.logout(body, callback);
-</code></pre>
-                            </div>
-
-                            <!--<div class="tab-pane" id="examples-UserAuthentication-logout-0-angular">
-              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-            </div>-->
-                            <div class="tab-pane" id="examples-UserAuthentication-logout-0-csharp">
-                              <pre class="prettyprint"><code class="language-cs">using System;
-using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
-
-namespace Example
-{
-    public class logoutExample
-    {
-        public void main()
-        {
-
-            var apiInstance = new UserAuthenticationApi();
-            var body = new Body_4(); // Body_4 | Refresh token
-
-            try
-            {
-                // Logout, nullify refresh token
-                apiInstance.logout(body);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling UserAuthenticationApi.logout: " + e.Message );
-            }
-        }
-    }
-}
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-UserAuthentication-logout-0-php">
-                              <pre class="prettyprint"><code class="language-php"><&#63;php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-$api_instance = new Swagger\Client\ApiUserAuthenticationApi();
-$body = ; // Body_4 | Refresh token
-
-try {
-    $api_instance->logout($body);
-} catch (Exception $e) {
-    echo 'Exception when calling UserAuthenticationApi->logout: ', $e->getMessage(), PHP_EOL;
-}
-?></code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-UserAuthentication-logout-0-perl">
-                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
-use WWW::SwaggerClient::Configuration;
-use WWW::SwaggerClient::UserAuthenticationApi;
-
-my $api_instance = WWW::SwaggerClient::UserAuthenticationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_4->new(); # Body_4 | Refresh token
-
-eval { 
-    $api_instance->logout(body => $body);
-};
-if ($@) {
-    warn "Exception when calling UserAuthenticationApi->logout: $@\n";
-}</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-UserAuthentication-logout-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import swagger_client
-from swagger_client.rest import ApiException
-from pprint import pprint
-
-# create an instance of the API class
-api_instance = swagger_client.UserAuthenticationApi()
-body =  # Body_4 | Refresh token
-
-try: 
-    # Logout, nullify refresh token
-    api_instance.logout(body)
-except ApiException as e:
-    print("Exception when calling UserAuthenticationApi->logout: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
-
-                          <h2>Parameters</h2>
-
-
-
-                            <div class="methodsubtabletitle">Body parameters</div>
-                            <table id="methodsubtable">
-                              <tr>
-                                <th width="150px">Name</th>
-                                <th>Description</th>
-                              </tr>
-                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
-                                <td>
-                                
-                                
-                                <script>
-                                $(document).ready(function() {
-                                  var schemaWrapper = {
-  "description" : "Refresh token",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/body_4"
-      }
-    }
-  },
-  "required" : true
-};
-                                  var schema = schemaWrapper.content["application/json"].schema;
-                                  if (schema.$ref != null) {
-                                    schema = defsParser.$refs.get(schema.$ref);
-                                  } else {
-                                    schemaWrapper.components = {};
-                                    schemaWrapper.components.schemas = Object.assign({}, defs);
-                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                      console.log(err);
-                                    });
-                                  }
-                                
-                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-                                  var result = $('#d2e199_logout_body');
-                                  result.empty();
-                                  result.append(view.render());
-                                });
-                                </script>
-                                <div id="d2e199_logout_body"></div>
-                                </td>
-                                </tr>
-                            </table>
-
-
-
-                          <h2>Responses</h2>
-                            <h3> Status: 200 - Successful operation </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                            </div>
-
-                            <h3> Status: 404 - Refresh token not found </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-logout-404-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-logout-404-schema">
-                                  <div id='responses-logout-404-schema-404' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Refresh token not found",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/inline_response_500"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-logout-404-schema-data').val(stringify(schema));
-                                        var result = $('#responses-logout-404-schema-404');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-logout-404-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -4243,414 +6321,6 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
-                    <div id="api-UserAuthentication-token">
-                      <article id="api-UserAuthentication-token-0" data-group="User" data-name="token" data-version="0">
-                        <div class="pull-left">
-                          <h1>token</h1>
-                          <p>Request for an access token</p>
-                        </div>
-                        <div class="pull-right"></div>
-                        <div class="clearfix"></div>
-                        <p></p>
-                        <p class="marked"></p>
-                        <p></p>
-                        <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/auth/user/token</span></code></pre>
-                        <p>
-                          <h3>Usage and SDK Samples</h3>
-                        </p>
-                        <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-UserAuthentication-token-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-UserAuthentication-token-0-java">Java</a></li>
-                          <li class=""><a href="#examples-UserAuthentication-token-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-UserAuthentication-token-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-UserAuthentication-token-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-UserAuthentication-token-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-UserAuthentication-token-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-UserAuthentication-token-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-UserAuthentication-token-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-UserAuthentication-token-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-UserAuthentication-token-0-python">Python</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="examples-UserAuthentication-token-0-curl">
-                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
--H "Accept: application/json"\
--H "Content-Type: application/json"\
-"http://homital.ml:2333/api/auth/user/token"</code></pre>
-                          </div>
-                          <div class="tab-pane" id="examples-UserAuthentication-token-0-java">
-                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.UserAuthenticationApi;
-
-import java.io.File;
-import java.util.*;
-
-public class UserAuthenticationApiExample {
-
-    public static void main(String[] args) {
-        
-        UserAuthenticationApi apiInstance = new UserAuthenticationApi();
-        Body_3 body = ; // Body_3 | Refresh token
-        try {
-            inline_response_200_1 result = apiInstance.token(body);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UserAuthenticationApi#token");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-UserAuthentication-token-0-android">
-                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.UserAuthenticationApi;
-
-public class UserAuthenticationApiExample {
-
-    public static void main(String[] args) {
-        UserAuthenticationApi apiInstance = new UserAuthenticationApi();
-        Body_3 body = ; // Body_3 | Refresh token
-        try {
-            inline_response_200_1 result = apiInstance.token(body);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UserAuthenticationApi#token");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-  <!--
-  <div class="tab-pane" id="examples-UserAuthentication-token-0-groovy">
-  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-  </div> -->
-                            <div class="tab-pane" id="examples-UserAuthentication-token-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Body_3 *body = ; // Refresh token
-
-UserAuthenticationApi *apiInstance = [[UserAuthenticationApi alloc] init];
-
-// Request for an access token
-[apiInstance tokenWith:body
-              completionHandler: ^(inline_response_200_1 output, NSError* error) {
-                            if (output) {
-                                NSLog(@"%@", output);
-                            }
-                            if (error) {
-                                NSLog(@"Error: %@", error);
-                            }
-                        }];
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-UserAuthentication-token-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
-
-var api = new Cs2102.UserAuthenticationApi()
-var body = ; // {{Body_3}} Refresh token
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.token(body, callback);
-</code></pre>
-                            </div>
-
-                            <!--<div class="tab-pane" id="examples-UserAuthentication-token-0-angular">
-              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-            </div>-->
-                            <div class="tab-pane" id="examples-UserAuthentication-token-0-csharp">
-                              <pre class="prettyprint"><code class="language-cs">using System;
-using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
-
-namespace Example
-{
-    public class tokenExample
-    {
-        public void main()
-        {
-
-            var apiInstance = new UserAuthenticationApi();
-            var body = new Body_3(); // Body_3 | Refresh token
-
-            try
-            {
-                // Request for an access token
-                inline_response_200_1 result = apiInstance.token(body);
-                Debug.WriteLine(result);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling UserAuthenticationApi.token: " + e.Message );
-            }
-        }
-    }
-}
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-UserAuthentication-token-0-php">
-                              <pre class="prettyprint"><code class="language-php"><&#63;php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-$api_instance = new Swagger\Client\ApiUserAuthenticationApi();
-$body = ; // Body_3 | Refresh token
-
-try {
-    $result = $api_instance->token($body);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling UserAuthenticationApi->token: ', $e->getMessage(), PHP_EOL;
-}
-?></code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-UserAuthentication-token-0-perl">
-                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
-use WWW::SwaggerClient::Configuration;
-use WWW::SwaggerClient::UserAuthenticationApi;
-
-my $api_instance = WWW::SwaggerClient::UserAuthenticationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_3->new(); # Body_3 | Refresh token
-
-eval { 
-    my $result = $api_instance->token(body => $body);
-    print Dumper($result);
-};
-if ($@) {
-    warn "Exception when calling UserAuthenticationApi->token: $@\n";
-}</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-UserAuthentication-token-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import swagger_client
-from swagger_client.rest import ApiException
-from pprint import pprint
-
-# create an instance of the API class
-api_instance = swagger_client.UserAuthenticationApi()
-body =  # Body_3 | Refresh token
-
-try: 
-    # Request for an access token
-    api_response = api_instance.token(body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling UserAuthenticationApi->token: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
-
-                          <h2>Parameters</h2>
-
-
-
-                            <div class="methodsubtabletitle">Body parameters</div>
-                            <table id="methodsubtable">
-                              <tr>
-                                <th width="150px">Name</th>
-                                <th>Description</th>
-                              </tr>
-                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
-                                <td>
-                                
-                                
-                                <script>
-                                $(document).ready(function() {
-                                  var schemaWrapper = {
-  "description" : "Refresh token",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/body_3"
-      }
-    }
-  },
-  "required" : true
-};
-                                  var schema = schemaWrapper.content["application/json"].schema;
-                                  if (schema.$ref != null) {
-                                    schema = defsParser.$refs.get(schema.$ref);
-                                  } else {
-                                    schemaWrapper.components = {};
-                                    schemaWrapper.components.schemas = Object.assign({}, defs);
-                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                      console.log(err);
-                                    });
-                                  }
-                                
-                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-                                  var result = $('#d2e199_token_body');
-                                  result.empty();
-                                  result.append(view.render());
-                                });
-                                </script>
-                                <div id="d2e199_token_body"></div>
-                                </td>
-                                </tr>
-                            </table>
-
-
-
-                          <h2>Responses</h2>
-                            <h3> Status: 200 - Successful operation </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-token-200-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-token-200-schema">
-                                  <div id='responses-token-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Successful operation",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/inline_response_200_1"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-token-200-schema-data').val(stringify(schema));
-                                        var result = $('#responses-token-200-schema-200');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-token-200-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                            <h3> Status: 400 - Bad request (invalid json or wrong type) </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-token-400-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-token-400-schema">
-                                  <div id='responses-token-400-schema-400' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Bad request (invalid json or wrong type)",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/inline_response_500"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-token-400-schema-data').val(stringify(schema));
-                                        var result = $('#responses-token-400-schema-400');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-token-400-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                            <h3> Status: 404 - Refresh token not found </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-token-404-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-token-404-schema">
-                                  <div id='responses-token-404-schema-404' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Refresh token not found",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/inline_response_500"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-token-404-schema-data').val(stringify(schema));
-                                        var result = $('#responses-token-404-schema-404');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-token-404-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                        </article>
-                      </div>
-                      <hr>
                     <div id="api-UserAuthentication-updatepswd">
                       <article id="api-UserAuthentication-updatepswd-0" data-group="User" data-name="updatepswd" data-version="0">
                         <div class="pull-left">
@@ -4702,7 +6372,7 @@ public class UserAuthenticationApiExample {
     public static void main(String[] args) {
         
         UserAuthenticationApi apiInstance = new UserAuthenticationApi();
-        Body_6 body = ; // Body_6 | Email, old password, new password
+        Body_4 body = ; // Body_4 | Email, old password, new password
         try {
             apiInstance.updatepswd(body);
         } catch (ApiException e) {
@@ -4720,7 +6390,7 @@ public class UserAuthenticationApiExample {
 
     public static void main(String[] args) {
         UserAuthenticationApi apiInstance = new UserAuthenticationApi();
-        Body_6 body = ; // Body_6 | Email, old password, new password
+        Body_4 body = ; // Body_4 | Email, old password, new password
         try {
             apiInstance.updatepswd(body);
         } catch (ApiException e) {
@@ -4735,7 +6405,7 @@ public class UserAuthenticationApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-UserAuthentication-updatepswd-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Body_6 *body = ; // Email, old password, new password
+                              <pre class="prettyprint"><code class="language-cpp">Body_4 *body = ; // Email, old password, new password
 
 UserAuthenticationApi *apiInstance = [[UserAuthenticationApi alloc] init];
 
@@ -4753,7 +6423,7 @@ UserAuthenticationApi *apiInstance = [[UserAuthenticationApi alloc] init];
                               <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
 
 var api = new Cs2102.UserAuthenticationApi()
-var body = ; // {{Body_6}} Email, old password, new password
+var body = ; // {{Body_4}} Email, old password, new password
 
 var callback = function(error, data, response) {
   if (error) {
@@ -4784,7 +6454,7 @@ namespace Example
         {
 
             var apiInstance = new UserAuthenticationApi();
-            var body = new Body_6(); // Body_6 | Email, old password, new password
+            var body = new Body_4(); // Body_4 | Email, old password, new password
 
             try
             {
@@ -4806,7 +6476,7 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\ApiUserAuthenticationApi();
-$body = ; // Body_6 | Email, old password, new password
+$body = ; // Body_4 | Email, old password, new password
 
 try {
     $api_instance->updatepswd($body);
@@ -4822,7 +6492,7 @@ use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::UserAuthenticationApi;
 
 my $api_instance = WWW::SwaggerClient::UserAuthenticationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_6->new(); # Body_6 | Email, old password, new password
+my $body = WWW::SwaggerClient::Object::Body_4->new(); # Body_4 | Email, old password, new password
 
 eval { 
     $api_instance->updatepswd(body => $body);
@@ -4841,7 +6511,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.UserAuthenticationApi()
-body =  # Body_6 | Email, old password, new password
+body =  # Body_4 | Email, old password, new password
 
 try: 
     # Update password
@@ -4872,7 +6542,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_6"
+        "$ref" : "#/components/schemas/body_4"
       }
     }
   },
@@ -6697,7 +8367,7 @@ public class UserOperationApiExample {
         UserOperationApi apiInstance = new UserOperationApi();
         String uid = uid_example; // String | room uid
         try {
-            array[inline_response_200_5] result = apiInstance.getdevices(uid);
+            array[inline_response_200_4] result = apiInstance.getdevices(uid);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UserOperationApi#getdevices");
@@ -6716,7 +8386,7 @@ public class UserOperationApiExample {
         UserOperationApi apiInstance = new UserOperationApi();
         String uid = uid_example; // String | room uid
         try {
-            array[inline_response_200_5] result = apiInstance.getdevices(uid);
+            array[inline_response_200_4] result = apiInstance.getdevices(uid);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UserOperationApi#getdevices");
@@ -6737,7 +8407,7 @@ UserOperationApi *apiInstance = [[UserOperationApi alloc] init];
 
 // Return a list of devices
 [apiInstance getdevicesWith:uid
-              completionHandler: ^(array[inline_response_200_5] output, NSError* error) {
+              completionHandler: ^(array[inline_response_200_4] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -6792,7 +8462,7 @@ namespace Example
             try
             {
                 // Return a list of devices
-                array[inline_response_200_5] result = apiInstance.getdevices(uid);
+                array[inline_response_200_4] result = apiInstance.getdevices(uid);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -6916,7 +8586,7 @@ except ApiException as e:
       "schema" : {
         "type" : "array",
         "items" : {
-          "$ref" : "#/components/schemas/inline_response_200_5"
+          "$ref" : "#/components/schemas/inline_response_200_4"
         },
         "x-content-type" : "application/json"
       }
@@ -7101,7 +8771,7 @@ public class UserOperationApiExample {
         UserOperationApi apiInstance = new UserOperationApi();
         String uid = uid_example; // String | room uid
         try {
-            array[inline_response_200_4] result = apiInstance.getmembers(uid);
+            array[inline_response_200_3] result = apiInstance.getmembers(uid);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UserOperationApi#getmembers");
@@ -7120,7 +8790,7 @@ public class UserOperationApiExample {
         UserOperationApi apiInstance = new UserOperationApi();
         String uid = uid_example; // String | room uid
         try {
-            array[inline_response_200_4] result = apiInstance.getmembers(uid);
+            array[inline_response_200_3] result = apiInstance.getmembers(uid);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UserOperationApi#getmembers");
@@ -7141,7 +8811,7 @@ UserOperationApi *apiInstance = [[UserOperationApi alloc] init];
 
 // Get room members
 [apiInstance getmembersWith:uid
-              completionHandler: ^(array[inline_response_200_4] output, NSError* error) {
+              completionHandler: ^(array[inline_response_200_3] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -7196,7 +8866,7 @@ namespace Example
             try
             {
                 // Get room members
-                array[inline_response_200_4] result = apiInstance.getmembers(uid);
+                array[inline_response_200_3] result = apiInstance.getmembers(uid);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -7333,7 +9003,7 @@ except ApiException as e:
           "role" : "viewer"
         } ],
         "items" : {
-          "$ref" : "#/components/schemas/inline_response_200_4"
+          "$ref" : "#/components/schemas/inline_response_200_3"
         },
         "x-content-type" : "application/json"
       }
@@ -7519,7 +9189,7 @@ public class UserOperationApiExample {
         String uid = uid_example; // String | room uid
         String devicename = devicename_example; // String | device name
         try {
-            array[inline_response_200_6] result = apiInstance.getoperations(uid, devicename);
+            array[inline_response_200_5] result = apiInstance.getoperations(uid, devicename);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UserOperationApi#getoperations");
@@ -7539,7 +9209,7 @@ public class UserOperationApiExample {
         String uid = uid_example; // String | room uid
         String devicename = devicename_example; // String | device name
         try {
-            array[inline_response_200_6] result = apiInstance.getoperations(uid, devicename);
+            array[inline_response_200_5] result = apiInstance.getoperations(uid, devicename);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UserOperationApi#getoperations");
@@ -7562,7 +9232,7 @@ UserOperationApi *apiInstance = [[UserOperationApi alloc] init];
 // Supported operations
 [apiInstance getoperationsWith:uid
     devicename:devicename
-              completionHandler: ^(array[inline_response_200_6] output, NSError* error) {
+              completionHandler: ^(array[inline_response_200_5] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -7619,7 +9289,7 @@ namespace Example
             try
             {
                 // Supported operations
-                array[inline_response_200_6] result = apiInstance.getoperations(uid, devicename);
+                array[inline_response_200_5] result = apiInstance.getoperations(uid, devicename);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -7765,7 +9435,7 @@ except ApiException as e:
       "schema" : {
         "type" : "array",
         "items" : {
-          "$ref" : "#/components/schemas/inline_response_200_6"
+          "$ref" : "#/components/schemas/inline_response_200_5"
         },
         "x-content-type" : "application/json"
       }
@@ -7949,7 +9619,7 @@ public class UserOperationApiExample {
 
         UserOperationApi apiInstance = new UserOperationApi();
         try {
-            array[inline_response_200_2] result = apiInstance.getrooms();
+            array[inline_response_200_1] result = apiInstance.getrooms();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UserOperationApi#getrooms");
@@ -7967,7 +9637,7 @@ public class UserOperationApiExample {
     public static void main(String[] args) {
         UserOperationApi apiInstance = new UserOperationApi();
         try {
-            array[inline_response_200_2] result = apiInstance.getrooms();
+            array[inline_response_200_1] result = apiInstance.getrooms();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UserOperationApi#getrooms");
@@ -7987,7 +9657,7 @@ UserOperationApi *apiInstance = [[UserOperationApi alloc] init];
 
 // Return a list of rooms
 [apiInstance getroomsWithCompletionHandler: 
-              ^(array[inline_response_200_2] output, NSError* error) {
+              ^(array[inline_response_200_1] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -8038,7 +9708,7 @@ namespace Example
             try
             {
                 // Return a list of rooms
-                array[inline_response_200_2] result = apiInstance.getrooms();
+                array[inline_response_200_1] result = apiInstance.getrooms();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -8150,7 +9820,7 @@ except ApiException as e:
           "role" : "viewer"
         } ],
         "items" : {
-          "$ref" : "#/components/schemas/inline_response_200_2"
+          "$ref" : "#/components/schemas/inline_response_200_1"
         },
         "x-content-type" : "application/json"
       }
@@ -8334,7 +10004,7 @@ public class UserOperationApiExample {
 
 
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_12 body = ; // Body_12 | Device info
+        Body_15 body = ; // Body_15 | Device info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.postdevices(body, uid);
@@ -8353,7 +10023,7 @@ public class UserOperationApiExample {
 
     public static void main(String[] args) {
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_12 body = ; // Body_12 | Device info
+        Body_15 body = ; // Body_15 | Device info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.postdevices(body, uid);
@@ -8370,7 +10040,7 @@ public class UserOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-UserOperation-postdevices-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_12 *body = ; // Device info
+Body_15 *body = ; // Device info
 String *uid = uid_example; // room uid (optional)
 
 UserOperationApi *apiInstance = [[UserOperationApi alloc] init];
@@ -8392,7 +10062,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.UserOperationApi()
-var body = ; // {{Body_12}} Device info
+var body = ; // {{Body_15}} Device info
 var opts = { 
   'uid': uid_example // {{String}} room uid
 };
@@ -8426,7 +10096,7 @@ namespace Example
 
 
             var apiInstance = new UserOperationApi();
-            var body = new Body_12(); // Body_12 | Device info
+            var body = new Body_15(); // Body_15 | Device info
             var uid = uid_example;  // String | room uid (optional) 
 
             try
@@ -8450,7 +10120,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiUserOperationApi();
-$body = ; // Body_12 | Device info
+$body = ; // Body_15 | Device info
 $uid = uid_example; // String | room uid
 
 try {
@@ -8468,7 +10138,7 @@ use WWW::SwaggerClient::UserOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::UserOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_12->new(); # Body_12 | Device info
+my $body = WWW::SwaggerClient::Object::Body_15->new(); # Body_15 | Device info
 my $uid = uid_example; # String | room uid
 
 eval { 
@@ -8489,7 +10159,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.UserOperationApi()
-body =  # Body_12 | Device info
+body =  # Body_15 | Device info
 uid = uid_example # String | room uid (optional)
 
 try: 
@@ -8521,7 +10191,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_12"
+        "$ref" : "#/components/schemas/body_15"
       }
     }
   },
@@ -8787,7 +10457,7 @@ public class UserOperationApiExample {
 
 
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_10 body = ; // Body_10 | User info
+        Body_13 body = ; // Body_13 | User info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.postmembers(body, uid);
@@ -8806,7 +10476,7 @@ public class UserOperationApiExample {
 
     public static void main(String[] args) {
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_10 body = ; // Body_10 | User info
+        Body_13 body = ; // Body_13 | User info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.postmembers(body, uid);
@@ -8823,7 +10493,7 @@ public class UserOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-UserOperation-postmembers-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_10 *body = ; // User info
+Body_13 *body = ; // User info
 String *uid = uid_example; // room uid (optional)
 
 UserOperationApi *apiInstance = [[UserOperationApi alloc] init];
@@ -8845,7 +10515,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.UserOperationApi()
-var body = ; // {{Body_10}} User info
+var body = ; // {{Body_13}} User info
 var opts = { 
   'uid': uid_example // {{String}} room uid
 };
@@ -8879,7 +10549,7 @@ namespace Example
 
 
             var apiInstance = new UserOperationApi();
-            var body = new Body_10(); // Body_10 | User info
+            var body = new Body_13(); // Body_13 | User info
             var uid = uid_example;  // String | room uid (optional) 
 
             try
@@ -8903,7 +10573,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiUserOperationApi();
-$body = ; // Body_10 | User info
+$body = ; // Body_13 | User info
 $uid = uid_example; // String | room uid
 
 try {
@@ -8921,7 +10591,7 @@ use WWW::SwaggerClient::UserOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::UserOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_10->new(); # Body_10 | User info
+my $body = WWW::SwaggerClient::Object::Body_13->new(); # Body_13 | User info
 my $uid = uid_example; # String | room uid
 
 eval { 
@@ -8942,7 +10612,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.UserOperationApi()
-body =  # Body_10 | User info
+body =  # Body_13 | User info
 uid = uid_example # String | room uid (optional)
 
 try: 
@@ -8974,7 +10644,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_10"
+        "$ref" : "#/components/schemas/body_13"
       }
     }
   },
@@ -9240,9 +10910,9 @@ public class UserOperationApiExample {
 
 
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_8 body = ; // Body_8 | Room info
+        Body_11 body = ; // Body_11 | Room info
         try {
-            inline_response_200_3 result = apiInstance.postrooms(body);
+            inline_response_200_2 result = apiInstance.postrooms(body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UserOperationApi#postrooms");
@@ -9259,9 +10929,9 @@ public class UserOperationApiExample {
 
     public static void main(String[] args) {
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_8 body = ; // Body_8 | Room info
+        Body_11 body = ; // Body_11 | Room info
         try {
-            inline_response_200_3 result = apiInstance.postrooms(body);
+            inline_response_200_2 result = apiInstance.postrooms(body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UserOperationApi#postrooms");
@@ -9276,13 +10946,13 @@ public class UserOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-UserOperation-postrooms-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_8 *body = ; // Room info
+Body_11 *body = ; // Room info
 
 UserOperationApi *apiInstance = [[UserOperationApi alloc] init];
 
 // Add a new room
 [apiInstance postroomsWith:body
-              completionHandler: ^(inline_response_200_3 output, NSError* error) {
+              completionHandler: ^(inline_response_200_2 output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -9299,7 +10969,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.UserOperationApi()
-var body = ; // {{Body_8}} Room info
+var body = ; // {{Body_11}} Room info
 
 var callback = function(error, data, response) {
   if (error) {
@@ -9331,12 +11001,12 @@ namespace Example
 
 
             var apiInstance = new UserOperationApi();
-            var body = new Body_8(); // Body_8 | Room info
+            var body = new Body_11(); // Body_11 | Room info
 
             try
             {
                 // Add a new room
-                inline_response_200_3 result = apiInstance.postrooms(body);
+                inline_response_200_2 result = apiInstance.postrooms(body);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -9355,7 +11025,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiUserOperationApi();
-$body = ; // Body_8 | Room info
+$body = ; // Body_11 | Room info
 
 try {
     $result = $api_instance->postrooms($body);
@@ -9373,7 +11043,7 @@ use WWW::SwaggerClient::UserOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::UserOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_8->new(); # Body_8 | Room info
+my $body = WWW::SwaggerClient::Object::Body_11->new(); # Body_11 | Room info
 
 eval { 
     my $result = $api_instance->postrooms(body => $body);
@@ -9394,7 +11064,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.UserOperationApi()
-body =  # Body_8 | Room info
+body =  # Body_11 | Room info
 
 try: 
     # Add a new room
@@ -9426,7 +11096,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_8"
+        "$ref" : "#/components/schemas/body_11"
       }
     }
   },
@@ -9476,7 +11146,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/inline_response_200_3"
+        "$ref" : "#/components/schemas/inline_response_200_2"
       }
     }
   }
@@ -9658,7 +11328,7 @@ public class UserOperationApiExample {
 
 
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_11 body = ; // Body_11 | Device info
+        Body_14 body = ; // Body_14 | Device info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.putdevices(body, uid);
@@ -9677,7 +11347,7 @@ public class UserOperationApiExample {
 
     public static void main(String[] args) {
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_11 body = ; // Body_11 | Device info
+        Body_14 body = ; // Body_14 | Device info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.putdevices(body, uid);
@@ -9694,7 +11364,7 @@ public class UserOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-UserOperation-putdevices-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_11 *body = ; // Device info
+Body_14 *body = ; // Device info
 String *uid = uid_example; // room uid (optional)
 
 UserOperationApi *apiInstance = [[UserOperationApi alloc] init];
@@ -9716,7 +11386,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.UserOperationApi()
-var body = ; // {{Body_11}} Device info
+var body = ; // {{Body_14}} Device info
 var opts = { 
   'uid': uid_example // {{String}} room uid
 };
@@ -9750,7 +11420,7 @@ namespace Example
 
 
             var apiInstance = new UserOperationApi();
-            var body = new Body_11(); // Body_11 | Device info
+            var body = new Body_14(); // Body_14 | Device info
             var uid = uid_example;  // String | room uid (optional) 
 
             try
@@ -9774,7 +11444,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiUserOperationApi();
-$body = ; // Body_11 | Device info
+$body = ; // Body_14 | Device info
 $uid = uid_example; // String | room uid
 
 try {
@@ -9792,7 +11462,7 @@ use WWW::SwaggerClient::UserOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::UserOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_11->new(); # Body_11 | Device info
+my $body = WWW::SwaggerClient::Object::Body_14->new(); # Body_14 | Device info
 my $uid = uid_example; # String | room uid
 
 eval { 
@@ -9813,7 +11483,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.UserOperationApi()
-body =  # Body_11 | Device info
+body =  # Body_14 | Device info
 uid = uid_example # String | room uid (optional)
 
 try: 
@@ -9845,7 +11515,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_11"
+        "$ref" : "#/components/schemas/body_14"
       }
     }
   },
@@ -10063,7 +11733,7 @@ public class UserOperationApiExample {
 
 
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_9 body = ; // Body_9 | User info
+        Body_12 body = ; // Body_12 | User info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.putmembers(body, uid);
@@ -10082,7 +11752,7 @@ public class UserOperationApiExample {
 
     public static void main(String[] args) {
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_9 body = ; // Body_9 | User info
+        Body_12 body = ; // Body_12 | User info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.putmembers(body, uid);
@@ -10099,7 +11769,7 @@ public class UserOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-UserOperation-putmembers-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_9 *body = ; // User info
+Body_12 *body = ; // User info
 String *uid = uid_example; // room uid (optional)
 
 UserOperationApi *apiInstance = [[UserOperationApi alloc] init];
@@ -10121,7 +11791,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.UserOperationApi()
-var body = ; // {{Body_9}} User info
+var body = ; // {{Body_12}} User info
 var opts = { 
   'uid': uid_example // {{String}} room uid
 };
@@ -10155,7 +11825,7 @@ namespace Example
 
 
             var apiInstance = new UserOperationApi();
-            var body = new Body_9(); // Body_9 | User info
+            var body = new Body_12(); // Body_12 | User info
             var uid = uid_example;  // String | room uid (optional) 
 
             try
@@ -10179,7 +11849,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiUserOperationApi();
-$body = ; // Body_9 | User info
+$body = ; // Body_12 | User info
 $uid = uid_example; // String | room uid
 
 try {
@@ -10197,7 +11867,7 @@ use WWW::SwaggerClient::UserOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::UserOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_9->new(); # Body_9 | User info
+my $body = WWW::SwaggerClient::Object::Body_12->new(); # Body_12 | User info
 my $uid = uid_example; # String | room uid
 
 eval { 
@@ -10218,7 +11888,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.UserOperationApi()
-body =  # Body_9 | User info
+body =  # Body_12 | User info
 uid = uid_example # String | room uid (optional)
 
 try: 
@@ -10250,7 +11920,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_9"
+        "$ref" : "#/components/schemas/body_12"
       }
     }
   },
@@ -10468,7 +12138,7 @@ public class UserOperationApiExample {
 
 
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_7 body = ; // Body_7 | User info
+        Body_10 body = ; // Body_10 | User info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.putrooms(body, uid);
@@ -10487,7 +12157,7 @@ public class UserOperationApiExample {
 
     public static void main(String[] args) {
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_7 body = ; // Body_7 | User info
+        Body_10 body = ; // Body_10 | User info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.putrooms(body, uid);
@@ -10504,7 +12174,7 @@ public class UserOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-UserOperation-putrooms-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_7 *body = ; // User info
+Body_10 *body = ; // User info
 String *uid = uid_example; // room uid (optional)
 
 UserOperationApi *apiInstance = [[UserOperationApi alloc] init];
@@ -10526,7 +12196,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.UserOperationApi()
-var body = ; // {{Body_7}} User info
+var body = ; // {{Body_10}} User info
 var opts = { 
   'uid': uid_example // {{String}} room uid
 };
@@ -10560,7 +12230,7 @@ namespace Example
 
 
             var apiInstance = new UserOperationApi();
-            var body = new Body_7(); // Body_7 | User info
+            var body = new Body_10(); // Body_10 | User info
             var uid = uid_example;  // String | room uid (optional) 
 
             try
@@ -10584,7 +12254,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiUserOperationApi();
-$body = ; // Body_7 | User info
+$body = ; // Body_10 | User info
 $uid = uid_example; // String | room uid
 
 try {
@@ -10602,7 +12272,7 @@ use WWW::SwaggerClient::UserOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::UserOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_7->new(); # Body_7 | User info
+my $body = WWW::SwaggerClient::Object::Body_10->new(); # Body_10 | User info
 my $uid = uid_example; # String | room uid
 
 eval { 
@@ -10623,7 +12293,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.UserOperationApi()
-body =  # Body_7 | User info
+body =  # Body_10 | User info
 uid = uid_example # String | room uid (optional)
 
 try: 
@@ -10655,7 +12325,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_7"
+        "$ref" : "#/components/schemas/body_10"
       }
     }
   },
