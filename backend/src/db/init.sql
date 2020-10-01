@@ -9,6 +9,6 @@ CREATE TABLE accounts(
 CREATE TABLE cards(
     cardnumber VARCHAR PRIMARY KEY,
     CVV VARCHAR(4),
-    expdate DATA,
+    expdate VARCHAR,
     username VARCHAR REFERENCES accounts(username)
 );
