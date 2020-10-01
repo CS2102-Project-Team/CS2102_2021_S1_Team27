@@ -1,3 +1,12 @@
+const pool = require('pg').Pool;
+const pool = new Pool({
+  user: 'me',
+  host: 'localhost',
+  database: 'api',
+  password: '1234',
+  port: 5432,
+})
+
 async function getUserByEmail(email) {
   return null;
 }
@@ -28,6 +37,13 @@ async function removeAccessToken(token) {
 async function changePassword(email, password) {
   return null;
 }
+
+async function insertCard(cardnum, cvv, exp, username) {
+  pool.query('INSERT INTO cards(cardnumber, CVV, expdate, username) VALUES ($1, $2, $3, $4)', [])
+    .then(results => {return 'success';})
+    .catch(error => {return 'Error:' + string(error);})
+}
+
 module.exports = {
   functions: {
     getUserByEmail,
@@ -37,5 +53,6 @@ module.exports = {
     checkAccessToken,
     removeAccessToken,
     changePassword,
+    insertCard
   },
 };
