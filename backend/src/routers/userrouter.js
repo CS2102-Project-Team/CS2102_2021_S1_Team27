@@ -13,22 +13,23 @@ router.post('/cards', auth.authenticateToken, async (req, res, next) => {
 });
 */
 router.post('/cards', (req,res,next) => {req.user = 'kyle';next();}, async (req, res, next) => {
-    const cardnumber = req.body.cardnumber;
-    const cvv = req.body.cvv;
-    const exp = req.body.exp;
-    const username = req.user;
-    
-    if (typeof cardnumber !== 'string' || 
+  const cardnumber = req.body.cardnumber;
+  const cvv = req.body.cvv;
+  const exp = req.body.exp;
+  const username = req.user;
+
+  if (typeof cardnumber !== 'string' || 
         typeof cvv !== 'string' ||
         typeof exp !== 'string'
-    ) {
-        res.status(400);
-    }
-    const insRes = await db.functions.insertCard(cardnumber, cvv, exp, username);
-    if (insRes.success) {
-        res.status(204).json('success');
-    } else {
-        res.status(500);
-    }
-  });
+  ) {
+    res.status(400);
+  }
+  const insRes = await db.functions.insertCard(cardnumber, cvv, exp, username);
+  console.log(insRes);
+  if (insRes.success) {
+    res.status(204).json('success');
+  } else {
+    res.status(500);
+  }
+});
 module.exports = router;
