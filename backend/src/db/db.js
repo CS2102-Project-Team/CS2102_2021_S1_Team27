@@ -41,8 +41,8 @@ async function changePassword(email, password) {
 
 async function insertCard(cardnum, cvv, exp, username) {
   pool.query('INSERT INTO cards(cardnumber, CVV, expdate, username) VALUES ($1, $2, $3, $4)', [])
-    .then(results => {return 'success';})
-    .catch(error => {return 'Error:' + string(error);})
+    .then(results => {return {success: true};})
+    .catch(error => {return {success: false, error: error};});
 }
 
 module.exports = {
