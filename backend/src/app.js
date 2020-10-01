@@ -20,8 +20,6 @@ app.get('/echo', (req, res) => {
   res.send({ header: req.headers, body: req.body });
 });
 
-
-
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`Example app listening at http://localhost:${PORT}`);
