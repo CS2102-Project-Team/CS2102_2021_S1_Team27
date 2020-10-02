@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken');
 /*
- Middleware for authenticating JWT tokens 
- @param {Request} req - request 
- @param {Response} res - response 
- @param {RequestHandler} next - next middleware to be called // import type! 
+ Middleware for authenticating JWT tokens
+ @param {Request} req - request
+ @param {Response} res - response
+ @param {RequestHandler} next - next middleware to be called // import type!
 */
 
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
+  const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(' ')[1];
   if (!token) {
     res.sendStatus(401);
@@ -21,6 +21,6 @@ function authenticateToken(req, res, next) {
     req.user = user;
     next();
   });
-} 
+}
 
-module.exports = {authenticateToken}
+module.exports = { authenticateToken };
