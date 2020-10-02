@@ -1,12 +1,4 @@
-const Pool = require('pg').Pool;
-
-const pool = new Pool({
-  user: 'me',
-  host: 'localhost',
-  database: 'api',
-  password: '1234',
-  port: 5432,
-});
+const db = require('./index')
 
 async function getUserByEmail(email) {
   return null;
@@ -40,9 +32,8 @@ async function changePassword(email, password) {
 }
 
 async function insertCard(cardnum, cvv, exp, username) {
-  pool.query('INSERT INTO cards(cardnumber, CVV, expdate, username) VALUES ($1, $2, $3, $4)', [])
-    .then((results) => ({ success: true }))
-    .catch((error) => ({ success: false, error}));
+  const {rows} = await db.query('INSERT INTO cards(cardnumber, CVV, expdate, username) VALUES ($1, $2, $3, $4)', [cardnum, cvv, exp, username]);
+  return { success: true };
 }
 
 module.exports = {
