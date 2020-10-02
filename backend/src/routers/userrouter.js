@@ -6,11 +6,11 @@ const db = require('../db/db');
 const router = express.Router();
 
 router.get('/user', auth.authenticateToken, async (req, res) => {
-  try{
+  try {
     const user = await db.functions.getUserByUsername(req.user.username);
-    res.status(200).json({username: user.username, email: user.email}); 
+    res.status(200).json({username: user.username, email: user.email});
     return;
-  } catch(err) {
+  } catch (err) {
     res.status(500).json('error');
   }
 });
@@ -25,9 +25,9 @@ router.post('/cards', auth.authenticateToken, async (req, res) => {
   const { exp } = req.body;
   const { username } = req.user;
 
-  if (typeof cardnumber !== 'string' || 
-        typeof cvv !== 'string' ||
-        typeof exp !== 'string'
+  if (typeof cardnumber !== 'string'
+        || typeof cvv !== 'string'
+        || typeof exp !== 'string'
   ) {
     res.status(400);
     return;
@@ -36,10 +36,8 @@ router.post('/cards', auth.authenticateToken, async (req, res) => {
     const insRes = await db.functions.insertCard(cardnumber, cvv, exp, username);
     res.status(204).json('success');
     return;
-  } catch(err) {
-    console.log(err);
+  } catch (err) {
     res.status(500).json('error');
-    return;
   }
 });
 module.exports = router;

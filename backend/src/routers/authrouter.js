@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const express = require('express');
 const bcrypt = require('bcrypt');
+
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 const db = require('../db/db');
@@ -27,7 +28,7 @@ function validateEmail(email) {
 
 let OTPList = [
   { email: 'e0424619@u.nus.edu', otp: '990811', exp: 1911101657344 },
-  { email: 'jiang@u.nus.edu', otp: '990811', exp: 1911101657344 }
+  { email: 'jiang@u.nus.edu', otp: '990811', exp: 1911101657344 },
 ];
 
 /**
@@ -150,7 +151,7 @@ router.post('/user/register', async (req, res) => {
         const regRes = await db.functions.registerUser(
           req.body.username,
           req.body.email,
-          passwd
+          passwd,
         );
         res.json('success');
         return;
@@ -294,14 +295,14 @@ router.post('/user/updatepswd', async (req, res, next) => { // look up the user
     });
   }
 }, async (req, res) => {
-  try{
+  try {
     const passwd = await bcrypt.hash(req.body.new_password, saltRounds);
     const rrr = await db.functions.changePassword(
       req.body.email,
       passwd,
     );
     res.status(200).json('success');
-    return; 
+    return;
   } catch (err) {
     res.status(500).json({
       error: 'Internal server error',
