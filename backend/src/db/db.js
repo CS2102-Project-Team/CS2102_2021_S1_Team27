@@ -9,10 +9,13 @@ async function getUserByUsername(username) {
 }
 
 async function registerUser(username, email, password) {
-  const I = 5;
+  const {rows} = await db.query('INSERT INTO accounts(username, passwd, email) VALUES ($1, $2, $3)', [username, password, email]);
+  return {success: true};
+  /*
   return I < 3 // U
     ? { success: true }
     : { success: false, error: 'Nah' };
+  */
 }
 
 async function pushAccessToken(token) {
