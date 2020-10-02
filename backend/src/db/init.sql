@@ -4,9 +4,10 @@ DROP TABLE IF EXISTS accounts;
 
 CREATE TABLE accounts(
     username VARCHAR PRIMARY KEY,
-    passwd VARCHAR,
-    email VARCHAR
+    passwd VARCHAR NOT NULL,
+    email VARCHAR NOT NULL UNIQUE
 );
+
 CREATE TABLE cards(
     cardnumber VARCHAR PRIMARY KEY,
     CVV VARCHAR(4),
