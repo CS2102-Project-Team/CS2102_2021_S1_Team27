@@ -14,3 +14,7 @@ CREATE TABLE cards(
     expdate VARCHAR,
     username VARCHAR REFERENCES accounts(username)
 );
+
+CREATE TABLE tokens(
+    token VARCHAR PRIMARY KEY
+);
