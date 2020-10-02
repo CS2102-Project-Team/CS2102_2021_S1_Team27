@@ -26,6 +26,7 @@ function validateEmail(email) {
 
 let OTPList = [
   { email: 'e0424619@u.nus.edu', otp: '990811', exp: 1911101657344 },
+  { email: 'jiang@u.nus.edu', otp: '990811', exp: 1911101657344 }
 ];
 
 /**
@@ -124,6 +125,7 @@ router.post('/getotp', (req, res) => {
     return;
   }
   const otp = generateOTP(req.body.email);
+  console.log(otp);
   sendEmail(req.body.email, 'Your OTP for Pet-Anything', otp);
 });
 
@@ -131,9 +133,9 @@ router.post('/user/register', async (req, res) => {
   try {
     if (
       !req.body.username
-        || !req.body.email
-        || !req.body.password
-        || !req.body.otp
+      || !req.body.email
+      || !req.body.password
+      || !req.body.otp
     ) {
       res.status(400).json({
         error: 'Request body missing required fields',
@@ -142,24 +144,20 @@ router.post('/user/register', async (req, res) => {
     }
     if (testOTP(req.body.email, req.body.otp)) {
       // Todo: implement db function in /db/db.js
-      const regRes = await db.functions.registerUser(
-        req.body.username,
-        req.body.email,
-        req.body.password,
-      );
-      if (regRes.success) {
-        res.json('success');
-      } else {
-        res.status(500).json({
-          error: regRes.error,
-        });
+      try {
+        const regRes = await db.functions.registerUser(
+          req.body.username,
+          req.body.email,
+          req.body.password,
+        );
+        return res.json('success');
+      } catch (err) {
+        return res.status(500).json(err);
       }
-      return;
     }
-    res.status(403).json({
+    return res.status(403).json({
       error: 'wrong OTP',
     });
-    return;
   } catch (error) { // error in registration
     res.status(500).json({
       error: error.toString(),
