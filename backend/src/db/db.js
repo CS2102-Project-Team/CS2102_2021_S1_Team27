@@ -43,9 +43,20 @@ async function changePassword(email, password) {
   return rows;
 }
 
+async function getCards(username) {
+  const { rows } = await db.query('SELECT cardnumber FROM cards WHERE username = $1', [username]);
+  return rows;
+}
+
+
 async function insertCard(cardnum, cvv, exp, username) {
   const { rows } = await db.query('INSERT INTO cards(cardnumber, CVV, expdate, username) VALUES ($1, $2, $3, $4)', [cardnum, cvv, exp, username]);
-  return { rows };
+  return rows;
+}
+
+async function deleteCard(cardnum) {
+  const { rows } = await db.query('DELETE FROM cards WHERE cardnumber = $1', [cardnum]);
+  return rows;
 }
 
 module.exports = {
@@ -57,6 +68,8 @@ module.exports = {
     checkAccessToken,
     removeAccessToken,
     changePassword,
-    insertCard
+    getCards,
+    insertCard,
+    deleteCard,
   },
 };
