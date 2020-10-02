@@ -1,5 +1,6 @@
-DROP IF EXISTS accounts;
-DROP IF EXISTS cards;
+DROP TABLE IF EXISTS cards;
+DROP TABLE IF EXISTS accounts;
+
 
 CREATE TABLE accounts(
     username VARCHAR PRIMARY KEY,
