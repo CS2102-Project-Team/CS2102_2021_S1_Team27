@@ -5,16 +5,25 @@ const db = require('../db/db');
 
 const router = express.Router();
 
-router.get('/', (req, res) => res.redirect(307, 'https://cs2102-doc.netlify.app/'));
+router.get('/user', auth.authenticateToken, async (req, res) => {
+  try{
+    const user = await db.functions.getUserByUsername(req.user.username);
+    res.status(200).json({username: user.username, email: user.email}); 
+    return;
+  } catch(err) {
+    res.status(500).json('error');
+  }
+});
 /*
+router.get('/', (req, res) => res.redirect(307, 'https://cs2102-doc.netlify.app/'));
 Skip authentication: (req,res,next) => {req.user = 'kyle';next();},
 */
 
 router.post('/cards', auth.authenticateToken, async (req, res) => {
-  const cardnumber = req.body.cardnumber;
-  const cvv = req.body.cvv;
-  const exp = req.body.exp;
-  const username = req.user;
+  const { cardnumber } = req.body;
+  const { cvv } = req.body;
+  const { exp } = req.body;
+  const { username } = req.user;
 
   if (typeof cardnumber !== 'string' || 
         typeof cvv !== 'string' ||
