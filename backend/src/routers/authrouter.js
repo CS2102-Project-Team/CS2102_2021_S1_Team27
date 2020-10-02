@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const express = require('express');
 const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 const db = require('../db/db');
 
@@ -145,19 +146,23 @@ router.post('/user/register', async (req, res) => {
     if (testOTP(req.body.email, req.body.otp)) {
       // Todo: implement db function in /db/db.js
       try {
+        const passwd = await bcrypt.hash(req.body.password, saltRounds);
         const regRes = await db.functions.registerUser(
           req.body.username,
           req.body.email,
-          req.body.password,
+          passwd
         );
-        return res.json('success');
+        res.json('success');
+        return;
       } catch (err) {
-        return res.status(500).json(err);
+        res.status(500).json(err);
+        return;
       }
     }
-    return res.status(403).json({
+    res.status(403).json({
       error: 'wrong OTP',
     });
+    return;
   } catch (error) { // error in registration
     res.status(500).json({
       error: error.toString(),
@@ -179,7 +184,7 @@ router.post('/user/login', async (req, res, next) => { // look up the user in db
   } else if (req.query.by === 'username') {
     if (!req.body.username) {
       res.status(400).json({
-        error: 'Missing usernmae',
+        error: 'Missing username',
       });
       return;
     }
@@ -199,7 +204,7 @@ router.post('/user/login', async (req, res, next) => { // look up the user in db
   next();
 }, async (req, res, next) => { // user found, compare password here
   try {
-    if (await bcrypt.compare(req.body.password, req.user.password)) {
+    if (await bcrypt.compare(req.body.password, req.user.passwd)) {
       next();
     } else {
       res.status(403).json({
@@ -236,7 +241,8 @@ router.post('/user/logout', (req, res) => {
 
 router.post('/user/fgtpswd', async (req, res) => {
   if (testOTP(req.body.email, req.body.otp)) {
-    const newPassword = Math.random().toString(36).substring(2, 10); // 8dig str
+    let newPassword = Math.random().toString(36).substring(2, 10); // 8dig str
+    newPassword = await bcrypt.hash(newPassword, saltRounds);
     const rrr = await db.functions.changePassword(req.body.email, newPassword);
     if (rrr === 200) {
       sendEmail(req.body.email, 'Your Temporary Password for Pet-Anything', newPassword);
@@ -273,7 +279,7 @@ router.post('/user/updatepswd', async (req, res, next) => { // look up the user
   next();
 }, async (req, res, next) => { // user found, compare password here
   try {
-    if (await bcrypt.compare(req.body.old_password, req.user.password)) {
+    if (await bcrypt.compare(req.body.old_password, req.user.passwd)) {
       next();
     } else {
       res.status(403).json({
@@ -288,19 +294,17 @@ router.post('/user/updatepswd', async (req, res, next) => { // look up the user
     });
   }
 }, async (req, res) => {
-  const rrr = db.functions.changePassword(
-    req.body.email,
-    req.body.new_password,
-  );
-  if (rrr === 200) {
-    res.json('success');
-  } else if (rrr === 500) {
+  try{
+    const passwd = await bcrypt.hash(req.body.new_password, saltRounds);
+    const rrr = await db.functions.changePassword(
+      req.body.email,
+      passwd,
+    );
+    res.status(200).json('success');
+    return; 
+  } catch (err) {
     res.status(500).json({
       error: 'Internal server error',
-    });
-  } else if (rrr === 404) {
-    res.status(404).json({
-      error: 'Not found',
     });
   }
 });
