@@ -1,6 +1,8 @@
 const express = require('express');
 const auth = require('./auth');
 const db = require('../db/db');
+//const { body, validationResult } = require('express-validator');
+
 const router = express.Router();
 
 router.get('/', (req, res) => res.redirect(307, 'https://cs2102-doc.netlify.app/'));
