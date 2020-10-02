@@ -6,6 +6,8 @@ CREATE TABLE accounts(
     username VARCHAR PRIMARY KEY,
     passwd VARCHAR NOT NULL,
     email VARCHAR NOT NULL UNIQUE
+    phone VARCHAR,
+    addres VARCHAR
 );
 
 CREATE TABLE cards(
