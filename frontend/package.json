@@ -13,8 +13,12 @@
     "build": "rimraf dist && webpack -p --progress --hide-modules"
   },
   "dependencies": {
+    "axios": "^0.20.0",
     "element-ui": "^2.3.4",
-    "vue": "^2.5.16"
+    "js-cookie": "^2.2.1",
+    "vue": "^2.5.16",
+    "vue-router": "^3.4.5",
+    "vuex": "^3.5.1"
   },
   "engines": {
     "node": ">=6"
