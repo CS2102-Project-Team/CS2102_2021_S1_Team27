@@ -1,7 +1,5 @@
 DROP TABLE IF EXISTS cards;
 DROP TABLE IF EXISTS admins;
-DROP TABLE IF EXISTS petowners;
-DROP TABLE IF EXISTS accounts;
 DROP TABLE IF EXISTS tokens;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS services;
@@ -11,19 +9,21 @@ DROP TABLE IF EXISTS looksafter;
 DROP TABLE IF EXISTS caretakers;
 DROP TABLE IF EXISTS pets;
 DROP TABLE IF EXISTS pettypes;
+DROP TABLE IF EXISTS petowners;
+DROP TABLE IF EXISTS accounts;
 
 
 CREATE TABLE accounts(
     username VARCHAR PRIMARY KEY,
     passwd VARCHAR NOT NULL,
-    email VARCHAR NOT NULL UNIQUE
+    email VARCHAR NOT NULL UNIQUE,
     phone VARCHAR,
     addres VARCHAR,
     realname VARCHAR
 );
 
 CREATE TABLE admins(
-    username PRIMARY KEY REFERENCES accounts(username)
+    username VARCHAR PRIMARY KEY REFERENCES accounts(username)
 );
 
 CREATE TABLE cards(
@@ -31,12 +31,12 @@ CREATE TABLE cards(
     holdername VARCHAR NOT NULL,
     CVV VARCHAR(4) NOT NULL,
     expdate VARCHAR NOT NULL,
-    username VARCHAR REFERENCES accounts(username)
+    username VARCHAR REFERENCES accounts(username),
     PRIMARY KEY (cardnumber, username)
 );
 
 CREATE TABLE petowners(
-    username VARCHAR REFERENCES accounts(username) ON DELETE CASCADE
+    username VARCHAR PRIMARY KEY REFERENCES accounts(username) ON DELETE CASCADE
 );
 
 CREATE TABLE pettypes(
@@ -52,7 +52,7 @@ CREATE TABLE pets(
 );
 
 CREATE TABLE caretakers(
-    username VARCHAR REFERENCES accounts(username), 
+    username VARCHAR PRIMARY KEY REFERENCES accounts(username), 
     fulltime BOOLEAN DEFAULT FALSE,
     rating NUMERIC(3,2),
     maxpets INT --maximum concurrent pets being taken
@@ -75,7 +75,7 @@ INSERT INTO calendar(date)
 
 CREATE TABLE available(
     ctaker VARCHAR REFERENCES caretakers(username),
-    date REFERENCES calendar(date),
+    date DATE REFERENCES calendar(date),
     status VARCHAR,
     PRIMARY KEY(ctaker, date)
 );
@@ -83,8 +83,8 @@ CREATE TABLE available(
 CREATE TABLE services(
     ctaker VARCHAR,
     ptype VARCHAR,
-    sdate REFERENCES calendar(date),
-    edate REFERENCES calendar(date),
+    sdate DATE REFERENCES calendar(date),
+    edate DATE REFERENCES calendar(date),
     CHECK(sdate <= edate),
     price INT,
     PRIMARY KEY (ctaker, ptype, sdate, edate),
@@ -98,8 +98,8 @@ CREATE TABLE orders(
     pname VARCHAR NOT NULL,
     ctaker VARCHAR,
     ptype VARCHAR,
-    sdate REFERENCES calendar(date),
-    edate REFERENCES calendar(date),
+    sdate DATE REFERENCES calendar(date),
+    edate DATE REFERENCES calendar(date),
     rating NUMERIC(3,2),
     delivery VARCHAR, --delivery mode
     payment VARCHAR, --payment method
