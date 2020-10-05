@@ -129,6 +129,7 @@ router.post('/getotp', (req, res) => {
   const otp = generateOTP(req.body.email);
   console.log(otp);
   sendEmail(req.body.email, 'Your OTP for Pet-Anything', otp);
+  res.sendStatus(204);
 });
 
 router.post('/user/register', async (req, res) => {
