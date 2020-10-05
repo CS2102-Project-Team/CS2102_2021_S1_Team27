@@ -3,6 +3,14 @@ DROP TABLE IF EXISTS admins;
 DROP TABLE IF EXISTS petowners;
 DROP TABLE IF EXISTS accounts;
 DROP TABLE IF EXISTS tokens;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS services;
+DROP TABLE IF EXISTS available;
+DROP TABLE IF EXISTS calendar;
+DROP TABLE IF EXISTS looksafter;
+DROP TABLE IF EXISTS caretakers;
+DROP TABLE IF EXISTS pets;
+DROP TABLE IF EXISTS pettypes;
 
 
 CREATE TABLE accounts(
@@ -47,7 +55,7 @@ CREATE TABLE caretakers(
     username VARCHAR REFERENCES accounts(username), 
     fulltime BOOLEAN DEFAULT FALSE,
     rating NUMERIC(3,2),
-    maxpets INT
+    maxpets INT --maximum concurrent pets being taken
 );
 
 CREATE TABLE looksafter(
@@ -57,7 +65,49 @@ CREATE TABLE looksafter(
     PRIMARY KEY (ctaker, ptype)
 );
 
+CREATE TABLE calendar(
+    date DATE PRIMARY KEY
+);
 
+INSERT INTO calendar(date)
+    SELECT dd::date
+    FROM generate_series('2020-01-01'::timestamp, '2021-12-31'::timestamp, '1 day'::interval) dd;
+
+CREATE TABLE available(
+    ctaker VARCHAR REFERENCES caretakers(username),
+    date REFERENCES calendar(date),
+    status VARCHAR,
+    PRIMARY KEY(ctaker, date)
+);
+
+CREATE TABLE services(
+    ctaker VARCHAR,
+    ptype VARCHAR,
+    sdate REFERENCES calendar(date),
+    edate REFERENCES calendar(date),
+    CHECK(sdate <= edate),
+    price INT,
+    PRIMARY KEY (ctaker, ptype, sdate, edate),
+    FOREIGN KEY (ctaker, ptype) REFERENCES looksafter(ctaker, ptype)
+);
+
+CREATE TABLE orders(
+    id SERIAL PRIMARY KEY,
+    bidtime TIMESTAMP,
+    powner VARCHAR NOT NULL,
+    pname VARCHAR NOT NULL,
+    ctaker VARCHAR,
+    ptype VARCHAR,
+    sdate REFERENCES calendar(date),
+    edate REFERENCES calendar(date),
+    rating NUMERIC(3,2),
+    delivery VARCHAR, --delivery mode
+    payment VARCHAR, --payment method
+    review VARCHAR,
+    status VARCHAR,
+    FOREIGN KEY (powner, pname) REFERENCES pets(powner, pname),
+    FOREIGN KEY (ctaker, ptype, sdate, edate) REFERENCES services(ctaker, ptype, sdate, edate)
+);
 
 CREATE TABLE tokens(
     token VARCHAR PRIMARY KEY
