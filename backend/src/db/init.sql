@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS petowners;
 DROP TABLE IF EXISTS accounts;
 
 
+
 CREATE TABLE accounts(
     username VARCHAR PRIMARY KEY,
     passwd VARCHAR NOT NULL,
