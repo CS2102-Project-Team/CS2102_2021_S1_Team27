@@ -10,7 +10,7 @@
         class="ms-content"
       >
         <el-form-item prop="username">
-          <el-input v-model="param.username" placeholder="username">
+          <el-input v-model="param.username" placeholder="username/email">
             <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
           </el-input>
         </el-form-item>
@@ -25,9 +25,9 @@
           </el-input>
         </el-form-item>
         <div class="login-btn">
-          <el-button type="primary" @click="submitForm()">Login</el-button>
+          <el-button :loading="loading" type="primary" @click="submitForm()">Login</el-button>
         </div>
-        <p class="login-tips">Tips : 用户名和密码随便填。</p>
+        <p class="login-tips">Tips : Register not implemented yet :></p>
       </el-form>
     </div>
   </div>
@@ -38,15 +38,16 @@ export default {
   data() {
     return {
       param: {
-        username: 'admin',
-        password: '123123',
+        username: '',
+        password: '',
       },
       rules: {
         username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { required: true, message: 'Please enter a username', trigger: 'blur' },
         ],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        password: [{ required: true, message: 'Please enter your password', trigger: 'blur' }],
       },
+      loading: false,
     };
   },
   methods: {
@@ -54,13 +55,23 @@ export default {
       // eslint-disable-next-line consistent-return
       this.$refs.login.validate((valid) => {
         if (valid) {
-          this.$message.success('登录成功');
-          localStorage.setItem('ms_username', this.param.username);
-          this.$router.push('/');
+          this.loading = true;
+          this.$message.success('User input is valid');
+          this.$store.dispatch('login', this.param)
+            .then(() => {
+              this.$notify({
+                title: 'Login successful',
+                message: `Access Token: ${this.$store.getters.token}`,
+                duration: 0,
+              });
+              this.$router.push('/');
+              this.loading = false;
+            }).catch((error) => {
+              this.$message.error(error);
+              this.loading = false;
+            });
         } else {
-          this.$message.error('请输入账号和密码');
-          // eslint-disable-next-line no-console
-          console.log('error submit!!');
+          this.$message.error('Please enter your username and pssword');
           return false;
         }
       });

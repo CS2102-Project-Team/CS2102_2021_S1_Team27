@@ -11,17 +11,16 @@ export const constantRoutes = [
   },
   {
     path: '/404',
-    component: () => import('@/views/login/index'), // non-existent
+    component: () => import('@/views/home/index'),
     hidden: true,
   },
   {
     path: '/', // to be modified
-    component: () => import('@/views/login/index'), // non-existent
-    redirect: '/login',
+    component: () => import('@/views/home/index'),
     children: [
       {
         path: 'dashboard',
-        component: () => import('@/views/login/index'),
+        component: () => import('@/views/home/index'),
         name: 'Dashboard',
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true },
       },
