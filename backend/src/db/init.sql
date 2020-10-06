@@ -30,12 +30,12 @@ CREATE TABLE admins(
 );
 
 CREATE TABLE cards(
-    cardnumber VARCHAR, -- shal we change this into an integer?
+    cardnumber INT, 
     holdername VARCHAR NOT NULL,
-    CVV VARCHAR(3) NOT NULL,  -- the CVV is 3 digits
+    CVV VARCHAR(4) NOT NULL, 
     expdate VARCHAR NOT NULL,
-    username VARCHAR REFERENCES accounts(username), --despite adi's email, can we simplify this into the user is the holder
-    PRIMARY KEY (cardnumber, username) -- may be (cardnumber, username) is a super key, shall cardnumber be a primary key?
+    username VARCHAR REFERENCES accounts(username),
+    PRIMARY KEY (cardnumber, username) 
 );
 
 CREATE TABLE petowners(
