@@ -46,7 +46,7 @@ CREATE TABLE pettypes(
 );
 
 CREATE TABLE pets(
-    powner VARCHAR REFERENCES petowners(username) ON DELETE CASCADE,
+    powner VARCHAR NOT NULL REFERENCES petowners(username) ON DELETE CASCADE,
     pname VARCHAR,
     remark VARCHAR,
     ptype VARCHAR REFERENCES pettypes(ptype) ON DELETE CASCADE,
@@ -110,6 +110,7 @@ CREATE TABLE orders(
     FOREIGN KEY (powner, pname) REFERENCES pets(powner, pname),
     FOREIGN KEY (ctaker, ptype, sdate, edate) REFERENCES services(ctaker, ptype, sdate, edate)
 );
+
 
 CREATE TABLE tokens(
     token VARCHAR PRIMARY KEY
