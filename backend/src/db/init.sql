@@ -19,20 +19,22 @@ CREATE TABLE accounts(
     email VARCHAR NOT NULL UNIQUE,
     phone VARCHAR,
     addres VARCHAR,
-    realname VARCHAR
+    realname VARCHAR,
+    CHECK (email LIKE '%[a-zA-Z0-9_\-]+@([a-zA-Z0-9_\-]+\.)+  (com|org|edu|nz|au])%') -- add format constraints on email address using regex
 );
 
 CREATE TABLE admins(
-    username VARCHAR PRIMARY KEY REFERENCES accounts(username)
+    username VARCHAR PRIMARY KEY REFERENCES accounts(username),
+    privilege VARCHAR -- privilege for admins
 );
 
 CREATE TABLE cards(
-    cardnumber VARCHAR,
+    cardnumber VARCHAR, -- shal we change this into an integer?
     holdername VARCHAR NOT NULL,
-    CVV VARCHAR(4) NOT NULL,
+    CVV VARCHAR(3) NOT NULL,  -- the CVV is 3 digits
     expdate VARCHAR NOT NULL,
-    username VARCHAR REFERENCES accounts(username),
-    PRIMARY KEY (cardnumber, username)
+    username VARCHAR REFERENCES accounts(username), --despite adi's email, can we simplify this into the user is the holder
+    PRIMARY KEY (cardnumber, username) -- may be (cardnumber, username) is a super key, shall cardnumber be a primary key?
 );
 
 CREATE TABLE petowners(
