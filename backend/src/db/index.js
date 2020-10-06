@@ -1,4 +1,4 @@
-const Pool = require('pg').Pool;
+const { Pool } = require('pg');
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -7,8 +7,9 @@ const pool = new Pool({
   database: process.env.DATABASE_URL ? undefined : 'api',
   password: process.env.DATABASE_URL ? undefined : '1234',
   port: process.env.DATABASE_URL ? undefined : 5432,
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
 });
 
 module.exports = {
-    query: (text, params) => pool.query(text, params),
-}
+  query: (text, params) => pool.query(text, params),
+};

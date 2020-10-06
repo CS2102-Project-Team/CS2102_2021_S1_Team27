@@ -190,14 +190,18 @@ router.post('/user/login', async (req, res, next) => { // look up the user in db
       });
       return;
     }
-    req.user = await db.functions.getUserByUsername(req.body.username);
+    try {
+      req.user = await db.functions.getUserByUsername(req.body.username);
+    } catch (e) {
+      console.log(`getUserByUsername error: ${e}`);
+    }
   } else {
     res.status(501).json({
       error: 'requested login method not supported',
     });
     return;
   }
-  if (req.user === null) {
+  if (req.user === undefined) {
     res.status(404).json({
       error: 'username or email does not exist',
     });
@@ -223,14 +227,17 @@ router.post('/user/login', async (req, res, next) => { // look up the user in db
 }, async (req, res) => { // no error
   console.log(req.user);
   const user = { username: req.user.username };
+  console.log('aaa');
   const accessToken = generateAccessToken(user);
-  await db.functions.pushAccessToken(accessToken);
+  console.log('bbb');
+  // await db.functions.pushAccessToken(accessToken);
   res.json({
     access_token: accessToken,
   });
 });
 
 router.post('/user/logout', (req, res) => {
+  /*
   db.functions.removeAccessToken(req.body.access_token, (err) => {
     if (err !== null) {
       // console.log("got err...")
@@ -239,6 +246,8 @@ router.post('/user/logout', (req, res) => {
     }
     res.json('success');
   });
+  */
+  res.sendStatus(501);
 });
 
 router.post('/user/fgtpswd', async (req, res) => {
