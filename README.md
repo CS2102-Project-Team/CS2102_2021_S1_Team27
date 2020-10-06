@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/CS2102-Project-Team/petanything-admin)
+
 # vue-admin-template
 
 English | [简体中文](./README-zh.md)
