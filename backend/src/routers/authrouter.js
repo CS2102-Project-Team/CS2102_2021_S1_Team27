@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
-const db = require('../db/db');
+const db = require('../db/User Authentication/db');
+const db_admin = require('../db/AdminAuthentication/Admin');
 
 /**
    * Generates an access token for the given username
@@ -274,6 +275,131 @@ router.post('/user/fgtpswd', async (req, res) => {
 });
 
 router.post('/user/updatepswd', async (req, res, next) => { // look up the user
+  if (!req.body.email) {
+    res.status(400).json({
+      error: 'Missing email',
+    });
+    return;
+  }
+  req.user = await db.functions.getUserByEmail(req.body.email);
+  if (req.user === null) {
+    res.status(404).json({
+      error: 'username or email does not exist',
+    });
+    return;
+  }
+  next();
+}, async (req, res, next) => { // user found, compare password here
+  try {
+    if (await bcrypt.compare(req.body.old_password, req.user.passwd)) {
+      next();
+    } else {
+      res.status(403).json({
+        error: 'Incorrect password',
+      });
+      return;
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({
+      error: 'unknown, devs are working on it...', // Nah, wont fix
+    });
+  }
+}, async (req, res) => {
+  try {
+    const passwd = await bcrypt.hash(req.body.new_password, saltRounds);
+    const rrr = await db.functions.changePassword(
+      req.body.email,
+      passwd,
+    );
+    res.status(200).json('success');
+    return;
+  } catch (err) {
+    res.status(500).json({
+      error: 'Internal server error',
+    });
+  }
+});
+
+// For admin
+router.post('/admin/login', async (req, res, next) => { // look up the user in db
+  if (req.query.by === 'email') {
+    if (!req.body.email) {
+      res.status(400).json({
+        error: 'Missing email',
+      });
+      return;
+    }
+    // Todo: implement db function in /db/db.js
+    req.user = await db.functions.getUserByEmail(req.body.email);
+  } else if (req.query.by === 'username') {
+    if (!req.body.username) {
+      res.status(400).json({
+        error: 'Missing username',
+      });
+      return;
+    }
+    try {
+      req.user = await db.functions.getUserByUsername(req.body.username);
+    } catch (e) {
+      console.log(`getUserByUsername error: ${e}`);
+    }
+  } else {
+    res.status(501).json({
+      error: 'requested login method not supported',
+    });
+    return;
+  }
+  if (req.user === undefined) {
+    res.status(404).json({
+      error: 'username or email does not exist',
+    });
+    return;
+  }
+  next();
+}, async (req, res, next) => { // user found, compare password here
+  try {
+    if (await bcrypt.compare(req.body.password, req.user.passwd)) {
+      next();
+    } else {
+      res.status(403).json({
+        error: 'Incorrect password',
+      });
+      return;
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({
+      error: 'unknown, devs are working on it...', // Nah, wont fix
+    });
+  }
+}, async (req, res) => { // no error
+  console.log(req.user);
+  const user = { username: req.user.username };
+  console.log('aaa');
+  const accessToken = generateAccessToken(user);
+  console.log('bbb');
+  // await db.functions.pushAccessToken(accessToken);
+  res.json({
+    access_token: accessToken,
+  });
+});
+
+router.post('/admin/logout', (req, res) => {
+  /*
+  db.functions.removeAccessToken(req.body.access_token, (err) => {
+    if (err !== null) {
+      // console.log("got err...")
+      res.status(404).json({ error: err });
+      return;
+    }
+    res.json('success');
+  });
+  */
+  res.sendStatus(501);
+});
+
+router.post('/admin/updatepswd', async (req, res, next) => { // look up the user
   if (!req.body.email) {
     res.status(400).json({
       error: 'Missing email',
