@@ -20,6 +20,7 @@ async function registerUser(username, email, password) {
   */
 }
 
+/*
 async function pushAccessToken(token) {
   const { rows } = await db.query('INSERT INTO tokens(token) VALUES ($1)', [token]);
   return rows;
@@ -37,6 +38,7 @@ async function removeAccessToken(token) {
   const { rows } = await db.query('DELETE FROM tokens WHERE token = $1', [token]);
   return rows;
 }
+*/
 
 async function changePassword(email, password) {
   const { rows } = await db.query('UPDATE accounts SET passwd = $2 WHERE email = $1', [email, password]);
@@ -63,9 +65,6 @@ module.exports = {
     getUserByEmail,
     getUserByUsername,
     registerUser,
-    pushAccessToken,
-    checkAccessToken,
-    removeAccessToken,
     changePassword,
     getCards,
     insertCard,

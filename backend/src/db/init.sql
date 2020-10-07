@@ -111,8 +111,3 @@ CREATE TABLE orders(
     FOREIGN KEY (powner, pname) REFERENCES pets(powner, pname),
     FOREIGN KEY (ctaker, ptype, sdate, edate) REFERENCES services(ctaker, ptype, sdate, edate)
 );
-
-
-CREATE TABLE tokens(
-    token VARCHAR PRIMARY KEY
-);
