@@ -13,26 +13,29 @@ DROP TABLE IF EXISTS petowners;
 DROP TABLE IF EXISTS accounts;
 
 
+
 CREATE TABLE accounts(
     username VARCHAR PRIMARY KEY,
     passwd VARCHAR NOT NULL,
     email VARCHAR NOT NULL UNIQUE,
     phone VARCHAR,
     addres VARCHAR,
-    realname VARCHAR
+    realname VARCHAR,
+    CHECK (email LIKE '%[a-zA-Z0-9_\-]+@([a-zA-Z0-9_\-]+\.)+  (com|org|edu|nz|au])%') -- add format constraints on email address using regex
 );
 
 CREATE TABLE admins(
-    username VARCHAR PRIMARY KEY REFERENCES accounts(username)
+    username VARCHAR PRIMARY KEY REFERENCES accounts(username),
+    privilege VARCHAR -- privilege for admins
 );
 
 CREATE TABLE cards(
-    cardnumber VARCHAR,
+    cardnumber INT, 
     holdername VARCHAR NOT NULL,
-    CVV VARCHAR(4) NOT NULL,
+    CVV VARCHAR(4) NOT NULL, 
     expdate VARCHAR NOT NULL,
     username VARCHAR REFERENCES accounts(username),
-    PRIMARY KEY (cardnumber, username)
+    PRIMARY KEY (cardnumber, username) 
 );
 
 CREATE TABLE petowners(
@@ -44,7 +47,7 @@ CREATE TABLE pettypes(
 );
 
 CREATE TABLE pets(
-    powner VARCHAR REFERENCES petowners(username) ON DELETE CASCADE,
+    powner VARCHAR NOT NULL REFERENCES petowners(username) ON DELETE CASCADE,
     pname VARCHAR,
     remark VARCHAR,
     ptype VARCHAR REFERENCES pettypes(ptype) ON DELETE CASCADE,
@@ -108,6 +111,7 @@ CREATE TABLE orders(
     FOREIGN KEY (powner, pname) REFERENCES pets(powner, pname),
     FOREIGN KEY (ctaker, ptype, sdate, edate) REFERENCES services(ctaker, ptype, sdate, edate)
 );
+
 
 CREATE TABLE tokens(
     token VARCHAR PRIMARY KEY
