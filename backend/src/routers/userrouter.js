@@ -8,8 +8,26 @@ const router = express.Router();
 router.get('/user', auth.authenticateToken, async (req, res) => {
   try {
     const user = await db.functions.getUserByUsername(req.user.username);
-    res.status(200).json({username: user.username, email: user.email});
+    res.status(200).json({
+      username: user.username,
+      email: user.email,
+      phone: user.phone,
+      address: user.addres,
+      realname: user.realname,
+    });
     return;
+  } catch (err) {
+    res.status(500).json('error');
+  }
+});
+
+router.put('/user', auth.authenticateToken, async (req, res) => {
+  try {
+    const { phone } = req.body;
+    const { address } = req.body;
+    const { realname } = req.body;
+    const insRes = await db.functions.updateUser(req.user.username, phone, address, realname);
+    res.status(200).json('success');
   } catch (err) {
     res.status(500).json('error');
   }

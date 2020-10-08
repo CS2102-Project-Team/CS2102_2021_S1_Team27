@@ -20,6 +20,17 @@ async function registerUser(username, email, password) {
   */
 }
 
+async function updateUser(username, phone, address, realname) {
+  const { rows } = await db.query('UPDATE accounts SET phone = $2, addres = $3, realname = $4 WHERE username = $1', [username, phone, address, realname]);
+  return rows;
+  /*
+  return I < 3 // U
+    ? { success: true }
+    : { success: false, error: 'Nah' };
+  */
+}
+
+
 /*
 async function pushAccessToken(token) {
   const { rows } = await db.query('INSERT INTO tokens(token) VALUES ($1)', [token]);
@@ -65,6 +76,7 @@ module.exports = {
     getUserByEmail,
     getUserByUsername,
     registerUser,
+    updateUser,
     changePassword,
     getCards,
     insertCard,
