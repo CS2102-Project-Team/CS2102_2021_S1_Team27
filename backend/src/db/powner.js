@@ -4,33 +4,33 @@ async function getUserByEmail(email) {
   const { rows } = await db.query('SELECT * FROM accounts WHERE email = $1', [email]);
   return rows[0];
 }
-  
-async function getUserByUsername(username) {
-  const { rows } = await db.query('SELECT * FROM accounts WHERE username = $1', [username]);
-  return rows[0];
-}
-  
-async function registerUser(username, email, password) {
-  const { rows } = await db.query('INSERT INTO accounts(username, passwd, email) VALUES ($1, $2, $3)', [username, password, email]);
+
+async function getPets(username) {
+  const { rows } = await db.query('SELECT pname, ptype, remark FROM pets WHERE powner = $1', [username]);
   return rows;
-  /*
-    return I < 3 // U
-      ? { success: true }
-      : { success: false, error: 'Nah' };
-    */
 }
 
+async function insertPet(username, petname, pettype, remark) {
+  const { rows } = await db.query('INSERT INTO pets(powner, pname, ptype, remark) VALUES ($1, $2, $3, $4)', [username, petname, pettype, remark]);
+  return rows;
+}
 
-  
+async function changePet(username, petname, pettype, remark) {
+  const { rows } = await db.query('UPDATE pets SET ptype = $3, remark = $4 WHERE powner = $1 AND pname = $2', [username, petname, pettype, remark]);
+  return rows;
+}
+
+async function deletePet(username, petname) {
+  const { rows } = await db.query('DELETE FROM pets WHERE powner = $1 AND pname = $2', [username, petname]);
+  return rows;
+}
+
 module.exports = {
   functions: {
     getUserByEmail,
-    getUserByUsername,
-    registerUser,
-    changePassword,
-    getCards,
-    insertCard,
-    deleteCard,
+    getPets,
+    insertPet,
+    changePet,
+    deletePet,
   },
 };
-  

@@ -20,8 +20,7 @@ CREATE TABLE accounts(
     email VARCHAR NOT NULL UNIQUE,
     phone VARCHAR,
     addres VARCHAR,
-    realname VARCHAR,
-    CHECK (email LIKE '%[a-zA-Z0-9_\-]+@([a-zA-Z0-9_\-]+\.)+  (com|org|edu|nz|au])%') -- add format constraints on email address using regex
+    realname VARCHAR
 );
 
 CREATE TABLE admins(
@@ -38,16 +37,16 @@ CREATE TABLE cards(
     PRIMARY KEY (cardnumber, username) 
 );
 
-CREATE TABLE petowners(
-    username VARCHAR PRIMARY KEY REFERENCES accounts(username) ON DELETE CASCADE
-);
-
 CREATE TABLE pettypes(
     ptype VARCHAR PRIMARY KEY
 );
 
+INSERT INTO pettypes(ptype) VALUES ('cat');
+INSERT INTO pettypes(ptype) VALUES ('dog');
+
+
 CREATE TABLE pets(
-    powner VARCHAR NOT NULL REFERENCES petowners(username) ON DELETE CASCADE,
+    powner VARCHAR NOT NULL REFERENCES accounts(username) ON DELETE CASCADE,
     pname VARCHAR,
     remark VARCHAR,
     ptype VARCHAR REFERENCES pettypes(ptype) ON DELETE CASCADE,
