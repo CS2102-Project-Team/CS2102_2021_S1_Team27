@@ -145,4 +145,32 @@ router.post('/bid', auth.authenticateToken, async (req, res) => {
   }
 });
 
+
+
+router.get('/bid', auth.authenticateToken, async (req, res) => {
+  const { startdate } = req.body;
+  const { enddate } = req.body;
+
+  try {
+    const insRes = await db.functions.getBid(req.user.username, startdate, enddate);
+    res.status(200).json(insRes);
+    return;
+  } catch (err) {
+    res.status(500).json('error');
+  }
+});
+
+router.delete('/bid', auth.authenticateToken, async (req, res) => {
+  
+  try {
+    const { bidid } = req.body;
+    const insRes = await db.functions.deleteBid(bidid);
+    res.status(204).json('success');
+    return;
+  } catch (err) {
+    res.status(500).json('error');
+  }
+});
+
+
 module.exports = router;

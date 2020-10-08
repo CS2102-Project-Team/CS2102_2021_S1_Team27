@@ -1,3 +1,4 @@
+const { rows } = require('pg/lib/defaults');
 const db = require('./index');
 
 async function getUserByEmail(email) {
@@ -36,10 +37,23 @@ async function insertBid(powner, pname, ctaker, ptype, startdate, enddate, payme
   const time = Date.now() / 1000;
   const bidstatus = 'bid';
   console.log(bidstatus);
-  const { rows } = await db.query('INSERT INTO orders(powner, pname, ctaker, ptype, sdate, edate, delivery, payment, status) VALUES ($2, $3, $4, $5, $6, $7, $8, $9, $10)', [time, powner, pname, ctaker, ptype, startdate, enddate, deliverymode, paymentmethod, bidstatus]);
+  const { rows } = await db.query('INSERT INTO orders(powner, pname, ctaker, ptype, sdate, edate, delivery, payment, status) VALUES ($2, $3, $4, $5, $6, $7, $8, $9, $10)', 
+    [time, powner, pname, ctaker, ptype, startdate, enddate, deliverymode, paymentmethod, bidstatus]);
   console.log("tracking debugging");
   return rows;
 }
+
+
+async function getBid(username, startdate, enddate) {
+  const { rows } = await db.query('SELECT pname, ctaker, ptype, sdate, edate, delivery, payment, status FROM orders WHERE powner = $1 AND sdate >= $2 AND edate <= $3', [username, startdate, enddate]);
+  return rows;
+}
+
+async function deleteBid(bidid) {
+  const { rows } = await db.query('DELETE FROM orders WHERE id = $1', [bidid]);
+  return rows;
+}
+
 
 module.exports = {
   functions: {
@@ -50,5 +64,7 @@ module.exports = {
     deletePet,
     getService,
     insertBid,
+    getBid,
+    deleteBid,
   },
 };
