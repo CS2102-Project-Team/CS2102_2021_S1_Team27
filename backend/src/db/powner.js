@@ -25,6 +25,22 @@ async function deletePet(username, petname) {
   return rows;
 }
 
+async function getService(petcategory, startdate, enddate) {
+  const { rows } = await db.query('SELECT ctaker, price FROM services WHERE sdate >= $2 AND edate <= $3 AND ptype = $1', [petcategory, startdate, enddate]);
+  return rows;
+}
+
+
+
+async function insertBid(powner, pname, ctaker, ptype, startdate, enddate, paymentmethod, deliverymode) {
+  const time = Date.now() / 1000;
+  const bidstatus = 'bid';
+  console.log(bidstatus);
+  const { rows } = await db.query('INSERT INTO orders(powner, pname, ctaker, ptype, sdate, edate, delivery, payment, status) VALUES ($2, $3, $4, $5, $6, $7, $8, $9, $10)', [time, powner, pname, ctaker, ptype, startdate, enddate, deliverymode, paymentmethod, bidstatus]);
+  console.log("tracking debugging");
+  return rows;
+}
+
 module.exports = {
   functions: {
     getUserByEmail,
@@ -32,5 +48,7 @@ module.exports = {
     insertPet,
     changePet,
     deletePet,
+    getService,
+    insertBid,
   },
 };

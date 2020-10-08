@@ -88,4 +88,61 @@ router.delete('/pets', auth.authenticateToken, async (req, res) => {
   }
 });
 
+
+
+router.get('/search', auth.authenticateToken, async (req, res) => {
+  const { petcategory } = req.body;
+  const { startdate } = req.body;
+  const { enddate } = req.body;
+
+  try {
+    const insRes = await db.functions.getService(petcategory, startdate, enddate);
+    res.status(200).json(insRes);
+    return;
+  } catch (err) {
+    res.status(500).json('error');
+  }
+});
+
+
+router.post('/bid', auth.authenticateToken, async (req, res) => {
+  const { ctaker } = req.body;
+  const { pname } = req.body;
+  const { petcategory } = req.body;
+  const { startdate } = req.body;
+  const { enddate } = req.body;
+  const { paymentmethod } = req.body;
+  const { deliverymode } = req.body;
+
+  
+
+  if (typeof startdate !== 'string'
+        || typeof pname !== 'string'
+        || typeof enddate !== 'string'
+        || typeof petcategory !== 'string'
+        || typeof paymentmethod !== 'string'
+        || typeof deliverymode !== 'string'
+  ) {
+    
+    res.status(400).json('incorrect data format');
+    return;
+  }
+  try {
+    
+    
+    const insRes = await db.functions.insertBid(req.user.username, pname, ctaker, petcategory,
+       startdate, enddate, paymentmethod, deliverymode);
+
+    
+    res.status(204).json('success');
+    return;
+  } catch (err) {
+    if (err.code === '23505') {
+      res.status(500).json('duplicate bid');
+      return;
+    }
+    res.status(500).json('error');
+  }
+});
+
 module.exports = router;

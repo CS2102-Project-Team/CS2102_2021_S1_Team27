@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/lirc572/CS2102_2021_S1_Team27/issues"
   },
-  "homepage": "https://github.com/lirc572/CS2102_2021_S1_Team27#readme"
+  "homepage": "https://github.com/lirc572/CS2102_2021_S1_Team27#readme",
+  "dependencies": {
+    "nrm": "^1.2.1"
+  }
 }
