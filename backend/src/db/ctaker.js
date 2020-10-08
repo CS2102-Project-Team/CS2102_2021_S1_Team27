@@ -27,10 +27,6 @@ module.exports = {
     getUserByEmail,
     getUserByUsername,
     registerUser,
-    changePassword,
-    getCards,
-    insertCard,
-    deleteCard,
   },
 };
   

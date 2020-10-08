@@ -19,9 +19,9 @@ router.get('/', (req, res) => res.redirect(307, 'https://cs2102-doc.netlify.app/
 Skip authentication: (req,res,next) => {req.user = 'kyle';next();},
 */
 
-router.get('/cards', auth.authenticateToken, async (req, res) => {
+router.get('/pets', auth.authenticateToken, async (req, res) => {
   try {
-    const insRes = await db.functions.getCards(req.user.username);
+    const insRes = await db.functions.getPets(req.user.username);
     res.status(200).json(insRes);
     return;
   } catch (err) {
@@ -29,21 +29,43 @@ router.get('/cards', auth.authenticateToken, async (req, res) => {
   }
 });
 
-router.post('/cards', auth.authenticateToken, async (req, res) => {
-  const { cardnumber } = req.body;
-  const { cvv } = req.body;
-  const { exp } = req.body;
-  const { username } = req.user;
+router.post('/pets', auth.authenticateToken, async (req, res) => {
+  const { name } = req.body;
+  const { remark } = req.body;
+  const { type } = req.body;
 
-  if (typeof cardnumber !== 'string'
-        || typeof cvv !== 'string'
-        || typeof exp !== 'string'
+  if (typeof name !== 'string'
+        || typeof remark !== 'string'
   ) {
     res.status(400);
     return;
   }
   try {
-    const insRes = await db.functions.insertCard(cardnumber, cvv, exp, username);
+    const insRes = await db.functions.insertPet(req.user.username, name, type, remark);
+    res.status(204).json('success');
+    return;
+  } catch (err) {
+    if (err.code === '23505') {
+      res.status(500).json('duplicate petname');
+      return;
+    }
+    res.status(500).json('error');
+  }
+});
+
+router.put('/pets', auth.authenticateToken, async (req, res) => {
+  const { name } = req.body;
+  const { remark } = req.body;
+  const { type } = req.body;
+
+  if (typeof name !== 'string'
+        || typeof remark !== 'string'
+  ) {
+    res.status(400);
+    return;
+  }
+  try {
+    const insRes = await db.functions.changePet(req.user.username, name, type, remark);
     res.status(204).json('success');
     return;
   } catch (err) {
@@ -51,10 +73,14 @@ router.post('/cards', auth.authenticateToken, async (req, res) => {
   }
 });
 
-router.delete('/cards', auth.authenticateToken, async (req, res) => {
+router.delete('/pets', auth.authenticateToken, async (req, res) => {
   try {
-    const { cardnumber } = req.body;
-    const insRes = await db.functions.deleteCard(cardnumber);
+    const { name } = req.body;
+    if (typeof name !== 'string') {
+      res.status(400);
+      return;
+    }
+    const insRes = await db.functions.deletePet(req.user.username, name);
     res.status(204).json('success');
     return;
   } catch (err) {
