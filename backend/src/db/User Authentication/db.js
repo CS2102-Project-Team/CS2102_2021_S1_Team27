@@ -62,9 +62,11 @@ async function getCards(username) {
 }
 
 async function insertCard(cardnum, cvv, exp, username) {
-  const { rows } = await db.query('INSERT INTO cards(cardnumber, CVV, expdate, username) VALUES ($1, $2, $3, $4)', [cardnum, cvv, exp, username]);
+  const { rows } = await db.query('INSERT INTO cards(cardnumber, holdername, CVV, expdate, username) VALUES ($1, $4, $2, $3, $4)', [cardnum, cvv, exp, username]);
   return rows;
 }
+// TODO: as holdername in the card NOT NULL, thus we have to insert holdername here. 
+// I now user a dummy value: username, may need to change later.
 
 async function deleteCard(cardnum) {
   const { rows } = await db.query('DELETE FROM cards WHERE cardnumber = $1', [cardnum]);

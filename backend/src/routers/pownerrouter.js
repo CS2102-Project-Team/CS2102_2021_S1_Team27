@@ -5,6 +5,7 @@ const db = require('../db/powner');
 
 const router = express.Router();
 
+// tested
 router.get('/user', auth.authenticateToken, async (req, res) => {
   try {
     const user = await db.functions.getUserByUsername(req.user.username);
