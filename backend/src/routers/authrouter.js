@@ -228,9 +228,9 @@ router.post('/user/login', async (req, res, next) => { // look up the user in db
 }, async (req, res) => { // no error
   console.log(req.user);
   const user = { username: req.user.username };
-  console.log('aaa');
+
   const accessToken = generateAccessToken(user);
-  console.log('bbb');
+
   // await db.functions.pushAccessToken(accessToken);
   res.json({
     access_token: accessToken,
@@ -256,6 +256,7 @@ router.post('/user/fgtpswd', async (req, res) => {
     let newPassword = Math.random().toString(36).substring(2, 10); // 8dig str
     newPassword = await bcrypt.hash(newPassword, saltRounds);
     const rrr = await db.functions.changePassword(req.body.email, newPassword);
+    console.log(newPassword);
     if (rrr === 200) {
       sendEmail(req.body.email, 'Your Temporary Password for Pet-Anything', newPassword);
     } else if (rrr === 500) {
