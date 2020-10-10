@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 app.use(express.json());
 app.use(cors());
 
-morgan.token('body', (req, res) => req.body);
+morgan.token('body', (req) => JSON.stringify(req.body));
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" <:body> :status :res[content-length] ":referrer" ":user-agent"'));
 
 app.use('/api/v1', apiRouter);
