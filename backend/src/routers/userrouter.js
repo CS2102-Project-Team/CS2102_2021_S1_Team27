@@ -1,6 +1,6 @@
 const express = require('express');
 const auth = require('./auth');
-const db = require('../db/User Authentication/db');
+const db = require('../db/User');
 const { user } = require('pg/lib/defaults');
 // const { body, validationResult } = require('express-validator');
 

@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
-const db = require('../db/User Authentication/db');
-const db_admin = require('../db/AdminAuthentication/Admin');
+const db = require('../db/User');
+const db_admin = require('../db/Admin');
 
 /**
    * Generates an access token for the given username
