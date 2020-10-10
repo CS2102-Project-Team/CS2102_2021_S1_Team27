@@ -76,15 +76,20 @@ router.put('/pets', auth.authenticateToken, async (req, res) => {
 
 router.delete('/pets', auth.authenticateToken, async (req, res) => {
   try {
-    const { name } = req.body;
-    if (typeof name !== 'string') {
-      res.status(400);
-      return;
-    }
-    const insRes = await db.functions.deletePet(req.user.username, name);
+    
+    const petname = req.query.petname;
+    
+    // if (typeof petname !== 'string') {
+    //   console.log("debug");
+    //   res.status(400);
+    //   return;
+    // }
+    console.log(petname + " " + req.user.username);
+    const insRes = await db.functions.deletePet(req.user.username, petname);
     res.status(204).json('success');
     return;
   } catch (err) {
+    console.log(err);
     res.status(500).json('error');
   }
 });
@@ -106,7 +111,7 @@ router.get('/search', auth.authenticateToken, async (req, res) => {
 });
 
 // tested
-router.post('/bid', auth.authenticateToken, async (req, res) => {
+router.post('/order', auth.authenticateToken, async (req, res) => {
   const { caretakername } = req.body;
   const { petname } = req.body;
   //const { petcategory } = req.body;
@@ -115,8 +120,6 @@ router.post('/bid', auth.authenticateToken, async (req, res) => {
   const { paymentmethod } = req.body;
   const { deliverymode } = req.body;
   const { username } = req.user;
-
-  
 
   if (typeof startdate !== 'string'
         || typeof petname !== 'string'
@@ -154,16 +157,22 @@ router.post('/bid', auth.authenticateToken, async (req, res) => {
 });
 
 
-
-router.get('/bid', auth.authenticateToken, async (req, res) => {
-  const { startdate } = req.body;
-  const { enddate } = req.body;
+// tested, a little different from API -> added powner and ptype, little confused about pricing
+router.get('/order', auth.authenticateToken, async (req, res) => {
+  const include_history = req.params;
 
   try {
-    const insRes = await db.functions.getBid(req.user.username, startdate, enddate);
-    res.status(200).json(insRes);
+    let insRes = '';
+    if (include_history === true) {
+      insRes = await db.functions.getAllBids(req.user.username);
+    } else {
+      insRes = await db.functions.getBidExceptStatus(req.user.username, 'Service Finished');
+    }
+    
+    res.status(204).json(insRes);
     return;
   } catch (err) {
+    console.log(err);
     res.status(500).json('error');
   }
 });
@@ -180,5 +189,30 @@ router.delete('/bid', auth.authenticateToken, async (req, res) => {
   }
 });
 
+//tested yayy
+router.put('/order', auth.authenticateToken, async (req, res) => {
+  const { petname } = req.body;
+  const { caretakerusername } = req.body;
+  const { startdate } = req.body;
+  const { enddate } = req.body;
+  const { rating } = req.body;
+  const { feedback } = req.body;
+
+  if (typeof petname !== 'string'
+        // as many of the attributes are not limited to not null, not sure if gonna check
+  ) {
+    res.status(400);
+    return;
+  }
+  try {
+    const insRes = await db.functions.changeBid(req.user.username, petname, caretakerusername,
+       startdate, enddate, rating, feedback);
+    res.status(204).json('success');
+    return;
+  } catch (err) {
+    console.log(err);
+    res.status(500).json('error');
+  }
+});
 
 module.exports = router;

@@ -50,13 +50,25 @@ async function insertBid(powner, pname, ctaker, ptype, startdate, enddate, payme
 }
 
 
-async function getBid(username, startdate, enddate) {
-  const { rows } = await db.query('SELECT pname, ctaker, ptype, sdate, edate, delivery, payment, status FROM orders WHERE powner = $1 AND sdate >= $2 AND edate <= $3', [username, startdate, enddate]);
+async function getBidExceptStatus(username, status) {
+  const { rows } = await db.query('SELECT powner, pname, ptype, ctaker, sdate, edate, payment, delivery, (SELECT price FROM services S WHERE S.ctaker = ctaker AND S.ptype = ptype AND S.sdate = sdate AND S.edate = edate), status, (SELECT rating FROM caretakers WHERE username = $1), review FROM orders WHERE powner = $1 AND status <> $2', [username, status]);
+  return rows;
+}
+
+async function getAllBids(username) {
+  const { rows } = await db.query('SELECT powner, pname, ptype, ctaker, sdate, edate, payment, delivery, (SELECT price FROM services S WHERE S.ctaker = ctaker AND S.ptype = ptype AND S.sdate = sdate AND S.edate = edate), status, (SELECT rating FROM caretakers WHERE username = $1), review FROM orders WHERE powner = $1', [username]);
   return rows;
 }
 
 async function deleteBid(bidid) {
   const { rows } = await db.query('DELETE FROM orders WHERE id = $1', [bidid]);
+  return rows;
+}
+
+async function changeBid(username, petname, caretakerusername,
+  startdate, enddate, rating, feedback) {
+  const { rows } = await db.query('UPDATE orders SET rating = $6, review = $7 WHERE powner = $1 AND pname = $2 AND ctaker = $3 AND sdate = $4 AND edate = $5', [username, petname, caretakerusername,
+    startdate, enddate, rating, feedback]);
   return rows;
 }
 
@@ -71,7 +83,9 @@ module.exports = {
     deletePet,
     getService,
     insertBid,
-    getBid,
+    getBidExceptStatus,
+    getAllBids,
     deleteBid,
+    changeBid,
   },
 };
