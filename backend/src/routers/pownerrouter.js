@@ -42,7 +42,7 @@ router.post('/pet', auth.authenticateToken, async (req, res) => {
     return;
   }
   try {
-    const insRes = await db.functions.insertPet(req.user.username, name, type, remark);
+    await db.functions.insertPet(req.user.username, name, type, remark);
     res.status(204).json('success');
     return;
   } catch (err) {
@@ -66,7 +66,7 @@ router.put('/pet', auth.authenticateToken, async (req, res) => {
     return;
   }
   try {
-    const insRes = await db.functions.changePet(req.user.username, name, type, remark);
+    await db.functions.changePet(req.user.username, name, type, remark);
     res.status(204).json('success');
     return;
   } catch (err) {
@@ -83,11 +83,13 @@ router.delete('/pet', auth.authenticateToken, async (req, res) => {
     //   res.status(400);
     //   return;
     // }
+    // eslint-disable-next-line no-console
     console.log(`${petname} ${req.user.username}`);
-    const insRes = await db.functions.deletePet(req.user.username, petname);
+    await db.functions.deletePet(req.user.username, petname);
     res.status(204).json('success');
     return;
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log(err);
     res.status(500).json('error');
   }
@@ -132,9 +134,10 @@ router.post('/order', auth.authenticateToken, async (req, res) => {
   try {
     const pet = await db.functions.getThePet(username, petname);
     const { ptype } = pet[0];
+    // eslint-disable-next-line no-console
     console.log(ptype);
 
-    const insRes = await db.functions.insertBid(username, petname, caretakername, ptype,
+    await db.functions.insertBid(username, petname, caretakername, ptype,
       startdate, enddate, paymentmethod, deliverymode);
 
     res.status(204).json('success');
@@ -144,6 +147,7 @@ router.post('/order', auth.authenticateToken, async (req, res) => {
       res.status(500).json('duplicate bid');
       return;
     }
+    // eslint-disable-next-line no-console
     console.log(err);
     res.status(500).json('error');
   }
@@ -151,13 +155,15 @@ router.post('/order', auth.authenticateToken, async (req, res) => {
 
 // tested, a little different from API -> added powner and ptype, little confused about pricing
 router.get('/order', auth.authenticateToken, async (req, res) => {
-  const { include_history } = req.query;
+  const { include_history: includeHistory } = req.query;
 
   try {
-    console.log(include_history);
-    if (include_history) {
+    // eslint-disable-next-line no-console
+    console.log(includeHistory);
+    if (includeHistory) {
       // console.log("jiayou");
       const insRes = await db.functions.getAllBids(req.user.username);
+      // eslint-disable-next-line no-console
       console.log(insRes);
       res.status(200).json(insRes);
     } else {
@@ -167,6 +173,7 @@ router.get('/order', auth.authenticateToken, async (req, res) => {
 
     return;
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log(err);
     res.status(500).json('error');
   }
@@ -175,7 +182,7 @@ router.get('/order', auth.authenticateToken, async (req, res) => {
 router.delete('/bid', auth.authenticateToken, async (req, res) => {
   try {
     const { bidid } = req.body;
-    const insRes = await db.functions.deleteBid(bidid);
+    await db.functions.deleteBid(bidid);
     res.status(204).json('success');
     return;
   } catch (err) {
@@ -199,11 +206,12 @@ router.put('/order', auth.authenticateToken, async (req, res) => {
     return;
   }
   try {
-    const insRes = await db.functions.changeBid(req.user.username, petname, caretakerusername,
+    await db.functions.changeBid(req.user.username, petname, caretakerusername,
       startdate, enddate, rating, feedback);
     res.status(204).json('success');
     return;
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log(err);
     res.status(500).json('error');
   }

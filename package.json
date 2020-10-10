@@ -7,11 +7,6 @@
     "postinstall": "husky install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "cd backend && npm run lint"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lirc572/CS2102_2021_S1_Team27.git"

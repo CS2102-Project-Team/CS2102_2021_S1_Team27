@@ -43,7 +43,7 @@ router.post('/cards', auth.authenticateToken, async (req, res) => {
     return;
   }
   try {
-    const insRes = await db.functions.insertCard(cardnumber, cvv, exp, username);
+    await db.functions.insertCard(cardnumber, cvv, exp, username);
     res.status(204).json('success');
     return;
   } catch (err) {
@@ -54,7 +54,7 @@ router.post('/cards', auth.authenticateToken, async (req, res) => {
 router.delete('/cards', auth.authenticateToken, async (req, res) => {
   try {
     const { cardnumber } = req.body;
-    const insRes = await db.functions.deleteCard(cardnumber);
+    await db.functions.deleteCard(cardnumber);
     res.status(204).json('success');
     return;
   } catch (err) {

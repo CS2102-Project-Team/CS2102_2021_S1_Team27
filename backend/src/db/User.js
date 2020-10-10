@@ -68,7 +68,9 @@ async function insertCard(cardnum, cvv, exp, username) {
 // I now user a dummy value: username, may need to change later.
 
 async function deleteCard(cardnum) {
+  // eslint-disable-next-line no-unused-vars
   const intcardnum = parseInt(cardnum, 10);
+  // eslint-disable-next-line no-console
   console.log(cardnum);
   const { rows } = await db.query('DELETE FROM cards WHERE cardnumber = $1', [parseInt(cardnum, 10)]);
   return rows;
