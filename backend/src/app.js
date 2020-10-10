@@ -7,13 +7,15 @@ const apiRouter = require('./routers/apirouter');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(morgan('combined'));
-
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 app.use(express.json());
 app.use(cors());
+
+morgan.token('body', (req, res) => req.body);
+app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" <:body> :status :res[content-length] ":referrer" ":user-agent"'));
+
 app.use('/api/v1', apiRouter);
 
 app.get('/echo', (req, res) => {
