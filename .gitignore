@@ -1,4 +1,3 @@
 .vscode
 /frontend
 backend/node_modules/
-backend/src/db/index.js
