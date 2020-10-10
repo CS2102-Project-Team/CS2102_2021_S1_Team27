@@ -20,7 +20,7 @@ router.get('/', (req, res) => res.redirect(307, 'https://cs2102-doc.netlify.app/
 Skip authentication: (req,res,next) => {req.user = 'kyle';next();},
 */
 
-router.get('/pets', auth.authenticateToken, async (req, res) => {
+router.get('/pet', auth.authenticateToken, async (req, res) => {
   try {
     const insRes = await db.functions.getPets(req.user.username);
     res.status(200).json(insRes);
@@ -30,7 +30,7 @@ router.get('/pets', auth.authenticateToken, async (req, res) => {
   }
 });
 
-router.post('/pets', auth.authenticateToken, async (req, res) => {
+router.post('/pet', auth.authenticateToken, async (req, res) => {
   const { name } = req.body;
   const { remark } = req.body;
   const { type } = req.body;
@@ -54,7 +54,7 @@ router.post('/pets', auth.authenticateToken, async (req, res) => {
   }
 });
 
-router.put('/pets', auth.authenticateToken, async (req, res) => {
+router.put('/pet', auth.authenticateToken, async (req, res) => {
   const { name } = req.body;
   const { remark } = req.body;
   const { type } = req.body;
@@ -74,7 +74,7 @@ router.put('/pets', auth.authenticateToken, async (req, res) => {
   }
 });
 
-router.delete('/pets', auth.authenticateToken, async (req, res) => {
+router.delete('/pet', auth.authenticateToken, async (req, res) => {
   try {
     
     const petname = req.query.petname;
@@ -159,17 +159,20 @@ router.post('/order', auth.authenticateToken, async (req, res) => {
 
 // tested, a little different from API -> added powner and ptype, little confused about pricing
 router.get('/order', auth.authenticateToken, async (req, res) => {
-  const include_history = req.params;
+  const include_history = req.query.include_history;
 
   try {
-    let insRes = '';
-    if (include_history === true) {
-      insRes = await db.functions.getAllBids(req.user.username);
+    console.log(include_history);
+    if (include_history) {
+      // console.log("jiayou");
+      const insRes = await db.functions.getAllBids(req.user.username);
+      console.log(insRes);
+      res.status(200).json(insRes);
     } else {
-      insRes = await db.functions.getBidExceptStatus(req.user.username, 'Service Finished');
+      const insRes = await db.functions.getBidExceptStatus(req.user.username, 'Service Finished');
+      res.status(200).json(insRes);
     }
-    
-    res.status(204).json(insRes);
+
     return;
   } catch (err) {
     console.log(err);

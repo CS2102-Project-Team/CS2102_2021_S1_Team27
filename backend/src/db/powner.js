@@ -1,4 +1,3 @@
-const { rows } = require('pg/lib/defaults');
 const db = require('./index');
 
 async function getUserByEmail(email) {
@@ -56,7 +55,9 @@ async function getBidExceptStatus(username, status) {
 }
 
 async function getAllBids(username) {
+  
   const { rows } = await db.query('SELECT powner, pname, ptype, ctaker, sdate, edate, payment, delivery, (SELECT price FROM services S WHERE S.ctaker = ctaker AND S.ptype = ptype AND S.sdate = sdate AND S.edate = edate), status, (SELECT rating FROM caretakers WHERE username = $1), review FROM orders WHERE powner = $1', [username]);
+  
   return rows;
 }
 
