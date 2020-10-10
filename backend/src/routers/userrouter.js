@@ -82,7 +82,7 @@ router.post('/cards', auth.authenticateToken, async (req, res) => {
 router.delete('/cards', auth.authenticateToken, async (req, res) => {
   try {
     
-    const cardnum  = req.query.cardnumber;
+    const cardnum = req.query.cardnumber;
     // console.log(cardnum);
     const insRes = await db.functions.deleteCard(cardnum);
     res.status(204).json('success');

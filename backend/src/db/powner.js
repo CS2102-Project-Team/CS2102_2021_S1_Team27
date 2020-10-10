@@ -11,6 +11,12 @@ async function getPets(username) {
   return rows;
 }
 
+async function getThePet(username, petname) {
+  const { rows } = await db.query('SELECT ptype FROM pets WHERE powner = $1 AND pname = $2', [username, petname]);
+  return rows;
+}
+
+
 async function insertPet(username, petname, pettype, remark) {
   const { rows } = await db.query('INSERT INTO pets(powner, pname, ptype, remark) VALUES ($1, $2, $3, $4)', [username, petname, pettype, remark]);
   return rows;
@@ -27,18 +33,18 @@ async function deletePet(username, petname) {
 }
 
 async function getService(petcategory, startdate, enddate) {
-  const { rows } = await db.query('SELECT ctaker, price FROM services WHERE sdate >= $2 AND edate <= $3 AND ptype = $1', [petcategory, startdate, enddate]);
+  const { rows } = await db.query('SELECT ctaker, ptype, (SELECT addres FROM accounts WHERE username = ctaker), (SELECT rating FROM caretakers WHERE username = ctaker), price FROM services WHERE sdate >= $2 AND edate <= $3 AND ptype = $1', [petcategory, startdate, enddate]);
   return rows;
 }
+// just a little unsure -> is the address ctaker's or user's
 
 
 
 async function insertBid(powner, pname, ctaker, ptype, startdate, enddate, paymentmethod, deliverymode) {
-  const time = Date.now() / 1000;
   const bidstatus = 'bid';
   console.log(bidstatus);
-  const { rows } = await db.query('INSERT INTO orders(powner, pname, ctaker, ptype, sdate, edate, delivery, payment, status) VALUES ($2, $3, $4, $5, $6, $7, $8, $9, $10)', 
-    [time, powner, pname, ctaker, ptype, startdate, enddate, deliverymode, paymentmethod, bidstatus]);
+  const { rows } = await db.query('INSERT INTO orders(bidtime, powner, pname, ctaker, ptype, sdate, edate, delivery, payment, status) VALUES (current_timestamp, $1, $2, $3, $4, $5, $6, $7, $8, $9)', 
+    [powner, pname, ctaker, ptype, startdate, enddate, deliverymode, paymentmethod, bidstatus]);
   console.log("tracking debugging");
   return rows;
 }
@@ -59,6 +65,7 @@ module.exports = {
   functions: {
     getUserByEmail,
     getPets,
+    getThePet,
     insertPet,
     changePet,
     deletePet,

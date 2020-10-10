@@ -90,14 +90,14 @@ router.delete('/pets', auth.authenticateToken, async (req, res) => {
 });
 
 
-
+// tested
 router.get('/search', auth.authenticateToken, async (req, res) => {
-  const { petcategory } = req.body;
-  const { startdate } = req.body;
-  const { enddate } = req.body;
+  const petcat = req.query.petcategory;
+  const stdate = req.query.startdate;
+  const edate  = req.query.enddate;
 
   try {
-    const insRes = await db.functions.getService(petcategory, startdate, enddate);
+    const insRes = await db.functions.getService(petcat, stdate, edate);
     res.status(200).json(insRes);
     return;
   } catch (err) {
@@ -105,22 +105,23 @@ router.get('/search', auth.authenticateToken, async (req, res) => {
   }
 });
 
-
+// tested
 router.post('/bid', auth.authenticateToken, async (req, res) => {
-  const { ctaker } = req.body;
-  const { pname } = req.body;
-  const { petcategory } = req.body;
+  const { caretakername } = req.body;
+  const { petname } = req.body;
+  //const { petcategory } = req.body;
   const { startdate } = req.body;
   const { enddate } = req.body;
   const { paymentmethod } = req.body;
   const { deliverymode } = req.body;
+  const { username } = req.user;
 
   
 
   if (typeof startdate !== 'string'
-        || typeof pname !== 'string'
+        || typeof petname !== 'string'
         || typeof enddate !== 'string'
-        || typeof petcategory !== 'string'
+        //|| typeof petcategory !== 'string'
         || typeof paymentmethod !== 'string'
         || typeof deliverymode !== 'string'
   ) {
@@ -130,10 +131,15 @@ router.post('/bid', auth.authenticateToken, async (req, res) => {
   }
   try {
     
-    
-    const insRes = await db.functions.insertBid(req.user.username, pname, ctaker, petcategory,
-       startdate, enddate, paymentmethod, deliverymode);
 
+    var pet = await db.functions.getThePet(username, petname);
+    const ptype = pet[0].ptype;
+    console.log(ptype);
+
+    
+
+    const insRes = await db.functions.insertBid(username, petname, caretakername, ptype,
+       startdate, enddate, paymentmethod, deliverymode);
     
     res.status(204).json('success');
     return;
@@ -142,6 +148,7 @@ router.post('/bid', auth.authenticateToken, async (req, res) => {
       res.status(500).json('duplicate bid');
       return;
     }
+    console.log(err);
     res.status(500).json('error');
   }
 });
