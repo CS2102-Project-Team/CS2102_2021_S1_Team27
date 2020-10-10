@@ -4,7 +4,13 @@
   "description": "This branch hosts the backend of CS2102_2021_S1_Team27 project. **Do not merge this branch to master**!",
   "main": "index.js",
   "scripts": {
+    "postinstall": "husky install",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "cd backend && npm run lint"
+    }
   },
   "repository": {
     "type": "git",
@@ -15,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/lirc572/CS2102_2021_S1_Team27/issues"
   },
-  "homepage": "https://github.com/lirc572/CS2102_2021_S1_Team27#readme"
+  "homepage": "https://github.com/lirc572/CS2102_2021_S1_Team27#readme",
+  "devDependencies": {
+    "husky": "^5.0.0-alpha.6"
+  }
 }

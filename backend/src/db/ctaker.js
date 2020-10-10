@@ -4,12 +4,12 @@ async function getUserByEmail(email) {
   const { rows } = await db.query('SELECT * FROM accounts WHERE email = $1', [email]);
   return rows[0];
 }
-  
+
 async function getUserByUsername(username) {
   const { rows } = await db.query('SELECT * FROM accounts WHERE username = $1', [username]);
   return rows[0];
 }
-  
+
 async function registerUser(username, email, password) {
   const { rows } = await db.query('INSERT INTO accounts(username, passwd, email) VALUES ($1, $2, $3)', [username, password, email]);
   return rows;
@@ -20,8 +20,6 @@ async function registerUser(username, email, password) {
     */
 }
 
-
-  
 module.exports = {
   functions: {
     getUserByEmail,
@@ -29,4 +27,3 @@ module.exports = {
     registerUser,
   },
 };
-  

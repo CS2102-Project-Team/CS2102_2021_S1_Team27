@@ -4,3 +4,4 @@ backend/node_modules/
 __pycache__
 /pet_anything_tests
 /venv
+node_modules/

@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/user', auth.authenticateToken, async (req, res) => {
   try {
     const user = await db.functions.getUserByUsername(req.user.username);
-    res.status(200).json({username: user.username, email: user.email});
+    res.status(200).json({ username: user.username, email: user.email });
     return;
   } catch (err) {
     res.status(500).json('error');
@@ -76,15 +76,14 @@ router.put('/pet', auth.authenticateToken, async (req, res) => {
 
 router.delete('/pet', auth.authenticateToken, async (req, res) => {
   try {
-    
-    const petname = req.query.petname;
-    
+    const { petname } = req.query;
+
     // if (typeof petname !== 'string') {
     //   console.log("debug");
     //   res.status(400);
     //   return;
     // }
-    console.log(petname + " " + req.user.username);
+    console.log(`${petname} ${req.user.username}`);
     const insRes = await db.functions.deletePet(req.user.username, petname);
     res.status(204).json('success');
     return;
@@ -94,12 +93,11 @@ router.delete('/pet', auth.authenticateToken, async (req, res) => {
   }
 });
 
-
 // tested
 router.get('/search', auth.authenticateToken, async (req, res) => {
   const petcat = req.query.petcategory;
   const stdate = req.query.startdate;
-  const edate  = req.query.enddate;
+  const edate = req.query.enddate;
 
   try {
     const insRes = await db.functions.getService(petcat, stdate, edate);
@@ -114,7 +112,7 @@ router.get('/search', auth.authenticateToken, async (req, res) => {
 router.post('/order', auth.authenticateToken, async (req, res) => {
   const { caretakername } = req.body;
   const { petname } = req.body;
-  //const { petcategory } = req.body;
+  // const { petcategory } = req.body;
   const { startdate } = req.body;
   const { enddate } = req.body;
   const { paymentmethod } = req.body;
@@ -124,26 +122,21 @@ router.post('/order', auth.authenticateToken, async (req, res) => {
   if (typeof startdate !== 'string'
         || typeof petname !== 'string'
         || typeof enddate !== 'string'
-        //|| typeof petcategory !== 'string'
+        // || typeof petcategory !== 'string'
         || typeof paymentmethod !== 'string'
         || typeof deliverymode !== 'string'
   ) {
-    
     res.status(400).json('incorrect data format');
     return;
   }
   try {
-    
-
-    var pet = await db.functions.getThePet(username, petname);
-    const ptype = pet[0].ptype;
+    const pet = await db.functions.getThePet(username, petname);
+    const { ptype } = pet[0];
     console.log(ptype);
 
-    
-
     const insRes = await db.functions.insertBid(username, petname, caretakername, ptype,
-       startdate, enddate, paymentmethod, deliverymode);
-    
+      startdate, enddate, paymentmethod, deliverymode);
+
     res.status(204).json('success');
     return;
   } catch (err) {
@@ -156,10 +149,9 @@ router.post('/order', auth.authenticateToken, async (req, res) => {
   }
 });
 
-
 // tested, a little different from API -> added powner and ptype, little confused about pricing
 router.get('/order', auth.authenticateToken, async (req, res) => {
-  const include_history = req.query.include_history;
+  const { include_history } = req.query;
 
   try {
     console.log(include_history);
@@ -181,7 +173,6 @@ router.get('/order', auth.authenticateToken, async (req, res) => {
 });
 
 router.delete('/bid', auth.authenticateToken, async (req, res) => {
-  
   try {
     const { bidid } = req.body;
     const insRes = await db.functions.deleteBid(bidid);
@@ -192,7 +183,7 @@ router.delete('/bid', auth.authenticateToken, async (req, res) => {
   }
 });
 
-//tested yayy
+// tested yayy
 router.put('/order', auth.authenticateToken, async (req, res) => {
   const { petname } = req.body;
   const { caretakerusername } = req.body;
@@ -202,14 +193,14 @@ router.put('/order', auth.authenticateToken, async (req, res) => {
   const { feedback } = req.body;
 
   if (typeof petname !== 'string'
-        // as many of the attributes are not limited to not null, not sure if gonna check
+  // as many of the attributes are not limited to not null, not sure if gonna check
   ) {
     res.status(400);
     return;
   }
   try {
     const insRes = await db.functions.changeBid(req.user.username, petname, caretakerusername,
-       startdate, enddate, rating, feedback);
+      startdate, enddate, rating, feedback);
     res.status(204).json('success');
     return;
   } catch (err) {

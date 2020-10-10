@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/user', auth.authenticateToken, async (req, res) => {
   try {
     const user = await db.functions.getUserByUsername(req.user.username);
-    res.status(200).json({username: user.username, email: user.email});
+    res.status(200).json({ username: user.username, email: user.email });
     return;
   } catch (err) {
     res.status(500).json('error');

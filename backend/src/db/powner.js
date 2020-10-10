@@ -15,7 +15,6 @@ async function getThePet(username, petname) {
   return rows;
 }
 
-
 async function insertPet(username, petname, pettype, remark) {
   const { rows } = await db.query('INSERT INTO pets(powner, pname, ptype, remark) VALUES ($1, $2, $3, $4)', [username, petname, pettype, remark]);
   return rows;
@@ -37,17 +36,14 @@ async function getService(petcategory, startdate, enddate) {
 }
 // just a little unsure -> is the address ctaker's or user's
 
-
-
 async function insertBid(powner, pname, ctaker, ptype, startdate, enddate, paymentmethod, deliverymode) {
   const bidstatus = 'bid';
   console.log(bidstatus);
-  const { rows } = await db.query('INSERT INTO orders(bidtime, powner, pname, ctaker, ptype, sdate, edate, delivery, payment, status) VALUES (current_timestamp, $1, $2, $3, $4, $5, $6, $7, $8, $9)', 
+  const { rows } = await db.query('INSERT INTO orders(bidtime, powner, pname, ctaker, ptype, sdate, edate, delivery, payment, status) VALUES (current_timestamp, $1, $2, $3, $4, $5, $6, $7, $8, $9)',
     [powner, pname, ctaker, ptype, startdate, enddate, deliverymode, paymentmethod, bidstatus]);
-  console.log("tracking debugging");
+  console.log('tracking debugging');
   return rows;
 }
-
 
 async function getBidExceptStatus(username, status) {
   const { rows } = await db.query('SELECT powner, pname, ptype, ctaker, sdate, edate, payment, delivery, (SELECT price FROM services S WHERE S.ctaker = ctaker AND S.ptype = ptype AND S.sdate = sdate AND S.edate = edate), status, (SELECT rating FROM caretakers WHERE username = $1), review FROM orders WHERE powner = $1 AND status <> $2', [username, status]);
@@ -55,9 +51,8 @@ async function getBidExceptStatus(username, status) {
 }
 
 async function getAllBids(username) {
-  
   const { rows } = await db.query('SELECT powner, pname, ptype, ctaker, sdate, edate, payment, delivery, (SELECT price FROM services S WHERE S.ctaker = ctaker AND S.ptype = ptype AND S.sdate = sdate AND S.edate = edate), status, (SELECT rating FROM caretakers WHERE username = $1), review FROM orders WHERE powner = $1', [username]);
-  
+
   return rows;
 }
 
@@ -72,7 +67,6 @@ async function changeBid(username, petname, caretakerusername,
     startdate, enddate, rating, feedback]);
   return rows;
 }
-
 
 module.exports = {
   functions: {

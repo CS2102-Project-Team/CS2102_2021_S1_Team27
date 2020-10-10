@@ -1,7 +1,8 @@
 const express = require('express');
+// eslint-disable-next-line no-unused-vars
+const { User } = require('pg/lib/defaults');
 const auth = require('./auth');
 const db = require('../db/User');
-const { user } = require('pg/lib/defaults');
 // const { body, validationResult } = require('express-validator');
 
 const router = express.Router();
@@ -23,13 +24,13 @@ router.get('/user', auth.authenticateToken, async (req, res) => {
   }
 });
 
-//tested
+// tested
 router.put('/user', auth.authenticateToken, async (req, res) => {
   try {
     const { phone } = req.body;
     const { address } = req.body;
     const { realname } = req.body;
-    const insRes = await db.functions.updateUser(req.user.username, phone, address, realname);
+    await db.functions.updateUser(req.user.username, phone, address, realname);
     res.status(204).json('success');
   } catch (err) {
     res.status(500).json('error');
@@ -40,8 +41,7 @@ router.get('/', (req, res) => res.redirect(307, 'https://cs2102-doc.netlify.app/
 Skip authentication: (req,res,next) => {req.user = 'kyle';next();},
 */
 
-
-//tested
+// tested
 router.get('/cards', auth.authenticateToken, async (req, res) => {
   try {
     const insRes = await db.functions.getCards(req.user.username);
@@ -52,7 +52,7 @@ router.get('/cards', auth.authenticateToken, async (req, res) => {
   }
 });
 
-//tested
+// tested
 router.post('/cards', auth.authenticateToken, async (req, res) => {
   const { cardnumber } = req.body;
   const { cvv } = req.body;
@@ -63,13 +63,11 @@ router.post('/cards', auth.authenticateToken, async (req, res) => {
         || typeof cvv !== 'string'
         || typeof exp !== 'string'
   ) {
-    
     res.status(400);
     return;
   }
   try {
-    console.log(username);
-    const insRes = await db.functions.insertCard(cardnumber, cvv, exp, username);
+    await db.functions.insertCard(cardnumber, cvv, exp, username);
     res.status(204).json('success');
     return;
   } catch (err) {
@@ -77,14 +75,12 @@ router.post('/cards', auth.authenticateToken, async (req, res) => {
   }
 });
 
-
-//tested
+// tested
 router.delete('/cards', auth.authenticateToken, async (req, res) => {
   try {
-    
     const cardnum = req.query.cardnumber;
     // console.log(cardnum);
-    const insRes = await db.functions.deleteCard(cardnum);
+    await db.functions.deleteCard(cardnum);
     res.status(204).json('success');
     return;
   } catch (err) {

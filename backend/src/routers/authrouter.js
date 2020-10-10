@@ -5,7 +5,8 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 const db = require('../db/User');
-const db_admin = require('../db/Admin');
+// eslint-disable-next-line no-unused-vars
+const dbAdmin = require('../db/Admin');
 
 /**
    * Generates an access token for the given username
@@ -150,7 +151,7 @@ router.post('/user/register', async (req, res) => {
       // Todo: implement db function in /db/db.js
       try {
         const passwd = await bcrypt.hash(req.body.password, saltRounds);
-        const regRes = await db.functions.registerUser(
+        await db.functions.registerUser(
           req.body.username,
           req.body.email,
           passwd,
@@ -309,7 +310,7 @@ router.post('/user/updatepswd', async (req, res, next) => { // look up the user
 }, async (req, res) => {
   try {
     const passwd = await bcrypt.hash(req.body.new_password, saltRounds);
-    const rrr = await db.functions.changePassword(
+    await db.functions.changePassword(
       req.body.email,
       passwd,
     );
@@ -434,7 +435,7 @@ router.post('/admin/updatepswd', async (req, res, next) => { // look up the user
 }, async (req, res) => {
   try {
     const passwd = await bcrypt.hash(req.body.new_password, saltRounds);
-    const rrr = await db.functions.changePassword(
+    await db.functions.changePassword(
       req.body.email,
       passwd,
     );
