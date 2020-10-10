@@ -1,4 +1,4 @@
-const db = require('../index');
+const db = require('./index');
 
 async function getAdminByEmail(email) {
   const { rows } = await db.query('SELECT * FROM admins WHERE email = $1', [email]);

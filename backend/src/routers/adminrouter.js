@@ -1,6 +1,6 @@
 const express = require('express');
 const auth = require('./auth');
-const db = require('../db/AdminAuthentication/Admin');
+const db = require('../db/Admin');
 // const { body, validationResult } = require('express-validator');
 
 const router = express.Router();
