@@ -95,7 +95,7 @@ router.delete('/pet', auth.authenticateToken, async (req, res) => {
   }
 });
 
-// tested
+// pending test
 router.get('/search', auth.authenticateToken, async (req, res) => {
   const petcat = req.query.petcategory;
   const stdate = req.query.startdate;

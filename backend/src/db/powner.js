@@ -31,7 +31,7 @@ async function deletePet(username, petname) {
 }
 
 async function getService(petcategory, startdate, enddate) {
-  const { rows } = await db.query('SELECT ctaker, ptype, (SELECT addres FROM accounts WHERE username = ctaker), (SELECT rating FROM caretakers WHERE username = ctaker), price FROM services WHERE sdate >= $2 AND edate <= $3 AND ptype = $1', [petcategory, startdate, enddate]);
+  const { rows } = await db.query('SELECT realname, addres, fulltime, (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating, price * ($3 - $2) FROM (caretakers C JOIN looksafter ON ctaker=C.username AND ptype=$1) NATURAL JOIN accounts WHERE ($3-$2) = SELECT COUNT(*) FROM available A WHERE A.ctaker=C.username AND date>=$2 AND date<=$3 AND status=\'available\'', [petcategory, startdate, enddate]);
   return rows;
 }
 // just a little unsure -> is the address ctaker's or user's
@@ -40,12 +40,8 @@ async function insertBid(
   powner, pname, ctaker, ptype, startdate, enddate, paymentmethod, deliverymode,
 ) {
   const bidstatus = 'bid';
-  // eslint-disable-next-line no-console
-  console.log(bidstatus);
   const { rows } = await db.query('INSERT INTO orders(bidtime, powner, pname, ctaker, ptype, sdate, edate, delivery, payment, status) VALUES (current_timestamp, $1, $2, $3, $4, $5, $6, $7, $8, $9)',
     [powner, pname, ctaker, ptype, startdate, enddate, deliverymode, paymentmethod, bidstatus]);
-  // eslint-disable-next-line no-console
-  console.log('tracking debugging');
   return rows;
 }
 
