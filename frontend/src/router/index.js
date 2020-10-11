@@ -26,6 +26,11 @@ export const constantRoutes = [
       },
     ],
   },
+  {
+    path: '/signup',
+    component: () => import('@/views/signup/index'),
+    hidden: true,
+  },
 ];
 
 const createRouter = () => new Router({

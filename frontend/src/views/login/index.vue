@@ -66,7 +66,7 @@ export default {
               });
               this.$router.push('/');
               this.loading = false;
-            }).catch((error) => {
+            }).catch(({ error }) => {
               this.$message.error(error);
               this.loading = false;
             });
