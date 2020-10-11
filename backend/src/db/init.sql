@@ -94,19 +94,19 @@ CREATE TABLE services(
 );
 
 CREATE TABLE orders(
-    id SERIAL PRIMARY KEY,
     bidtime TIMESTAMP,
     powner VARCHAR NOT NULL,
     pname VARCHAR NOT NULL,
     ctaker VARCHAR,
-    ptype VARCHAR,
+    ptype VARCHAR NOT NULL,
     sdate DATE REFERENCES calendar(date),
     edate DATE REFERENCES calendar(date),
-    rating NUMERIC(3,2),
-    delivery VARCHAR, --delivery mode
-    payment VARCHAR, --payment method
+    rating INT,
+    delivery VARCHAR NOT NULL, --delivery mode
+    payment VARCHAR NOT NULL, --payment method
     review VARCHAR,
     status VARCHAR,
+    PRIMARY KEY (powner, pname, sdate, edate)
     FOREIGN KEY (powner, pname) REFERENCES pets(powner, pname),
     FOREIGN KEY (ctaker, ptype, sdate, edate) REFERENCES services(ctaker, ptype, sdate, edate)
 );
