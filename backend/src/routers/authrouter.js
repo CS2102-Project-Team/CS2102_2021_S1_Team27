@@ -159,6 +159,14 @@ router.post('/user/register', async (req, res) => {
         res.json('success');
         return;
       } catch (err) {
+        if (err.code === '23505' && err.constraint === 'accounts_pkey') {
+          res.status(422).json({ error: 'duplicate username', invalid_field: 'username' });
+          return;
+        }
+        if (err.code === '23505' && err.constraint === 'accounts_email_key') {
+          res.status(422).json({ error: 'duplicate email', invalid_field: 'email' });
+          return;
+        }
         res.status(500).json(err);
         return;
       }
