@@ -19,5 +19,8 @@
   "homepage": "https://github.com/lirc572/CS2102_2021_S1_Team27#readme",
   "devDependencies": {
     "husky": "^5.0.0-alpha.6"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
