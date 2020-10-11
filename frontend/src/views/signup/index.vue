@@ -4,23 +4,28 @@
       <div class="ms-title">Pet-Anything</div>
       <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
         <el-form-item prop="username">
-          <el-input v-model="param.username" placeholder="username/email">
+          <el-input v-model="param.username" placeholder="username">
+            <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="email">
+          <el-input v-model="param.email" placeholder="email">
             <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input type="password" placeholder="password" v-model="param.password"
-            @keyup.enter.native="submitForm()">
+          <el-input type="password" placeholder="password" v-model="param.password">
+            <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="cpassword">
+          <el-input type="password" placeholder="confirm password" v-model="param.cpassword">
             <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
           </el-input>
         </el-form-item>
         <div class="login-signup-btn">
-          <el-button :loading="loading" type="primary" @click="submitForm()">Sign in</el-button>
+          <el-button :loading="loading" type="primary">Sign up</el-button>
         </div>
-        <div class="login-signup-btn">
-          <el-button :loading="loading" type="primary" plain>Register</el-button>
-        </div>
-        <p class="login-tips">Tips : Register not implemented yet :></p>
       </el-form>
     </div>
   </div>
@@ -32,13 +37,18 @@ export default {
     return {
       param: {
         username: '',
+        email: '',
         password: '',
       },
       rules: {
         username: [
-          { required: true, message: 'Please enter a username', trigger: 'blur' },
+          { required: true, message: 'Please specify a username', trigger: 'blur' },
         ],
-        password: [{ required: true, message: 'Please enter your password', trigger: 'blur' }],
+        email: [
+          { required: true, message: 'Please specify an email', trigger: 'blur' },
+        ],
+        password: [{ required: true, message: 'Please specify your password', trigger: 'blur' }],
+        cpassword: [{ required: true, message: 'Please confirm your password', trigger: 'blur' }],
       },
       loading: false,
     };
