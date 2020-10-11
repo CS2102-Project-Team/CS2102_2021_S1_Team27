@@ -1,15 +1,15 @@
 <template>
   <el-card class="box-card">
     <div slot="header" class="clearfix">
-      <span>卡片名称</span>
-      <el-button style="float: right; padding: 3px 0" type="text"
-        >操作按钮</el-button
-      >
+      <span>不如鬼畜</span>
+      <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
     </div>
     <div v-for="o in 4" :key="o" class="text item">
       {{ "列表内容 " + o }}
     </div>
-    <el-button :plain="true" @click="logout" v-show="loggedin">Logout</el-button>
+    <div>
+      <el-button type="primary" @click="logout()">Sign out</el-button>
+    </div>
   </el-card>
 </template>
 
@@ -24,7 +24,7 @@ export default {
     logout() {
       this.$store.dispatch('logout')
         .then(() => {
-          this.$message.success('Logout successful!');
+          this.$message.success('Sign out successful!');
           this.$router.push('/login');
         }).catch((error) => {
           this.$message.error(error);

@@ -10,6 +10,11 @@ export const constantRoutes = [
     hidden: true,
   },
   {
+    path: '/signup',
+    component: () => import('@/views/signup/index'),
+    hidden: true,
+  },
+  {
     path: '/404',
     component: () => import('@/views/home/index'),
     hidden: true,
