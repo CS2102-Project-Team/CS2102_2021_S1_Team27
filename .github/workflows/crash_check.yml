@@ -24,7 +24,7 @@ jobs:
           ref: backend
 
       # Runs a set of commands using the runners shell
-      - name: Run eslint
+      - name: Run crash-check
         run: |
           cd backend
           npm install
