@@ -1,5 +1,6 @@
 <template>
-  <div class="signup-wrap">
+  <div class="signup-wrap" 
+  :style = "{ background: 'url(' + bg +')'}" >
     <div class="ms-signup">
       <div class="ms-title">Sign Up</div>
       <el-form
@@ -76,6 +77,7 @@
 
 <script>
 import { signup, getotp } from '@/api/user';
+import bgpic from '@/assets/img/signup-bg.jpg';
 
 export default {
   data() {
@@ -134,6 +136,7 @@ export default {
         ],
       },
       loading: false,
+      bg: bgpic,
     };
   },
   methods: {
@@ -152,10 +155,9 @@ export default {
               // eslint-disable-next-line no-console
               console.log(`data: ${data}`);
               this.$store.dispatch('login', this.param)
-                .then((response2) => {
+                .then(() => {
                   // check response is 200
                   // for testing
-                  const { data2 } = response2;
                   this.$notify({
                     title: 'login successful',
                     message: `Access Token: ${this.$store.getters.token}`,
@@ -164,9 +166,9 @@ export default {
                   this.$router.push('/');
                   this.loading = false;
                 }).catch((errorMsg) => {
+                  this.loading = false;
                   const { error } = errorMsg;
                   this.$message.error(error);
-                  this.loading = false;
                 });
             }).catch((errorMsg) => {
               // TODO Error handling
@@ -216,7 +218,6 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  background-image: url("../../assets/img/signup-bg.jpg");
   background-size: 100%;
 }
 .ms-signup {
