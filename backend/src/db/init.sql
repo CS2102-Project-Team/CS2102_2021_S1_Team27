@@ -56,7 +56,8 @@ CREATE TABLE pets(
 CREATE TABLE caretakers(
     username VARCHAR PRIMARY KEY REFERENCES accounts(username), 
     fulltime BOOLEAN DEFAULT FALSE,
-    rating NUMERIC(3,2),
+    sumrating INT DEFAULT 0,
+    numrating INT DEFAULT 0,
     maxpets INT --maximum concurrent pets being taken
 );
 
@@ -99,6 +100,7 @@ CREATE TABLE orders(
     pname VARCHAR NOT NULL,
     ctaker VARCHAR,
     ptype VARCHAR NOT NULL,
+    remark VARCHAR, --special requirement
     sdate DATE REFERENCES calendar(date),
     edate DATE REFERENCES calendar(date),
     rating INT,
@@ -106,7 +108,7 @@ CREATE TABLE orders(
     payment VARCHAR NOT NULL, --payment method
     review VARCHAR,
     status VARCHAR,
-    PRIMARY KEY (powner, pname, sdate, edate)
+    PRIMARY KEY (powner, pname, sdate, edate),
     FOREIGN KEY (powner, pname) REFERENCES pets(powner, pname),
     FOREIGN KEY (ctaker, ptype, sdate, edate) REFERENCES services(ctaker, ptype, sdate, edate)
 );
