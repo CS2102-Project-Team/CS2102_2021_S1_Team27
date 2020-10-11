@@ -10,6 +10,11 @@ async function insertCaretaker(username) {
   return rows;
 }
 
+async function getCategory(username) {
+  const { rows } = await db.query('SELECT ptype, price FROM looksafter WHERE ctaker=$1', [username]);
+  return rows;
+}
+
 async function insertCategory(username, pettype, price) {
   const { rows } = await db.query('INSERT INTO looksafter(ctaker, ptype, price) VALUES ($1, $2, $3)', [username, pettype, price]);
   return rows;
@@ -39,6 +44,7 @@ module.exports = {
   functions: {
     getCaretaker,
     insertCaretaker,
+    getCategory,
     insertCategory,
     updatePrice,
     deleteCategory,

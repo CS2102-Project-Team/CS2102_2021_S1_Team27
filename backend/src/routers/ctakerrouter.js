@@ -42,6 +42,16 @@ router.post('/', auth.authenticateToken, async (req, res) => {
   }
 });
 
+router.get('/petcategory', auth.authenticateToken, async (req, res) => {
+  try {
+    const inRes = await db.functions.getCategory(req.user.username);
+    res.status(200).json(inRes);
+    return;
+  } catch (err) {
+    res.status(500).json('error');
+  }
+});
+
 router.post('/petcategory', auth.authenticateToken, async (req, res) => {
   try {
     await db.functions.insertCategory(req.user.username, req.body.pettype, req.body.price);
@@ -72,7 +82,7 @@ router.put('/petcategory', auth.authenticateToken, async (req, res) => {
 
 router.delete('/petcategory', auth.authenticateToken, async (req, res) => {
   try {
-    await db.functions.deleteCategory(req.user.username, req.body.pettype);
+    await db.functions.deleteCategory(req.user.username, req.query.pettype);
     res.status(204).json('success');
     return;
   } catch (err) {
