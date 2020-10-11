@@ -18,7 +18,9 @@
           <el-button :loading="loading" type="primary" @click="submitForm()">Sign in</el-button>
         </div>
         <div class="login-signup-btn">
-          <el-button :loading="loading" type="primary" plain>Register</el-button>
+          <el-button :loading="loading" type="primary" plain @click="goToRegister()">
+            Register
+          </el-button>
         </div>
         <p class="login-tips">Tips : Register not implemented yet :></p>
       </el-form>
@@ -68,6 +70,15 @@ export default {
           return false;
         }
       });
+    },
+    goToRegister() {
+      // navigate to the registration page
+      this.$store.dispatch('signup')
+        .then(() => {
+          this.$router.push('/signup');
+        }).catch((error) => {
+          this.$message.error(error);
+        });
     },
   },
 };

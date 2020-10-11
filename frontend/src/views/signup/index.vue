@@ -13,6 +13,16 @@
             <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
           </el-input>
         </el-form-item>
+        <el-form-item prop="address">
+          <el-input v-model="param.address" placeholder="address">
+            <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="phone">
+          <el-input v-model="param.phone" placeholder="phone">
+            <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
+          </el-input>
+        </el-form-item>
         <el-form-item prop="password">
           <el-input type="password" placeholder="password" v-model="param.password">
             <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
@@ -38,14 +48,22 @@ export default {
       param: {
         username: '',
         email: '',
+        address: '',
+        phone: '',
         password: '',
       },
       rules: {
         username: [
-          { required: true, message: 'Please specify a username', trigger: 'blur' },
+          { required: true, message: 'Please specify your username', trigger: 'blur' },
         ],
         email: [
-          { required: true, message: 'Please specify an email', trigger: 'blur' },
+          { required: true, message: 'Please specify your email', trigger: 'blur' },
+        ],
+        address: [
+          { required: true, message: 'Please specify your address', trigger: 'blur' },
+        ],
+        phone: [
+          { required: true, message: 'Please specify your phone number', trigger: 'blur' },
         ],
         password: [{ required: true, message: 'Please specify your password', trigger: 'blur' }],
         cpassword: [{ required: true, message: 'Please confirm your password', trigger: 'blur' }],
