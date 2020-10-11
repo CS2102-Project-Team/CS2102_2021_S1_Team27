@@ -1,2 +1,7 @@
 .vscode
 /backend
+/.husky
+__pycache__
+/node_modules
+/venv
+/pet_anything_tests
