@@ -4,7 +4,7 @@
   "description": "This branch hosts the backend of CS2102_2021_S1_Team27 project. **Do not merge this branch to master**!",
   "main": "index.js",
   "scripts": {
-    "postinstall": "husky install",
+    "postinstall": "[ ! -f ./node_modules/.bin/husky ] || husky install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
