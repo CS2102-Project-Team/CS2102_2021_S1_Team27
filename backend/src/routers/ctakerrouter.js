@@ -15,7 +15,7 @@ router.get('/', auth.authenticateToken, async (req, res) => {
     }
     const results = {};
     results.type = (rows[0].fulltime) ? 'full time' : 'part time';
-    results.rating = rows[0].rating;
+    results.rating = Number(rows[0].rating).toFixed(2);
     /* add more stuff */
     res.status(200).json(results);
     return;
