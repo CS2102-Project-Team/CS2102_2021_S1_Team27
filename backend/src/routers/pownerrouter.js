@@ -106,6 +106,8 @@ router.get('/search', auth.authenticateToken, async (req, res) => {
     res.status(200).json(insRes);
     return;
   } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
     res.status(500).json('error');
   }
 });
@@ -144,11 +146,19 @@ router.post('/order', auth.authenticateToken, async (req, res) => {
     return;
   } catch (err) {
     if (err.code === '23505') {
-      res.status(500).json('duplicate bid');
+      res.status(422).json('duplicate bid');
+      return;
+    }
+    if (err.code === '23503') {
+      res.status(422).json('service not existing');
       return;
     }
     // eslint-disable-next-line no-console
     console.log(err);
+    if (typeof err === 'object') {
+      res.status(500).json('cannot find the pet');
+      return;
+    }
     res.status(500).json('error');
   }
 });
@@ -199,10 +209,12 @@ router.put('/order', auth.authenticateToken, async (req, res) => {
   const { rating } = req.body;
   const { feedback } = req.body;
 
-  if (typeof petname !== 'string'
+  if (typeof rating !== 'number'
+  || rating < 1
+  || rating > 5
   // as many of the attributes are not limited to not null, not sure if gonna check
   ) {
-    res.status(400);
+    res.status(400).json('invalid rating');
     return;
   }
   try {
