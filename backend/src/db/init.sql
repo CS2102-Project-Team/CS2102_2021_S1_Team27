@@ -94,6 +94,8 @@ CREATE TABLE services(
     FOREIGN KEY (ctaker, ptype) REFERENCES looksafter(ctaker, ptype)
 );
 
+INSERT INTO services(ctaker, ptype, sdate, edate, price) VALUES ('kyle2', 'cat', '2020-08-20', '2020-08-22', 60);
+
 CREATE TABLE orders(
     bidtime TIMESTAMP,
     powner VARCHAR NOT NULL,
@@ -112,3 +114,18 @@ CREATE TABLE orders(
     FOREIGN KEY (powner, pname) REFERENCES pets(powner, pname),
     FOREIGN KEY (ctaker, ptype, sdate, edate) REFERENCES services(ctaker, ptype, sdate, edate)
 );
+
+--triggers
+
+CREATE OR REPLACE FUNCTION update_rating()
+RETURNS TRIGGER AS
+$$ BEGIN
+UPDATE caretakers SET numrating = numrating + 1 WHERE username = NEW.ctaker;
+UPDATE caretakers SET sumrating = sumrating + NEW.rating WHERE username = NEW.ctaker;
+RETURN NEW;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_rating
+AFTER UPDATE OF rating ON orders 
+FOR EACH ROW EXECUTE FUNCTION update_rating(); 
