@@ -125,7 +125,25 @@ UPDATE caretakers SET sumrating = sumrating + NEW.rating WHERE username = NEW.ct
 RETURN NEW;
 END; $$
 LANGUAGE plpgsql;
+--can add changes to maxpetsallowed as well
 
 CREATE TRIGGER update_rating
 AFTER UPDATE OF rating ON orders 
 FOR EACH ROW EXECUTE FUNCTION update_rating(); 
+
+CREATE OR REPLACE FUNCTION accept_bid()
+RETURNS TRIGGER AS
+$$ DECLARE ft BOOLEAN;
+BEGIN
+SELECT fulltime INTO ft FROM caretakers WHERE username = NEW.ctaker;
+IF ft = true THEN
+    NEW.status = 'Pending Payment';
+END IF;
+RETURN NEW;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER accept_bid_fulltime
+BEFORE INSERT ON orders 
+FOR EACH ROW EXECUTE FUNCTION accept_bid(); 
+
