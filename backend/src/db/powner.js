@@ -39,7 +39,7 @@ async function getService(petcategory, startdate, enddate) {
 async function insertBid(
   powner, pname, ctaker, ptype, startdate, enddate, paymentmethod, deliverymode,
 ) {
-  const bidstatus = 'bid';
+  const bidstatus = 'Pending Caretaker Acceptance';
   const { rows } = await db.query('INSERT INTO orders(bidtime, powner, pname, ctaker, ptype, sdate, edate, delivery, payment, status) VALUES (current_timestamp, $1, $2, $3, $4, $5, $6, $7, $8, $9)',
     [powner, pname, ctaker, ptype, startdate, enddate, deliverymode, paymentmethod, bidstatus]);
   return rows;
