@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "postinstall": "[ ! -f ./node_modules/.bin/nodemon ] || cd .. && npm install",
+    "postinstall": "[ ! -f ./node_modules/.bin/nodemon ] || ( cd .. && npm install )",
     "start": "node ./src/app.js",
     "dev": "nodemon ./src/app.js",
     "lint": "eslint --fix --ext .js .",
