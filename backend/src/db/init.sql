@@ -69,6 +69,8 @@ CREATE TABLE looksafter(
     PRIMARY KEY (ctaker, ptype)
 );
 
+--INSERT INTO looksafter VALUES ('kyle2', 20, 'cat');
+
 CREATE TABLE calendar(
     date DATE PRIMARY KEY
 );
@@ -80,22 +82,9 @@ INSERT INTO calendar(date)
 CREATE TABLE available(
     ctaker VARCHAR REFERENCES caretakers(username),
     date DATE REFERENCES calendar(date),
-    status VARCHAR,
+    status VARCHAR, --available, full
     PRIMARY KEY(ctaker, date)
 );
-
-CREATE TABLE services(
-    ctaker VARCHAR,
-    ptype VARCHAR,
-    sdate DATE REFERENCES calendar(date),
-    edate DATE REFERENCES calendar(date),
-    CHECK(sdate <= edate),
-    price INT,
-    PRIMARY KEY (ctaker, ptype, sdate, edate),
-    FOREIGN KEY (ctaker, ptype) REFERENCES looksafter(ctaker, ptype)
-);
-
-INSERT INTO services(ctaker, ptype, sdate, edate, price) VALUES ('kyle2', 'cat', '2020-08-20', '2020-08-22', 60);
 
 CREATE TABLE orders(
     bidtime TIMESTAMP,
@@ -106,14 +95,16 @@ CREATE TABLE orders(
     remark VARCHAR, --special requirement
     sdate DATE REFERENCES calendar(date),
     edate DATE REFERENCES calendar(date),
+    CHECK(sdate <= edate),
     rating INT,
+    price INT,
     delivery VARCHAR NOT NULL, --delivery mode
     payment VARCHAR NOT NULL, --payment method
     review VARCHAR,
     status VARCHAR,
     PRIMARY KEY (powner, pname, sdate, edate),
     FOREIGN KEY (powner, pname) REFERENCES pets(powner, pname),
-    FOREIGN KEY (ctaker, ptype, sdate, edate) REFERENCES services(ctaker, ptype, sdate, edate)
+    FOREIGN KEY (ctaker, ptype) REFERENCES looksafter(ctaker, ptype)
 );
 
 --triggers
