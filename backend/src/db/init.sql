@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS cards;
 DROP TABLE IF EXISTS admins;
 DROP TABLE IF EXISTS tokens;
+DROP TRIGGER IF EXISTS update_rating ON orders;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS services;
 DROP TABLE IF EXISTS available;
@@ -120,8 +121,12 @@ CREATE TABLE orders(
 CREATE OR REPLACE FUNCTION update_rating()
 RETURNS TRIGGER AS
 $$ BEGIN
-UPDATE caretakers SET numrating = numrating + 1 WHERE username = NEW.ctaker;
-UPDATE caretakers SET sumrating = sumrating + NEW.rating WHERE username = NEW.ctaker;
+IF OLD.rating IS NULL THEN
+    UPDATE caretakers SET numrating = numrating + 1 WHERE username = NEW.ctaker;
+    UPDATE caretakers SET sumrating = sumrating + NEW.rating WHERE username = NEW.ctaker;
+ELSE
+    UPDATE caretakers SET sumrating = sumrating + NEW.rating - OLD.rating WHERE username = NEW.ctaker;
+END IF;
 RETURN NEW;
 END; $$
 LANGUAGE plpgsql;
