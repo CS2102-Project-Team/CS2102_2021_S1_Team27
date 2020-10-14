@@ -1,10 +1,13 @@
 import request from '@/utils/request'
 
 export function login(data) {
+  const { username, password } = data
+  const email = username
   return request({
-    url: '/vue-admin-template/user/login',
+    url: '/auth/admin/login',
     method: 'post',
-    data
+    params: { by: username.includes('@') ? 'email' : 'username' },
+    data: { username, email, password }
   })
 }
 
