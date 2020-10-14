@@ -149,8 +149,12 @@ router.post('/order', auth.authenticateToken, async (req, res) => {
       res.status(422).json('duplicate bid');
       return;
     }
+    if (err.code === '23503' && err.constraint === 'orders_ctaker_ptype_fkey') {
+      res.status(422).json('ctaker not allowed this pettype');
+      return;
+    }
     if (err.code === '23503') {
-      res.status(422).json('service not existing');
+      res.status(422).json('pet not existing');
       return;
     }
     // eslint-disable-next-line no-console
