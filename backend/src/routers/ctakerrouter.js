@@ -62,6 +62,10 @@ router.post('/petcategory', auth.authenticateToken, async (req, res) => {
       res.status(422).json({ error: 'already exists that category' });
       return;
     }
+    if (err.code === '23503' && err.constraint === 'looksafter_ctaker_fkey') {
+      res.status(422).json({ error: 'not a caretaker' });
+      return;
+    }
     res.status(500).json('error');
   }
 });
@@ -84,6 +88,35 @@ router.delete('/petcategory', auth.authenticateToken, async (req, res) => {
   try {
     await db.functions.deleteCategory(req.user.username, req.query.pettype);
     res.status(204).json('success');
+    return;
+  } catch (err) {
+    res.status(500).json('error');
+  }
+});
+
+router.get('/orders', auth.authenticateToken, async (req, res) => {
+  try {
+    const inRes = await db.functions.getOrders(req.user.username);
+    res.status(200).json(inRes);
+    return;
+  } catch (err) {
+    res.status(500).json('error');
+  }
+});
+
+/* Unfinished */
+router.get('/stats', auth.authenticateToken, async (req, res) => {
+  try {
+    const result = {};
+    if (req.query.petday) {
+      const inRes = await db.functions.getPetday(req.user.username);
+      result.petday = inRes[0].sum ? inRes[0].sum : 0;
+    }
+    if (req.query.salary) {
+      const inRes = await db.functions.getSalary(req.user.username);
+      result.salary = inRes;
+    }
+    res.status(200).json(result);
     return;
   } catch (err) {
     res.status(500).json('error');
