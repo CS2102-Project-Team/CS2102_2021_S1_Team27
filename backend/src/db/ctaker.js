@@ -30,14 +30,19 @@ async function deleteCategory(username, pettype) {
   return rows;
 }
 
-async function registerUser(username, email, password) {
-  const { rows } = await db.query('INSERT INTO accounts(username, passwd, email) VALUES ($1, $2, $3)', [username, password, email]);
+async function getOrders(username) {
+  const { rows } = await db.query('SELECT sdate startdate, edate enddate, remark specialrequirement, ptype petcategory, pname petname, powner ownerusername, status, delivery deliverymode, rating, review FROM orders WHERE ctaker=$1', [username]);
   return rows;
-  /*
-    return I < 3 // U
-      ? { success: true }
-      : { success: false, error: 'Nah' };
-    */
+}
+
+async function getPetday(username) {
+  const { rows } = await db.query('SELECT SUM(edate - sdate + 1) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) = EXTRACT(MONTH FROM current_timestamp)', [username]);
+  return rows;
+}
+
+async function getSalary(username) {
+  const { rows } = await db.query('SELECT SUM(edate - sdate + 1) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) = EXTRACT(MONTH FROM current_timestamp)', [username]);
+  return rows;
 }
 
 module.exports = {
@@ -48,6 +53,8 @@ module.exports = {
     insertCategory,
     updatePrice,
     deleteCategory,
-    registerUser,
+    getOrders,
+    getPetday,
+    getSalary,
   },
 };
