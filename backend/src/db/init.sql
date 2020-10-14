@@ -24,7 +24,8 @@ CREATE TABLE accounts(
 );
 
 CREATE TABLE admins(
-    username VARCHAR PRIMARY KEY REFERENCES accounts(username),
+    username VARCHAR PRIMARY KEY,
+    passwd VARCHAR NOT NULL,
     privilege VARCHAR -- privilege for admins
 );
 
