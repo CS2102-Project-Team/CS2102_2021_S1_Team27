@@ -5,6 +5,19 @@ const db = require('../db/Admin');
 
 const router = express.Router();
 
+router.post('/promote', auth.authenticateToken, async (req, res) => {
+  try {
+    const { caretaker } = req.body;
+    await db.functions.promotePartime(caretaker);
+    await db.functions.insertAvailability(caretaker, '2020-10-01', '2021-12-31');
+    // await db.functions.updatePriceforFulltimer(caretaker);
+    res.status(204).json('success');
+    return;
+  } catch (err) {
+    res.status(500).json('error');
+  }
+});
+
 router.get('/user', auth.authenticateToken, async (req, res) => {
   try {
     const user = await db.functions.getUserByUsername(req.user.username);
@@ -44,17 +57,6 @@ router.post('/cards', auth.authenticateToken, async (req, res) => {
   }
   try {
     await db.functions.insertCard(cardnumber, cvv, exp, username);
-    res.status(204).json('success');
-    return;
-  } catch (err) {
-    res.status(500).json('error');
-  }
-});
-
-router.delete('/cards', auth.authenticateToken, async (req, res) => {
-  try {
-    const { cardnumber } = req.body;
-    await db.functions.deleteCard(cardnumber);
     res.status(204).json('success');
     return;
   } catch (err) {
