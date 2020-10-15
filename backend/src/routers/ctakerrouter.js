@@ -30,7 +30,8 @@ Skip authentication: (req,res,next) => {req.user = 'kyle';next();},
 
 router.post('/', auth.authenticateToken, async (req, res) => {
   try {
-    await db.functions.insertCaretaker(req.user.username);
+    const { realname } = req.body;
+    await db.functions.insertCaretaker(req.user.username, realname);
     res.status(204).json('success');
     return;
   } catch (err) {
@@ -117,6 +118,61 @@ router.get('/stats', auth.authenticateToken, async (req, res) => {
       result.salary = inRes;
     }
     res.status(200).json(result);
+    return;
+  } catch (err) {
+    res.status(500).json('error');
+  }
+});
+
+router.post('/orders', auth.authenticateToken, async (req, res) => {
+  try {
+    const { accept } = req.query;
+    const { startdate } = req.body;
+    const { enddate } = req.body;
+    const { petname } = req.body;
+    const { ownerusername } = req.body;
+    let status = '';
+    if (accept === 'true') {
+      status = 'Pending Payment';
+      const Res = await db.functions.checkFull(req.user.username, startdate, enddate);
+      if (Res.length !== 0) {
+        status = 'Rejected Bid';
+        // eslint-disable-next-line max-len
+        await db.functions.acceptRejectBid(req.user.username, startdate, enddate, ownerusername, petname, status);
+        res.status(422).json('Exceed max pets allowed');
+        return;
+      }
+    } else {
+      status = 'Rejected Bid';
+    }
+    // eslint-disable-next-line max-len
+    const inRes = await db.functions.acceptRejectBid(req.user.username, startdate, enddate, ownerusername, petname, status);
+    res.status(200).json(inRes);
+    return;
+  } catch (err) {
+    res.status(500).json('error');
+  }
+});
+
+router.get('/availability', auth.authenticateToken, async (req, res) => {
+  try {
+    const inRes = await db.functions.getAvailability(req.user.username);
+    res.status(200).json(inRes);
+    return;
+  } catch (err) {
+    res.status(500).json('error');
+  }
+});
+
+router.post('/availability', auth.authenticateToken, async (req, res) => {
+  try {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const element of req.body) {
+      // eslint-disable-next-line
+      // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
+      await db.functions.addAvailability(req.user.username, element.startdate, element.enddate);
+    }
+    res.status(200).json('success');
     return;
   } catch (err) {
     res.status(500).json('error');
