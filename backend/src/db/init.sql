@@ -82,7 +82,7 @@ INSERT INTO calendar(date)
 CREATE TABLE available(
     ctaker VARCHAR REFERENCES caretakers(username),
     date DATE REFERENCES calendar(date),
-    status VARCHAR, --available, full
+    status VARCHAR DEFAULT 'available', --available, full
     PRIMARY KEY(ctaker, date)
 );
 
@@ -107,6 +107,32 @@ CREATE TABLE orders(
     FOREIGN KEY (ctaker, ptype) REFERENCES looksafter(ctaker, ptype)
 );
 
+--helper functions
+create or replace function end_of_month(date)
+returns date as
+$$
+select (date_trunc('month', $1) + interval '1 month' - interval '1 day')::date;
+$$ language 'sql'
+immutable strict;
+
+create or replace function start_of_month(date)
+returns date as
+$$
+select (date_trunc('month', $1))::date;
+$$ language 'sql'
+immutable strict;
+
+CREATE OR REPLACE FUNCTION later_date(date, date)
+RETURNS DATE AS
+$$ SELECT (CASE WHEN $1 >= $2 THEN $1 ELSE $2 END);
+$$ language 'sql';
+
+CREATE OR REPLACE FUNCTION earlier_date(date, date)
+RETURNS DATE AS
+$$ SELECT (CASE WHEN $1 <= $2 THEN $1 ELSE $2 END);
+$$ language 'sql';
+
+
 --triggers
 
 CREATE OR REPLACE FUNCTION update_rating()
@@ -121,7 +147,7 @@ END IF;
 RETURN NEW;
 END; $$
 LANGUAGE plpgsql;
---can add changes to maxpetsallowed as well
+--can add changes to maxpetsallowed and service price(for full time) as well
 
 CREATE TRIGGER update_rating
 AFTER UPDATE OF rating ON orders 
@@ -143,3 +169,23 @@ CREATE TRIGGER accept_bid_fulltime
 BEFORE INSERT ON orders 
 FOR EACH ROW EXECUTE FUNCTION accept_bid(); 
 
+
+CREATE OR REPLACE FUNCTION update_available()
+RETURNS TRIGGER AS
+$$ DECLARE maxpet INTEGER;
+BEGIN
+SELECT maxpets INTO maxpet FROM caretakers WHERE username = NEW.ctaker;
+
+UPDATE available A
+SET status='full'
+WHERE A.ctaker = NEW.ctaker AND maxpet<=(SELECT COUNT(*) FROM orders O WHERE O.ctaker = A.ctaker AND (O.status='Payment Received' OR O.status='Pending Payment')  AND A.date>=O.sdate AND A.date<=O.edate);
+
+RETURN NEW;
+END; $$
+LANGUAGE plpgsql;
+
+
+CREATE TRIGGER update_available_after_payment
+AFTER INSERT OR UPDATE ON orders
+FOR EACH ROW WHEN (NEW.status = 'Payment Received' OR NEW.status = 'Pending Payment')
+EXECUTE FUNCTION update_available(); 
