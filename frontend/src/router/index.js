@@ -10,11 +10,6 @@ export const constantRoutes = [
     hidden: true,
   },
   {
-    path: '/signup',
-    component: () => import('@/views/signup/index'),
-    hidden: true,
-  },
-  {
     path: '/404',
     component: () => import('@/views/home/index'),
     hidden: true,
@@ -30,6 +25,11 @@ export const constantRoutes = [
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true },
       },
     ],
+  },
+  {
+    path: '/po',
+    component: () => import('@/views/petowner/index'),
+    hidden: true,
   },
 ];
 
