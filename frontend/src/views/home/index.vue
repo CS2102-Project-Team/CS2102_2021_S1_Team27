@@ -10,6 +10,7 @@
     <div>
       <el-button type="primary" @click="logout()">Sign out</el-button>
     </div>
+    <el-button v-on:click="goToPO()">Pet Owner Page</el-button>
   </el-card>
 </template>
 
@@ -29,6 +30,10 @@ export default {
         }).catch((error) => {
           this.$message.error(error);
         });
+    },
+    goToPO() {
+      console.log('Entering the petowner page.');
+      this.$router.push('/po');
     },
   },
 };
