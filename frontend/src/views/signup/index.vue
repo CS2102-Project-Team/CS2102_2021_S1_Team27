@@ -1,7 +1,7 @@
 <template>
   <div class="signup-wrap" >
   <div class="ms-signup">
-    
+
       <div class="ms-title">Sign up</div>
       <el-form
         :model="param"
@@ -185,7 +185,7 @@ export default {
     },
     getOTPBtn() {
       this.loading = true;
-      const email = {email: this.param.email};
+      const email = { email: this.param.email };
       getotp(email)
         .then((response) => {
           this.loading = false;
@@ -220,7 +220,7 @@ export default {
 .ms-signup {
   /* position: absolute;
   left: 50%;
-  top: 50%; 
+  top: 50%;
   margin: 100px 0 0 100px;
   border-radius: 5px;
   width: 350px; */
