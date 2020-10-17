@@ -23,30 +23,30 @@ service.interceptors.request.use(
   },
 );
 
-service.interceptors.response.use(
-  (response) => {
-    const res = response.data;
-    // eslint-disable-next-line no-console
-    if (res.status !== 200 || res.status !== 204) {
-      Message({
-        message: res.error || 'Error',
-        type: 'error',
-        duration: 5 * 1000,
-      });
-    }
-    // Check for http status code and show error accordingly (e.g. 403-> logged out)
-    return res;
-  },
-  (error) => {
-    // eslint-disable-next-line no-console
-    console.log(`request error: ${error}`);
-    Message({
-      message: error.message || 'Error',
-      type: 'error',
-      duration: 5 * 1000,
-    });
-    return Promise.reject(error);
-  },
-);
+// service.interceptors.response.use(
+//   (response) => {
+//     const res = response.data;
+//     // eslint-disable-next-line no-console
+//     if (res.status !== 200 || res.status !== 204) {
+//       Message({
+//         message: res.error || 'Error',
+//         type: 'error',
+//         duration: 5 * 1000,
+//       });
+//     }
+//     // Check for http status code and show error accordingly (e.g. 403-> logged out)
+//     return res;
+//   },
+//   (error) => {
+//     // eslint-disable-next-line no-console
+//     console.log(`request error: ${error}`);
+//     Message({
+//       message: error.message || 'Error',
+//       type: 'error',
+//       duration: 5 * 1000,
+//     });
+//     return Promise.reject(error);
+//   },
+// );
 
 export default service;

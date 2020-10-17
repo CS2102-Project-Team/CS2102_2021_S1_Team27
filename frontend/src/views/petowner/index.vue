@@ -34,7 +34,7 @@
       </el-row>
     </el-form>
     <div>
-      <el-card v-for="(vacancy, index) in vacancies" v-bind:key="index">
+      <el-card v-for="(vacancy,index) in vacancies" v-bind:key="index">
         <span style='color:red'>{{ vacancy.realname }}</span>
         <br/>
         <span>{{ vacancy.address }}</span>
@@ -71,7 +71,7 @@ export default {
   methods: {
     getSlot() {
       searchVacancy(this.param).then((results) => {
-        this.vacancies = results;
+        this.vacancies = results.data;
       }).then(() => {
         console.log('Finished loading vacancies from remote server.');
         console.log(this.vacancies);

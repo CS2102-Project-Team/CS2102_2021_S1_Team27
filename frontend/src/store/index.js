@@ -5,6 +5,8 @@ import { getToken, setToken, removeToken } from '@/utils/auth';
 import { login } from '@/api/user';
 import { resetRouter } from '@/router';
 
+// this page serves as temporary local storage
+
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -25,7 +27,7 @@ const store = new Vuex.Store({
       return new Promise(
         (resolve, reject) => {
           login({ username: username.trim(), password }).then((response) => {
-            const data = response;
+            const { data } = response;
             // eslint-disable-next-line no-console
             console.log(`data: ${data}`);
             commit('SET_TOKEN', data.access_token);
