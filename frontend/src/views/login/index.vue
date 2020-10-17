@@ -66,7 +66,7 @@ export default {
               this.loading = false;
             });
         } else {
-          this.$message.error('Please enter your username and pssword');
+          this.$message.error('Please enter your username and password');
           return false;
         }
       });

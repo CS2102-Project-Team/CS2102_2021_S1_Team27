@@ -31,6 +31,16 @@ export const constantRoutes = [
     component: () => import('@/views/petowner/index'),
     hidden: true,
   },
+  {
+    path: '/po/orders',
+    component: () => import('@/views/petowner/orders'),
+    hidden: true,
+  },
+  {
+    path: '/po/pets',
+    component: () => import('@/views/petowner/pets'),
+    hidden: true,
+  },
 ];
 
 const createRouter = () => new Router({

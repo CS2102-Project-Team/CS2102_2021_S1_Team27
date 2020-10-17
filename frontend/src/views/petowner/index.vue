@@ -1,77 +1,88 @@
 <template>
   <div>
-    <el-card class="box-card" height="100%">
-      <div slot="header" class="clearfix">
-        <span>Liang Boyuan</span>
-      </div>
-      <div class="bar-btn">
-        <el-button type="primary" plain>search for service</el-button>
-      </div>
-      <div class="bar-btn">
-        <el-button type="primary" plain>my pets</el-button>
-      </div>
-      <div class="bar-btn">
-        <el-button type="primary" plain>my orders</el-button>
-      </div>
-      <div class="bar-btn">
-        <el-button type="primary" plain>back to home</el-button>
-      </div>
-    </el-card>
-
+    <leftbar/>
     <el-form :model="param" :rules="rules" class="ms-content">
       <el-row>
-        <el-col span=4>
+        <el-col>
           <el-form-item prop="startdate">
-            <el-input v-model="param.startdate" placeholder="startdate">
+            <el-input v-model="param.startdate" placeholder="start date" >
               <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
             </el-input>
           </el-form-item>
         </el-col>
-        <el-col span=4>
+        <el-col>
           <el-form-item prop="enddate">
-            <el-input v-model="param.enddate" placeholder="enddate">
+            <el-input v-model="param.enddate" placeholder="end date">
               <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
             </el-input>
           </el-form-item>
         </el-col>
-        <el-col span=4>
-          <el-form-item prop="category">
-            <el-input v-model="param.category" placeholder="category">
+        <el-col>
+          <el-form-item prop="petcategory">
+            <el-input v-model="param.petcategory" placeholder="pet category">
               <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
             </el-input>
           </el-form-item>
         </el-col>
-        <el-col span=4>
+        <el-col>
           <el-form-item>
             <div class="bar-btn">
-              <el-button type="primary">search</el-button>
+              <el-button type="primary" v-on:click="getSlot()">search</el-button>
             </div>
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
-
+    <div>
+      <el-card v-for="(vacancy, index) in vacancies" v-bind:key="index">
+        <span style='color:red'>{{ vacancy.realname }}</span>
+        <br/>
+        <span>{{ vacancy.address }}</span>
+        <br/>
+        <span>{{ vacancy.rating }}</span>
+        <br/>
+        <span>{{ vacancy.totalprice }}</span>
+      </el-card>
+    </div>
   </div>
 </template>
 
 <script>
+import { searchVacancy } from '@/api/petowner';
+import leftbar from './components/leftbar.vue';
+
 export default {
   data() {
     return {
+      vacancies: [],
       param: {
-        startdate: '',
-        enddate: '',
-        category: '',
+        startdate: '2020-10-09',
+        enddate: '2020-10-22',
+        petcategory: 'cat',
       },
       rules: {
         startdate: [{ required: true, message: 'Please specify your start date', trigger: 'blur' }],
         enddate: [{ required: true, message: 'Please specify your end date', trigger: 'blur' }],
-        category: [{ required: true, message: 'Please specify your pet category', trigger: 'blur' }],
+        petcategory: [{ required: true, message: 'Please specify your pet category', trigger: 'blur' }],
       },
       loading: false,
     };
   },
   methods: {
+    getSlot() {
+      searchVacancy(this.param).then((results) => {
+        this.vacancies = results;
+      }).then(() => {
+        console.log('Finished loading vacancies from remote server.');
+        console.log(this.vacancies);
+      });
+    },
+    onChange(date, dateString) {
+      console.log(date, dateString);
+    },
+  },
+  components: {
+    leftbar,
   },
 };
 </script>
