@@ -1,8 +1,8 @@
 <template>
-  <div class="signup-wrap" 
-  :style = "{ background: 'url(' + bg +')'}" >
-    <div class="ms-signup">
-      <div class="ms-title">Sign Up</div>
+  <div class="signup-wrap" >
+  <div class="ms-signup">
+    
+      <div class="ms-title">Sign up</div>
       <el-form
         :model="param"
         :rules="rules"
@@ -12,19 +12,19 @@
       >
         <!-- change icon -->
         <el-form-item prop="username">
-          <el-input v-model="param.username" placeholder="username">
+          <el-input v-model="param.username" placeholder="username*">
             <el-button slot="prepend" icon="el-icon-user"></el-button>
           </el-input>
         </el-form-item>
         <el-form-item prop="email">
-          <el-input v-model="param.email" placeholder="email">
+          <el-input v-model="param.email" placeholder="email*">
             <el-button slot="prepend" icon="el-icon-message"></el-button>
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input
             type="password"
-            placeholder="password"
+            placeholder="password*"
             v-model="param.password"
             @keyup.enter.native="submitForm()"
             show-password
@@ -36,7 +36,7 @@
         <el-form-item prop="checkPass">
           <el-input
             type="password"
-            placeholder="confirm your password"
+            placeholder="confirm your password*"
             v-model="param.checkPass"
             minlength = 8
           >
@@ -47,7 +47,7 @@
           <el-col :span="15">
             <el-form-item prop="otp">
               <el-input
-                placeholder="enter OTP"
+                placeholder="enter OTP*"
                 v-model="param.otp"
               >
                 <el-button slot="prepend" icon="el-icon-postcard"></el-button>
@@ -71,13 +71,12 @@
         </div>
         <p class="signup-tips">Already registerd? <a href='/#/login'>Log in Here</a> </p>
       </el-form>
-    </div>
+  </div>
   </div>
 </template>
 
 <script>
 import { signup, getotp } from '@/api/user';
-import bgpic from '@/assets/img/signup-bg.jpg';
 
 export default {
   data() {
@@ -90,9 +89,9 @@ export default {
       }
     };
     const validatePass = (rule, value, callback) => {
-      const regExpPass = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
+      const regExpPass = /^.{8,20}$/;
       if (regExpPass.test(value) === false) {
-        callback(new Error('8-16 letters and numbers, not pure letters or numbers'));
+        callback(new Error('Password length must be within 8 and 20 inclusive'));
       } else {
         if (this.param.checkPass !== '') {
           this.$refs.signup.validateField('checkPass');
@@ -136,7 +135,6 @@ export default {
         ],
       },
       loading: false,
-      bg: bgpic,
     };
   },
   methods: {
@@ -215,19 +213,23 @@ export default {
 
 <style>
 .signup-wrap {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-size: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .ms-signup {
-  position: absolute;
+  /* position: absolute;
   left: 50%;
-  top: 50%;
-  width: 350px;
+  top: 50%; 
   margin: 100px 0 0 100px;
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.3);
+  width: 350px; */
+  /* background: rgba(255, 255, 255, 0.3); */
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin: 100px 0 0 100px;
+  width: 350px;
   overflow: hidden;
 }
 .ms-content {
@@ -238,7 +240,7 @@ export default {
   line-height: 50px;
   text-align: center;
   font-size: 20px;
-  color: #fff;
+  color: rgb(8, 8, 8);
   border-bottom: 1px solid #ddd;
 }
 .signup-btn {
@@ -252,6 +254,6 @@ export default {
 .signup-tips {
   font-size: 12px;
   line-height: 30px;
-  color: rgb(17, 255, 96);
+  color: rgb(10, 10, 10);
 }
 </style>
