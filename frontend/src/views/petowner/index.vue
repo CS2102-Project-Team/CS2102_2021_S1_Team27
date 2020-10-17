@@ -42,6 +42,8 @@
         <span>{{ vacancy.rating }}</span>
         <br/>
         <span>{{ vacancy.totalprice }}</span>
+        <br/>
+        <el-button type="primary" v-on:click="orderDetail(vacancy)">place order</el-button>
       </el-card>
     </div>
   </div>
@@ -77,8 +79,9 @@ export default {
         console.log(this.vacancies);
       });
     },
-    onChange(date, dateString) {
-      console.log(date, dateString);
+    orderDetail(vacancy) {
+      console.log(`Entering an vacancy detail of ${vacancy.realname}.`);
+      alert(`Entering an vacancy detail of ${vacancy.realname}.`);
     },
   },
   components: {
