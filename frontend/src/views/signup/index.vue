@@ -213,23 +213,21 @@ export default {
 
 <style>
 .signup-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url(../../assets/img/login-bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .ms-signup {
-  /* position: absolute;
-  left: 50%;
-  top: 50%;
+  position: absolute;
+  left: 35%;
+  top: 10%;
+  width: 350px;
   margin: 100px 0 0 100px;
   border-radius: 5px;
-  width: 350px; */
-  /* background: rgba(255, 255, 255, 0.3); */
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  margin: 100px 0 0 100px;
-  width: 350px;
+  background: rgba(255, 255, 255, 0.3);
   overflow: hidden;
 }
 .ms-content {
