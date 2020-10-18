@@ -1,5 +1,5 @@
 import mainRoutes from './main-routes';
-import beforeLogIn from './beforeLogIn';
+import beforeLogIn from './beforeLogin';
 
 export default [
   {
@@ -9,7 +9,7 @@ export default [
   },
   {
     path: '/',
-    component: () => import('@/views/layout/beforeLogInlayout'),
+    component: () => import('@/views/layout/beforeLoginlayout'),
     children: beforeLogIn,
   },
   {

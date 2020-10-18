@@ -163,17 +163,12 @@ export default {
                   });
                   this.$router.push('/profile');
                   this.loading = false;
-                }).catch((errorMsg) => {
+                }).catch((error) => {
                   this.loading = false;
-                  const { error } = errorMsg;
-                  this.$message.error(error);
+                  this.$message.error(error.response.data.error);
                 });
-            }).catch((errorMsg) => {
-              // TODO Error handling
-              // repeated username, repeated email, wrong otp
-              // general error
-              const { error } = errorMsg;
-              this.$message.error(error);
+            }).catch((error1) => {
+              this.$message.error(error1.response.data.error);
               this.loading = false;
             });
         } else {

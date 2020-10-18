@@ -51,7 +51,7 @@ export default {
       this.$refs.login.validate((valid) => {
         if (valid) {
           this.loading = true;
-          this.$message.success('User input is valid');
+          // this.$message.success('User input is valid');
           this.$store.dispatch('login', this.param)
             .then(() => {
               this.$notify({
@@ -61,8 +61,10 @@ export default {
               });
               this.$router.push('/profile');
               this.loading = false;
-            }).catch(({ error }) => {
-              this.$message.error(error);
+            }).catch((error) => {
+              // console.log(error.response.data.error);
+              // console.log(error.response.status);
+              this.$message.error(error.response.data.error);
               this.loading = false;
             });
         } else {

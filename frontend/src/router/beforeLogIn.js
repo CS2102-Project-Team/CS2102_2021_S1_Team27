@@ -1,5 +1,5 @@
 export default [
-{
+  {
     name: 'login',
     path: '/login',
     component: () => import('@/views/login/index'),
@@ -14,4 +14,4 @@ export default [
     path: '/',
     component: () => import('@/views/home/index'),
   },
-]
+];

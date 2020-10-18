@@ -52,5 +52,4 @@ export default {
   .ral {
     float: right !important;
   }
-  
 </style>
