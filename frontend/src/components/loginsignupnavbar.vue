@@ -4,17 +4,17 @@
       <el-col :span="1" style="text-align: left;">
         Logo
       </el-col>
-      <el-col :span="21" style="text-align: left;">
+      <el-col :span="15" style="text-align: left;">
         Pet Anything
       </el-col>
-      <el-col :span="2">
+      <el-col :span="8">
         <el-menu
           :default-active="activeIndex"
           class="headermenu"
           mode="horizontal"
           @select="handleSelect">
-            <el-menu-item index="/login">Login</el-menu-item>
-            <el-menu-item index="/signup">Signup</el-menu-item>
+            <el-menu-item index="/signup" class = 'ral'>Signup</el-menu-item>
+            <el-menu-item index="/login" class = 'ral'>Login</el-menu-item>
         </el-menu>
       </el-col>
     </el-row>
@@ -49,5 +49,8 @@ export default {
   .headermenu {
     background-color: #B3C0D1;
   }
-
+  .ral {
+    float: right !important;
+  }
+  
 </style>

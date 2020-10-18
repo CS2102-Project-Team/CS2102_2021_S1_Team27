@@ -5,13 +5,13 @@
       <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
         <el-form-item prop="username">
           <el-input v-model="param.username" placeholder="username/email">
-            <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
+            <el-button slot="prepend" icon="el-icon-user"></el-button>
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input type="password" placeholder="password" v-model="param.password"
             @keyup.enter.native="submitForm()">
-            <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
+            <el-button slot="prepend" icon="el-icon-lock"></el-button>
           </el-input>
         </el-form-item>
         <div class="login-signup-btn">
@@ -22,7 +22,7 @@
             Register
           </el-button>
         </div>
-        <p class="login-tips">Tips : Register not implemented yet :></p>
+        <!-- <p class="login-tips">Tips : Register not implemented yet :></p> -->
       </el-form>
     </div>
   </div>
@@ -110,7 +110,7 @@ export default {
   line-height: 50px;
   text-align: center;
   font-size: 20px;
-  color: #fff;
+  color:#fff;
   border-bottom: 1px solid #ddd;
 }
 .login-signup-btn {
@@ -121,9 +121,9 @@ export default {
   height: 36px;
   margin-bottom: 10px;
 }
-.login-tips {
+/* .login-tips {
   font-size: 12px;
   line-height: 30px;
   color: rgb(17, 255, 96);
-}
+} */
 </style>
