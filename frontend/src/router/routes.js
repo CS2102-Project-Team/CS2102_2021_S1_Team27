@@ -9,7 +9,7 @@ export default [
   },
   {
     path: '/',
-    component: () => import('@/views/layout/beforeLoginlayout'),
+    component: () => import('@/views/layout/beforeLoginLayout'),
     children: beforeLogIn,
   },
   {
