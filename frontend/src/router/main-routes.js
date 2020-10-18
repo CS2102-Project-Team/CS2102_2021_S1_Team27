@@ -10,7 +10,7 @@ export default [
     name: 'petowner',
     path: '/petowner',
     meta: { requireAuth: true },
-    component: () => import('@/views/home/index'),
+    redirect: '/po',
   },
   {
     name: 'caretaker',
@@ -22,6 +22,18 @@ export default [
     name: 'profile',
     path: '/profile',
     meta: { requireAuth: true },
-    component: () => import('@/views/home/index'),
+    component: () => import('@/views/home/edit_profile'),
+  },
+  {
+    path: '/po',
+    component: () => import('@/views/petowner/index'),
+  },
+  {
+    path: '/po/orders',
+    component: () => import('@/views/petowner/orders'),
+  },
+  {
+    path: '/po/pets',
+    component: () => import('@/views/petowner/pets'),
   },
 ];
