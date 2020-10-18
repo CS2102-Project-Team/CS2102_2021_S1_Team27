@@ -26,7 +26,7 @@
             Register
           </el-button>
         </div>
-        <p class="login-tips">Tips : Register not implemented yet :></p>
+        <!-- <p class="login-tips">Tips : Register not implemented yet :></p> -->
       </el-form>
     </div>
   </div>
@@ -55,7 +55,7 @@ export default {
       this.$refs.login.validate((valid) => {
         if (valid) {
           this.loading = true;
-          this.$message.success('User input is valid');
+          // this.$message.success('User input is valid');
           this.$store.dispatch('login', this.param)
             .then(() => {
               this.$notify({
@@ -63,10 +63,12 @@ export default {
                 message: `Access Token: ${this.$store.getters.token}`,
                 duration: 0,
               });
-              this.$router.push('/home');
+              this.$router.push('/profile');
               this.loading = false;
-            }).catch(({ error }) => {
-              this.$message.error(error);
+            }).catch((error) => {
+              // console.log(error.response.data.error);
+              // console.log(error.response.status);
+              this.$message.error(error.response.data.error);
               this.loading = false;
             });
         } else {
@@ -115,7 +117,8 @@ export default {
   line-height: 50px;
   text-align: center;
   font-size: 20px;
-  color: #000;
+
+  color: #fff;
   border-bottom: 1px solid #ddd;
 }
 .login-signup-btn {
@@ -126,9 +129,9 @@ export default {
   height: 36px;
   margin-bottom: 10px;
 }
-.login-tips {
+/* .login-tips {
   font-size: 12px;
   line-height: 30px;
   color: rgb(17, 255, 96);
-}
+} */
 </style>

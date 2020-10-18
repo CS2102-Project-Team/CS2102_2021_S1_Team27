@@ -161,19 +161,14 @@ export default {
                     message: `Access Token: ${this.$store.getters.token}`,
                     duration: 0,
                   });
-                  this.$router.push('/');
+                  this.$router.push('/profile');
                   this.loading = false;
-                }).catch((errorMsg) => {
+                }).catch((error) => {
                   this.loading = false;
-                  const { error } = errorMsg;
-                  this.$message.error(error);
+                  this.$message.error(error.response.data.error);
                 });
-            }).catch((errorMsg) => {
-              // TODO Error handling
-              // repeated username, repeated email, wrong otp
-              // general error
-              const { error } = errorMsg;
-              this.$message.error(error);
+            }).catch((error1) => {
+              this.$message.error(error1.response.data.error);
               this.loading = false;
             });
         } else {
@@ -216,19 +211,24 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  background-image: url(../../assets/img/login-bg.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
 }
 .ms-signup {
   position: absolute;
-  left: 35%;
-  top: 10%;
-  width: 350px;
+  left: 50%;
+  top: 50%;
   margin: 100px 0 0 100px;
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.3);
-  overflow: hidden;
+  width: 350px;
+  /* background: rgba(255, 255, 255, 0.3); */
+  /* position: absolute;
+  justify-content: center;
+  align-items: center;
+  margin: 100px 0 0 100px;
+  width: 350px;
+  overflow: hidden; */
 }
 .ms-content {
   padding: 30px 30px;
@@ -238,7 +238,7 @@ export default {
   line-height: 50px;
   text-align: center;
   font-size: 20px;
-  color: rgb(8, 8, 8);
+  color: #fff;
   border-bottom: 1px solid #ddd;
 }
 .signup-btn {
@@ -252,6 +252,6 @@ export default {
 .signup-tips {
   font-size: 12px;
   line-height: 30px;
-  color: rgb(10, 10, 10);
+  color: #fff;
 }
 </style>

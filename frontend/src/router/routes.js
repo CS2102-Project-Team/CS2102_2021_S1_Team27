@@ -1,20 +1,16 @@
 import mainRoutes from './main-routes';
+import beforeLogIn from './before-login';
 
 export default [
   {
-    name: 'login',
-    path: '/login',
-    component: () => import('@/views/login/index'),
-  },
-  {
-    name: 'signup',
-    path: '/signup',
-    component: () => import('@/views/signup/index'),
+    path: '/profile',
+    component: () => import('@/views/layout/layout'),
+    children: mainRoutes,
   },
   {
     path: '/',
-    component: () => import('@/views/layout/layout'),
-    children: mainRoutes,
+    component: () => import('@/views/layout/beforeLogInLayout'),
+    children: beforeLogIn,
   },
   {
     name: '404',
