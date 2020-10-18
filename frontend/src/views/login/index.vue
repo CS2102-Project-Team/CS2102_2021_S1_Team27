@@ -59,7 +59,7 @@ export default {
                 message: `Access Token: ${this.$store.getters.token}`,
                 duration: 0,
               });
-              this.$router.push('/home');
+              this.$router.push('/profile');
               this.loading = false;
             }).catch(({ error }) => {
               this.$message.error(error);

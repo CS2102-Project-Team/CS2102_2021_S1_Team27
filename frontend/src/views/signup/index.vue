@@ -161,7 +161,7 @@ export default {
                     message: `Access Token: ${this.$store.getters.token}`,
                     duration: 0,
                   });
-                  this.$router.push('/');
+                  this.$router.push('/profile');
                   this.loading = false;
                 }).catch((errorMsg) => {
                   this.loading = false;
@@ -213,24 +213,27 @@ export default {
 
 <style>
 .signup-wrap {
-  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
 .ms-signup {
-  /* position: absolute;
+  position: absolute;
   left: 50%;
   top: 50%;
   margin: 100px 0 0 100px;
   border-radius: 5px;
-  width: 350px; */
+  width: 350px;
   /* background: rgba(255, 255, 255, 0.3); */
-  position: relative;
+  /* position: absolute;
   justify-content: center;
   align-items: center;
   margin: 100px 0 0 100px;
   width: 350px;
-  overflow: hidden;
+  overflow: hidden; */
 }
 .ms-content {
   padding: 30px 30px;
@@ -240,7 +243,7 @@ export default {
   line-height: 50px;
   text-align: center;
   font-size: 20px;
-  color: rgb(8, 8, 8);
+  color: #fff;
   border-bottom: 1px solid #ddd;
 }
 .signup-btn {
