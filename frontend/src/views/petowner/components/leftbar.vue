@@ -34,7 +34,7 @@ export default {
       this.$router.push(path).catch(err => {});
     },
     goToHome() {
-      this.navigation(this.homeMessage, '/');
+      this.navigation(this.homeMessage, '/home');
     },
     goToPets() {
       this.navigation(this.petMessage, '/po/pets');

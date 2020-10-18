@@ -13,6 +13,7 @@ export function login(data) {
     data: { username, email, password },
   });
 }
+
 export function signup({
   username, email, password, otp,
 }) {
@@ -26,6 +27,7 @@ export function signup({
     },
   });
 }
+
 export function getotp({
   email,
 }) {
@@ -39,6 +41,24 @@ export function getotp({
     },
   });
 }
-export function getInfo() {
-  return {};
+
+export function getUserInfo() {
+  const params = {};
+  const data = {};
+  return request({
+    url: '/user/user',
+    method: 'get',
+    params,
+    data,
+  });
+}
+
+export function updateUserInfo({ address, phone, realname }) {
+  const params = {};
+  return request({
+    url: '/user/user',
+    method: 'put',
+    params,
+    data: { address, phone, realname },
+  });
 }

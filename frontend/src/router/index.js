@@ -5,18 +5,23 @@ Vue.use(Router);
 
 export const constantRoutes = [
   {
-    path: '/login',
+    path: '/home',
+    component: () => import('@/views/home/index'),
+    hidden: true,
+  },
+  {
+    path: '/home/update_profile',
+    component: () => import('@/views/home/edit_profile'),
+    hidden: true,
+  },
+  {
+    path: '/404', // To be modified
+    component: () => import('@/views/home/index'),
+    hidden: true,
+  },
+  {
+    path: '/',
     component: () => import('@/views/login/index'),
-    hidden: true,
-  },
-  {
-    path: '/404',
-    component: () => import('@/views/home/index'),
-    hidden: true,
-  },
-  {
-    path: '/', // to be modified
-    component: () => import('@/views/home/index'),
     children: [
       {
         path: 'dashboard',

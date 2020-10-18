@@ -1,24 +1,43 @@
 <template>
-  <el-card class="box-card">
-    <div slot="header" class="clearfix">
-      <span>不如鬼畜</span>
-      <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-    </div>
-    <div v-for="o in 4" :key="o" class="text item">
-      {{ "列表内容 " + o }}
-    </div>
-    <div>
-      <el-button type="primary" @click="logout()">Sign out</el-button>
-    </div>
+  <div>
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <span>{{ username }}</span>
+        <el-button style="float: right; padding: 3px 0" type="text" @click="goToEdit()">
+          Edit Profile
+        </el-button>
+      </div>
+      <div class="text item">
+        {{ 'Email: ' + email }}
+      </div>
+      <div class="text item">
+        {{ 'Address: ' + address }}
+      </div>
+      <div class="text item">
+        {{ 'Phone: ' + phone }}
+      </div>
+      <div class="text item">
+        {{ 'Real Name: ' + realname }}
+      </div>
+    </el-card>
+    <el-button type="primary" @click="logout()">Sign out</el-button>
     <el-button v-on:click="goToPO()">Pet Owner Page</el-button>
-  </el-card>
+    <el-button v-on:click="goToCT()">Care Taker Page</el-button>
+  </div>
 </template>
 
 <script>
+import { getUserInfo } from '@/api/user';
+
 export default {
   data() {
     return {
       loggedin: !!this.$store.getters.token,
+      username: '',
+      email: '',
+      address: '',
+      phone: '',
+      realname: '',
     };
   },
   methods: {
@@ -26,15 +45,43 @@ export default {
       this.$store.dispatch('logout')
         .then(() => {
           this.$message.success('Sign out successful!');
-          this.$router.push('/login');
+          this.$router.push('/');
         }).catch((error) => {
           this.$message.error(error);
         });
     },
+
+    getUserInfo() {
+      getUserInfo().then((results) => {
+        if (results.status === 200) {
+          console.log(results.data);
+          this.username = results.data.username;
+          this.email = results.data.email;
+          this.address = results.data.address;
+          this.phone = results.data.phone;
+          this.realname = results.data.realname;
+        } else {
+          console.log(results.status, results.error);
+        }
+      });
+    },
+
     goToPO() {
       console.log('Entering the petowner page.');
       this.$router.push('/po');
     },
+
+    goToCT() {
+      console.log('Entering the caretaker page.');
+    },
+
+    goToEdit() {
+      console.log('Entering Profile edition page.');
+      this.$router.push('/home/update_profile');
+    },
+  },
+  beforeMount() {
+    this.getUserInfo();
   },
 };
 </script>
