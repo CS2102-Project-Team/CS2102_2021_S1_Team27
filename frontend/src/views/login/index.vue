@@ -2,30 +2,25 @@
   <div class="login-wrap">
     <div class="ms-login">
       <div class="ms-title">Pet-Anything</div>
-      <el-form
-        :model="param"
-        :rules="rules"
-        ref="login"
-        label-width="0px"
-        class="ms-content"
-      >
+      <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
         <el-form-item prop="username">
           <el-input v-model="param.username" placeholder="username/email">
             <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input
-            type="password"
-            placeholder="password"
-            v-model="param.password"
-            @keyup.enter.native="submitForm()"
-          >
+          <el-input type="password" placeholder="password" v-model="param.password"
+            @keyup.enter.native="submitForm()">
             <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
           </el-input>
         </el-form-item>
-        <div class="login-btn">
-          <el-button :loading="loading" type="primary" @click="submitForm()">Login</el-button>
+        <div class="login-signup-btn">
+          <el-button :loading="loading" type="primary" @click="submitForm()">Sign in</el-button>
+        </div>
+        <div class="login-signup-btn">
+          <el-button :loading="loading" type="primary" plain @click="goToRegister()">
+            Register
+          </el-button>
         </div>
         <p class="login-tips">Tips : Register not implemented yet :></p>
       </el-form>
@@ -64,17 +59,26 @@ export default {
                 message: `Access Token: ${this.$store.getters.token}`,
                 duration: 0,
               });
-              this.$router.push('/');
+              this.$router.push('/home');
               this.loading = false;
             }).catch(({ error }) => {
               this.$message.error(error);
               this.loading = false;
             });
         } else {
-          this.$message.error('Please enter your username and pssword');
+          this.$message.error('Please enter your username and password');
           return false;
         }
       });
+    },
+    goToRegister() {
+      // navigate to the registration page
+      this.$store.dispatch('signup')
+        .then(() => {
+          this.$router.push('/signup');
+        }).catch((error) => {
+          this.$message.error(error);
+        });
     },
   },
 };
@@ -109,10 +113,10 @@ export default {
   color: #fff;
   border-bottom: 1px solid #ddd;
 }
-.login-btn {
+.login-signup-btn {
   text-align: center;
 }
-.login-btn button {
+.login-signup-btn button {
   width: 100%;
   height: 36px;
   margin-bottom: 10px;
