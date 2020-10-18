@@ -43,6 +43,7 @@ export default {
   methods: {
     isLoggedin() {
       if (this.$store.getters.token) {
+        console.log("user has logged in");
         this.$router.push('/profile');
       }
     },
