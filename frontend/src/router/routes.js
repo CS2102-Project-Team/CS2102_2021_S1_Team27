@@ -1,5 +1,5 @@
 import mainRoutes from './main-routes';
-import beforeLogIn from './beforeLogin';
+import beforeLogIn from './before-login';
 
 export default [
   {

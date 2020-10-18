@@ -118,7 +118,7 @@ export default {
   text-align: center;
   font-size: 20px;
 
-  color: #000;
+  color: #fff;
   border-bottom: 1px solid #ddd;
 }
 .login-signup-btn {

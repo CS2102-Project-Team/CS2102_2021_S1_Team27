@@ -252,6 +252,6 @@ export default {
 .signup-tips {
   font-size: 12px;
   line-height: 30px;
-  color: rgb(10, 10, 10);
+  color: #fff;
 }
 </style>
