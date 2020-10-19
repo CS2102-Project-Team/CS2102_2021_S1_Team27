@@ -1,57 +1,43 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import routes from './routes';
 
 Vue.use(Router);
 
-export const constantRoutes = [
-  {
-    path: '/home',
-    component: () => import('@/views/home/index'),
-    hidden: true,
-  },
-  {
-    path: '/home/update_profile',
-    component: () => import('@/views/home/edit_profile'),
-    hidden: true,
-  },
-  {
-    path: '/404', // To be modified
-    component: () => import('@/views/home/index'),
-    hidden: true,
-  },
-  {
-    path: '/',
-    component: () => import('@/views/login/index'),
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('@/views/home/index'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true },
-      },
-    ],
-  },
-  {
-    path: '/po',
-    component: () => import('@/views/petowner/index'),
-    hidden: true,
-  },
-  {
-    path: '/po/orders',
-    component: () => import('@/views/petowner/orders'),
-    hidden: true,
-  },
-  {
-    path: '/po/pets',
-    component: () => import('@/views/petowner/pets'),
-    hidden: true,
-  },
-];
+// export const constantRoutes = [
+//   {
+//     path: '/login',
+//     component: () => import('@/views/login/index'),
+//     hidden: true,
+//   },
+//   {
+//     path: '/404',
+//     component: () => import('@/views/home/index'),
+//     hidden: true,
+//   },
+//   {
+//     path: '/', // to be modified
+//     component: () => import('@/views/home/index'),
+//     children: [
+//       {
+//         path: 'dashboard',
+//         component: () => import('@/views/home/index'),
+//         name: 'Dashboard',
+//         meta: { title: 'Dashboard', icon: 'dashboard', affix: true },
+//       },
+//     ],
+//   },
+//   {
+//     path: '/signup',
+//     component: () => import('@/views/signup/index'),
+//     hidden: true,
+//   },
+// ];
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes,
+  routes,
 });
 
 const router = createRouter();
