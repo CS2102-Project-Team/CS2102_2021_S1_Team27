@@ -4,6 +4,7 @@
     <el-form :model="param" :rules="rules" class="ms-content">
       <el-row>
         <el-col>
+          <span>Start Date</span>
           <el-form-item prop="startdate">
             <el-input v-model="param.startdate" placeholder="start date" >
               <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
@@ -11,6 +12,7 @@
           </el-form-item>
         </el-col>
         <el-col>
+          <span>End Date</span>
           <el-form-item prop="enddate">
             <el-input v-model="param.enddate" placeholder="end date">
               <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
@@ -18,6 +20,7 @@
           </el-form-item>
         </el-col>
         <el-col>
+          <span>Pet Category</span>
           <el-form-item prop="petcategory">
             <el-input v-model="param.petcategory" placeholder="pet category">
               <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
