@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <el-card class="box-card">
+    <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>{{ username }}</span>
         <el-button style="float: right; padding: 3px 0" type="text" @click="goToEdit()">
@@ -21,8 +21,6 @@
       </div>
     </el-card>
     <el-button type="primary" @click="logout()">Sign out</el-button>
-    <el-button v-on:click="goToPO()">Pet Owner Page</el-button>
-    <el-button v-on:click="goToCT()">Care Taker Page</el-button> -->
   </div>
 </template>
 
