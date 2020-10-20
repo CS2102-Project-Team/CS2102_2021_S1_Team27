@@ -20,11 +20,17 @@
         {{ 'Real Name: ' + realname }}
       </div>
     </el-card>
+    <div>My Credit Cards</div>
+    <el-card v-for="(card,index) in cards" v-bind:key="index">
+      <span>{{ 'Card Number: ' + card.cardnumber }}</span>
+      <el-button type="primary" v-on:click="deleteCard(card.cardnumber)">Delete Card</el-button>
+    </el-card>
+    <el-button type="primary" v-on:click="goToAddCard()">Add Card</el-button>
   </div>
 </template>
 
 <script>
-import { getUserInfo } from '@/api/user';
+import { getUserInfo, getCards, deleteCard } from '@/api/user';
 
 export default {
   data() {
@@ -35,6 +41,7 @@ export default {
       address: '',
       phone: '',
       realname: '',
+      cards: [],
     };
   },
   methods: {
@@ -72,12 +79,49 @@ export default {
       });
     },
 
+    goToAddCard() {
+      this.$router.push('/profile/add_card');
+    },
+
+    deleteCard(cardnumber) {
+      console.log(cardnumber);
+      deleteCard(cardnumber).then((results) => {
+        if (results.code === 204) {
+          this.$notify({
+            title: 'Credit card deleted successfully',
+            message: `Card ${cardnumber} is deleted.`,
+            duration: 0,
+          });
+          this.getCards();
+        }
+      }).catch((err) => {
+        this.$notify({
+          title: 'Credit card cannot be deleted',
+          message: err.error,
+          duration: 0,
+        });
+      });
+    },
+
+    getCards() {
+      getCards().then((results) => {
+        this.cards = results.data;
+      }).catch((err) => {
+        this.$notify({
+          title: 'Fetch Card Info Failed.',
+          message: err.error,
+          duration: 0,
+        });
+      });
+    },
+
     goToEdit() {
       this.$router.push('/profile/edit');
     },
   },
   beforeMount() {
     this.getUserInfo();
+    this.getCards();
   },
 };
 </script>

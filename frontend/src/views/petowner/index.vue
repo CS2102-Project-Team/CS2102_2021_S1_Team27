@@ -77,9 +77,12 @@ export default {
     getSlot() {
       searchVacancy(this.param).then((results) => {
         this.vacancies = results.data;
-      }).then(() => {
-        console.log('Finished loading vacancies from remote server.');
-        console.log(this.vacancies);
+      }).catch((err) => {
+        this.$notify({
+          title: 'Search Vacancy fails.',
+          message: err.errors,
+          duration: 0,
+        });
       });
     },
     orderDetail(vacancy) {

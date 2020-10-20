@@ -1,12 +1,6 @@
 export default [
   // - Dashboard
   {
-    name: 'petowner',
-    path: '/petowner',
-    meta: { requireAuth: true },
-    redirect: '/po',
-  },
-  {
     name: 'caretaker',
     path: '/caretaker',
     meta: { requireAuth: true },
@@ -23,6 +17,18 @@ export default [
     path: '/profile/edit',
     meta: { requireAuth: true },
     component: () => import('@/views/profiles/edit_profile'),
+  },
+  {
+    name: 'add_card',
+    path: '/profile/add_card',
+    meta: { requireAuth: true },
+    component: () => import('@/views/profiles/add_card'),
+  },
+  {
+    name: 'petowner',
+    path: '/petowner',
+    meta: { requireAuth: true },
+    redirect: '/po',
   },
   {
     path: '/po',
