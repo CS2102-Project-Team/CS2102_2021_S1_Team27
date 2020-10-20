@@ -16,7 +16,13 @@ export default [
     name: 'profile',
     path: '/profile',
     meta: { requireAuth: true },
-    component: () => import('@/views/home/edit_profile'),
+    component: () => import('@/views/profiles/index'),
+  },
+  {
+    name: 'profile_edit',
+    path: '/profile/edit',
+    meta: { requireAuth: true },
+    component: () => import('@/views/profiles/edit_profile'),
   },
   {
     path: '/po',

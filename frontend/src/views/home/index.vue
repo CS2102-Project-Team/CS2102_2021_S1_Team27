@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card class="box-card">
+    <!-- <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>{{ username }}</span>
         <el-button style="float: right; padding: 3px 0" type="text" @click="goToEdit()">
@@ -20,7 +20,7 @@
         {{ 'Real Name: ' + realname }}
       </div>
     </el-card>
-    <el-button type="primary" @click="logout()">Sign out</el-button>
+    <el-button type="primary" @click="logout()">Sign out</el-button> -->
   </div>
 </template>
 
