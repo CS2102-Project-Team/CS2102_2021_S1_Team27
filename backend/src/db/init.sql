@@ -30,7 +30,7 @@ CREATE TABLE admins(
 );
 
 CREATE TABLE cards(
-    cardnumber INT, 
+    cardnumber VARCHAR(16), 
     holdername VARCHAR NOT NULL,
     CVV VARCHAR(4) NOT NULL, 
     expdate VARCHAR NOT NULL,

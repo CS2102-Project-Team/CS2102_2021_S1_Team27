@@ -59,7 +59,7 @@ router.post('/cards', auth.authenticateToken, async (req, res) => {
   const { exp } = req.body;
   const { username } = req.user;
 
-  if ((typeof cardnumber !== 'number' || (cardnumber % 1) !== 0)
+  if ((typeof cardnumber !== 'string' || (cardnumber % 1) !== 0)
         || typeof cvv !== 'string'
         || typeof exp !== 'string'
   ) {
