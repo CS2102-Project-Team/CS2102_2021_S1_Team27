@@ -1,6 +1,5 @@
 # CS2102_2021_S1_Team27 Backend
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/8da5130c2d124bd0bd3b8b0037d6e0db)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2102-Project-Team/CS2102_2021_S1_Team27&amp;utm_campaign=Badge_Grade)
 
 This branch hosts the backend of CS2102_2021_S1_Team27 project. **Do not merge this branch to master**!
 

@@ -63,7 +63,7 @@ router.post('/cards', auth.authenticateToken, async (req, res) => {
         || typeof cvv !== 'string'
         || typeof exp !== 'string'
   ) {
-    res.status(400);
+    res.status(400).json('Error Format');
     return;
   }
   try {
