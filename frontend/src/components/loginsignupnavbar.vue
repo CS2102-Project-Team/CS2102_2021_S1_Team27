@@ -1,55 +1,82 @@
 <template>
-  <el-header>
-    <el-row>
-      <el-col :span="1" style="text-align: left;">
-        Logo
-      </el-col>
-      <el-col :span="15" style="text-align: left;">
-        Pet Anything
-      </el-col>
-      <el-col :span="8">
-        <el-menu
-          :default-active="activeIndex"
-          class="headermenu"
-          mode="horizontal"
-          @select="handleSelect">
-            <el-menu-item index="/signup" class = 'ral'>Signup</el-menu-item>
-            <el-menu-item index="/login" class = 'ral'>Login</el-menu-item>
-        </el-menu>
-      </el-col>
-    </el-row>
-  </el-header>
+  <header>
+    <ul>
+      <li class="left title" @click="linkClicked('/')">
+        <p class="title-text">Pet-Anything</p>
+      </li>
+      <li class="right" @click="linkClicked('/signup')">
+        <p :class="$route.path==='/signup'?'active':''">Sign Up</p>
+      </li>
+      <li class="right" @click="linkClicked('/login')">
+        <p :class="$route.path==='/login'?'active':''">Login</p>
+      </li>
+    </ul>
+  </header>
 </template>
 
 <script>
 
 export default {
   name: 'navbar',
-  data() {
-    return {
-      activeIndex: '0',
-    };
-  },
   methods: {
-    handleSelect(key) {
-      this.$router.push(key);
+    linkClicked(route) {
+      if (route !== this.$router.currentRoute.path) {
+        this.$router.push(route);
+      }
     },
   },
 };
 </script>
 
-<style>
-  .el-header {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
-    line-height: 60px;
+<style scoped>
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #AAB7B8;
   }
 
-  .headermenu {
-    background-color: #B3C0D1;
+  .title-text {
+    position: relative;
+    top: -2px;
+    font-family: 'Kaushan Script', cursive;
+    color: slateblue;
+    font-weight: bold;
   }
-  .ral {
-    float: right !important;
+
+  li {
+    position: relative;
+    top: 1px;
+    cursor: pointer;
+  }
+
+  li p {
+    display: block;
+    color: #5B2C6F;
+    text-align: center;
+    padding: 16px 16px;
+    text-decoration: none;
+    font-family: 'Courgette', cursive;
+  }
+
+  li p:hover:not(.active):not(.title-text) {
+    background-color: wheat;
+  }
+
+  .active {
+    background-color: sandybrown;
+  }
+
+  .title {
+    padding-left: 1%;
+  }
+
+  .left {
+    float: left;
+  }
+
+  .right {
+    float: right;
   }
 </style>

@@ -1,24 +1,22 @@
 <template>
   <section class="layout">
-    <navbar/>
-    <section class="container">
-      <sidebar/>
+    <BeforeLogInNavbar v-if="['/', '/login', '/signup'].includes($route.path)" />
+    <Navbar v-else />
       <main class="content">
         <transition name="content">
           <router-view class="inner"/>
         </transition>
       </main>
-    </section>
   </section>
 </template>
 
 <script>
+import BeforeLogInNavbar from '@/components/loginsignupnavbar';
 import Navbar from '@/components/navbar';
-import Sidebar from '@/components/sidebar';
 
 export default {
   name: 'layout',
-  components: { Navbar, Sidebar },
+  components: { BeforeLogInNavbar, Navbar },
 };
 </script>
 
