@@ -44,6 +44,7 @@ CREATE TABLE pettypes(
 
 INSERT INTO pettypes(ptype) VALUES ('cat');
 INSERT INTO pettypes(ptype) VALUES ('dog');
+INSERT INTO pettypes(ptype) VALUES ('bird');
 
 
 CREATE TABLE pets(
