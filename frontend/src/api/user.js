@@ -67,10 +67,6 @@ export function addCard(data) {
   const {
     cardnumber, holdername, cvv, exp,
   } = data;
-  console.log('Card Number: ' + cardnumber);
-  console.log('Holder Name: ' + holdername);
-  console.log('CVV: ' + cvv);
-  console.log('Expiry Date: ' + exp);
   const params = {};
   return request({
     url: '/user/cards',

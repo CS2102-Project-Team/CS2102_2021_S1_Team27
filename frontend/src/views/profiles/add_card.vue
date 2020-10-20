@@ -5,7 +5,7 @@
         <el-col>
           <el-form-item prop="cardnumber">
             <span>Card Number</span>
-            <el-input v-model="param.cardnumber">
+            <el-input v-model.number="param.cardnumber">
               <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
             </el-input>
           </el-form-item>
@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       param: {
-        cardnumber: '',
+        cardnumber: 0,
         holdername: '',
         cvv: '',
         exp: '',
@@ -71,16 +71,29 @@ export default {
   },
   methods: {
     addCard() {
-      console.log(this.param);
       addCard(this.param).then(() => {
-        console.log('Your card is added.');
-      }).catch((err) => {
-        console.log(err);
         this.$notify({
-          title: 'Card cannot be added',
-          message: err.error,
+          title: 'Your card is successfully added',
+          message: '',
           duration: 0,
         });
+      }).then(() => {
+        this.$router.push('/profile');
+      }).catch((err) => {
+        if (err.response.status === 500) {
+          this.$notify({
+            title: 'This card cannot be added',
+            message: 'Please do not add duplicate cards with same card number. Please ensure your CVV is in correct form.',
+            duration: 0,
+          });
+        }
+        if (err.response.status === 400) {
+          this.$notify({
+            title: 'This card cannot be added',
+            message: 'Please ensure your card number contains only numbers, CVV and expiry dates are in correct forms.',
+            duration: 0,
+          });
+        }
       });
     },
     cancelAdding() {

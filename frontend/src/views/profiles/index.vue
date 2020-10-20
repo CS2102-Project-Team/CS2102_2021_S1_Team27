@@ -84,22 +84,22 @@ export default {
     },
 
     deleteCard(cardnumber) {
-      console.log(cardnumber);
       deleteCard(cardnumber).then((results) => {
-        if (results.code === 204) {
+        if (results.status === 204) {
           this.$notify({
             title: 'Credit card deleted successfully',
             message: `Card ${cardnumber} is deleted.`,
             duration: 0,
           });
-          this.getCards();
         }
       }).catch((err) => {
         this.$notify({
           title: 'Credit card cannot be deleted',
-          message: err.error,
+          message: err.reponse.status,
           duration: 0,
         });
+      }).then(() => {
+        this.getCards();
       });
     },
 
