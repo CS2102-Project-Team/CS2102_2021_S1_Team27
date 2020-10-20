@@ -21,5 +21,10 @@ export default {
 </script>
 
 <style>
-
+  .layout {
+    height: 100%;
+  }
+  .content {
+    height: 100%;
+  }
 </style>
