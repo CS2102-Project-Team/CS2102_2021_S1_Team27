@@ -20,9 +20,7 @@
         {{ 'Real Name: ' + realname }}
       </div>
     </el-card>
-    <el-button type="primary" @click="logout()">Sign out</el-button>
-    <el-button v-on:click="goToPO()">Pet Owner Page</el-button>
-    <el-button v-on:click="goToCT()">Care Taker Page</el-button> -->
+    <el-button type="primary" @click="logout()">Sign out</el-button> -->
   </div>
 </template>
 

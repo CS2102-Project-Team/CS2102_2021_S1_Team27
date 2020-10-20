@@ -2,7 +2,6 @@ import request from '@/utils/request';
 
 export function searchVacancy(data) {
   const { startdate, enddate, petcategory } = data;
-  console.log(`Search for a slot for ${petcategory} between ${startdate} and ${enddate}`);
   return request({
     url: '/petowner/search',
     method: 'get',
@@ -11,6 +10,13 @@ export function searchVacancy(data) {
   });
 }
 
-export function searchInfo() {
-  return {};
+export function searchPets() {
+  const params = {};
+  const data = {};
+  return request({
+    url: '/petowner/pet',
+    method: 'get',
+    params,
+    data,
+  });
 }

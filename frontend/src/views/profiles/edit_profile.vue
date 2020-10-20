@@ -70,33 +70,41 @@ export default {
             message: 'Your profile is updated successfully',
             duration: 0,
           });
-          this.$router.push('/home');
+          this.$router.push('/profile');
         } else {
           this.$notify({
             title: 'Update failed',
             message: `Your profile cannot be updated, error code ${results.status}`,
             duration: 0,
           });
-          this.$router.push('/home');
+          this.$router.push('/profile');
         }
       });
     },
     cancelUpdate() {
-      console.log('Update process canceled.');
-      this.$router.push('/home');
+      this.$router.push('/profile');
     },
     getUserInfo() {
       getUserInfo().then((results) => {
         if (results.status === 200) {
-          console.log(results.data);
           this.username = results.data.username;
           this.email = results.data.email;
           this.param.address = results.data.address;
           this.param.phone = results.data.phone;
           this.param.realname = results.data.realname;
         } else {
-          console.log(results.status, results.error);
+          this.$notify({
+            title: 'Fetch User Info Failed.',
+            message: `Your profile cannot be updated, error code ${results.status}`,
+            duration: 0,
+          });
         }
+      }).catch((err) => {
+        this.$notify({
+          title: 'Fetch User Info Failed.',
+          message: err.errors,
+          duration: 0,
+        });
       });
     },
   },

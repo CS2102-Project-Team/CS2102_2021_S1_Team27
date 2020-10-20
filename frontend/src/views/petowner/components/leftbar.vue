@@ -1,19 +1,16 @@
 <template>
   <div id="leftbar">
-    <el-card>
+    <el-form class="ms-content">
       <div class="bar-btn">
-        <el-button v-on:click="goToHome()">Home</el-button>
+        <el-button type="primary" v-on:click="goToService()" plain>Search for Service</el-button>
       </div>
       <div class="bar-btn">
-        <el-button v-on:click="goToService()">Search for Service</el-button>
+        <el-button type="primary" v-on:click="goToOrders()" plain>My Orders</el-button>
       </div>
       <div class="bar-btn">
-        <el-button v-on:click="goToOrders()">My Orders</el-button>
+        <el-button type="primary" v-on:click="goToPets()" plain>My Pets</el-button>
       </div>
-      <div class="bar-btn">
-        <el-button v-on:click="goToPets()">My Pets</el-button>
-      </div>
-    </el-card>
+    </el-form>
   </div>
 </template>
 
@@ -31,10 +28,7 @@ export default {
     navigation(message, path) {
       // eslint-disable-next-line no-console
       console.log(message);
-      this.$router.push(path).catch(err => {});
-    },
-    goToHome() {
-      this.navigation(this.homeMessage, '/home');
+      this.$router.push(path).catch((err) => {});
     },
     goToPets() {
       this.navigation(this.petMessage, '/po/pets');
