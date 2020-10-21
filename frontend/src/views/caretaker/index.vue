@@ -1,6 +1,9 @@
 <template>
   <div class = "main">
-  <el-container style="height: 100%; width:100%; border: 1px solid #eee">
+  <el-container
+    v-show="CTinforFetched"
+    style="height: 100%; width:100%; border: 1px solid #eee"
+    >
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
         <el-menu >
         <el-menu-item index="1">
@@ -13,7 +16,10 @@
             <template slot="title"><i class="el-icon-setting"></i>View My Orders</template>
         </el-menu-item>
         <el-menu-item index="4">
-            <template slot="title"><i class="el-icon-setting"></i>Apply For Leaves</template>
+
+            <template v-if="!isPartTime" slot="title"><i class="el-icon-setting"></i>Apply For Leaves</template>
+
+            <template v-if="isPartTime" slot="title"><i class="el-icon-setting"></i>Add My Avaliability</template>
         </el-menu-item>
         <el-menu-item index="5">
             <template slot="title"><i class="el-icon-setting"></i>View My Statistics</template>
@@ -48,7 +54,13 @@
                     <span>Pending Orders</span>
                 </div>
                 <!-- added in max height for the table -->
-                <el-table :data = "pendingorders" max-height="250" border>
+                <el-table
+                  :data = "pendingorders"
+                  max-height="250"
+                  border
+                  empty-text= "empty"
+                  :key = "pdTableKey"
+                  >
                     <el-table-column
                         fixed
                         label = "start date"
@@ -78,13 +90,13 @@
                     </el-table-column>
                     <el-table-column
                         label = "pet owner"
-                        prop = "petownerusername"
+                        prop = "ownerusername"
                         width = "150">
                     </el-table-column>
                     <el-table-column
                         label = "status"
                         prop = "status"
-                        width = "120">
+                        width = "130">
                     </el-table-column>
                     <el-table-column
                         label = "delivery mode"
@@ -97,13 +109,13 @@
                         width = "100">
                         <template slot-scope="scope">
                           <el-button
-                            @click="acceptOrder(scope.row, scope.$index)"
+                            @click="acceptOrderBtn(scope.row, scope.$index)"
                             type = "text"
                             size = "small">
                             accept
                           </el-button>
                           <el-button
-                            @click="declineOrder(scope.row, scope.$index)"
+                            @click="declineOrderBtn(scope.row, scope.$index)"
                             type = "text"
                             size = "small">
                             decline
@@ -115,12 +127,20 @@
             <el-card class="ptct_petcategory" v-show="isPartTime">
                 <div slot="header" class="clearfix">
                     <span>Pet Category</span>
-                    <el-button type="text" @click="addPetCategoryFormVisible = true">
+                    <!-- TODO make button on the right -->
+                    <el-button type="text" @click="addPCBtn"
+                      :disabled = "addedPetTypes.length === 3"
+                      style="float: right; padding: 3px 0">
                       Add Pet Category
                     </el-button>
                 </div>
                 <!-- can add in max height for the table -->
-                <el-table :data = "petcategory" border>
+                <el-table
+                  :data = "petcategory"
+                  border
+                  max-height="250"
+                  empty-text= "empty"
+                  :key = "pcTableKey">
                     <el-table-column
                         label = "pet type"
                         prop = "pettype"
@@ -137,30 +157,95 @@
                         width = "100">
                         <template slot-scope="scope">
                           <el-button
-                            @click="updatePetCategory(scope.row, scope.$index)"
-                            type = "text"
+                            @click="updatePCBtn(scope.row, scope.$index)"
+                            type="text"
                             size = "small">
                             update
                           </el-button>
                           <el-button
-                            @click="deletePetCategory(scope.row, scope.$index)"
-                            type = "text"
+                            @click="deletePCBtn(scope.row, scope.$index)"
+                            type="text"
                             size = "small">
                             delete
                           </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
-                <!-- TODO Update pet category -->
 
+                <el-dialog title="Update Pet Category" :visible.sync="updatePCFormVisible">
+                  <el-form :model="form">
+                    <el-form-item
+                      label="Pet Type"
+                      :label-width="formLabelWidth"
+                      prop= "pettype">
+                      <el-input v-model="form.pettype">
+                      </el-input>
+                    </el-form-item>
+                    <el-form-item
+                      label="Price"
+                      :label-width="formLabelWidth"
+                      prop = "price">
+                      <el-input v-model="form.price"
+                        type="number"
+                        min="1"
+                        step= "1"
+                        autocomplete="off">
+                      </el-input>
+                    </el-form-item>
+                  </el-form>
+                  <div slot="footer" class="dialog-footer">
+                    <el-button @click="closeDialog">Cancel</el-button>
+                    <el-button type="primary"
+                    @click="updatePCFormBtn">
+                    Confirm
+                    </el-button>
+                  </div>
+              </el-dialog>
+              <el-dialog title="Delete Pet Category" :visible.sync="deletePCFormVisible">
+                  <el-form :model="form">
+                    <el-form-item
+                      label="Pet Type"
+                      :label-width="formLabelWidth"
+                      prop= "pettype">
+                      <el-input v-model="form.pettype" :disabled="true">
+                      </el-input>
+                    </el-form-item>
+                    <el-form-item
+                      label="Price"
+                      :label-width="formLabelWidth"
+                      prop = "price">
+                      <el-input v-model="form.price" :disabled="true">
+                      </el-input>
+                    </el-form-item>
+                  </el-form>
+                  <div slot="footer" class="dialog-footer">
+                    <el-button @click="closeDialog">Cancel</el-button>
+                    <el-button type="primary"
+                    @click="deletePCFormBtn">
+                    Confirm
+                    </el-button>
+                  </div>
+              </el-dialog>
                 <!-- Add pet category -->
-                <!-- TODO: Only show the pet types not declared -->
-                <el-dialog title="Add Pet Category" :visible.sync="addPetCategoryFormVisible">
+                <el-dialog title="Add Pet Category" :visible.sync="addPCFormVisible">
                   <el-form :model="form">
                     <el-form-item label="Pet Type" :label-width="formLabelWidth">
                       <el-select v-model="form.pettype" placeholder="Please choose the pet type">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
+                        <el-option
+                          label="cat"
+                          value="cat"
+                          :disabled= "addedPetTypes.includes('cat')">
+                          </el-option>
+                        <el-option
+                          label="dog"
+                          value="dog"
+                          :disabled= "addedPetTypes.includes('dog')">
+                          </el-option>
+                        <el-option
+                          label="fish"
+                          value="fish"
+                          :disabled= "addedPetTypes.includes('fish')">
+                          </el-option>
                       </el-select>
                     </el-form-item>
                     <el-form-item label="Price" :label-width="formLabelWidth">
@@ -173,9 +258,9 @@
                     </el-form-item>
                   </el-form>
                   <div slot="footer" class="dialog-footer">
-                    <el-button @click="addPetCategoryFormVisible = false">Cancel</el-button>
+                    <el-button @click="addPCFormVisible = false">Cancel</el-button>
                     <el-button type="primary"
-                    @click="addPetCategoryFormVisible = false">
+                    @click="addPCFormBtn">
                     Confirm
                     </el-button>
                   </div>
@@ -188,23 +273,38 @@
 </template>
 
 <script>
-import { getCareTakerInfo } from '@/api/caretaker';
+// NOTE the way how addedPetTypes is maintained is very bad(dependent on a lot of functions)
+// whether addPetCategory button is disabled is also very dependent on addedPetTypes(length === 3)
+// will see how
+// TODO add Loading signs for all buttons
+import {
+  getCareTakerInfo, acceptOrder, addCareTakerPetCategory,
+  updateCareTakerPetCategory, deleteCareTakerPetCategory,
+} from '@/api/caretaker';
 
 export default {
   data() {
     return {
+      isCareTaker: false,
       pendingorders: '',
       petcategory: '',
-      isCareTaker: false,
+      isPartTime: false,
       type: '',
       rating: 0,
-      isPartTime: false,
-      addPetCategoryFormVisible: false,
+      addPCFormVisible: false,
+      updatePCFormVisible: false,
+      deletePCFormVisible: false,
       form: {
         pettype: '',
         price: 0,
+        index: 0,
       },
       formLabelWidth: '120px',
+      CTinforFetched: false,
+      // use componentkey to re-render the table when there is a change in orders
+      pdTableKey: 0,
+      pcTableKey: 0,
+      addedPetTypes: [],
     };
   },
   methods: {
@@ -213,9 +313,15 @@ export default {
         const { data } = response;
         this.type = data.type.trim();
         this.rating = data.rating.trim();
+        if (this.rating < 0) {
+          this.rating = 'no ratings yet';
+        }
         this.pendingorders = data.pendingorders;
         this.petcategory = data.petcategory;
+        this.addedPetTypes = this.petcategory.map((x) => x.pettype);
         this.isPartTime = this.type === 'part time';
+        this.CTinforFetched = true;
+        // this.logData();
       }).catch((error) => {
         // if user is not a caretaker yet
         if (error.response.status === 521) {
@@ -226,14 +332,124 @@ export default {
         }
       });
     },
-    acceptOrder(row, index) {
+    acceptOrderBtn(row, index) {
+      const {
+        startdate, enddate, ownerusername, petname,
+      } = row;
+      const accept = true;
+      const data = {
+        startdate, enddate, ownerusername, petname, accept,
+      };
 
+      acceptOrder(data).then(() => {
+        // loading to false according to index
+        // remove this entry from showing
+        this.deleteRow(index, this.pendingorders);
+        this.pdTableKey += 1;
+        this.$message.success('accepted an order');
+      }).catch((error) => {
+        this.$message.error(error.response.data.error);
+      });
     },
-    declineOrder(row, index) {
+    declineOrderBtn(row, index) {
+      const {
+        startdate, enddate, ownerusername, petname,
+      } = row;
+      const accept = false;
+      const data = {
+        startdate, enddate, ownerusername, petname, accept,
+      };
 
+      acceptOrder(data).then(() => {
+        // loading to false according to indexs
+        // remove this entry from showing
+        this.deleteRow(index, this.pendingorders);
+        this.pdTableKey += 1;
+        this.$message.success('accepted an order');
+      }).catch((error) => {
+        this.$message.error(error.response.data.error);
+      });
     },
+    deleteRow(index, data) {
+      data.splice(index, 1);
+    },
+    addRow(index, tabledata, dataAdded) {
+      tabledata.splice(index + 1, 0, dataAdded);
+    },
+    updatePCBtn(row, index) {
+      this.form.pettype = row.pettype;
+      this.form.price = row.price;
+      this.form.index = index;
+      this.updatePCFormVisible = true;
+    },
+    deletePCBtn(row, index) {
+      this.form.pettype = row.pettype;
+      this.form.price = row.price;
+      this.form.index = index;
+      this.deletePCFormVisible = true;
+    },
+    addPCBtn() {
+      this.addedPetTypes = this.petcategory.map((x) => x.pettype);
+      this.addPCFormVisible = true;
+    },
+    updatePCFormBtn() {
+      updateCareTakerPetCategory(this.form).then(() => {
+        // loading to false according to indexs
+        const { pettype, price, index } = this.form;
+        const data = { pettype, price };
+        this.addRow(index, this.petcategory, data);
+        this.addedPetTypes = this.petcategory.map((x) => x.pettype);
+        this.pcTableKey += 1;
+        this.$message.success('updated a pet category');
+        this.closeDialog();
+      }).catch((error) => {
+        this.$message.error(error.response.data.error);
+      });
+    },
+    deletePCFormBtn() {
+      deleteCareTakerPetCategory(this.form).then(() => {
+        // loading to false according to indexs
+        const { index } = this.form;
+        this.deleteRow(index, this.petcategory);
+        this.addedPetTypes = this.petcategory.map((x) => x.pettype);
+        this.pcTableKey += 1;
+        this.$message.success('deleted a pet category');
+        this.closeDialog();
+      }).catch((error) => {
+        this.$message.error(error.response.data.error);
+      });
+    },
+    addPCFormBtn() {
+      addCareTakerPetCategory(this.form).then(() => {
+        // loading to false according to indexs
+        const { pettype, price, index } = this.form;
+        const data = { pettype, price };
+        this.addRow(index, this.petcategory, data);
+        this.addedPetTypes = this.petcategory.map((x) => x.pettype);
+        this.pcTableKey += 1;
+        this.$message.success('added a pet category');
+        this.closeDialog();
+      }).catch((error) => {
+        // console.log(error);
+        this.$message.error(error.response.data.error);
+      });
+    },
+    closeDialog() {
+      this.form.pettype = '';
+      this.form.price = 0;
+      this.form.index = 0;
+      this.updatePCFormVisible = false;
+      this.deletePCFormVisible = false;
+      this.addPCFormVisible = false;
+    },
+    // logData() {
+    //   console.log('pending orders');
+    //   console.log(this.pendingorders);
+    //   console.log('pet category');
+    //   console.log(this.petcategory);
+    // },
   },
-  created() {
+  beforeMount() {
     this.getCTInfo();
   },
 };

@@ -79,14 +79,12 @@ export function updateCareTakerPetCategory(data) {
 
 export function deleteCareTakerPetCategory(data) {
   const {
-    pettype, price,
+    pettype,
   } = data;
   return request({
     url: '/caretaker/petcategory',
     method: 'delete',
-    data: {
-      pettype, price,
-    },
+    params: { pettype },
   });
 }
 

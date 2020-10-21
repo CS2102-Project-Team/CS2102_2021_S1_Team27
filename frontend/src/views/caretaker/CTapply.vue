@@ -67,7 +67,7 @@ export default {
             if (this.param.realname.trim() !== this.param.prevrealname.trim()) {
               updateUserInfo(this.param).then(() => {
                 this.loading = false;
-                this.$message.success('success in updating real name');
+                // this.$message.success('success in updating real name');
                 this.$router.push('/caretaker');
               }).catch((error1) => {
                 this.loading = false;
@@ -83,7 +83,7 @@ export default {
           });
         } else {
           // console.log('error in registration');
-          this.$message.error('Error in validating');
+          this.$message.error('Error in validating input');
           return false;
         }
       });
