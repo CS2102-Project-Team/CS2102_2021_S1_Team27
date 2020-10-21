@@ -68,7 +68,7 @@ function generateOTP(email) {
 function testOTP(email, otp) {
   // return true;
   // console.log(OTPList);
-  if (otp == '1') {
+  if (otp === '1') {
     return true;
   }
   let res = false;
