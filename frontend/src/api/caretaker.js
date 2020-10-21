@@ -1,0 +1,124 @@
+import request from '@/utils/request';
+
+export function getCareTakerInfo() {
+  return request({
+    url: '/caretaker',
+    method: 'get',
+  });
+}
+
+export function registerCareTaker(data) {
+  const { realname } = data;
+  return request({
+    url: '/caretaker',
+    method: 'post',
+    data: { realname },
+  });
+}
+
+export function getCareTakerOrders() {
+  return request({
+    url: '/caretaker/orders',
+    method: 'get',
+  });
+}
+
+// TODO Check if it is correct
+export function getCareTakerStats() {
+  const params = { petday: true, salary: true };
+  return request({
+    url: '/caretaker/stats',
+    method: 'get',
+    params,
+  });
+}
+
+// Part-time care taker operation
+export function acceptOrder(data) {
+  const { accept } = data;
+  const params = {};
+  params.accept = accept;
+  const {
+    startdate, enddate, ownerusername, petname,
+  } = data;
+  return request({
+    url: '/caretaker/orders',
+    method: 'post',
+    params,
+    data: {
+      startdate, enddate, ownerusername, petname,
+    },
+  });
+}
+
+export function addCareTakerPetCategory(data) {
+  const {
+    pettype, price,
+  } = data;
+  return request({
+    url: '/caretaker/petcategory',
+    method: 'post',
+    data: {
+      pettype, price,
+    },
+  });
+}
+
+export function updateCareTakerPetCategory(data) {
+  const {
+    pettype, price,
+  } = data;
+  return request({
+    url: '/caretaker/petcategory',
+    method: 'put',
+    data: {
+      pettype, price,
+    },
+  });
+}
+
+export function deleteCareTakerPetCategory(data) {
+  const {
+    pettype, price,
+  } = data;
+  return request({
+    url: '/caretaker/petcategory',
+    method: 'delete',
+    data: {
+      pettype, price,
+    },
+  });
+}
+
+export function getCareTakerAvaliablity() {
+  return request({
+    url: '/caretaker/petcategory',
+    method: 'get',
+  });
+}
+
+export function updateCareTakerAvaliablity(data) {
+  const { startdate, enddate } = data;
+  return request({
+    url: '/caretaker/petcategory',
+    method: 'get',
+    data: { startdate, enddate },
+  });
+}
+
+// Full Time Care Taker Operation
+export function getCareTakerLeaves() {
+  return request({
+    url: '/caretaker/leaves',
+    method: 'get',
+  });
+}
+
+export function updateCareTakerLeaves(data) {
+  const { startdate, enddate } = data;
+  return request({
+    url: '/caretaker/leaves',
+    method: 'put',
+    data: { startdate, enddate },
+  });
+}

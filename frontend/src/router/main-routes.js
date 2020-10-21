@@ -10,7 +10,13 @@ export default [
     name: 'caretaker',
     path: '/caretaker',
     meta: { requireAuth: true },
-    component: () => import('@/views/home/index'),
+    component: () => import('@/views/caretaker/index'),
+  },
+  {
+    name: 'apply to be a care taker',
+    path: '/caretaker/CTapply',
+    meta: { requireAuth: true },
+    component: () => import('@/views/caretaker/CTapply'),
   },
   {
     name: 'profile',
