@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable prefer-destructuring */
 const express = require('express');
 const auth = require('./auth');
 const db = require('../db/powner');
@@ -176,18 +178,28 @@ router.get('/order', auth.authenticateToken, async (req, res) => {
     console.log(includeHistory);
     if (includeHistory) {
       const insRes = await db.functions.getAllBids(req.user.username);
-      insRes.forEach((element) => {
+      /* insRes.forEach((element) => {
         element.sdate = element.sdate.toISOString().split('T')[0];
         element.edate = element.edate.toISOString().split('T')[0];
-      });
-      res.status(200).json(insRes);
+      }); */
+      res.status(200).json(insRes.map((element) => {
+        const temp = element;
+        temp.sdate = temp.sdate.toISOString().split('T')[0];
+        temp.edate = temp.edate.toISOString().split('T')[0];
+        return temp;
+      }));
     } else {
       const insRes = await db.functions.getBidExceptStatus(req.user.username, 'Service Finished');
-      insRes.forEach((element) => {
+      /* insRes.forEach((element) => {
         element.sdate = element.sdate.toISOString().split('T')[0];
         element.edate = element.edate.toISOString().split('T')[0];
-      });
-      res.status(200).json(insRes);
+      }); */
+      res.status(200).json(insRes.map((element) => {
+        const temp = element;
+        temp.sdate = temp.sdate.toISOString().split('T')[0];
+        temp.edate = temp.edate.toISOString().split('T')[0];
+        return temp;
+      }));
     }
 
     return;

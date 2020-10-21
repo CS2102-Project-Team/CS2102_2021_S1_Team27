@@ -18,15 +18,19 @@ router.get('/', auth.authenticateToken, async (req, res) => {
       res.status(521).json({ error: 'User is not registered as a care taker' });
       return;
     }
-    rows3.forEach((element) => {
+    /* rows3.forEach((element) => {
       element.startdate = element.startdate.toISOString().split('T')[0];
       element.enddate = element.enddate.toISOString().split('T')[0];
-    });
+    }); */
     const results = {};
     results.type = (rows[0].fulltime) ? 'full time' : 'part time';
     results.rating = Number(rows[0].rating).toFixed(2);
     results.petcategory = (rows2);
-    results.pendingorders = (rows3);
+    results.pendingorders = (rows3.map((element) => {
+      element.startdate = element.startdate.toISOString().split('T')[0];
+      element.enddate = element.enddate.toISOString().split('T')[0];
+      return element;
+    }));
     /* add more stuff */
     res.status(200).json(results);
     return;
@@ -109,11 +113,11 @@ router.delete('/petcategory', auth.authenticateToken, async (req, res) => {
 router.get('/orders', auth.authenticateToken, async (req, res) => {
   try {
     const inRes = await db.functions.getOrders(req.user.username);
-    inRes.forEach((element) => {
+    res.status(200).json(inRes.map((element) => {
       element.startdate = element.startdate.toISOString().split('T')[0];
       element.enddate = element.enddate.toISOString().split('T')[0];
-    });
-    res.status(200).json(inRes);
+      return element;
+    }));
     return;
   } catch (err) {
     res.status(500).json('error');
@@ -172,10 +176,10 @@ router.post('/orders', auth.authenticateToken, async (req, res) => {
 router.get('/availability', auth.authenticateToken, async (req, res) => {
   try {
     const inRes = await db.functions.getAvailability(req.user.username);
-    inRes.forEach((element) => {
+    res.status(200).json(inRes.map((element) => {
       element.date = element.date.toISOString().split('T')[0];
-    });
-    res.status(200).json(inRes);
+      return element;
+    }));
     return;
   } catch (err) {
     res.status(500).json('error');
