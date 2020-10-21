@@ -170,7 +170,7 @@ router.post('/user/register', async (req, res) => {
           res.status(422).json({ error: 'duplicate email', invalid_field: 'email' });
           return;
         }
-        res.status(500).json(err);
+        res.status(500).json({ error: 'error' });
         return;
       }
     }
@@ -179,9 +179,10 @@ router.post('/user/register', async (req, res) => {
     });
     return;
   } catch (error) { // error in registration
-    res.status(500).json({
+    /* res.status(500).json({
       error: error.toString(),
-    });
+    }); */
+    res.status(500).json({ error: 'error' });
   }
 });
 

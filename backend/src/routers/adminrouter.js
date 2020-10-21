@@ -60,7 +60,7 @@ router.post('/cards', auth.authenticateToken, async (req, res) => {
     res.status(204).json('success');
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 

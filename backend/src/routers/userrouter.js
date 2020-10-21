@@ -20,7 +20,7 @@ router.get('/user', auth.authenticateToken, async (req, res) => {
     });
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -33,7 +33,7 @@ router.put('/user', auth.authenticateToken, async (req, res) => {
     await db.functions.updateUser(req.user.username, phone, address, realname);
     res.status(204).json('success');
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 /*
@@ -48,7 +48,7 @@ router.get('/cards', auth.authenticateToken, async (req, res) => {
     res.status(200).json(insRes);
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -71,7 +71,7 @@ router.post('/cards', auth.authenticateToken, async (req, res) => {
     res.status(204).json('success');
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -84,7 +84,7 @@ router.delete('/cards', auth.authenticateToken, async (req, res) => {
     res.status(204).json('success');
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 

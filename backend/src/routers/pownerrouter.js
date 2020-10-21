@@ -14,7 +14,7 @@ router.get('/user', auth.authenticateToken, async (req, res) => {
     res.status(200).json({ username: user.username, email: user.email });
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 /*
@@ -28,7 +28,7 @@ router.get('/pet', auth.authenticateToken, async (req, res) => {
     res.status(200).json(insRes);
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -49,10 +49,10 @@ router.post('/pet', auth.authenticateToken, async (req, res) => {
     return;
   } catch (err) {
     if (err.code === '23505') {
-      res.status(500).json('duplicate petname');
+      res.status(500).json({ error: 'duplicate petname' });
       return;
     }
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -72,7 +72,7 @@ router.put('/pet', auth.authenticateToken, async (req, res) => {
     res.status(204).json('success');
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -93,7 +93,7 @@ router.delete('/pet', auth.authenticateToken, async (req, res) => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -110,7 +110,7 @@ router.get('/search', auth.authenticateToken, async (req, res) => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -162,10 +162,10 @@ router.post('/order', auth.authenticateToken, async (req, res) => {
     // eslint-disable-next-line no-console
     console.log(err);
     if (typeof err === 'object') {
-      res.status(500).json('cannot find the pet');
+      res.status(500).json({ error: 'cannot find the pet' });
       return;
     }
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -206,7 +206,7 @@ router.get('/order', auth.authenticateToken, async (req, res) => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -217,7 +217,7 @@ router.delete('/bid', auth.authenticateToken, async (req, res) => {
     res.status(204).json('success');
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -246,7 +246,7 @@ router.put('/order', auth.authenticateToken, async (req, res) => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 

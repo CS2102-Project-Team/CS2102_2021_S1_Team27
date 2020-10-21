@@ -35,7 +35,7 @@ router.get('/', auth.authenticateToken, async (req, res) => {
     res.status(200).json(results);
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 /*
@@ -54,7 +54,7 @@ router.post('/', auth.authenticateToken, async (req, res) => {
       res.status(422).json({ error: 'already a caretaker' });
       return;
     }
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -64,7 +64,7 @@ router.get('/petcategory', auth.authenticateToken, async (req, res) => {
     res.status(200).json(inRes);
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -82,7 +82,7 @@ router.post('/petcategory', auth.authenticateToken, async (req, res) => {
       res.status(422).json({ error: 'not a caretaker' });
       return;
     }
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -96,7 +96,7 @@ router.put('/petcategory', auth.authenticateToken, async (req, res) => {
       res.status(422).json({ error: 'does not exist that category' });
       return;
     }
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -106,7 +106,7 @@ router.delete('/petcategory', auth.authenticateToken, async (req, res) => {
     res.status(204).json('success');
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -120,7 +120,7 @@ router.get('/orders', auth.authenticateToken, async (req, res) => {
     }));
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -139,7 +139,7 @@ router.get('/stats', auth.authenticateToken, async (req, res) => {
     res.status(200).json(result);
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -169,7 +169,7 @@ router.post('/orders', auth.authenticateToken, async (req, res) => {
     res.status(200).json(inRes);
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -182,7 +182,7 @@ router.get('/availability', auth.authenticateToken, async (req, res) => {
     }));
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -197,7 +197,7 @@ router.post('/availability', auth.authenticateToken, async (req, res) => {
     res.status(200).json('success');
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
