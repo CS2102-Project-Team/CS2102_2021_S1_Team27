@@ -5,7 +5,7 @@
         <el-col>
           <el-form-item prop="cardnumber">
             <span>Card Number</span>
-            <el-input v-model.number="param.cardnumber">
+            <el-input v-model="param.cardnumber">
               <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
             </el-input>
           </el-form-item>
@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       param: {
-        cardnumber: 0,
+        cardnumber: '',
         holdername: '',
         cvv: '',
         exp: '',

@@ -20,3 +20,25 @@ export function searchPets() {
     data,
   });
 }
+
+export function updatePet(data) {
+  const params = {};
+  const { name, remark } = data;
+  return request({
+    url: '/petowner/pet',
+    method: 'put',
+    params,
+    data: { name, remark },
+  });
+}
+
+export function addPet(data) {
+  const params = {};
+  const { name, remark, type } = data;
+  return request({
+    url: '/petowner/pet',
+    method: 'post',
+    params,
+    data: { name, remark, type },
+  });
+}
