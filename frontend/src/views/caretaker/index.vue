@@ -1,4 +1,5 @@
 <template>
+  <div class = "main">
   <el-container style="height: 100%; width:100%; border: 1px solid #eee">
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
         <el-menu >
@@ -50,15 +51,15 @@
                 <el-table :data = "pendingorders" max-height="250" border>
                     <el-table-column
                         fixed
-                        label = "startdate"
+                        label = "start date"
                         prop = "startdate"
-                        width = "150">
+                        width = "100">
                     </el-table-column>
                     <el-table-column
                         fixed
-                        label = "enddate"
-                        prop = "endtdate"
-                        width = "150">
+                        label = "end date"
+                        prop = "enddate"
+                        width = "100">
                     </el-table-column>
                     <el-table-column
                         label = "special requirement"
@@ -66,9 +67,9 @@
                         width = "300">
                     </el-table-column>
                     <el-table-column
-                        label = "pet category"
+                        label = "pet type"
                         prop = "petcategory"
-                        width = "120">
+                        width = "100">
                     </el-table-column>
                     <el-table-column
                         label = "pet name"
@@ -123,12 +124,12 @@
                     <el-table-column
                         label = "pet type"
                         prop = "pettype"
-                        width = "150">
+                        >
                     </el-table-column>
                     <el-table-column
                         label = "price(S$)"
                         prop = "price"
-                        width = "100">
+                        >
                     </el-table-column>
                     <el-table-column
                         fixed = "right"
@@ -136,13 +137,13 @@
                         width = "100">
                         <template slot-scope="scope">
                           <el-button
-                            @click="updatePetCategory(scope.row, scope.$index, petcategory)"
+                            @click="updatePetCategory(scope.row, scope.$index)"
                             type = "text"
                             size = "small">
                             update
                           </el-button>
                           <el-button
-                            @click="deletePetCategory(scope.row, scope.$index, petcategory)"
+                            @click="deletePetCategory(scope.row, scope.$index)"
                             type = "text"
                             size = "small">
                             delete
@@ -157,7 +158,7 @@
                 <el-dialog title="Add Pet Category" :visible.sync="addPetCategoryFormVisible">
                   <el-form :model="form">
                     <el-form-item label="Pet Type" :label-width="formLabelWidth">
-                      <el-select v-model="form.pettype" placeholder="Please choose your pet type">
+                      <el-select v-model="form.pettype" placeholder="Please choose the pet type">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
                       </el-select>
@@ -172,14 +173,18 @@
                     </el-form-item>
                   </el-form>
                   <div slot="footer" class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false">Cancel</el-button>
-                    <el-button type="primary" @click="dialogFormVisible = false">Confirm</el-button>
+                    <el-button @click="addPetCategoryFormVisible = false">Cancel</el-button>
+                    <el-button type="primary"
+                    @click="addPetCategoryFormVisible = false">
+                    Confirm
+                    </el-button>
                   </div>
               </el-dialog>
             </el-card>
         </el-main>
     </el-container>
     </el-container>
+  </div>
 </template>
 
 <script>
@@ -194,6 +199,12 @@ export default {
       type: '',
       rating: 0,
       isPartTime: true,
+      addPetCategoryFormVisible: false,
+      form: {
+        pettype: '',
+        price: 0,
+      },
+      formLabelWidth: '120px',
     };
   },
   methods: {
