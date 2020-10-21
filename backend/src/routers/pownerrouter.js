@@ -175,13 +175,18 @@ router.get('/order', auth.authenticateToken, async (req, res) => {
     // eslint-disable-next-line no-console
     console.log(includeHistory);
     if (includeHistory) {
-      // console.log("jiayou");
       const insRes = await db.functions.getAllBids(req.user.username);
-      // eslint-disable-next-line no-console
-      console.log(insRes);
+      insRes.forEach((element) => {
+        element.sdate = element.sdate.toISOString().split('T')[0];
+        element.edate = element.edate.toISOString().split('T')[0];
+      });
       res.status(200).json(insRes);
     } else {
       const insRes = await db.functions.getBidExceptStatus(req.user.username, 'Service Finished');
+      insRes.forEach((element) => {
+        element.sdate = element.sdate.toISOString().split('T')[0];
+        element.edate = element.edate.toISOString().split('T')[0];
+      });
       res.status(200).json(insRes);
     }
 

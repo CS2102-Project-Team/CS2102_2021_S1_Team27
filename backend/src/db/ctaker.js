@@ -12,7 +12,7 @@ async function insertCaretaker(username, realname) {
 }
 
 async function getCategory(username) {
-  const { rows } = await db.query('SELECT ptype, price FROM looksafter WHERE ctaker=$1', [username]);
+  const { rows } = await db.query('SELECT ptype pettype, price FROM looksafter WHERE ctaker=$1', [username]);
   return rows;
 }
 
