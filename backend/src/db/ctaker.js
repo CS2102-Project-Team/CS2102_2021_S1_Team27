@@ -36,6 +36,11 @@ async function getOrders(username) {
   return rows;
 }
 
+async function getPendingOrders(username) {
+  const { rows } = await db.query('SELECT sdate startdate, edate enddate, remark specialrequirement, ptype petcategory, pname petname, powner ownerusername, status, delivery deliverymode FROM orders WHERE ctaker=$1 AND status=\'Pending Caretaker Acceptance\'', [username]);
+  return rows;
+}
+
 async function getPetday(username) {
   const { rows } = await db.query('SELECT SUM(earlier_date(edate, end_of_month(now()::DATE)) - later_date(sdate, start_of_month(now()::DATE)) + 1) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM current_timestamp) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM current_timestamp)', [username]);
   return rows;
@@ -76,6 +81,7 @@ module.exports = {
     updatePrice,
     deleteCategory,
     getOrders,
+    getPendingOrders,
     getPetday,
     getSalary,
     checkFull,
