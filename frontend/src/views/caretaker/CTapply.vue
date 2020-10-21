@@ -1,5 +1,6 @@
 <template>
-    <el-container style="height: 100%; width:100%; border: 1px solid #eee">
+  <div class = "main" style = "display:flex; padding:50px">
+    <el-container style="height: 100%; width:100%; justify-content:center; ">
         <el-card class="user_apply">
           <div slot="header" class="clearfix">
             <span>Apply to be a Care Taker</span>
@@ -20,6 +21,7 @@
           </el-form>
         </el-card>
     </el-container>
+    </div>
 </template>
 
 <script>

@@ -198,7 +198,7 @@ export default {
       isCareTaker: false,
       type: '',
       rating: 0,
-      isPartTime: true,
+      isPartTime: false,
       addPetCategoryFormVisible: false,
       form: {
         pettype: '',
@@ -233,7 +233,7 @@ export default {
 
     },
   },
-  beforeMount() {
+  created() {
     this.getCTInfo();
   },
 };
