@@ -9,6 +9,8 @@ const router = express.Router();
 router.get('/', auth.authenticateToken, async (req, res) => {
   try {
     const rows = await db.functions.getCaretaker(req.user.username);
+    const rows2 = await db.functions.getCategory(req.user.username);
+    const rows3 = await db.functions.getPendingOrders(req.user.username);
     if (rows.length === 0) {
       res.status(521).json({ error: 'User is not registered as a care taker' });
       return;
@@ -16,6 +18,8 @@ router.get('/', auth.authenticateToken, async (req, res) => {
     const results = {};
     results.type = (rows[0].fulltime) ? 'full time' : 'part time';
     results.rating = Number(rows[0].rating).toFixed(2);
+    results.petcategory = (rows2);
+    results.pendingorders = (rows3);
     /* add more stuff */
     res.status(200).json(results);
     return;
