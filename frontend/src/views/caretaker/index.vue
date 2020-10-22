@@ -16,10 +16,8 @@
             <template slot="title"><i class="el-icon-setting"></i>View My Orders</template>
         </el-menu-item>
         <el-menu-item index="4">
-
             <template v-if="!isPartTime" slot="title"><i class="el-icon-setting"></i>Apply For Leaves</template>
-
-            <template v-if="isPartTime" slot="title"><i class="el-icon-setting"></i>Add My Avaliability</template>
+            <template v-if="isPartTime" slot="title"><i class="el-icon-setting"></i>Add My Availability</template>
         </el-menu-item>
         <el-menu-item index="5">
             <template slot="title"><i class="el-icon-setting"></i>View My Statistics</template>
@@ -127,7 +125,6 @@
             <el-card class="ptct_petcategory" v-show="isPartTime">
                 <div slot="header" class="clearfix">
                     <span>Pet Category</span>
-                    <!-- TODO make button on the right -->
                     <el-button type="text" @click="addPCBtn"
                       :disabled = "addedPetTypes.length === 3"
                       style="float: right; padding: 3px 0">
@@ -172,20 +169,22 @@
                     </el-table-column>
                 </el-table>
 
-                <el-dialog title="Update Pet Category" :visible.sync="updatePCFormVisible">
-                  <el-form :model="form">
+                <el-dialog title="Update Pet Category" :visible.sync="updatePCFormVisible"
+                  @close = "closeDialog"  >
+                  <el-form :model="form" :rules="UpdatePCRules" ref="updatePC">
                     <el-form-item
                       label="Pet Type"
                       :label-width="formLabelWidth"
-                      prop= "pettype">
-                      <el-input v-model="form.pettype">
+                      prop= "pettype"
+                      >
+                      <el-input v-model="form.pettype" :disabled = "true">
                       </el-input>
                     </el-form-item>
                     <el-form-item
                       label="Price"
                       :label-width="formLabelWidth"
                       prop = "price">
-                      <el-input v-model="form.price"
+                      <el-input v-model.number="form.price"
                         type="number"
                         min="1"
                         step= "1"
@@ -201,8 +200,9 @@
                     </el-button>
                   </div>
               </el-dialog>
-              <el-dialog title="Delete Pet Category" :visible.sync="deletePCFormVisible">
-                  <el-form :model="form">
+              <el-dialog title="Delete Pet Category" :visible.sync="deletePCFormVisible"
+                @close = "closeDialog">
+                  <el-form :model="form" >
                     <el-form-item
                       label="Pet Type"
                       :label-width="formLabelWidth"
@@ -214,7 +214,7 @@
                       label="Price"
                       :label-width="formLabelWidth"
                       prop = "price">
-                      <el-input v-model="form.price" :disabled="true">
+                      <el-input v-model.number="form.price" :disabled="true">
                       </el-input>
                     </el-form-item>
                   </el-form>
@@ -227,8 +227,10 @@
                   </div>
               </el-dialog>
                 <!-- Add pet category -->
-                <el-dialog title="Add Pet Category" :visible.sync="addPCFormVisible">
-                  <el-form :model="form">
+                <!-- RUOCHEN START HERE -->
+                <el-dialog title="Add Pet Category" :visible.sync="addPCFormVisible"
+                  @close = "closeDialog">
+                  <el-form :model="form" :rules="AddPCRules" ref="addPC">
                     <el-form-item label="Pet Type" :label-width="formLabelWidth">
                       <el-select v-model="form.pettype" placeholder="Please choose the pet type">
                         <el-option
@@ -249,7 +251,7 @@
                       </el-select>
                     </el-form-item>
                     <el-form-item label="Price" :label-width="formLabelWidth">
-                      <el-input v-model="form.price"
+                      <el-input v-model.number="form.price"
                         type="number"
                         min="1"
                         step= "1"
@@ -265,6 +267,7 @@
                     </el-button>
                   </div>
               </el-dialog>
+              <!-- RUOCHEN END HERE -->
             </el-card>
         </el-main>
     </el-container>
@@ -284,6 +287,21 @@ import {
 
 export default {
   data() {
+    const validatePrice = (rule, value, callback) => {
+      const regExpPrice = /^[1-9]\d*$/;
+      if (regExpPrice.test(value) === false || !value) {
+        callback(new Error('Invalid price entered'));
+      } else {
+        callback();
+      }
+    };
+    const validatePetType = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('Please choose a pet type'));
+      } else {
+        callback();
+      }
+    };
     return {
       isCareTaker: false,
       pendingorders: '',
@@ -305,6 +323,21 @@ export default {
       pdTableKey: 0,
       pcTableKey: 0,
       addedPetTypes: [],
+      UpdatePCRules: {
+        price: [
+          { required: true, message: 'Please enter a price', trigger: 'blur' },
+          { validator: validatePrice, trigger: 'blur' }],
+      },
+      // RUOCHEN START HERE
+      AddPCRules: {
+        pettype: [
+          { required: true, message: 'Please choose a pet type', trigger: 'blur' },
+          { validator: validatePetType, trigger: 'blur' }],
+        price: [
+          { required: true, message: 'Please enter a price', trigger: 'blur' },
+          { validator: validatePrice, trigger: 'blur' }],
+      },
+      // RUOCHEN END HERE
     };
   },
   methods: {
@@ -393,17 +426,22 @@ export default {
       this.addPCFormVisible = true;
     },
     updatePCFormBtn() {
-      updateCareTakerPetCategory(this.form).then(() => {
-        // loading to false according to indexs
-        const { pettype, price, index } = this.form;
-        const data = { pettype, price };
-        this.addRow(index, this.petcategory, data);
-        this.addedPetTypes = this.petcategory.map((x) => x.pettype);
-        this.pcTableKey += 1;
-        this.$message.success('updated a pet category');
-        this.closeDialog();
-      }).catch((error) => {
-        this.$message.error(error.response.data.error);
+      this.$refs.updatePC.validate((valid) => {
+        if (valid) {
+          updateCareTakerPetCategory(this.form).then(() => {
+            // loading to false according to indexs
+            const { price, index } = this.form;
+            this.$set(this.petcategory[index], 'price', price);
+            this.pcTableKey += 1;
+            this.$message.success('updated a pet category');
+            this.closeDialog();
+          }).catch((error) => {
+            this.$message.error(error.response.data.error);
+          });
+        } else {
+          this.$message.error('Error in validating input');
+          return false;
+        }
       });
     },
     deletePCFormBtn() {
@@ -419,28 +457,37 @@ export default {
         this.$message.error(error.response.data.error);
       });
     },
+    // RUOCHEN START HERE
     addPCFormBtn() {
-      addCareTakerPetCategory(this.form).then(() => {
-        // loading to false according to indexs
-        const { pettype, price, index } = this.form;
-        const data = { pettype, price };
-        this.addRow(index, this.petcategory, data);
-        this.addedPetTypes = this.petcategory.map((x) => x.pettype);
-        this.pcTableKey += 1;
-        this.$message.success('added a pet category');
-        this.closeDialog();
-      }).catch((error) => {
-        // console.log(error);
-        this.$message.error(error.response.data.error);
+      this.$refs.addPC.validate((valid) => {
+        if (valid) {
+          addCareTakerPetCategory(this.form).then(() => {
+            // loading to false according to indexs
+            const { pettype, price, index } = this.form;
+            const data = { pettype, price };
+            this.addRow(index, this.petcategory, data);
+            this.addedPetTypes = this.petcategory.map((x) => x.pettype);
+            this.pcTableKey += 1;
+            this.$message.success('added a pet category');
+            this.closeDialog();
+          }).catch((error) => {
+            // console.log(error);
+            this.$message.error(error.response.data.error);
+          });
+        } else {
+          this.$message.error('Error in validating input');
+          return false;
+        }
       });
     },
+    // RUOCHEN END HERE
     closeDialog() {
-      this.form.pettype = '';
-      this.form.price = 0;
-      this.form.index = 0;
       this.updatePCFormVisible = false;
       this.deletePCFormVisible = false;
       this.addPCFormVisible = false;
+      this.form.pettype = '';
+      this.form.price = 0;
+      this.form.index = 0;
     },
     // logData() {
     //   console.log('pending orders');
