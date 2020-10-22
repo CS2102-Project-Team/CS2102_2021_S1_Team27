@@ -16,8 +16,14 @@
             <template slot="title"><i class="el-icon-setting"></i>View My Orders</template>
         </el-menu-item>
         <el-menu-item index="4">
-            <template v-if="!isPartTime" slot="title"><i class="el-icon-setting"></i>Apply For Leaves</template>
-            <template v-if="isPartTime" slot="title"><i class="el-icon-setting"></i>Add My Availability</template>
+            <template v-if="!isPartTime" slot="title">
+              <i class="el-icon-setting"></i>
+              Apply For Leaves
+            </template>
+            <template v-if="isPartTime" slot="title">
+              <i class="el-icon-setting"></i>
+              Add My Availability
+            </template>
         </el-menu-item>
         <el-menu-item index="5">
             <template slot="title"><i class="el-icon-setting"></i>View My Statistics</template>
@@ -171,7 +177,7 @@
 
                 <el-dialog title="Update Pet Category" :visible.sync="updatePCFormVisible"
                   @close = "closeDialog"  >
-                  <el-form :model="form" :rules="UpdatePCRules" ref="updatePC">
+                  <el-form :model="form" :rules="UpdatePCRules" ref="updatePC" class= "updatePC">
                     <el-form-item
                       label="Pet Type"
                       :label-width="formLabelWidth"
@@ -227,11 +233,10 @@
                   </div>
               </el-dialog>
                 <!-- Add pet category -->
-                <!-- RUOCHEN START HERE -->
                 <el-dialog title="Add Pet Category" :visible.sync="addPCFormVisible"
                   @close = "closeDialog">
-                  <el-form :model="form" :rules="AddPCRules" ref="addPC">
-                    <el-form-item label="Pet Type" :label-width="formLabelWidth">
+                  <el-form :model="form" :rules="AddPCRules" ref="addPC" class= "addPC">
+                    <el-form-item label="Pet Type" :label-width="formLabelWidth" prop="pettype">
                       <el-select v-model="form.pettype" placeholder="Please choose the pet type">
                         <el-option
                           label="cat"
@@ -250,7 +255,7 @@
                           </el-option>
                       </el-select>
                     </el-form-item>
-                    <el-form-item label="Price" :label-width="formLabelWidth">
+                    <el-form-item label="Price" :label-width="formLabelWidth" prop="price">
                       <el-input v-model.number="form.price"
                         type="number"
                         min="1"
@@ -267,7 +272,6 @@
                     </el-button>
                   </div>
               </el-dialog>
-              <!-- RUOCHEN END HERE -->
             </el-card>
         </el-main>
     </el-container>
@@ -290,7 +294,7 @@ export default {
     const validatePrice = (rule, value, callback) => {
       const regExpPrice = /^[1-9]\d*$/;
       if (regExpPrice.test(value) === false || !value) {
-        callback(new Error('Invalid price entered'));
+        callback(new Error('Price must be a postive integer'));
       } else {
         callback();
       }
@@ -314,7 +318,7 @@ export default {
       deletePCFormVisible: false,
       form: {
         pettype: '',
-        price: 0,
+        price: 1,
         index: 0,
       },
       formLabelWidth: '120px',
@@ -328,7 +332,6 @@ export default {
           { required: true, message: 'Please enter a price', trigger: 'blur' },
           { validator: validatePrice, trigger: 'blur' }],
       },
-      // RUOCHEN START HERE
       AddPCRules: {
         pettype: [
           { required: true, message: 'Please choose a pet type', trigger: 'blur' },
@@ -337,7 +340,6 @@ export default {
           { required: true, message: 'Please enter a price', trigger: 'blur' },
           { validator: validatePrice, trigger: 'blur' }],
       },
-      // RUOCHEN END HERE
     };
   },
   methods: {
@@ -457,7 +459,6 @@ export default {
         this.$message.error(error.response.data.error);
       });
     },
-    // RUOCHEN START HERE
     addPCFormBtn() {
       this.$refs.addPC.validate((valid) => {
         if (valid) {
@@ -480,13 +481,12 @@ export default {
         }
       });
     },
-    // RUOCHEN END HERE
     closeDialog() {
       this.updatePCFormVisible = false;
       this.deletePCFormVisible = false;
       this.addPCFormVisible = false;
       this.form.pettype = '';
-      this.form.price = 0;
+      this.form.price = 1;
       this.form.index = 0;
     },
     // logData() {
