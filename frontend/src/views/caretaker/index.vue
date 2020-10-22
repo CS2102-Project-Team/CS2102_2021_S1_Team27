@@ -5,30 +5,8 @@
     style="height: 100%; width:100%; border: 1px solid #eee"
     >
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu >
-        <el-menu-item index="1">
-            <template slot="title"><i class="el-icon-message"></i>Care Taker Home</template>
-        </el-menu-item>
-        <el-menu-item index="2">
-            <template slot="title"><i class="el-icon-menu"></i>View My Schedule</template>
-        </el-menu-item>
-        <el-menu-item index="3">
-            <template slot="title"><i class="el-icon-setting"></i>View My Orders</template>
-        </el-menu-item>
-        <el-menu-item index="4">
-            <template v-if="!isPartTime" slot="title">
-              <i class="el-icon-setting"></i>
-              Apply For Leaves
-            </template>
-            <template v-if="isPartTime" slot="title">
-              <i class="el-icon-setting"></i>
-              Add My Availability
-            </template>
-        </el-menu-item>
-        <el-menu-item index="5">
-            <template slot="title"><i class="el-icon-setting"></i>View My Statistics</template>
-        </el-menu-item>
-        </el-menu>
+       <PTsidebar v-show="isPartTime" />
+       <FTsidebar v-show="!isPartTime" />
     </el-aside>
     <el-container>
         <el-main>
@@ -288,8 +266,11 @@ import {
   getCareTakerInfo, acceptOrder, addCareTakerPetCategory,
   updateCareTakerPetCategory, deleteCareTakerPetCategory,
 } from '@/api/caretaker';
+import FTsidebar from '../caretaker/component/FTsidebar';
+import PTsidebar from '../caretaker/component/PTsidebar';
 
 export default {
+  components: { FTsidebar, PTsidebar },
   data() {
     const validatePrice = (rule, value, callback) => {
       const regExpPrice = /^[1-9]\d*$/;

@@ -13,6 +13,36 @@ export default [
     component: () => import('@/views/caretaker/CTapply'),
   },
   {
+    name: 'view care taker schedule (current and upcoming orders)',
+    path: '/caretaker/schedules',
+    meta: { requireAuth: true },
+    component: () => import('@/views/caretaker/CTschedules'),
+  },
+  {
+    name: 'view care taker completed orders',
+    path: '/caretaker/orders',
+    meta: { requireAuth: true },
+    component: () => import('@/views/caretaker/CTorders'),
+  },
+  {
+    name: 'view and add part time care taker avaliability',
+    path: '/caretaker/avbl',
+    meta: { requireAuth: true },
+    component: () => import('@/views/caretaker/CTavbl'),
+  },
+  {
+    name: 'view and add full time care taker leave',
+    path: '/caretaker/leaves',
+    meta: { requireAuth: true },
+    component: () => import('@/views/caretaker/CTleaves'),
+  },
+  {
+    name: 'view care taker statistics',
+    path: '/caretaker/stats',
+    meta: { requireAuth: true },
+    component: () => import('@/views/caretaker/CTstats'),
+  },
+  {
     name: 'profile',
     path: '/profile',
     meta: { requireAuth: true },
