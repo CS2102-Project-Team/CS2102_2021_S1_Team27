@@ -15,7 +15,7 @@
         <el-menu-item index="3" @click="linkClicked('/caretaker/orders')">
             <template slot="title" >
               <i class="el-icon-setting"></i>
-              View Completed Orders
+              View All Orders
             </template>
         </el-menu-item>
         <el-menu-item index="4" @click="linkClicked('/caretaker/avbl')">

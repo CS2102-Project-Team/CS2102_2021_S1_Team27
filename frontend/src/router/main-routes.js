@@ -13,13 +13,13 @@ export default [
     component: () => import('@/views/caretaker/CTapply'),
   },
   {
-    name: 'view care taker schedule (current and upcoming orders)',
+    name: 'view care taker schedule (pending, current and future orders)',
     path: '/caretaker/schedules',
     meta: { requireAuth: true },
     component: () => import('@/views/caretaker/CTschedules'),
   },
   {
-    name: 'view care taker completed orders',
+    name: 'view care taker all orders',
     path: '/caretaker/orders',
     meta: { requireAuth: true },
     component: () => import('@/views/caretaker/CTorders'),
