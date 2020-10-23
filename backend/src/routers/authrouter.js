@@ -296,7 +296,7 @@ router.post('/user/updatepswd', async (req, res, next) => { // look up the user
     return;
   }
   req.user = await db.functions.getUserByEmail(req.body.email);
-  if (req.user === null) {
+  if (req.user === undefined) {
     res.status(404).json({
       error: 'username or email does not exist',
     });
@@ -336,17 +336,8 @@ router.post('/user/updatepswd', async (req, res, next) => { // look up the user
 });
 
 // For admin
-router.post('/admin/login', async (req, res, next) => { // look up the user in db
-  if (req.query.by === 'email') {
-    if (!req.body.email) {
-      res.status(400).json({
-        error: 'Missing email',
-      });
-      return;
-    }
-    // Todo: implement db function in /db/db.js
-    req.user = await db.functions.getUserByEmail(req.body.email);
-  } else if (req.query.by === 'username') {
+router.post('/admin/login', async (req, res, next) => { // admin can only login by username
+  if (req.query.by === 'username') {
     if (!req.body.username) {
       res.status(400).json({
         error: 'Missing username',
@@ -354,13 +345,16 @@ router.post('/admin/login', async (req, res, next) => { // look up the user in d
       return;
     }
     try {
-      req.user = await db.functions.getUserByUsername(req.body.username);
+      req.user = await dbAdmin.functions.getAdmin(req.body.username);
     } catch (e) {
       console.log(`getUserByUsername error: ${e}`);
+      res.status(500).json({
+        error: 'Error querying for admin',
+      });
     }
   } else {
     res.status(501).json({
-      error: 'requested login method not supported',
+      error: 'requested login method not supported (only username supported)',
     });
     return;
   }
@@ -373,7 +367,7 @@ router.post('/admin/login', async (req, res, next) => { // look up the user in d
   next();
 }, async (req, res, next) => { // user found, compare password here
   try {
-    if (await bcrypt.compare(req.body.password, req.user.passwd)) {
+    if (req.body.password === req.user.passwd) {
       next();
     } else {
       res.status(403).json({
@@ -414,14 +408,14 @@ router.post('/admin/logout', (req, res) => {
 });
 
 router.post('/admin/updatepswd', async (req, res, next) => { // look up the user
-  if (!req.body.email) {
+  if (!req.body.username) {
     res.status(400).json({
-      error: 'Missing email',
+      error: 'Missing username',
     });
     return;
   }
-  req.user = await db.functions.getUserByEmail(req.body.email);
-  if (req.user === null) {
+  req.user = await dbAdmin.functions.getAdmin(req.body.username);
+  if (req.user === undefined) {
     res.status(404).json({
       error: 'username or email does not exist',
     });
@@ -430,7 +424,7 @@ router.post('/admin/updatepswd', async (req, res, next) => { // look up the user
   next();
 }, async (req, res, next) => { // user found, compare password here
   try {
-    if (await bcrypt.compare(req.body.old_password, req.user.passwd)) {
+    if (req.body.old_password === req.user.passwd) {
       next();
     } else {
       res.status(403).json({
@@ -446,8 +440,8 @@ router.post('/admin/updatepswd', async (req, res, next) => { // look up the user
   }
 }, async (req, res) => {
   try {
-    const passwd = await bcrypt.hash(req.body.new_password, saltRounds);
-    await db.functions.changePassword(
+    const passwd = req.body.new_password;
+    await dbAdmin.functions.changePassword(
       req.body.email,
       passwd,
     );
