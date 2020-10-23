@@ -2,12 +2,11 @@ import request from '@/utils/request'
 
 export function login(data) {
   const { username, password } = data
-  const email = username
   return request({
     url: '/auth/admin/login',
     method: 'post',
-    params: { by: username.includes('@') ? 'email' : 'username' },
-    data: { username, email, password }
+    params: { by: 'username' },
+    data: { username, password }
   })
 }
 
