@@ -5,7 +5,7 @@ const db = require('../db/Admin');
 
 const router = express.Router();
 
-router.post('/promote', auth.authenticateToken, async (req, res) => {
+router.post('/promote', auth.authenticateAdminToken, async (req, res) => {
   try {
     const { caretaker } = req.body;
     await db.functions.promotePartime(caretaker);
@@ -18,7 +18,7 @@ router.post('/promote', auth.authenticateToken, async (req, res) => {
   }
 });
 
-router.get('/user', auth.authenticateToken, async (req, res) => {
+router.get('/user', auth.authenticateAdminToken, async (req, res) => {
   try {
     const user = await db.functions.getUserByUsername(req.user.username);
     res.status(200).json({ username: user.username, email: user.email });
@@ -32,7 +32,7 @@ router.get('/', (req, res) => res.redirect(307, 'https://cs2102-doc.netlify.app/
 Skip authentication: (req,res,next) => {req.user = 'kyle';next();},
 */
 
-router.get('/cards', auth.authenticateToken, async (req, res) => {
+router.get('/cards', auth.authenticateAdminToken, async (req, res) => {
   try {
     const insRes = await db.functions.getCards(req.user.username);
     res.status(200).json(insRes);
@@ -42,7 +42,7 @@ router.get('/cards', auth.authenticateToken, async (req, res) => {
   }
 });
 
-router.post('/cards', auth.authenticateToken, async (req, res) => {
+router.post('/cards', auth.authenticateAdminToken, async (req, res) => {
   const { cardnumber } = req.body;
   const { cvv } = req.body;
   const { exp } = req.body;

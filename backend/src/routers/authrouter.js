@@ -406,7 +406,7 @@ router.post('/admin/login', async (req, res, next) => { // look up the admin in 
   }
 }, async (req, res) => { // no error
   console.log(req.user);
-  const user = { username: req.user.username };
+  const user = { username: req.user.username, isAdmin: true };
   console.log('aaa');
   const accessToken = generateAccessToken(user);
   console.log('bbb');
