@@ -25,6 +25,7 @@ CREATE TABLE accounts(
 
 CREATE TABLE admins(
     username VARCHAR PRIMARY KEY,
+    email VARCHAR NOT NULL UNIQUE,
     passwd VARCHAR NOT NULL,
     privilege VARCHAR -- privilege for admins
 );
