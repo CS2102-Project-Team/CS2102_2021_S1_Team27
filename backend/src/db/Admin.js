@@ -1,6 +1,11 @@
 const db = require('./index');
 
-async function getAdmin(username) {
+async function getAdminByEmail(email) {
+  const { rows } = await db.query('SELECT * FROM admins WHERE email = $1', [email]);
+  return rows[0];
+}
+
+async function getAdminByUsername(username) {
   const { rows } = await db.query('SELECT * FROM admins WHERE username = $1', [username]);
   return rows[0];
 }
@@ -15,16 +20,23 @@ async function insertAvailability(username, startdate, enddate) {
   return rows;
 }
 
-async function changePassword(email, password) {
+async function changePasswordByEmail(email, password) {
   const { rows } = await db.query('UPDATE admins SET passwd = $2 WHERE email = $1', [email, password]);
+  return rows;
+}
+
+async function changePasswordByUsername(username, password) {
+  const { rows } = await db.query('UPDATE admins SET passwd = $2 WHERE username = $1', [username, password]);
   return rows;
 }
 
 module.exports = {
   functions: {
-    getAdmin,
+    getAdminByEmail,
+    getAdminByUsername,
     promotePartime,
     insertAvailability,
-    changePassword,
+    changePasswordByEmail,
+    changePasswordByUsername,
   },
 };

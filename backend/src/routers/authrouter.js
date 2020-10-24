@@ -29,7 +29,7 @@ function validateEmail(email) {
 }
 
 let OTPList = [
-  { email: 'e0424619@u.nus.edu', otp: '990811', exp: 1911101657344 },
+  { email: 'lirc572@gmail.com', otp: '990811', exp: 1911101657344 },
   { email: 'jiang@u.nus.edu', otp: '990811', exp: 1911101657344 },
 ];
 
@@ -195,8 +195,13 @@ router.post('/user/login', async (req, res, next) => { // look up the user in db
       });
       return;
     }
-    // Todo: implement db function in /db/db.js
-    req.user = await db.functions.getUserByEmail(req.body.email);
+    try {
+      req.user = await db.functions.getUserByEmail(req.body.email);
+    } catch (e) {
+      console.log(`getUserByEmail error: ${e}`);
+      res.sendStatus(500);
+      return;
+    }
   } else if (req.query.by === 'username') {
     if (!req.body.username) {
       res.status(400).json({
@@ -208,6 +213,8 @@ router.post('/user/login', async (req, res, next) => { // look up the user in db
       req.user = await db.functions.getUserByUsername(req.body.username);
     } catch (e) {
       console.log(`getUserByUsername error: ${e}`);
+      res.sendStatus(500);
+      return;
     }
   } else {
     res.status(501).json({
@@ -336,8 +343,23 @@ router.post('/user/updatepswd', async (req, res, next) => { // look up the user
 });
 
 // For admin
-router.post('/admin/login', async (req, res, next) => { // admin can only login by username
-  if (req.query.by === 'username') {
+router.post('/admin/login', async (req, res, next) => { // look up the admin in db
+  if (req.query.by === 'email') {
+    if (!req.body.email) {
+      res.status(400).json({
+        error: 'Missing email',
+      });
+      return;
+    }
+    try {
+      req.user = await dbAdmin.functions.getAdminByEmail(req.body.email);
+    } catch (e) {
+      console.log(`getAdminByEmail error: ${e}`);
+      res.status(500).json({
+        error: 'Error querying for admin',
+      });
+    }
+  } else if (req.query.by === 'username') {
     if (!req.body.username) {
       res.status(400).json({
         error: 'Missing username',
@@ -345,12 +367,13 @@ router.post('/admin/login', async (req, res, next) => { // admin can only login 
       return;
     }
     try {
-      req.user = await dbAdmin.functions.getAdmin(req.body.username);
+      req.user = await dbAdmin.functions.getAdminByUsername(req.body.username);
     } catch (e) {
-      console.log(`getUserByUsername error: ${e}`);
+      console.log(`getAdminByUsername error: ${e}`);
       res.status(500).json({
         error: 'Error querying for admin',
       });
+      return;
     }
   } else {
     res.status(501).json({
@@ -408,13 +431,43 @@ router.post('/admin/logout', (req, res) => {
 });
 
 router.post('/admin/updatepswd', async (req, res, next) => { // look up the user
-  if (!req.body.username) {
-    res.status(400).json({
-      error: 'Missing username',
+  if (req.query.by === 'email') {
+    if (!req.body.email) {
+      res.status(400).json({
+        error: 'Missing email',
+      });
+      return;
+    }
+    try {
+      req.user = await dbAdmin.functions.getAdminByEmail(req.body.email);
+    } catch (e) {
+      console.log(`getAdminByEmail error: ${e}`);
+      res.status(500).json({
+        error: 'Error querying for admin',
+      });
+    }
+  } else if (req.query.by === 'username') {
+    if (!req.body.username) {
+      res.status(400).json({
+        error: 'Missing username',
+      });
+      return;
+    }
+    try {
+      req.user = await dbAdmin.functions.getAdminByUsername(req.body.username);
+    } catch (e) {
+      console.log(`getAdminByUsername error: ${e}`);
+      res.status(500).json({
+        error: 'Error querying for admin',
+      });
+      return;
+    }
+  } else {
+    res.status(501).json({
+      error: 'requested login method not supported (only username supported)',
     });
     return;
   }
-  req.user = await dbAdmin.functions.getAdmin(req.body.username);
   if (req.user === undefined) {
     res.status(404).json({
       error: 'username or email does not exist',
@@ -441,10 +494,17 @@ router.post('/admin/updatepswd', async (req, res, next) => { // look up the user
 }, async (req, res) => {
   try {
     const passwd = req.body.new_password;
-    await dbAdmin.functions.changePassword(
-      req.body.email,
-      passwd,
-    );
+    if (req.query.by === 'email') {
+      await dbAdmin.functions.changePasswordByEmail(
+        req.body.email,
+        passwd,
+      );
+    } else if (req.query.by === 'username') {
+      await dbAdmin.functions.changePasswordByUsername(
+        req.body.username,
+        passwd,
+      );
+    }
     res.status(200).json('success');
     return;
   } catch (err) {
