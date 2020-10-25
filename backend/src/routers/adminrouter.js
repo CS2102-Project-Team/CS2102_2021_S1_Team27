@@ -14,7 +14,7 @@ router.post('/promote', auth.authenticateAdminToken, async (req, res) => {
     res.status(204).json('success');
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -24,7 +24,7 @@ router.get('/user', auth.authenticateAdminToken, async (req, res) => {
     res.status(200).json({ username: user.username, email: user.email });
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 /*
@@ -38,7 +38,7 @@ router.get('/cards', auth.authenticateAdminToken, async (req, res) => {
     res.status(200).json(insRes);
     return;
   } catch (err) {
-    res.status(500).json('error');
+    res.status(500).json({ error: 'error' });
   }
 });
 
@@ -58,6 +58,16 @@ router.post('/cards', auth.authenticateAdminToken, async (req, res) => {
   try {
     await db.functions.insertCard(cardnumber, cvv, exp, username);
     res.status(204).json('success');
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.get('/admin', auth.authenticateAdminToken, async (req, res) => {
+  try {
+    const adminInfo = await db.functions.getAdminByUsername(req.user.username);
+    res.status(200).json({ username: adminInfo.username, email: adminInfo.email });
     return;
   } catch (err) {
     res.status(500).json({ error: 'error' });
