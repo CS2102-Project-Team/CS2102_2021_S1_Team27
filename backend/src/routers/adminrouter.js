@@ -64,10 +64,76 @@ router.post('/cards', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.get('/admin', auth.authenticateAdminToken, async (req, res) => {
+router.get('/', auth.authenticateAdminToken, async (req, res) => {
   try {
     const adminInfo = await db.functions.getAdminByUsername(req.user.username);
     res.status(200).json({ username: adminInfo.username, email: adminInfo.email });
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.get('/price', auth.authenticateAdminToken, async (req, res) => {
+  try {
+    const prices = await db.functions.getFullTimePrices();
+    res.status(200).json(prices);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+// insert or update
+router.post('/price', auth.authenticateToken, async (req, res) => {
+  const { category } = req.body;
+  const { classes } = req.body;
+  const { price } = req.body;
+
+  if (typeof category !== 'string'
+        || typeof classes !== 'number'
+        || typeof price !== 'number'
+  ) {
+    res.status(400);
+    return;
+  }
+  try {
+    let attribute = '';
+    if (classes === 1) {
+      attribute = 'price1';
+    } else if (classes === 2) {
+      attribute = 'price2';
+    } else {
+      attribute = 'price3';
+    }
+    await db.functions.insertFullTimePrice(category, attribute, price);
+    res.status(204).json('success');
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.get('/leave', auth.authenticateAdminToken, async (req, res) => {
+  try {
+    const leave = await db.functions.getLeave();
+    res.status(200).json(leave);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.put('/leave', auth.authenticateToken, async (req, res) => {
+  try {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const element of req.body) {
+      // eslint-disable-next-line
+      // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
+      await db.functions.addLeave(element.caretakerusername, element.startdate,
+        element.enddate, element.approve);
+    }
+    res.status(200).json('success');
     return;
   } catch (err) {
     res.status(500).json({ error: 'error' });

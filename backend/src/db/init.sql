@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS caretakers;
 DROP TABLE IF EXISTS pets;
 DROP TABLE IF EXISTS pettypes;
 DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS fulltime_price;
 
 
 
@@ -71,6 +72,13 @@ CREATE TABLE looksafter(
     PRIMARY KEY (ctaker, ptype)
 );
 
+CREATE TABLE fulltime_price(
+    ptype VARCHAR PRIMARY KEY REFERENCES pettypes(ptype),
+    price1 INT,
+    price2 INT,
+    price3 INT
+);
+
 --INSERT INTO looksafter VALUES ('kyle2', 20, 'cat');
 
 CREATE TABLE calendar(
@@ -87,6 +95,16 @@ CREATE TABLE available(
     status VARCHAR DEFAULT 'available', --available, full
     PRIMARY KEY(ctaker, date)
 );
+
+CREATE TABLE leave(
+    ctaker VARCHAR REFERENCES caretakers(username),
+    startdate DATE REFERENCES calendar(date),
+    enddate DATE REFERENCES calendar(date),
+    clash VARCHAR DEFAULT 'false',
+    status VARCHAR DEFAULT 'pending', --pending, approved
+    PRIMARY KEY(ctaker, date)
+);
+
 
 CREATE TABLE orders(
     bidtime TIMESTAMP,

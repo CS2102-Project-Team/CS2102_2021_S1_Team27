@@ -30,6 +30,27 @@ async function changePasswordByUsername(username, password) {
   return rows;
 }
 
+async function getFullTimePrices() {
+  const { rows } = await db.query('SELECT ptype category, price1, price2, price3 FROM fulltime_price');
+  return rows;
+}
+
+// insert or update
+async function insertFullTimePrice(category, attribute, price) {
+  const { rows } = await db.query('INSERT INTO fulltime_price(ptype, $1) VALUES ($2, $3)', [attribute, category, price]);
+  return rows;
+}
+
+async function getLeave() {
+  const { rows } = await db.query('SELECT * FROM fulltime_price');
+  return rows;
+}
+
+async function addLeave(username, startDate, endDate, status) {
+  const { rows } = await db.query('UPDATE leave SET status = $4 WHERE ctaker = $1 AND startdate = $2 AND enddate = $3', [username, startDate, endDate, status]);
+  return rows;
+}
+
 module.exports = {
   functions: {
     getAdminByEmail,
@@ -38,5 +59,9 @@ module.exports = {
     insertAvailability,
     changePasswordByEmail,
     changePasswordByUsername,
+    getFullTimePrices,
+    insertFullTimePrice,
+    getLeave,
+    addLeave,
   },
 };
