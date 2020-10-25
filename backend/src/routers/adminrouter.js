@@ -85,7 +85,7 @@ router.get('/price', auth.authenticateAdminToken, async (req, res) => {
 });
 
 // insert or update
-router.post('/price', auth.authenticateToken, async (req, res) => {
+router.post('/price', auth.authenticateAdminToken, async (req, res) => {
   const { category } = req.body;
   const { classes } = req.body;
   const { price } = req.body;
@@ -124,7 +124,7 @@ router.get('/leave', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.put('/leave', auth.authenticateToken, async (req, res) => {
+router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
   try {
     // eslint-disable-next-line no-restricted-syntax
     for (const element of req.body) {
