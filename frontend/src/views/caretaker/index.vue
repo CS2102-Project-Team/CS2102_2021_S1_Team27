@@ -337,6 +337,7 @@ export default {
         this.addedPetTypes = this.petcategory.map((x) => x.pettype);
         this.isPartTime = this.type === 'part time';
         this.CTinforFetched = true;
+        this.$store.commit('SET_ISPT', this.isPartTime);
         // this.logData();
       }).catch((error) => {
         // if user is not a caretaker yet
