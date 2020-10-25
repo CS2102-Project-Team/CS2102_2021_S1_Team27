@@ -1,13 +1,12 @@
 <template>
   <div>
     <leftbar/>
-    <el-card v-for="(pet,index) in pets" v-bind:key="index">
-      <span style='color:red'>{{ pet.pname }}</span>
+    <el-card class='box-card' v-for="(pet,index) in pets" v-bind:key="index">
+      <div class='text item'>{{ 'Name: ' + pet.pname }}</div>
       <br/>
-      <span>{{ pet.ptype }}</span>
+      <div class='text item'>{{ 'Pet Category: ' + pet.ptype }}</div>
       <br/>
-      <span>{{ pet.remark }}</span>
-      <br/>
+      <div class='text item'>{{ 'Remark: ' + pet.remark }}</div>
     </el-card>
     <el-button type="primary" v-on:click="goToAddPet()">Add Pet</el-button>
   </div>
@@ -36,11 +35,7 @@ export default {
       });
     },
     goToAddPet() {
-      this.$notify({
-        title: 'To be implemented.',
-        message: 'To be implemented',
-        duration: 0,
-      });
+      this.$router.push('/po/pets/add_pet');
     },
   },
   components: {
@@ -53,5 +48,15 @@ export default {
 </script>
 
 <style scoped>
+.text {
+  font-size: 20px;
+}
 
+.item {
+  margin-bottom: 12px;
+}
+
+.box-card {
+  width: 480px;
+}
 </style>

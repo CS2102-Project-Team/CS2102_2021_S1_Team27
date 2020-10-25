@@ -42,4 +42,8 @@ export default [
     path: '/po/pets',
     component: () => import('@/views/petowner/pets'),
   },
+  {
+    path: '/po/pets/add_pet',
+    component: () => import('@/views/petowner/addpetpage'),
+  },
 ];
