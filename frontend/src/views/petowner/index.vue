@@ -32,8 +32,9 @@
         </el-col>
         <el-col :span="4">
           <el-form-item prop="petcategory">
-            <el-select v-model="param.petcategory" placeholder="--pet-category--">
-              <el-option v-for="(category,index) in categories" v-bind:key=index :value=category>
+            <el-select v-model="param.petcategory" placeholder="--select-pet-type--">
+              <el-option v-for="(category,index) in categories" :key="index"
+              :label="category" :value="category">
               </el-option>
             </el-select>
           </el-form-item>
@@ -51,26 +52,102 @@
       <el-card class='box-card' v-for="(vacancy,index) in vacancies" v-bind:key="index">
         <div class='text item'>{{ 'Care Taker Name: ' + vacancy.realname }}</div>
         <br/>
-        <div class='text item'>{{ 'Address: ' + vacancy.address }}</div>
+        <div class='text item' v-if="vacancy.fulltime">{{ 'Full Time' }}</div>
+        <div class='text item' v-else>{{ 'Part Time' }}</div>
+        <br/>
+        <div class='text item'>{{ 'Address: ' + vacancy.addres }}</div>
         <br/>
         <div class='text item'>{{ 'Rating: ' + vacancy.rating }}</div>
         <br/>
         <div class='text item'>{{ 'Total Price: ' + vacancy.totalprice }}</div>
         <br/>
-        <el-button type="primary" v-on:click="orderDetail(vacancy)">place order</el-button>
+        <el-button type="primary" v-on:click="vacancy.dialogVisible=true">place order</el-button>
+        <el-dialog title='Place Order' :visible.sync="vacancy.dialogVisible" width="50%">
+          <el-form label-width="80px">
+            <el-form-item>
+              <div class='text'>{{ 'Care Taker Name: ' + vacancy.realname }}</div>
+            </el-form-item>
+            <el-form-item>
+              <div class='text' v-if="vacancy.fulltime">{{ 'Full Time' }}</div>
+              <div class='text' v-else>{{ 'Part Time' }}</div>
+            </el-form-item>
+            <el-form-item>
+              <div class='text'>{{ 'Address: ' + vacancy.addres }}</div>
+            </el-form-item>
+            <el-form-item>
+              <div class='text'>{{ 'Rating: ' + vacancy.rating }}</div>
+            </el-form-item>
+            <el-form-item>
+              <div class='text'>{{ 'Total Price: ' + vacancy.totalprice }}</div>
+            </el-form-item>
+            <el-form-item>
+              <div class='text'>{{ 'Pet Category: ' + param.petcategory }}</div>
+            </el-form-item>
+            <el-form-item>
+              <el-row :gutter="50">
+                <el-col :span="25">
+                  Select Pet
+                </el-col>
+                <el-col :span="25">
+                  <el-select v-model="pname" placeholder="--select-pet--">
+                    <div v-for="(pet,index) in allMyPets" :key="index">
+                      <el-option  v-if="pet.ptype===param.petcategory"
+                      :label="pet.pname" :value="pet.pname">
+                      </el-option>
+                    </div>
+                  </el-select>
+                </el-col>
+              </el-row>
+              <el-row :gutter="50">
+                <el-col :span="25">
+                  Select Payment Method
+                </el-col>
+                <el-col :span="25">
+                  <el-select v-model="paymentmethod" placeholder="--select-payment-method--">
+                    <el-option v-for="(category,index) in allPayMethods" :key="index"
+                    :label="category" :value="category">
+                    </el-option>
+                  </el-select>
+                </el-col>
+              </el-row>
+              <el-row :gutter="50">
+                <el-col :span="25">
+                  Select Delivery Method
+                </el-col>
+                <el-col :span="25">
+                  <el-select v-model="deliverymode" placeholder="--select-delivery-mode--">
+                    <el-option v-for="(category,index) in allDeliveryMethod" :key="index"
+                    :label="category" :value="category">
+                    </el-option>
+                  </el-select>
+                </el-col>
+              </el-row>
+            </el-form-item>
+          </el-form>
+            <span>
+              <el-button v-on:click="vacancy.dialogVisible=false">Cancel</el-button>
+              <el-button type="primary" v-on:click="placeOrder(vacancy)">Confirm</el-button>
+            </span>
+        </el-dialog>
       </el-card>
     </div>
   </div>
 </template>
 
 <script>
-import { searchVacancy } from '@/api/petowner';
+import { searchVacancy, placeOrder, searchPets } from '@/api/petowner';
 import leftbar from './components/leftbar.vue';
 
 export default {
   data() {
     return {
       categories: ['cat', 'dog', 'fish'],
+      allPayMethods: ['credit card', 'cash'],
+      allDeliveryMethod: ['pet owner deliver', 'care taker pick up', 'transfer through pcs'],
+      allMyPets: [],
+      pname: '',
+      paymentmethod: '',
+      deliverymode: '',
       vacancies: [],
       param: {
         startdate: '',
@@ -80,13 +157,14 @@ export default {
       rules: {
         startdate: [{ required: true, message: 'Please specify your start date', trigger: 'blur' }],
         enddate: [{ required: true, message: 'Please specify your end date', trigger: 'blur' }],
-        petcategory: [{ required: true, message: 'Please specify your pet category', trigger: 'blur' }],
+        petcategory: [{ required: true, message: 'Please specify one of your pets', trigger: 'blur' }],
       },
       loading: false,
     };
   },
   methods: {
     getSlot() {
+      this.vacancies = [];
       searchVacancy(this.param).then((results) => {
         let i;
         for (i = 0; i < results.data.length; i += 1) {
@@ -94,6 +172,7 @@ export default {
           if (thisData.rating === '-1') {
             thisData.rating = 'No rating has been given to this caretaker yet';
           }
+          thisData.dialogVisible = false;
           this.vacancies.push(thisData);
         }
         // this.vacancies = results.data;
@@ -106,12 +185,50 @@ export default {
       });
     },
     orderDetail(vacancy) {
-      console.log(`Entering an vacancy detail of ${vacancy.realname}.`);
-      alert(`Entering an vacancy detail of ${vacancy.realname}.`);
+      this.$router.push('/po/placeorder');
+      console.log(vacancy);
+    },
+    getPets() {
+      searchPets().then((results) => {
+        this.allMyPets = results.data;
+      }).catch((err) => {
+        this.$notify({
+          title: 'Get Pets Info Failed.',
+          message: err.response.errors,
+          duration: 0,
+        });
+      });
+    },
+    placeOrder(vacancy) {
+      const caretakername = vacancy.username;
+      const petname = this.pname;
+      const { startdate, enddate } = this.param;
+      const { paymentmethod, deliverymode } = this;
+      const data = {
+        caretakername, petname, startdate, enddate, paymentmethod, deliverymode,
+      };
+      placeOrder(data).then(() => {
+        this.$notify({
+          title: 'Place Order',
+          message: 'Your order has been placed.',
+          duration: 0,
+        });
+      }).then(() => {
+        this.$router.push('/po/orders');
+      }).catch((err) => {
+        this.$notify({
+          title: 'Order cannot be placed',
+          message: err.response.error,
+          duration: 0,
+        });
+      });
     },
   },
   components: {
     leftbar,
+  },
+  beforeMount() {
+    this.getPets();
   },
 };
 </script>
@@ -121,7 +238,7 @@ export default {
   font-size: 20px;
 }
 .item {
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 .ms-content {
   padding: 30px 30px;
