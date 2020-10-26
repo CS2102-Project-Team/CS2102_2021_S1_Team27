@@ -722,16 +722,16 @@
   }
 };
             defs["body_10"] = {
-  "required" : [ "caretakername", "deliverymode", "enddate", "paymentmethod", "petname", "startdate" ],
+  "required" : [ "caretakerusername", "deliverymode", "enddate", "paymentmethod", "petname", "startdate" ],
   "type" : "object",
   "properties" : {
     "petname" : {
       "type" : "string",
       "example" : "Bobby"
     },
-    "caretakername" : {
+    "caretakerusername" : {
       "type" : "string",
-      "example" : "Bernie Dukowsky"
+      "example" : "berniedukowsky"
     },
     "startdate" : {
       "type" : "string",
@@ -752,6 +752,16 @@
   }
 };
             defs["body_11"] = {
+  "required" : [ "realname" ],
+  "type" : "object",
+  "properties" : {
+    "realname" : {
+      "type" : "string",
+      "example" : "Kyle"
+    }
+  }
+};
+            defs["body_12"] = {
   "required" : [ "enddate", "ownerusername", "petname", "startdate" ],
   "type" : "object",
   "properties" : {
@@ -769,7 +779,7 @@
     }
   }
 };
-            defs["body_12"] = {
+            defs["body_13"] = {
   "required" : [ "pettype", "price" ],
   "type" : "array",
   "properties" : {
@@ -804,7 +814,7 @@
     }
   }
 };
-            defs["body_13"] = {
+            defs["body_14"] = {
   "required" : [ "pettype", "price" ],
   "type" : "object",
   "properties" : {
@@ -818,7 +828,7 @@
     }
   }
 };
-            defs["body_14"] = {
+            defs["body_15"] = {
   "required" : [ "name", "remark" ],
   "type" : "object",
   "properties" : {
@@ -832,7 +842,7 @@
     }
   }
 };
-            defs["body_15"] = {
+            defs["body_16"] = {
   "required" : [ "name", "remark", "type" ],
   "type" : "object",
   "properties" : {
@@ -849,22 +859,6 @@
       "example" : "dog"
     }
   }
-};
-            defs["body_16"] = {
-  "required" : [ "enddate", "startdate" ],
-  "type" : "object",
-  "properties" : {
-    "startdate" : {
-      "type" : "string"
-    },
-    "enddate" : {
-      "type" : "string"
-    }
-  },
-  "example" : [ {
-    "startdate" : "11/15/20",
-    "enddate" : "11/30/20"
-  } ]
 };
             defs["body_17"] = {
   "required" : [ "enddate", "startdate" ],
@@ -883,42 +877,36 @@
   } ]
 };
             defs["body_18"] = {
-  "required" : [ "category", "class", "price" ],
+  "required" : [ "enddate", "startdate" ],
+  "type" : "object",
+  "properties" : {
+    "startdate" : {
+      "type" : "string"
+    },
+    "enddate" : {
+      "type" : "string"
+    }
+  },
+  "example" : [ {
+    "startdate" : "11/15/20",
+    "enddate" : "11/30/20"
+  } ]
+};
+            defs["body_19"] = {
+  "required" : [ "category", "classes", "price" ],
   "type" : "object",
   "properties" : {
     "category" : {
       "type" : "string",
       "example" : "dog"
     },
-    "class" : {
+    "classes" : {
       "type" : "string",
       "example" : "2"
     },
     "price" : {
       "type" : "integer",
       "example" : 220
-    }
-  }
-};
-            defs["body_19"] = {
-  "required" : [ "approve", "caretakeruername", "enddate", "startdate" ],
-  "type" : "object",
-  "properties" : {
-    "caretakerusername" : {
-      "type" : "string",
-      "example" : "berniedukowsky"
-    },
-    "startdate" : {
-      "type" : "string",
-      "example" : "08-19-2020"
-    },
-    "enddate" : {
-      "type" : "string",
-      "example" : "08-22-2020"
-    },
-    "approve" : {
-      "type" : "boolean",
-      "example" : true
     }
   }
 };
@@ -941,6 +929,28 @@
   }
 };
             defs["body_20"] = {
+  "required" : [ "approve", "caretakeruername", "enddate", "startdate" ],
+  "type" : "object",
+  "properties" : {
+    "caretakerusername" : {
+      "type" : "string",
+      "example" : "berniedukowsky"
+    },
+    "startdate" : {
+      "type" : "string",
+      "example" : "08-19-2020"
+    },
+    "enddate" : {
+      "type" : "string",
+      "example" : "08-22-2020"
+    },
+    "approve" : {
+      "type" : "boolean",
+      "example" : true
+    }
+  }
+};
+            defs["body_21"] = {
   "required" : [ "role", "username" ],
   "type" : "object",
   "properties" : {
@@ -954,7 +964,7 @@
     }
   }
 };
-            defs["body_21"] = {
+            defs["body_22"] = {
   "required" : [ "name", "role", "username" ],
   "type" : "object",
   "properties" : {
@@ -972,7 +982,7 @@
     }
   }
 };
-            defs["body_22"] = {
+            defs["body_23"] = {
   "required" : [ "new_name", "old_name" ],
   "type" : "object",
   "properties" : {
@@ -986,7 +996,7 @@
     }
   }
 };
-            defs["body_23"] = {
+            defs["body_24"] = {
   "required" : [ "name", "type" ],
   "type" : "object",
   "properties" : {
@@ -1051,12 +1061,16 @@
   }
 };
             defs["body_6"] = {
-  "required" : [ "email", "new_password", "old_password" ],
+  "required" : [ "email", "new_password", "old_password", "username" ],
   "type" : "object",
   "properties" : {
     "email" : {
       "type" : "string",
-      "example" : "adam@bob.charlie"
+      "example" : "admin@ad.min"
+    },
+    "username" : {
+      "type" : "string",
+      "example" : "adminhaha"
     },
     "old_password" : {
       "type" : "string",
@@ -1310,9 +1324,12 @@
   }
 };
             defs["inline_response_200_3"] = {
-  "required" : [ "address", "name", "rating", "totalprice", "type" ],
+  "required" : [ "address", "name", "rating", "totalprice", "type", "username" ],
   "type" : "object",
   "properties" : {
+    "username" : {
+      "type" : "string"
+    },
     "name" : {
       "type" : "string"
     },
@@ -1362,11 +1379,11 @@
   "properties" : {
     "startdate" : {
       "type" : "string",
-      "example" : "12-31-20"
+      "example" : "2020-11-31"
     },
     "enddate" : {
       "type" : "string",
-      "example" : "12-31-20"
+      "example" : "2020-12-31"
     },
     "specialrequirement" : {
       "type" : "string",
@@ -1409,6 +1426,24 @@
   }
 };
             defs["inline_response_200_5"] = {
+  "required" : [ "petcategory", "rating", "review" ],
+  "type" : "object",
+  "properties" : {
+    "petcategory" : {
+      "type" : "string",
+      "example" : "cat"
+    },
+    "rating" : {
+      "type" : "number",
+      "example" : 5.0
+    },
+    "review" : {
+      "type" : "string",
+      "example" : "very good"
+    }
+  }
+};
+            defs["inline_response_200_6"] = {
   "required" : [ "deliverymode", "enddate", "ownerusername", "petcategory", "petname", "rating", "review", "specialrequirement", "startdate", "status" ],
   "type" : "object",
   "properties" : {
@@ -1454,7 +1489,7 @@
     }
   }
 };
-            defs["inline_response_200_6"] = {
+            defs["inline_response_200_7"] = {
   "required" : [ "petday", "salary" ],
   "type" : "object",
   "properties" : {
@@ -1468,30 +1503,53 @@
     }
   }
 };
-            defs["inline_response_200_7"] = {
+            defs["inline_response_200_8"] = {
+  "required" : [ "blockeddates", "leavesapplied" ],
+  "type" : "object",
+  "properties" : {
+    "leavesapplied" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/inline_response_200_8_leavesapplied"
+      }
+    },
+    "blockeddates" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/inline_response_200_8_blockeddates"
+      }
+    }
+  }
+};
+            defs["inline_response_200_8_blockeddates"] = {
   "required" : [ "enddate", "startdate" ],
   "type" : "object",
   "properties" : {
     "startdate" : {
-      "type" : "string"
+      "type" : "string",
+      "example" : "2020-11-30"
     },
     "enddate" : {
-      "type" : "string"
+      "type" : "string",
+      "example" : "2020-12-30"
     }
   }
 };
-            defs["inline_response_200_8"] = {
+            defs["inline_response_200_8_leavesapplied"] = {
   "required" : [ "enddate", "startdate", "status" ],
   "type" : "object",
   "properties" : {
     "startdate" : {
-      "type" : "string"
+      "type" : "string",
+      "example" : "2020-11-30"
     },
     "enddate" : {
-      "type" : "string"
+      "type" : "string",
+      "example" : "2020-12-30"
     },
     "status" : {
-      "type" : "string"
+      "type" : "string",
+      "example" : "pending"
     }
   }
 };
@@ -1603,7 +1661,25 @@
   "properties" : {
     "error" : {
       "type" : "string",
+      "example" : "cannot find the pet"
+    }
+  }
+};
+            defs["inline_response_422_3"] = {
+  "type" : "object",
+  "properties" : {
+    "error" : {
+      "type" : "string",
       "example" : "already a caretaker"
+    }
+  }
+};
+            defs["inline_response_422_4"] = {
+  "type" : "object",
+  "properties" : {
+    "error" : {
+      "type" : "string",
+      "example" : "Exceed max pets allowed"
     }
   }
 };
@@ -1693,6 +1769,9 @@
                       <a href="#api-Authentication-getotp">getotp</a>
                     </li>
                   <li class="nav-header" data-group="CareTaker"><a href="#api-CareTaker">API Methods - CareTaker</a></li>
+                    <li data-group="CareTaker" data-name="ctgetreviews" class="">
+                      <a href="#api-CareTaker-ctgetreviews">ctgetreviews</a>
+                    </li>
                     <li data-group="CareTaker" data-name="getcaretakerinfo" class="">
                       <a href="#api-CareTaker-getcaretakerinfo">getcaretakerinfo</a>
                     </li>
@@ -1700,8 +1779,8 @@
                       <a href="#api-CareTaker-postcaretakerregistration">postcaretakerregistration</a>
                     </li>
                   <li class="nav-header" data-group="CareTakerOperation"><a href="#api-CareTakerOperation">API Methods - CareTakerOperation</a></li>
-                    <li data-group="CareTakerOperation" data-name="ctgetallorders" class="">
-                      <a href="#api-CareTakerOperation-ctgetallorders">ctgetallorders</a>
+                    <li data-group="CareTakerOperation" data-name="ctgetorders" class="">
+                      <a href="#api-CareTakerOperation-ctgetorders">ctgetorders</a>
                     </li>
                     <li data-group="CareTakerOperation" data-name="ctgetstats" class="">
                       <a href="#api-CareTakerOperation-ctgetstats">ctgetstats</a>
@@ -1715,11 +1794,11 @@
                       <a href="#api-DeviceOperation-getstatus">getstatus</a>
                     </li>
                   <li class="nav-header" data-group="FullTimeCareTakerOperation"><a href="#api-FullTimeCareTakerOperation">API Methods - FullTimeCareTakerOperation</a></li>
+                    <li data-group="FullTimeCareTakerOperation" data-name="ctapplyleave" class="">
+                      <a href="#api-FullTimeCareTakerOperation-ctapplyleave">ctapplyleave</a>
+                    </li>
                     <li data-group="FullTimeCareTakerOperation" data-name="ctgetallleaves" class="">
                       <a href="#api-FullTimeCareTakerOperation-ctgetallleaves">ctgetallleaves</a>
-                    </li>
-                    <li data-group="FullTimeCareTakerOperation" data-name="ctupdateleave" class="">
-                      <a href="#api-FullTimeCareTakerOperation-ctupdateleave">ctupdateleave</a>
                     </li>
                   <li class="nav-header" data-group="PartTimeCareTakerOperation"><a href="#api-PartTimeCareTakerOperation">API Methods - PartTimeCareTakerOperation</a></li>
                     <li data-group="PartTimeCareTakerOperation" data-name="ctaddpetcategory" class="">
@@ -3785,7 +3864,7 @@ public class AdminApiExample {
 
 
         AdminApi apiInstance = new AdminApi();
-        Body_19 body = ; // Body_19 | approve or reject a leae application
+        Body_20 body = ; // Body_20 | approve or reject a leae application
         try {
             apiInstance.putleavers(body);
         } catch (ApiException e) {
@@ -3803,7 +3882,7 @@ public class AdminApiExample {
 
     public static void main(String[] args) {
         AdminApi apiInstance = new AdminApi();
-        Body_19 body = ; // Body_19 | approve or reject a leae application
+        Body_20 body = ; // Body_20 | approve or reject a leae application
         try {
             apiInstance.putleavers(body);
         } catch (ApiException e) {
@@ -3819,7 +3898,7 @@ public class AdminApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-Admin-putleavers-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_19 *body = ; // approve or reject a leae application
+Body_20 *body = ; // approve or reject a leae application
 
 AdminApi *apiInstance = [[AdminApi alloc] init];
 
@@ -3839,7 +3918,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.AdminApi()
-var body = ; // {{Body_19}} approve or reject a leae application
+var body = ; // {{Body_20}} approve or reject a leae application
 
 var callback = function(error, data, response) {
   if (error) {
@@ -3871,7 +3950,7 @@ namespace Example
 
 
             var apiInstance = new AdminApi();
-            var body = new Body_19(); // Body_19 | approve or reject a leae application
+            var body = new Body_20(); // Body_20 | approve or reject a leae application
 
             try
             {
@@ -3894,7 +3973,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiAdminApi();
-$body = ; // Body_19 | approve or reject a leae application
+$body = ; // Body_20 | approve or reject a leae application
 
 try {
     $api_instance->putleavers($body);
@@ -3911,7 +3990,7 @@ use WWW::SwaggerClient::AdminApi;
 
 
 my $api_instance = WWW::SwaggerClient::AdminApi->new();
-my $body = WWW::SwaggerClient::Object::Body_19->new(); # Body_19 | approve or reject a leae application
+my $body = WWW::SwaggerClient::Object::Body_20->new(); # Body_20 | approve or reject a leae application
 
 eval { 
     $api_instance->putleavers(body => $body);
@@ -3931,7 +4010,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.AdminApi()
-body =  # Body_19 | approve or reject a leae application
+body =  # Body_20 | approve or reject a leae application
 
 try: 
     # Approve or reject a leave application. Note that only applications without clash can be approved.
@@ -3962,7 +4041,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_19"
+        "$ref" : "#/components/schemas/body_20"
       }
     }
   },
@@ -4154,7 +4233,7 @@ public class AdminApiExample {
 
 
         AdminApi apiInstance = new AdminApi();
-        Body_18 body = ; // Body_18 | price information
+        Body_19 body = ; // Body_19 | price information
         try {
             apiInstance.putprice(body);
         } catch (ApiException e) {
@@ -4172,7 +4251,7 @@ public class AdminApiExample {
 
     public static void main(String[] args) {
         AdminApi apiInstance = new AdminApi();
-        Body_18 body = ; // Body_18 | price information
+        Body_19 body = ; // Body_19 | price information
         try {
             apiInstance.putprice(body);
         } catch (ApiException e) {
@@ -4188,7 +4267,7 @@ public class AdminApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-Admin-putprice-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_18 *body = ; // price information
+Body_19 *body = ; // price information
 
 AdminApi *apiInstance = [[AdminApi alloc] init];
 
@@ -4208,7 +4287,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.AdminApi()
-var body = ; // {{Body_18}} price information
+var body = ; // {{Body_19}} price information
 
 var callback = function(error, data, response) {
   if (error) {
@@ -4240,7 +4319,7 @@ namespace Example
 
 
             var apiInstance = new AdminApi();
-            var body = new Body_18(); // Body_18 | price information
+            var body = new Body_19(); // Body_19 | price information
 
             try
             {
@@ -4263,7 +4342,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiAdminApi();
-$body = ; // Body_18 | price information
+$body = ; // Body_19 | price information
 
 try {
     $api_instance->putprice($body);
@@ -4280,7 +4359,7 @@ use WWW::SwaggerClient::AdminApi;
 
 
 my $api_instance = WWW::SwaggerClient::AdminApi->new();
-my $body = WWW::SwaggerClient::Object::Body_18->new(); # Body_18 | price information
+my $body = WWW::SwaggerClient::Object::Body_19->new(); # Body_19 | price information
 
 eval { 
     $api_instance->putprice(body => $body);
@@ -4300,7 +4379,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.AdminApi()
-body =  # Body_18 | price information
+body =  # Body_19 | price information
 
 try: 
     # Update the price for each pet category and the service class.
@@ -4331,7 +4410,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_18"
+        "$ref" : "#/components/schemas/body_19"
       }
     }
   },
@@ -5143,7 +5222,7 @@ except ApiException as e:
                            <pre class="prettyprint"><code class="language-bsh">curl -X POST\
 -H "Accept: application/json"\
 -H "Content-Type: application/json"\
-"https://pet-anything.herokuapp.com/api/v1/auth/admin/updatepswd"</code></pre>
+"https://pet-anything.herokuapp.com/api/v1/auth/admin/updatepswd?by="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-AdminAuthentication-updatepswda-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -5159,9 +5238,10 @@ public class AdminAuthenticationApiExample {
     public static void main(String[] args) {
         
         AdminAuthenticationApi apiInstance = new AdminAuthenticationApi();
-        Body_6 body = ; // Body_6 | Email, old password, new password
+        Body_6 body = ; // Body_6 | email, username, old password, new password
+        String by = by_example; // String | login method
         try {
-            apiInstance.updatepswda(body);
+            apiInstance.updatepswda(body, by);
         } catch (ApiException e) {
             System.err.println("Exception when calling AdminAuthenticationApi#updatepswda");
             e.printStackTrace();
@@ -5177,9 +5257,10 @@ public class AdminAuthenticationApiExample {
 
     public static void main(String[] args) {
         AdminAuthenticationApi apiInstance = new AdminAuthenticationApi();
-        Body_6 body = ; // Body_6 | Email, old password, new password
+        Body_6 body = ; // Body_6 | email, username, old password, new password
+        String by = by_example; // String | login method
         try {
-            apiInstance.updatepswda(body);
+            apiInstance.updatepswda(body, by);
         } catch (ApiException e) {
             System.err.println("Exception when calling AdminAuthenticationApi#updatepswda");
             e.printStackTrace();
@@ -5192,12 +5273,14 @@ public class AdminAuthenticationApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-AdminAuthentication-updatepswda-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Body_6 *body = ; // Email, old password, new password
+                              <pre class="prettyprint"><code class="language-cpp">Body_6 *body = ; // email, username, old password, new password
+String *by = by_example; // login method (optional)
 
 AdminAuthenticationApi *apiInstance = [[AdminAuthenticationApi alloc] init];
 
 // Update password
 [apiInstance updatepswdaWith:body
+    by:by
               completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
@@ -5210,8 +5293,10 @@ AdminAuthenticationApi *apiInstance = [[AdminAuthenticationApi alloc] init];
                               <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
 
 var api = new Cs2102.AdminAuthenticationApi()
-var body = ; // {{Body_6}} Email, old password, new password
-
+var body = ; // {{Body_6}} email, username, old password, new password
+var opts = { 
+  'by': by_example // {{String}} login method
+};
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -5219,7 +5304,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully.');
   }
 };
-api.updatepswda(body, callback);
+api.updatepswda(body, opts, callback);
 </code></pre>
                             </div>
 
@@ -5241,12 +5326,13 @@ namespace Example
         {
 
             var apiInstance = new AdminAuthenticationApi();
-            var body = new Body_6(); // Body_6 | Email, old password, new password
+            var body = new Body_6(); // Body_6 | email, username, old password, new password
+            var by = by_example;  // String | login method (optional) 
 
             try
             {
                 // Update password
-                apiInstance.updatepswda(body);
+                apiInstance.updatepswda(body, by);
             }
             catch (Exception e)
             {
@@ -5263,10 +5349,11 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\ApiAdminAuthenticationApi();
-$body = ; // Body_6 | Email, old password, new password
+$body = ; // Body_6 | email, username, old password, new password
+$by = by_example; // String | login method
 
 try {
-    $api_instance->updatepswda($body);
+    $api_instance->updatepswda($body, $by);
 } catch (Exception $e) {
     echo 'Exception when calling AdminAuthenticationApi->updatepswda: ', $e->getMessage(), PHP_EOL;
 }
@@ -5279,10 +5366,11 @@ use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::AdminAuthenticationApi;
 
 my $api_instance = WWW::SwaggerClient::AdminAuthenticationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_6->new(); # Body_6 | Email, old password, new password
+my $body = WWW::SwaggerClient::Object::Body_6->new(); # Body_6 | email, username, old password, new password
+my $by = by_example; # String | login method
 
 eval { 
-    $api_instance->updatepswda(body => $body);
+    $api_instance->updatepswda(body => $body, by => $by);
 };
 if ($@) {
     warn "Exception when calling AdminAuthenticationApi->updatepswda: $@\n";
@@ -5298,11 +5386,12 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.AdminAuthenticationApi()
-body =  # Body_6 | Email, old password, new password
+body =  # Body_6 | email, username, old password, new password
+by = by_example # String | login method (optional)
 
 try: 
     # Update password
-    api_instance.updatepswda(body)
+    api_instance.updatepswda(body, by=by)
 except ApiException as e:
     print("Exception when calling AdminAuthenticationApi->updatepswda: %s\n" % e)</code></pre>
                             </div>
@@ -5325,7 +5414,7 @@ except ApiException as e:
                                 <script>
                                 $(document).ready(function() {
                                   var schemaWrapper = {
-  "description" : "Email, old password, new password",
+  "description" : "email, username, old password, new password",
   "content" : {
     "application/json" : {
       "schema" : {
@@ -5358,6 +5447,32 @@ except ApiException as e:
                             </table>
 
 
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">by</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_updatepswda_by">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    String
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        login method
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                            </table>
 
                           <h2>Responses</h2>
                             <h3> Status: 200 - Successful operation </h3>
@@ -5935,6 +6050,410 @@ except ApiException as e:
                   </section>
                 <section id="api-CareTaker">
                   <h1>CareTaker</h1>
+                    <div id="api-CareTaker-ctgetreviews">
+                      <article id="api-CareTaker-ctgetreviews-0" data-group="User" data-name="ctgetreviews" data-version="0">
+                        <div class="pull-left">
+                          <h1>ctgetreviews</h1>
+                          <p>Get all the ratings and feedbacks for this caretaker.</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/caretaker/reviews</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-CareTaker-ctgetreviews-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-CareTaker-ctgetreviews-0-java">Java</a></li>
+                          <li class=""><a href="#examples-CareTaker-ctgetreviews-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-CareTaker-ctgetreviews-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-CareTaker-ctgetreviews-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-CareTaker-ctgetreviews-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-CareTaker-ctgetreviews-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-CareTaker-ctgetreviews-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-CareTaker-ctgetreviews-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-CareTaker-ctgetreviews-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-CareTaker-ctgetreviews-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-CareTaker-ctgetreviews-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+ -H "Authorization: Bearer [[accessToken]]"\
+-H "Accept: application/json"\
+"https://pet-anything.herokuapp.com/api/v1/caretaker/reviews?caretakerusername="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-CareTaker-ctgetreviews-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CareTakerApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CareTakerApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        CareTakerApi apiInstance = new CareTakerApi();
+        String caretakerusername = caretakerusername_example; // String | caretakerusername
+        try {
+            array[inline_response_200_5] result = apiInstance.ctgetreviews(caretakerusername);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CareTakerApi#ctgetreviews");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-CareTaker-ctgetreviews-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.CareTakerApi;
+
+public class CareTakerApiExample {
+
+    public static void main(String[] args) {
+        CareTakerApi apiInstance = new CareTakerApi();
+        String caretakerusername = caretakerusername_example; // String | caretakerusername
+        try {
+            array[inline_response_200_5] result = apiInstance.ctgetreviews(caretakerusername);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CareTakerApi#ctgetreviews");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-CareTaker-ctgetreviews-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-CareTaker-ctgetreviews-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+String *caretakerusername = caretakerusername_example; // caretakerusername (optional)
+
+CareTakerApi *apiInstance = [[CareTakerApi alloc] init];
+
+// Get all the ratings and feedbacks for this caretaker.
+[apiInstance ctgetreviewsWith:caretakerusername
+              completionHandler: ^(array[inline_response_200_5] output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-CareTaker-ctgetreviews-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
+var defaultClient = Cs2102.ApiClient.instance;
+
+
+var api = new Cs2102.CareTakerApi()
+var opts = { 
+  'caretakerusername': caretakerusername_example // {{String}} caretakerusername
+};
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.ctgetreviews(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-CareTaker-ctgetreviews-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-CareTaker-ctgetreviews-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class ctgetreviewsExample
+    {
+        public void main()
+        {
+
+
+            var apiInstance = new CareTakerApi();
+            var caretakerusername = caretakerusername_example;  // String | caretakerusername (optional) 
+
+            try
+            {
+                // Get all the ratings and feedbacks for this caretaker.
+                array[inline_response_200_5] result = apiInstance.ctgetreviews(caretakerusername);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling CareTakerApi.ctgetreviews: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-CareTaker-ctgetreviews-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+$api_instance = new Swagger\Client\ApiCareTakerApi();
+$caretakerusername = caretakerusername_example; // String | caretakerusername
+
+try {
+    $result = $api_instance->ctgetreviews($caretakerusername);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling CareTakerApi->ctgetreviews: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-CareTaker-ctgetreviews-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::CareTakerApi;
+
+
+my $api_instance = WWW::SwaggerClient::CareTakerApi->new();
+my $caretakerusername = caretakerusername_example; # String | caretakerusername
+
+eval { 
+    my $result = $api_instance->ctgetreviews(caretakerusername => $caretakerusername);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling CareTakerApi->ctgetreviews: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-CareTaker-ctgetreviews-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = swagger_client.CareTakerApi()
+caretakerusername = caretakerusername_example # String | caretakerusername (optional)
+
+try: 
+    # Get all the ratings and feedbacks for this caretaker.
+    api_response = api_instance.ctgetreviews(caretakerusername=caretakerusername)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling CareTakerApi->ctgetreviews: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">caretakerusername</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_ctgetreviews_caretakerusername">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    String
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        caretakerusername
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-ctgetreviews-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-ctgetreviews-200-schema">
+                                  <div id='responses-ctgetreviews-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Successful operation",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/inline_response_200_5"
+        },
+        "x-content-type" : "application/json"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-ctgetreviews-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-ctgetreviews-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-ctgetreviews-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 403 - Invalid access token </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-ctgetreviews-403-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-ctgetreviews-403-schema">
+                                  <div id='responses-ctgetreviews-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Invalid access token",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_403"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-ctgetreviews-403-schema-data').val(stringify(schema));
+                                        var result = $('#responses-ctgetreviews-403-schema-403');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-ctgetreviews-403-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - Internal server error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-ctgetreviews-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-ctgetreviews-500-schema">
+                                  <div id='responses-ctgetreviews-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Internal server error",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_403"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-ctgetreviews-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-ctgetreviews-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-ctgetreviews-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-CareTaker-getcaretakerinfo">
                       <article id="api-CareTaker-getcaretakerinfo-0" data-group="User" data-name="getcaretakerinfo" data-version="0">
                         <div class="pull-left">
@@ -6382,6 +6901,7 @@ except ApiException as e:
                            <pre class="prettyprint"><code class="language-bsh">curl -X POST\
  -H "Authorization: Bearer [[accessToken]]"\
 -H "Accept: application/json"\
+-H "Content-Type: application/json"\
 "https://pet-anything.herokuapp.com/api/v1/caretaker"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-CareTaker-postcaretakerregistration-0-java">
@@ -6400,8 +6920,9 @@ public class CareTakerApiExample {
 
 
         CareTakerApi apiInstance = new CareTakerApi();
+        Body_11 body = ; // Body_11 | 
         try {
-            apiInstance.postcaretakerregistration();
+            apiInstance.postcaretakerregistration(body);
         } catch (ApiException e) {
             System.err.println("Exception when calling CareTakerApi#postcaretakerregistration");
             e.printStackTrace();
@@ -6417,8 +6938,9 @@ public class CareTakerApiExample {
 
     public static void main(String[] args) {
         CareTakerApi apiInstance = new CareTakerApi();
+        Body_11 body = ; // Body_11 | 
         try {
-            apiInstance.postcaretakerregistration();
+            apiInstance.postcaretakerregistration(body);
         } catch (ApiException e) {
             System.err.println("Exception when calling CareTakerApi#postcaretakerregistration");
             e.printStackTrace();
@@ -6432,12 +6954,13 @@ public class CareTakerApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-CareTaker-postcaretakerregistration-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+Body_11 *body = ; // 
 
 CareTakerApi *apiInstance = [[CareTakerApi alloc] init];
 
 // Register the current user to be a care taker
-[apiInstance postcaretakerregistrationWithCompletionHandler: 
-              ^(NSError* error) {
+[apiInstance postcaretakerregistrationWith:body
+              completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
                             }
@@ -6451,6 +6974,8 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.CareTakerApi()
+var body = ; // {{Body_11}} 
+
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -6458,7 +6983,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully.');
   }
 };
-api.postcaretakerregistration(callback);
+api.postcaretakerregistration(body, callback);
 </code></pre>
                             </div>
 
@@ -6481,11 +7006,12 @@ namespace Example
 
 
             var apiInstance = new CareTakerApi();
+            var body = new Body_11(); // Body_11 | 
 
             try
             {
                 // Register the current user to be a care taker
-                apiInstance.postcaretakerregistration();
+                apiInstance.postcaretakerregistration(body);
             }
             catch (Exception e)
             {
@@ -6503,9 +7029,10 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiCareTakerApi();
+$body = ; // Body_11 | 
 
 try {
-    $api_instance->postcaretakerregistration();
+    $api_instance->postcaretakerregistration($body);
 } catch (Exception $e) {
     echo 'Exception when calling CareTakerApi->postcaretakerregistration: ', $e->getMessage(), PHP_EOL;
 }
@@ -6519,9 +7046,10 @@ use WWW::SwaggerClient::CareTakerApi;
 
 
 my $api_instance = WWW::SwaggerClient::CareTakerApi->new();
+my $body = WWW::SwaggerClient::Object::Body_11->new(); # Body_11 | 
 
 eval { 
-    $api_instance->postcaretakerregistration();
+    $api_instance->postcaretakerregistration(body => $body);
 };
 if ($@) {
     warn "Exception when calling CareTakerApi->postcaretakerregistration: $@\n";
@@ -6538,10 +7066,11 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.CareTakerApi()
+body =  # Body_11 | 
 
 try: 
     # Register the current user to be a care taker
-    api_instance.postcaretakerregistration()
+    api_instance.postcaretakerregistration(body)
 except ApiException as e:
     print("Exception when calling CareTakerApi->postcaretakerregistration: %s\n" % e)</code></pre>
                             </div>
@@ -6551,6 +7080,49 @@ except ApiException as e:
 
 
 
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+                                <td>
+                                
+                                
+                                <script>
+                                $(document).ready(function() {
+                                  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/body_11"
+      }
+    }
+  },
+  "required" : true
+};
+                                  var schema = schemaWrapper.content["application/json"].schema;
+                                  if (schema.$ref != null) {
+                                    schema = defsParser.$refs.get(schema.$ref);
+                                  } else {
+                                    schemaWrapper.components = {};
+                                    schemaWrapper.components.schemas = Object.assign({}, defs);
+                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                      console.log(err);
+                                    });
+                                  }
+                                
+                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                  var result = $('#d2e199_postcaretakerregistration_body');
+                                  result.empty();
+                                  result.append(view.render());
+                                });
+                                </script>
+                                <div id="d2e199_postcaretakerregistration_body"></div>
+                                </td>
+                                </tr>
+                            </table>
 
 
 
@@ -6630,7 +7202,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/inline_response_422_2"
+        "$ref" : "#/components/schemas/inline_response_422_3"
       }
     }
   }
@@ -6665,11 +7237,11 @@ except ApiException as e:
                   </section>
                 <section id="api-CareTakerOperation">
                   <h1>CareTakerOperation</h1>
-                    <div id="api-CareTakerOperation-ctgetallorders">
-                      <article id="api-CareTakerOperation-ctgetallorders-0" data-group="User" data-name="ctgetallorders" data-version="0">
+                    <div id="api-CareTakerOperation-ctgetorders">
+                      <article id="api-CareTakerOperation-ctgetorders-0" data-group="User" data-name="ctgetorders" data-version="0">
                         <div class="pull-left">
-                          <h1>ctgetallorders</h1>
-                          <p>Return all orders that belong to the caretaker</p>
+                          <h1>ctgetorders</h1>
+                          <p>Return all orders or all orders except past/completed orders(depending on parameter) that belong to the caretaker</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -6682,27 +7254,27 @@ except ApiException as e:
                           <h3>Usage and SDK Samples</h3>
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-CareTakerOperation-ctgetallorders-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-CareTakerOperation-ctgetallorders-0-java">Java</a></li>
-                          <li class=""><a href="#examples-CareTakerOperation-ctgetallorders-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-CareTakerOperation-ctgetallorders-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-CareTakerOperation-ctgetallorders-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-CareTakerOperation-ctgetallorders-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-CareTakerOperation-ctgetallorders-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-CareTakerOperation-ctgetallorders-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-CareTakerOperation-ctgetallorders-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-CareTakerOperation-ctgetallorders-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-CareTakerOperation-ctgetallorders-0-python">Python</a></li>
+                          <li class="active"><a href="#examples-CareTakerOperation-ctgetorders-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-CareTakerOperation-ctgetorders-0-java">Java</a></li>
+                          <li class=""><a href="#examples-CareTakerOperation-ctgetorders-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-CareTakerOperation-ctgetorders-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-CareTakerOperation-ctgetorders-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-CareTakerOperation-ctgetorders-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-CareTakerOperation-ctgetorders-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-CareTakerOperation-ctgetorders-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-CareTakerOperation-ctgetorders-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-CareTakerOperation-ctgetorders-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-CareTakerOperation-ctgetorders-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
-                          <div class="tab-pane active" id="examples-CareTakerOperation-ctgetallorders-0-curl">
+                          <div class="tab-pane active" id="examples-CareTakerOperation-ctgetorders-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
  -H "Authorization: Bearer [[accessToken]]"\
 -H "Accept: application/json"\
-"https://pet-anything.herokuapp.com/api/v1/caretaker/orders"</code></pre>
+"https://pet-anything.herokuapp.com/api/v1/caretaker/orders?pastorder="</code></pre>
                           </div>
-                          <div class="tab-pane" id="examples-CareTakerOperation-ctgetallorders-0-java">
+                          <div class="tab-pane" id="examples-CareTakerOperation-ctgetorders-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
@@ -6718,46 +7290,49 @@ public class CareTakerOperationApiExample {
 
 
         CareTakerOperationApi apiInstance = new CareTakerOperationApi();
+        Boolean pastorder = true; // Boolean | true if need past/completed orders
         try {
-            array[inline_response_200_5] result = apiInstance.ctgetallorders();
+            array[inline_response_200_6] result = apiInstance.ctgetorders(pastorder);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CareTakerOperationApi#ctgetallorders");
+            System.err.println("Exception when calling CareTakerOperationApi#ctgetorders");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
 
-                          <div class="tab-pane" id="examples-CareTakerOperation-ctgetallorders-0-android">
+                          <div class="tab-pane" id="examples-CareTakerOperation-ctgetorders-0-android">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.CareTakerOperationApi;
 
 public class CareTakerOperationApiExample {
 
     public static void main(String[] args) {
         CareTakerOperationApi apiInstance = new CareTakerOperationApi();
+        Boolean pastorder = true; // Boolean | true if need past/completed orders
         try {
-            array[inline_response_200_5] result = apiInstance.ctgetallorders();
+            array[inline_response_200_6] result = apiInstance.ctgetorders(pastorder);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling CareTakerOperationApi#ctgetallorders");
+            System.err.println("Exception when calling CareTakerOperationApi#ctgetorders");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
   <!--
-  <div class="tab-pane" id="examples-CareTakerOperation-ctgetallorders-0-groovy">
+  <div class="tab-pane" id="examples-CareTakerOperation-ctgetorders-0-groovy">
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
-                            <div class="tab-pane" id="examples-CareTakerOperation-ctgetallorders-0-objc">
+                            <div class="tab-pane" id="examples-CareTakerOperation-ctgetorders-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+Boolean *pastorder = true; // true if need past/completed orders (optional)
 
 CareTakerOperationApi *apiInstance = [[CareTakerOperationApi alloc] init];
 
-// Return all orders that belong to the caretaker
-[apiInstance ctgetallordersWithCompletionHandler: 
-              ^(array[inline_response_200_5] output, NSError* error) {
+// Return all orders or all orders except past/completed orders(depending on parameter) that belong to the caretaker
+[apiInstance ctgetordersWith:pastorder
+              completionHandler: ^(array[inline_response_200_6] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -6768,12 +7343,15 @@ CareTakerOperationApi *apiInstance = [[CareTakerOperationApi alloc] init];
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-CareTakerOperation-ctgetallorders-0-javascript">
+                            <div class="tab-pane" id="examples-CareTakerOperation-ctgetorders-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
 var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.CareTakerOperationApi()
+var opts = { 
+  'pastorder': true // {{Boolean}} true if need past/completed orders
+};
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -6781,14 +7359,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.ctgetallorders(callback);
+api.ctgetorders(opts, callback);
 </code></pre>
                             </div>
 
-                            <!--<div class="tab-pane" id="examples-CareTakerOperation-ctgetallorders-0-angular">
+                            <!--<div class="tab-pane" id="examples-CareTakerOperation-ctgetorders-0-angular">
               <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
             </div>-->
-                            <div class="tab-pane" id="examples-CareTakerOperation-ctgetallorders-0-csharp">
+                            <div class="tab-pane" id="examples-CareTakerOperation-ctgetorders-0-csharp">
                               <pre class="prettyprint"><code class="language-cs">using System;
 using System.Diagnostics;
 using IO.Swagger.Api;
@@ -6797,23 +7375,24 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class ctgetallordersExample
+    public class ctgetordersExample
     {
         public void main()
         {
 
 
             var apiInstance = new CareTakerOperationApi();
+            var pastorder = true;  // Boolean | true if need past/completed orders (optional) 
 
             try
             {
-                // Return all orders that belong to the caretaker
-                array[inline_response_200_5] result = apiInstance.ctgetallorders();
+                // Return all orders or all orders except past/completed orders(depending on parameter) that belong to the caretaker
+                array[inline_response_200_6] result = apiInstance.ctgetorders(pastorder);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling CareTakerOperationApi.ctgetallorders: " + e.Message );
+                Debug.Print("Exception when calling CareTakerOperationApi.ctgetorders: " + e.Message );
             }
         }
     }
@@ -6821,40 +7400,42 @@ namespace Example
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-CareTakerOperation-ctgetallorders-0-php">
+                            <div class="tab-pane" id="examples-CareTakerOperation-ctgetorders-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiCareTakerOperationApi();
+$pastorder = true; // Boolean | true if need past/completed orders
 
 try {
-    $result = $api_instance->ctgetallorders();
+    $result = $api_instance->ctgetorders($pastorder);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling CareTakerOperationApi->ctgetallorders: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling CareTakerOperationApi->ctgetorders: ', $e->getMessage(), PHP_EOL;
 }
 ?></code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-CareTakerOperation-ctgetallorders-0-perl">
+                            <div class="tab-pane" id="examples-CareTakerOperation-ctgetorders-0-perl">
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::CareTakerOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::CareTakerOperationApi->new();
+my $pastorder = true; # Boolean | true if need past/completed orders
 
 eval { 
-    my $result = $api_instance->ctgetallorders();
+    my $result = $api_instance->ctgetorders(pastorder => $pastorder);
     print Dumper($result);
 };
 if ($@) {
-    warn "Exception when calling CareTakerOperationApi->ctgetallorders: $@\n";
+    warn "Exception when calling CareTakerOperationApi->ctgetorders: $@\n";
 }</code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-CareTakerOperation-ctgetallorders-0-python">
+                            <div class="tab-pane" id="examples-CareTakerOperation-ctgetorders-0-python">
                               <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
 import time
 import swagger_client
@@ -6864,13 +7445,14 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.CareTakerOperationApi()
+pastorder = true # Boolean | true if need past/completed orders (optional)
 
 try: 
-    # Return all orders that belong to the caretaker
-    api_response = api_instance.ctgetallorders()
+    # Return all orders or all orders except past/completed orders(depending on parameter) that belong to the caretaker
+    api_response = api_instance.ctgetorders(pastorder=pastorder)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling CareTakerOperationApi->ctgetallorders: %s\n" % e)</code></pre>
+    print("Exception when calling CareTakerOperationApi->ctgetorders: %s\n" % e)</code></pre>
                             </div>
                           </div>
 
@@ -6880,20 +7462,46 @@ except ApiException as e:
 
 
 
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">pastorder</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_ctgetorders_pastorder">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    Boolean
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        true if need past/completed orders
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                            </table>
 
                           <h2>Responses</h2>
                             <h3> Status: 200 - Successful operation </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-ctgetallorders-200-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-ctgetorders-200-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-ctgetallorders-200-schema">
-                                  <div id='responses-ctgetallorders-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-ctgetorders-200-schema">
+                                  <div id='responses-ctgetorders-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
@@ -6903,7 +7511,7 @@ except ApiException as e:
       "schema" : {
         "type" : "array",
         "items" : {
-          "$ref" : "#/components/schemas/inline_response_200_5"
+          "$ref" : "#/components/schemas/inline_response_200_6"
         },
         "x-content-type" : "application/json"
       }
@@ -6923,14 +7531,14 @@ except ApiException as e:
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-ctgetallorders-200-schema-data').val(stringify(schema));
-                                        var result = $('#responses-ctgetallorders-200-schema-200');
+                                        $('#responses-ctgetorders-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-ctgetorders-200-schema-200');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-ctgetallorders-200-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-ctgetorders-200-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -6938,14 +7546,14 @@ except ApiException as e:
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-ctgetallorders-403-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-ctgetorders-403-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-ctgetallorders-403-schema">
-                                  <div id='responses-ctgetallorders-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-ctgetorders-403-schema">
+                                  <div id='responses-ctgetorders-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
@@ -6971,14 +7579,14 @@ except ApiException as e:
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-ctgetallorders-403-schema-data').val(stringify(schema));
-                                        var result = $('#responses-ctgetallorders-403-schema-403');
+                                        $('#responses-ctgetorders-403-schema-data').val(stringify(schema));
+                                        var result = $('#responses-ctgetorders-403-schema-403');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-ctgetallorders-403-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-ctgetorders-403-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -6986,14 +7594,14 @@ except ApiException as e:
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-ctgetallorders-500-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-ctgetorders-500-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-ctgetallorders-500-schema">
-                                  <div id='responses-ctgetallorders-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-ctgetorders-500-schema">
+                                  <div id='responses-ctgetorders-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
@@ -7019,14 +7627,14 @@ except ApiException as e:
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-ctgetallorders-500-schema-data').val(stringify(schema));
-                                        var result = $('#responses-ctgetallorders-500-schema-500');
+                                        $('#responses-ctgetorders-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-ctgetorders-500-schema-500');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-ctgetallorders-500-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-ctgetorders-500-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -7089,7 +7697,7 @@ public class CareTakerOperationApiExample {
         Boolean petday = true; // Boolean | The total number of pet-day this month
         Boolean salary = true; // Boolean | The expected salary for this month
         try {
-            inline_response_200_6 result = apiInstance.ctgetstats(petday, salary);
+            inline_response_200_7 result = apiInstance.ctgetstats(petday, salary);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling CareTakerOperationApi#ctgetstats");
@@ -7109,7 +7717,7 @@ public class CareTakerOperationApiExample {
         Boolean petday = true; // Boolean | The total number of pet-day this month
         Boolean salary = true; // Boolean | The expected salary for this month
         try {
-            inline_response_200_6 result = apiInstance.ctgetstats(petday, salary);
+            inline_response_200_7 result = apiInstance.ctgetstats(petday, salary);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling CareTakerOperationApi#ctgetstats");
@@ -7132,7 +7740,7 @@ CareTakerOperationApi *apiInstance = [[CareTakerOperationApi alloc] init];
 // Return the result for the required stats of care taker
 [apiInstance ctgetstatsWith:petday
     salary:salary
-              completionHandler: ^(inline_response_200_6 output, NSError* error) {
+              completionHandler: ^(inline_response_200_7 output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -7189,7 +7797,7 @@ namespace Example
             try
             {
                 // Return the result for the required stats of care taker
-                inline_response_200_6 result = apiInstance.ctgetstats(petday, salary);
+                inline_response_200_7 result = apiInstance.ctgetstats(petday, salary);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -7333,7 +7941,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/inline_response_200_6"
+        "$ref" : "#/components/schemas/inline_response_200_7"
       }
     }
   }
@@ -8334,6 +8942,375 @@ except ApiException as e:
                   </section>
                 <section id="api-FullTimeCareTakerOperation">
                   <h1>FullTimeCareTakerOperation</h1>
+                    <div id="api-FullTimeCareTakerOperation-ctapplyleave">
+                      <article id="api-FullTimeCareTakerOperation-ctapplyleave-0" data-group="User" data-name="ctapplyleave" data-version="0">
+                        <div class="pull-left">
+                          <h1>ctapplyleave</h1>
+                          <p>Apply for a leave by the full time care taker</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/caretaker/leaves</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-FullTimeCareTakerOperation-ctapplyleave-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctapplyleave-0-java">Java</a></li>
+                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctapplyleave-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-FullTimeCareTakerOperation-ctapplyleave-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctapplyleave-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctapplyleave-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-FullTimeCareTakerOperation-ctapplyleave-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctapplyleave-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctapplyleave-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctapplyleave-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctapplyleave-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-FullTimeCareTakerOperation-ctapplyleave-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+ -H "Authorization: Bearer [[accessToken]]"\
+-H "Accept: application/json"\
+-H "Content-Type: application/json"\
+"https://pet-anything.herokuapp.com/api/v1/caretaker/leaves"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctapplyleave-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.FullTimeCareTakerOperationApi;
+
+import java.io.File;
+import java.util.*;
+
+public class FullTimeCareTakerOperationApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        FullTimeCareTakerOperationApi apiInstance = new FullTimeCareTakerOperationApi();
+        Body_18 body = ; // Body_18 | an object in format of (startdate:XX , enddate: XX)
+        try {
+            apiInstance.ctapplyleave(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling FullTimeCareTakerOperationApi#ctapplyleave");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctapplyleave-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.FullTimeCareTakerOperationApi;
+
+public class FullTimeCareTakerOperationApiExample {
+
+    public static void main(String[] args) {
+        FullTimeCareTakerOperationApi apiInstance = new FullTimeCareTakerOperationApi();
+        Body_18 body = ; // Body_18 | an object in format of (startdate:XX , enddate: XX)
+        try {
+            apiInstance.ctapplyleave(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling FullTimeCareTakerOperationApi#ctapplyleave");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctapplyleave-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctapplyleave-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+Body_18 *body = ; // an object in format of (startdate:XX , enddate: XX)
+
+FullTimeCareTakerOperationApi *apiInstance = [[FullTimeCareTakerOperationApi alloc] init];
+
+// Apply for a leave by the full time care taker
+[apiInstance ctapplyleaveWith:body
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctapplyleave-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
+var defaultClient = Cs2102.ApiClient.instance;
+
+
+var api = new Cs2102.FullTimeCareTakerOperationApi()
+var body = ; // {{Body_18}} an object in format of (startdate:XX , enddate: XX)
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.ctapplyleave(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctapplyleave-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctapplyleave-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class ctapplyleaveExample
+    {
+        public void main()
+        {
+
+
+            var apiInstance = new FullTimeCareTakerOperationApi();
+            var body = new Body_18(); // Body_18 | an object in format of (startdate:XX , enddate: XX)
+
+            try
+            {
+                // Apply for a leave by the full time care taker
+                apiInstance.ctapplyleave(body);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling FullTimeCareTakerOperationApi.ctapplyleave: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctapplyleave-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+$api_instance = new Swagger\Client\ApiFullTimeCareTakerOperationApi();
+$body = ; // Body_18 | an object in format of (startdate:XX , enddate: XX)
+
+try {
+    $api_instance->ctapplyleave($body);
+} catch (Exception $e) {
+    echo 'Exception when calling FullTimeCareTakerOperationApi->ctapplyleave: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctapplyleave-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::FullTimeCareTakerOperationApi;
+
+
+my $api_instance = WWW::SwaggerClient::FullTimeCareTakerOperationApi->new();
+my $body = WWW::SwaggerClient::Object::Body_18->new(); # Body_18 | an object in format of (startdate:XX , enddate: XX)
+
+eval { 
+    $api_instance->ctapplyleave(body => $body);
+};
+if ($@) {
+    warn "Exception when calling FullTimeCareTakerOperationApi->ctapplyleave: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctapplyleave-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = swagger_client.FullTimeCareTakerOperationApi()
+body =  # Body_18 | an object in format of (startdate:XX , enddate: XX)
+
+try: 
+    # Apply for a leave by the full time care taker
+    api_instance.ctapplyleave(body)
+except ApiException as e:
+    print("Exception when calling FullTimeCareTakerOperationApi->ctapplyleave: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+                                <td>
+                                
+                                
+                                <script>
+                                $(document).ready(function() {
+                                  var schemaWrapper = {
+  "description" : "an object in format of (startdate:XX , enddate: XX)",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/body_18"
+      }
+    }
+  },
+  "required" : true
+};
+                                  var schema = schemaWrapper.content["application/json"].schema;
+                                  if (schema.$ref != null) {
+                                    schema = defsParser.$refs.get(schema.$ref);
+                                  } else {
+                                    schemaWrapper.components = {};
+                                    schemaWrapper.components.schemas = Object.assign({}, defs);
+                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                      console.log(err);
+                                    });
+                                  }
+                                
+                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                  var result = $('#d2e199_ctapplyleave_body');
+                                  result.empty();
+                                  result.append(view.render());
+                                });
+                                </script>
+                                <div id="d2e199_ctapplyleave_body"></div>
+                                </td>
+                                </tr>
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 204 - Successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 403 - Invalid access token </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-ctapplyleave-403-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-ctapplyleave-403-schema">
+                                  <div id='responses-ctapplyleave-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Invalid access token",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_403"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-ctapplyleave-403-schema-data').val(stringify(schema));
+                                        var result = $('#responses-ctapplyleave-403-schema-403');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-ctapplyleave-403-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - Internal server error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-ctapplyleave-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-ctapplyleave-500-schema">
+                                  <div id='responses-ctapplyleave-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Internal server error",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_403"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-ctapplyleave-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-ctapplyleave-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-ctapplyleave-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-FullTimeCareTakerOperation-ctgetallleaves">
                       <article id="api-FullTimeCareTakerOperation-ctgetallleaves-0" data-group="User" data-name="ctgetallleaves" data-version="0">
                         <div class="pull-left">
@@ -8388,7 +9365,7 @@ public class FullTimeCareTakerOperationApiExample {
 
         FullTimeCareTakerOperationApi apiInstance = new FullTimeCareTakerOperationApi();
         try {
-            array[inline_response_200_8] result = apiInstance.ctgetallleaves();
+            inline_response_200_8 result = apiInstance.ctgetallleaves();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FullTimeCareTakerOperationApi#ctgetallleaves");
@@ -8406,7 +9383,7 @@ public class FullTimeCareTakerOperationApiExample {
     public static void main(String[] args) {
         FullTimeCareTakerOperationApi apiInstance = new FullTimeCareTakerOperationApi();
         try {
-            array[inline_response_200_8] result = apiInstance.ctgetallleaves();
+            inline_response_200_8 result = apiInstance.ctgetallleaves();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FullTimeCareTakerOperationApi#ctgetallleaves");
@@ -8426,7 +9403,7 @@ FullTimeCareTakerOperationApi *apiInstance = [[FullTimeCareTakerOperationApi all
 
 // Return all leaves applied by the full time care taker
 [apiInstance ctgetallleavesWithCompletionHandler: 
-              ^(array[inline_response_200_8] output, NSError* error) {
+              ^(inline_response_200_8 output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -8477,7 +9454,7 @@ namespace Example
             try
             {
                 // Return all leaves applied by the full time care taker
-                array[inline_response_200_8] result = apiInstance.ctgetallleaves();
+                inline_response_200_8 result = apiInstance.ctgetallleaves();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -8570,20 +9547,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "type" : "array",
-        "example" : [ {
-          "startdate" : "11/15/20",
-          "enddate" : "11/30/20",
-          "status" : "pending"
-        }, {
-          "startdate" : "12/15/20",
-          "enddate" : "12/30/20",
-          "status" : "approved"
-        } ],
-        "items" : {
-          "$ref" : "#/components/schemas/inline_response_200_8"
-        },
-        "x-content-type" : "application/json"
+        "$ref" : "#/components/schemas/inline_response_200_8"
       }
     }
   }
@@ -8711,375 +9675,6 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
-                    <div id="api-FullTimeCareTakerOperation-ctupdateleave">
-                      <article id="api-FullTimeCareTakerOperation-ctupdateleave-0" data-group="User" data-name="ctupdateleave" data-version="0">
-                        <div class="pull-left">
-                          <h1>ctupdateleave</h1>
-                          <p>Update leaves applied by the full time care taker</p>
-                        </div>
-                        <div class="pull-right"></div>
-                        <div class="clearfix"></div>
-                        <p></p>
-                        <p class="marked"></p>
-                        <p></p>
-                        <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/caretaker/leaves</span></code></pre>
-                        <p>
-                          <h3>Usage and SDK Samples</h3>
-                        </p>
-                        <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-FullTimeCareTakerOperation-ctupdateleave-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctupdateleave-0-java">Java</a></li>
-                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctupdateleave-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-FullTimeCareTakerOperation-ctupdateleave-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctupdateleave-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctupdateleave-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-FullTimeCareTakerOperation-ctupdateleave-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctupdateleave-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctupdateleave-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctupdateleave-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-FullTimeCareTakerOperation-ctupdateleave-0-python">Python</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="examples-FullTimeCareTakerOperation-ctupdateleave-0-curl">
-                           <pre class="prettyprint"><code class="language-bsh">curl -X PUT\
- -H "Authorization: Bearer [[accessToken]]"\
--H "Accept: application/json"\
--H "Content-Type: application/json"\
-"https://pet-anything.herokuapp.com/api/v1/caretaker/leaves"</code></pre>
-                          </div>
-                          <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctupdateleave-0-java">
-                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
-import io.swagger.client.auth.*;
-import io.swagger.client.model.*;
-import io.swagger.client.api.FullTimeCareTakerOperationApi;
-
-import java.io.File;
-import java.util.*;
-
-public class FullTimeCareTakerOperationApiExample {
-
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-
-        FullTimeCareTakerOperationApi apiInstance = new FullTimeCareTakerOperationApi();
-        Body_17 body = ; // Body_17 | an object in format of (startdate:XX , enddate: XX)
-        try {
-            apiInstance.ctupdateleave(body);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling FullTimeCareTakerOperationApi#ctupdateleave");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctupdateleave-0-android">
-                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.FullTimeCareTakerOperationApi;
-
-public class FullTimeCareTakerOperationApiExample {
-
-    public static void main(String[] args) {
-        FullTimeCareTakerOperationApi apiInstance = new FullTimeCareTakerOperationApi();
-        Body_17 body = ; // Body_17 | an object in format of (startdate:XX , enddate: XX)
-        try {
-            apiInstance.ctupdateleave(body);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling FullTimeCareTakerOperationApi#ctupdateleave");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-  <!--
-  <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctupdateleave-0-groovy">
-  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-  </div> -->
-                            <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctupdateleave-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_17 *body = ; // an object in format of (startdate:XX , enddate: XX)
-
-FullTimeCareTakerOperationApi *apiInstance = [[FullTimeCareTakerOperationApi alloc] init];
-
-// Update leaves applied by the full time care taker
-[apiInstance ctupdateleaveWith:body
-              completionHandler: ^(NSError* error) {
-                            if (error) {
-                                NSLog(@"Error: %@", error);
-                            }
-                        }];
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctupdateleave-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
-var defaultClient = Cs2102.ApiClient.instance;
-
-
-var api = new Cs2102.FullTimeCareTakerOperationApi()
-var body = ; // {{Body_17}} an object in format of (startdate:XX , enddate: XX)
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-};
-api.ctupdateleave(body, callback);
-</code></pre>
-                            </div>
-
-                            <!--<div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctupdateleave-0-angular">
-              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-            </div>-->
-                            <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctupdateleave-0-csharp">
-                              <pre class="prettyprint"><code class="language-cs">using System;
-using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
-
-namespace Example
-{
-    public class ctupdateleaveExample
-    {
-        public void main()
-        {
-
-
-            var apiInstance = new FullTimeCareTakerOperationApi();
-            var body = new Body_17(); // Body_17 | an object in format of (startdate:XX , enddate: XX)
-
-            try
-            {
-                // Update leaves applied by the full time care taker
-                apiInstance.ctupdateleave(body);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling FullTimeCareTakerOperationApi.ctupdateleave: " + e.Message );
-            }
-        }
-    }
-}
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctupdateleave-0-php">
-                              <pre class="prettyprint"><code class="language-php"><&#63;php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-$api_instance = new Swagger\Client\ApiFullTimeCareTakerOperationApi();
-$body = ; // Body_17 | an object in format of (startdate:XX , enddate: XX)
-
-try {
-    $api_instance->ctupdateleave($body);
-} catch (Exception $e) {
-    echo 'Exception when calling FullTimeCareTakerOperationApi->ctupdateleave: ', $e->getMessage(), PHP_EOL;
-}
-?></code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctupdateleave-0-perl">
-                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
-use WWW::SwaggerClient::Configuration;
-use WWW::SwaggerClient::FullTimeCareTakerOperationApi;
-
-
-my $api_instance = WWW::SwaggerClient::FullTimeCareTakerOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_17->new(); # Body_17 | an object in format of (startdate:XX , enddate: XX)
-
-eval { 
-    $api_instance->ctupdateleave(body => $body);
-};
-if ($@) {
-    warn "Exception when calling FullTimeCareTakerOperationApi->ctupdateleave: $@\n";
-}</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctupdateleave-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import swagger_client
-from swagger_client.rest import ApiException
-from pprint import pprint
-
-
-# create an instance of the API class
-api_instance = swagger_client.FullTimeCareTakerOperationApi()
-body =  # Body_17 | an object in format of (startdate:XX , enddate: XX)
-
-try: 
-    # Update leaves applied by the full time care taker
-    api_instance.ctupdateleave(body)
-except ApiException as e:
-    print("Exception when calling FullTimeCareTakerOperationApi->ctupdateleave: %s\n" % e)</code></pre>
-                            </div>
-                          </div>
-
-                          <h2>Parameters</h2>
-
-
-
-                            <div class="methodsubtabletitle">Body parameters</div>
-                            <table id="methodsubtable">
-                              <tr>
-                                <th width="150px">Name</th>
-                                <th>Description</th>
-                              </tr>
-                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
-                                <td>
-                                
-                                
-                                <script>
-                                $(document).ready(function() {
-                                  var schemaWrapper = {
-  "description" : "an object in format of (startdate:XX , enddate: XX)",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/body_17"
-      }
-    }
-  },
-  "required" : true
-};
-                                  var schema = schemaWrapper.content["application/json"].schema;
-                                  if (schema.$ref != null) {
-                                    schema = defsParser.$refs.get(schema.$ref);
-                                  } else {
-                                    schemaWrapper.components = {};
-                                    schemaWrapper.components.schemas = Object.assign({}, defs);
-                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                      console.log(err);
-                                    });
-                                  }
-                                
-                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-                                  var result = $('#d2e199_ctupdateleave_body');
-                                  result.empty();
-                                  result.append(view.render());
-                                });
-                                </script>
-                                <div id="d2e199_ctupdateleave_body"></div>
-                                </td>
-                                </tr>
-                            </table>
-
-
-
-                          <h2>Responses</h2>
-                            <h3> Status: 204 - Successful operation </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                            </div>
-
-                            <h3> Status: 403 - Invalid access token </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-ctupdateleave-403-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-ctupdateleave-403-schema">
-                                  <div id='responses-ctupdateleave-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Invalid access token",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/inline_response_403"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-ctupdateleave-403-schema-data').val(stringify(schema));
-                                        var result = $('#responses-ctupdateleave-403-schema-403');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-ctupdateleave-403-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                            <h3> Status: 500 - Internal server error </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-ctupdateleave-500-schema">Schema</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-ctupdateleave-500-schema">
-                                  <div id='responses-ctupdateleave-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Internal server error",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/inline_response_403"
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-ctupdateleave-500-schema-data').val(stringify(schema));
-                                        var result = $('#responses-ctupdateleave-500-schema-500');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-ctupdateleave-500-schema-data' type='hidden' value=''></input>
-                                </div>
-                            </div>
-
-                        </article>
-                      </div>
-                      <hr>
                   </section>
                 <section id="api-PartTimeCareTakerOperation">
                   <h1>PartTimeCareTakerOperation</h1>
@@ -9137,7 +9732,7 @@ public class PartTimeCareTakerOperationApiExample {
 
 
         PartTimeCareTakerOperationApi apiInstance = new PartTimeCareTakerOperationApi();
-        Body_13 body = ; // Body_13 | pettype and updated price
+        Body_14 body = ; // Body_14 | pettype and updated price
         try {
             apiInstance.ctaddpetcategory(body);
         } catch (ApiException e) {
@@ -9155,7 +9750,7 @@ public class PartTimeCareTakerOperationApiExample {
 
     public static void main(String[] args) {
         PartTimeCareTakerOperationApi apiInstance = new PartTimeCareTakerOperationApi();
-        Body_13 body = ; // Body_13 | pettype and updated price
+        Body_14 body = ; // Body_14 | pettype and updated price
         try {
             apiInstance.ctaddpetcategory(body);
         } catch (ApiException e) {
@@ -9171,7 +9766,7 @@ public class PartTimeCareTakerOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-PartTimeCareTakerOperation-ctaddpetcategory-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_13 *body = ; // pettype and updated price
+Body_14 *body = ; // pettype and updated price
 
 PartTimeCareTakerOperationApi *apiInstance = [[PartTimeCareTakerOperationApi alloc] init];
 
@@ -9191,7 +9786,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.PartTimeCareTakerOperationApi()
-var body = ; // {{Body_13}} pettype and updated price
+var body = ; // {{Body_14}} pettype and updated price
 
 var callback = function(error, data, response) {
   if (error) {
@@ -9223,7 +9818,7 @@ namespace Example
 
 
             var apiInstance = new PartTimeCareTakerOperationApi();
-            var body = new Body_13(); // Body_13 | pettype and updated price
+            var body = new Body_14(); // Body_14 | pettype and updated price
 
             try
             {
@@ -9246,7 +9841,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiPartTimeCareTakerOperationApi();
-$body = ; // Body_13 | pettype and updated price
+$body = ; // Body_14 | pettype and updated price
 
 try {
     $api_instance->ctaddpetcategory($body);
@@ -9263,7 +9858,7 @@ use WWW::SwaggerClient::PartTimeCareTakerOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::PartTimeCareTakerOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_13->new(); # Body_13 | pettype and updated price
+my $body = WWW::SwaggerClient::Object::Body_14->new(); # Body_14 | pettype and updated price
 
 eval { 
     $api_instance->ctaddpetcategory(body => $body);
@@ -9283,7 +9878,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.PartTimeCareTakerOperationApi()
-body =  # Body_13 | pettype and updated price
+body =  # Body_14 | pettype and updated price
 
 try: 
     # Add a new pet category which includes a pet type and its respective price that the part-time care taker would like to take
@@ -9314,7 +9909,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_13"
+        "$ref" : "#/components/schemas/body_14"
       }
     }
   },
@@ -9857,7 +10452,7 @@ public class PartTimeCareTakerOperationApiExample {
 
         PartTimeCareTakerOperationApi apiInstance = new PartTimeCareTakerOperationApi();
         try {
-            array[inline_response_200_7] result = apiInstance.ctgetavailability();
+            array['String'] result = apiInstance.ctgetavailability();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PartTimeCareTakerOperationApi#ctgetavailability");
@@ -9875,7 +10470,7 @@ public class PartTimeCareTakerOperationApiExample {
     public static void main(String[] args) {
         PartTimeCareTakerOperationApi apiInstance = new PartTimeCareTakerOperationApi();
         try {
-            array[inline_response_200_7] result = apiInstance.ctgetavailability();
+            array['String'] result = apiInstance.ctgetavailability();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PartTimeCareTakerOperationApi#ctgetavailability");
@@ -9895,7 +10490,7 @@ PartTimeCareTakerOperationApi *apiInstance = [[PartTimeCareTakerOperationApi all
 
 // Return the availability indicated by the part time care taker
 [apiInstance ctgetavailabilityWithCompletionHandler: 
-              ^(array[inline_response_200_7] output, NSError* error) {
+              ^(array['String'] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -9946,7 +10541,7 @@ namespace Example
             try
             {
                 // Return the availability indicated by the part time care taker
-                array[inline_response_200_7] result = apiInstance.ctgetavailability();
+                array['String'] result = apiInstance.ctgetavailability();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -10041,14 +10636,12 @@ except ApiException as e:
       "schema" : {
         "type" : "array",
         "example" : [ {
-          "startdate" : "11/15/20",
-          "enddate" : "11/30/20"
+          "date" : "11/15/20"
         }, {
-          "startdate" : "12/15/20",
-          "enddate" : "12/30/20"
+          "startdate" : "12/15/20"
         } ],
         "items" : {
-          "$ref" : "#/components/schemas/inline_response_200_7"
+          "type" : "string"
         },
         "x-content-type" : "application/json"
       }
@@ -10232,7 +10825,7 @@ public class PartTimeCareTakerOperationApiExample {
 
 
         PartTimeCareTakerOperationApi apiInstance = new PartTimeCareTakerOperationApi();
-        array[body_11] body = ; // array[body_11] | info needed to identify the order
+        array[body_12] body = ; // array[body_12] | info needed to identify the order
         Boolean accept = true; // Boolean | true if accepted the order, false if declined the order
         try {
             apiInstance.ctputorders(body, accept);
@@ -10251,7 +10844,7 @@ public class PartTimeCareTakerOperationApiExample {
 
     public static void main(String[] args) {
         PartTimeCareTakerOperationApi apiInstance = new PartTimeCareTakerOperationApi();
-        array[body_11] body = ; // array[body_11] | info needed to identify the order
+        array[body_12] body = ; // array[body_12] | info needed to identify the order
         Boolean accept = true; // Boolean | true if accepted the order, false if declined the order
         try {
             apiInstance.ctputorders(body, accept);
@@ -10268,7 +10861,7 @@ public class PartTimeCareTakerOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-PartTimeCareTakerOperation-ctputorders-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-array[body_11] *body = ; // info needed to identify the order
+array[body_12] *body = ; // info needed to identify the order
 Boolean *accept = true; // true if accepted the order, false if declined the order (optional)
 
 PartTimeCareTakerOperationApi *apiInstance = [[PartTimeCareTakerOperationApi alloc] init];
@@ -10290,7 +10883,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.PartTimeCareTakerOperationApi()
-var body = ; // {{array[body_11]}} info needed to identify the order
+var body = ; // {{array[body_12]}} info needed to identify the order
 var opts = { 
   'accept': true // {{Boolean}} true if accepted the order, false if declined the order
 };
@@ -10324,7 +10917,7 @@ namespace Example
 
 
             var apiInstance = new PartTimeCareTakerOperationApi();
-            var body = new array[body_11](); // array[body_11] | info needed to identify the order
+            var body = new array[body_12](); // array[body_12] | info needed to identify the order
             var accept = true;  // Boolean | true if accepted the order, false if declined the order (optional) 
 
             try
@@ -10348,7 +10941,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiPartTimeCareTakerOperationApi();
-$body = ; // array[body_11] | info needed to identify the order
+$body = ; // array[body_12] | info needed to identify the order
 $accept = true; // Boolean | true if accepted the order, false if declined the order
 
 try {
@@ -10366,7 +10959,7 @@ use WWW::SwaggerClient::PartTimeCareTakerOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::PartTimeCareTakerOperationApi->new();
-my $body = [WWW::SwaggerClient::Object::array[body_11]->new()]; # array[body_11] | info needed to identify the order
+my $body = [WWW::SwaggerClient::Object::array[body_12]->new()]; # array[body_12] | info needed to identify the order
 my $accept = true; # Boolean | true if accepted the order, false if declined the order
 
 eval { 
@@ -10387,7 +10980,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.PartTimeCareTakerOperationApi()
-body =  # array[body_11] | info needed to identify the order
+body =  # array[body_12] | info needed to identify the order
 accept = true # Boolean | true if accepted the order, false if declined the order (optional)
 
 try: 
@@ -10421,13 +11014,13 @@ except ApiException as e:
       "schema" : {
         "type" : "array",
         "example" : [ {
-          "startdate" : "11/15/20",
-          "enddate" : "11/30/20",
+          "startdate" : "2020-09-22",
+          "enddate" : "2020-11-30",
           "ownerusername" : "jxpo",
           "petname" : "bobby"
         } ],
         "items" : {
-          "$ref" : "#/components/schemas/body_11"
+          "$ref" : "#/components/schemas/body_12"
         }
       }
     }
@@ -10541,6 +11134,54 @@ except ApiException as e:
                                 </div>
                             </div>
 
+                            <h3> Status: 422 - Exceed max pets allowed </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-ctputorders-422-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-ctputorders-422-schema">
+                                  <div id='responses-ctputorders-422-schema-422' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Exceed max pets allowed",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_422_4"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-ctputorders-422-schema-data').val(stringify(schema));
+                                        var result = $('#responses-ctputorders-422-schema-422');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-ctputorders-422-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
                             <h3> Status: 500 - Internal server error </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
@@ -10604,7 +11245,7 @@ except ApiException as e:
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/caretaker/availability</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/caretaker/availability</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -10624,7 +11265,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-PartTimeCareTakerOperation-ctupdateavailability-0-curl">
-                           <pre class="prettyprint"><code class="language-bsh">curl -X PUT\
+                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
  -H "Authorization: Bearer [[accessToken]]"\
 -H "Accept: application/json"\
 -H "Content-Type: application/json"\
@@ -10646,7 +11287,7 @@ public class PartTimeCareTakerOperationApiExample {
 
 
         PartTimeCareTakerOperationApi apiInstance = new PartTimeCareTakerOperationApi();
-        Body_16 body = ; // Body_16 | An array of objects in format of (startdate:XX , enddate: XX)
+        Body_17 body = ; // Body_17 | An array of objects in format of (startdate:XX , enddate: XX)
         try {
             apiInstance.ctupdateavailability(body);
         } catch (ApiException e) {
@@ -10664,7 +11305,7 @@ public class PartTimeCareTakerOperationApiExample {
 
     public static void main(String[] args) {
         PartTimeCareTakerOperationApi apiInstance = new PartTimeCareTakerOperationApi();
-        Body_16 body = ; // Body_16 | An array of objects in format of (startdate:XX , enddate: XX)
+        Body_17 body = ; // Body_17 | An array of objects in format of (startdate:XX , enddate: XX)
         try {
             apiInstance.ctupdateavailability(body);
         } catch (ApiException e) {
@@ -10680,7 +11321,7 @@ public class PartTimeCareTakerOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-PartTimeCareTakerOperation-ctupdateavailability-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_16 *body = ; // An array of objects in format of (startdate:XX , enddate: XX)
+Body_17 *body = ; // An array of objects in format of (startdate:XX , enddate: XX)
 
 PartTimeCareTakerOperationApi *apiInstance = [[PartTimeCareTakerOperationApi alloc] init];
 
@@ -10700,7 +11341,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.PartTimeCareTakerOperationApi()
-var body = ; // {{Body_16}} An array of objects in format of (startdate:XX , enddate: XX)
+var body = ; // {{Body_17}} An array of objects in format of (startdate:XX , enddate: XX)
 
 var callback = function(error, data, response) {
   if (error) {
@@ -10732,7 +11373,7 @@ namespace Example
 
 
             var apiInstance = new PartTimeCareTakerOperationApi();
-            var body = new Body_16(); // Body_16 | An array of objects in format of (startdate:XX , enddate: XX)
+            var body = new Body_17(); // Body_17 | An array of objects in format of (startdate:XX , enddate: XX)
 
             try
             {
@@ -10755,7 +11396,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiPartTimeCareTakerOperationApi();
-$body = ; // Body_16 | An array of objects in format of (startdate:XX , enddate: XX)
+$body = ; // Body_17 | An array of objects in format of (startdate:XX , enddate: XX)
 
 try {
     $api_instance->ctupdateavailability($body);
@@ -10772,7 +11413,7 @@ use WWW::SwaggerClient::PartTimeCareTakerOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::PartTimeCareTakerOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_16->new(); # Body_16 | An array of objects in format of (startdate:XX , enddate: XX)
+my $body = WWW::SwaggerClient::Object::Body_17->new(); # Body_17 | An array of objects in format of (startdate:XX , enddate: XX)
 
 eval { 
     $api_instance->ctupdateavailability(body => $body);
@@ -10792,7 +11433,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.PartTimeCareTakerOperationApi()
-body =  # Body_16 | An array of objects in format of (startdate:XX , enddate: XX)
+body =  # Body_17 | An array of objects in format of (startdate:XX , enddate: XX)
 
 try: 
     # Update the availability indicated by the part time care taker
@@ -10823,7 +11464,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_16"
+        "$ref" : "#/components/schemas/body_17"
       }
     }
   },
@@ -11192,7 +11833,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_12"
+        "$ref" : "#/components/schemas/body_13"
       }
     }
   },
@@ -11337,7 +11978,7 @@ except ApiException as e:
                       <article id="api-PetOwnerOperation-podeletepets-0" data-group="User" data-name="podeletepets" data-version="0">
                         <div class="pull-left">
                           <h1>podeletepets</h1>
-                          <p>Delete a pet</p>
+                          <p>Delete a pet [Not allowed]</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -11424,7 +12065,7 @@ String *petname = petname_example; //  (optional)
 
 PetOwnerOperationApi *apiInstance = [[PetOwnerOperationApi alloc] init];
 
-// Delete a pet
+// Delete a pet [Not allowed]
 [apiInstance podeletepetsWith:petname
               completionHandler: ^(NSError* error) {
                             if (error) {
@@ -11477,7 +12118,7 @@ namespace Example
 
             try
             {
-                // Delete a pet
+                // Delete a pet [Not allowed]
                 apiInstance.podeletepets(petname);
             }
             catch (Exception e)
@@ -11536,7 +12177,7 @@ api_instance = swagger_client.PetOwnerOperationApi()
 petname = petname_example # String |  (optional)
 
 try: 
-    # Delete a pet
+    # Delete a pet [Not allowed]
     api_instance.podeletepets(petname=petname)
 except ApiException as e:
     print("Exception when calling PetOwnerOperationApi->podeletepets: %s\n" % e)</code></pre>
@@ -12902,7 +13543,7 @@ public class PetOwnerOperationApiExample {
 
 
         PetOwnerOperationApi apiInstance = new PetOwnerOperationApi();
-        Body_15 body = ; // Body_15 | Pet info
+        Body_16 body = ; // Body_16 | Pet info
         try {
             apiInstance.popostpets(body);
         } catch (ApiException e) {
@@ -12920,7 +13561,7 @@ public class PetOwnerOperationApiExample {
 
     public static void main(String[] args) {
         PetOwnerOperationApi apiInstance = new PetOwnerOperationApi();
-        Body_15 body = ; // Body_15 | Pet info
+        Body_16 body = ; // Body_16 | Pet info
         try {
             apiInstance.popostpets(body);
         } catch (ApiException e) {
@@ -12936,7 +13577,7 @@ public class PetOwnerOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-PetOwnerOperation-popostpets-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_15 *body = ; // Pet info
+Body_16 *body = ; // Pet info
 
 PetOwnerOperationApi *apiInstance = [[PetOwnerOperationApi alloc] init];
 
@@ -12956,7 +13597,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.PetOwnerOperationApi()
-var body = ; // {{Body_15}} Pet info
+var body = ; // {{Body_16}} Pet info
 
 var callback = function(error, data, response) {
   if (error) {
@@ -12988,7 +13629,7 @@ namespace Example
 
 
             var apiInstance = new PetOwnerOperationApi();
-            var body = new Body_15(); // Body_15 | Pet info
+            var body = new Body_16(); // Body_16 | Pet info
 
             try
             {
@@ -13011,7 +13652,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiPetOwnerOperationApi();
-$body = ; // Body_15 | Pet info
+$body = ; // Body_16 | Pet info
 
 try {
     $api_instance->popostpets($body);
@@ -13028,7 +13669,7 @@ use WWW::SwaggerClient::PetOwnerOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::PetOwnerOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_15->new(); # Body_15 | Pet info
+my $body = WWW::SwaggerClient::Object::Body_16->new(); # Body_16 | Pet info
 
 eval { 
     $api_instance->popostpets(body => $body);
@@ -13048,7 +13689,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.PetOwnerOperationApi()
-body =  # Body_15 | Pet info
+body =  # Body_16 | Pet info
 
 try: 
     # Add a new pet
@@ -13079,7 +13720,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_15"
+        "$ref" : "#/components/schemas/body_16"
       }
     }
   },
@@ -13542,6 +14183,54 @@ except ApiException as e:
                                 </div>
                             </div>
 
+                            <h3> Status: 422 - unprocessable </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-poputbid-422-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-poputbid-422-schema">
+                                  <div id='responses-poputbid-422-schema-422' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "unprocessable",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_422_2"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-poputbid-422-schema-data').val(stringify(schema));
+                                        var result = $('#responses-poputbid-422-schema-422');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-poputbid-422-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
                             <h3> Status: 500 - Internal server error </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
@@ -13647,7 +14336,7 @@ public class PetOwnerOperationApiExample {
 
 
         PetOwnerOperationApi apiInstance = new PetOwnerOperationApi();
-        Body_14 body = ; // Body_14 | Pet name and the new remark
+        Body_15 body = ; // Body_15 | Pet name and the new remark
         try {
             apiInstance.poputpets(body);
         } catch (ApiException e) {
@@ -13665,7 +14354,7 @@ public class PetOwnerOperationApiExample {
 
     public static void main(String[] args) {
         PetOwnerOperationApi apiInstance = new PetOwnerOperationApi();
-        Body_14 body = ; // Body_14 | Pet name and the new remark
+        Body_15 body = ; // Body_15 | Pet name and the new remark
         try {
             apiInstance.poputpets(body);
         } catch (ApiException e) {
@@ -13681,7 +14370,7 @@ public class PetOwnerOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-PetOwnerOperation-poputpets-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_14 *body = ; // Pet name and the new remark
+Body_15 *body = ; // Pet name and the new remark
 
 PetOwnerOperationApi *apiInstance = [[PetOwnerOperationApi alloc] init];
 
@@ -13701,7 +14390,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.PetOwnerOperationApi()
-var body = ; // {{Body_14}} Pet name and the new remark
+var body = ; // {{Body_15}} Pet name and the new remark
 
 var callback = function(error, data, response) {
   if (error) {
@@ -13733,7 +14422,7 @@ namespace Example
 
 
             var apiInstance = new PetOwnerOperationApi();
-            var body = new Body_14(); // Body_14 | Pet name and the new remark
+            var body = new Body_15(); // Body_15 | Pet name and the new remark
 
             try
             {
@@ -13756,7 +14445,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiPetOwnerOperationApi();
-$body = ; // Body_14 | Pet name and the new remark
+$body = ; // Body_15 | Pet name and the new remark
 
 try {
     $api_instance->poputpets($body);
@@ -13773,7 +14462,7 @@ use WWW::SwaggerClient::PetOwnerOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::PetOwnerOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_14->new(); # Body_14 | Pet name and the new remark
+my $body = WWW::SwaggerClient::Object::Body_15->new(); # Body_15 | Pet name and the new remark
 
 eval { 
     $api_instance->poputpets(body => $body);
@@ -13793,7 +14482,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.PetOwnerOperationApi()
-body =  # Body_14 | Pet name and the new remark
+body =  # Body_15 | Pet name and the new remark
 
 try: 
     # Update the remark of a pet
@@ -13824,7 +14513,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_14"
+        "$ref" : "#/components/schemas/body_15"
       }
     }
   },
@@ -14283,14 +14972,16 @@ except ApiException as e:
       "schema" : {
         "type" : "array",
         "example" : [ {
+          "username" : "bdukowsky111",
           "name" : "Bernie Dukowsky",
-          "type" : "Full Time",
+          "fulltime" : false,
           "address" : "135 Dover Rd, 139770",
           "rating" : 4.5,
           "totalprice" : 123
         }, {
+          "username" : "nickmeck233",
           "name" : "Nick Mecklenberg",
-          "type" : "Part Time",
+          "fulltime" : true,
           "address" : "920 Commonwealth Ave, 579884",
           "rating" : 4.7,
           "totalprice" : 345
@@ -20711,7 +21402,7 @@ public class UserOperationApiExample {
 
 
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_23 body = ; // Body_23 | Device info
+        Body_24 body = ; // Body_24 | Device info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.postdevices(body, uid);
@@ -20730,7 +21421,7 @@ public class UserOperationApiExample {
 
     public static void main(String[] args) {
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_23 body = ; // Body_23 | Device info
+        Body_24 body = ; // Body_24 | Device info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.postdevices(body, uid);
@@ -20747,7 +21438,7 @@ public class UserOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-UserOperation-postdevices-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_23 *body = ; // Device info
+Body_24 *body = ; // Device info
 String *uid = uid_example; // room uid (optional)
 
 UserOperationApi *apiInstance = [[UserOperationApi alloc] init];
@@ -20769,7 +21460,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.UserOperationApi()
-var body = ; // {{Body_23}} Device info
+var body = ; // {{Body_24}} Device info
 var opts = { 
   'uid': uid_example // {{String}} room uid
 };
@@ -20803,7 +21494,7 @@ namespace Example
 
 
             var apiInstance = new UserOperationApi();
-            var body = new Body_23(); // Body_23 | Device info
+            var body = new Body_24(); // Body_24 | Device info
             var uid = uid_example;  // String | room uid (optional) 
 
             try
@@ -20827,7 +21518,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiUserOperationApi();
-$body = ; // Body_23 | Device info
+$body = ; // Body_24 | Device info
 $uid = uid_example; // String | room uid
 
 try {
@@ -20845,7 +21536,7 @@ use WWW::SwaggerClient::UserOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::UserOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_23->new(); # Body_23 | Device info
+my $body = WWW::SwaggerClient::Object::Body_24->new(); # Body_24 | Device info
 my $uid = uid_example; # String | room uid
 
 eval { 
@@ -20866,7 +21557,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.UserOperationApi()
-body =  # Body_23 | Device info
+body =  # Body_24 | Device info
 uid = uid_example # String | room uid (optional)
 
 try: 
@@ -20898,7 +21589,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_23"
+        "$ref" : "#/components/schemas/body_24"
       }
     }
   },
@@ -21164,7 +21855,7 @@ public class UserOperationApiExample {
 
 
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_21 body = ; // Body_21 | User info
+        Body_22 body = ; // Body_22 | User info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.postmembers(body, uid);
@@ -21183,7 +21874,7 @@ public class UserOperationApiExample {
 
     public static void main(String[] args) {
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_21 body = ; // Body_21 | User info
+        Body_22 body = ; // Body_22 | User info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.postmembers(body, uid);
@@ -21200,7 +21891,7 @@ public class UserOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-UserOperation-postmembers-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_21 *body = ; // User info
+Body_22 *body = ; // User info
 String *uid = uid_example; // room uid (optional)
 
 UserOperationApi *apiInstance = [[UserOperationApi alloc] init];
@@ -21222,7 +21913,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.UserOperationApi()
-var body = ; // {{Body_21}} User info
+var body = ; // {{Body_22}} User info
 var opts = { 
   'uid': uid_example // {{String}} room uid
 };
@@ -21256,7 +21947,7 @@ namespace Example
 
 
             var apiInstance = new UserOperationApi();
-            var body = new Body_21(); // Body_21 | User info
+            var body = new Body_22(); // Body_22 | User info
             var uid = uid_example;  // String | room uid (optional) 
 
             try
@@ -21280,7 +21971,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiUserOperationApi();
-$body = ; // Body_21 | User info
+$body = ; // Body_22 | User info
 $uid = uid_example; // String | room uid
 
 try {
@@ -21298,7 +21989,7 @@ use WWW::SwaggerClient::UserOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::UserOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_21->new(); # Body_21 | User info
+my $body = WWW::SwaggerClient::Object::Body_22->new(); # Body_22 | User info
 my $uid = uid_example; # String | room uid
 
 eval { 
@@ -21319,7 +22010,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.UserOperationApi()
-body =  # Body_21 | User info
+body =  # Body_22 | User info
 uid = uid_example # String | room uid (optional)
 
 try: 
@@ -21351,7 +22042,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_21"
+        "$ref" : "#/components/schemas/body_22"
       }
     }
   },
@@ -21617,7 +22308,7 @@ public class UserOperationApiExample {
 
 
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_22 body = ; // Body_22 | Device info
+        Body_23 body = ; // Body_23 | Device info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.putdevices(body, uid);
@@ -21636,7 +22327,7 @@ public class UserOperationApiExample {
 
     public static void main(String[] args) {
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_22 body = ; // Body_22 | Device info
+        Body_23 body = ; // Body_23 | Device info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.putdevices(body, uid);
@@ -21653,7 +22344,7 @@ public class UserOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-UserOperation-putdevices-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_22 *body = ; // Device info
+Body_23 *body = ; // Device info
 String *uid = uid_example; // room uid (optional)
 
 UserOperationApi *apiInstance = [[UserOperationApi alloc] init];
@@ -21675,7 +22366,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.UserOperationApi()
-var body = ; // {{Body_22}} Device info
+var body = ; // {{Body_23}} Device info
 var opts = { 
   'uid': uid_example // {{String}} room uid
 };
@@ -21709,7 +22400,7 @@ namespace Example
 
 
             var apiInstance = new UserOperationApi();
-            var body = new Body_22(); // Body_22 | Device info
+            var body = new Body_23(); // Body_23 | Device info
             var uid = uid_example;  // String | room uid (optional) 
 
             try
@@ -21733,7 +22424,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiUserOperationApi();
-$body = ; // Body_22 | Device info
+$body = ; // Body_23 | Device info
 $uid = uid_example; // String | room uid
 
 try {
@@ -21751,7 +22442,7 @@ use WWW::SwaggerClient::UserOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::UserOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_22->new(); # Body_22 | Device info
+my $body = WWW::SwaggerClient::Object::Body_23->new(); # Body_23 | Device info
 my $uid = uid_example; # String | room uid
 
 eval { 
@@ -21772,7 +22463,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.UserOperationApi()
-body =  # Body_22 | Device info
+body =  # Body_23 | Device info
 uid = uid_example # String | room uid (optional)
 
 try: 
@@ -21804,7 +22495,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_22"
+        "$ref" : "#/components/schemas/body_23"
       }
     }
   },
@@ -22022,7 +22713,7 @@ public class UserOperationApiExample {
 
 
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_20 body = ; // Body_20 | User info
+        Body_21 body = ; // Body_21 | User info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.putmembers(body, uid);
@@ -22041,7 +22732,7 @@ public class UserOperationApiExample {
 
     public static void main(String[] args) {
         UserOperationApi apiInstance = new UserOperationApi();
-        Body_20 body = ; // Body_20 | User info
+        Body_21 body = ; // Body_21 | User info
         String uid = uid_example; // String | room uid
         try {
             apiInstance.putmembers(body, uid);
@@ -22058,7 +22749,7 @@ public class UserOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-UserOperation-putmembers-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_20 *body = ; // User info
+Body_21 *body = ; // User info
 String *uid = uid_example; // room uid (optional)
 
 UserOperationApi *apiInstance = [[UserOperationApi alloc] init];
@@ -22080,7 +22771,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.UserOperationApi()
-var body = ; // {{Body_20}} User info
+var body = ; // {{Body_21}} User info
 var opts = { 
   'uid': uid_example // {{String}} room uid
 };
@@ -22114,7 +22805,7 @@ namespace Example
 
 
             var apiInstance = new UserOperationApi();
-            var body = new Body_20(); // Body_20 | User info
+            var body = new Body_21(); // Body_21 | User info
             var uid = uid_example;  // String | room uid (optional) 
 
             try
@@ -22138,7 +22829,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiUserOperationApi();
-$body = ; // Body_20 | User info
+$body = ; // Body_21 | User info
 $uid = uid_example; // String | room uid
 
 try {
@@ -22156,7 +22847,7 @@ use WWW::SwaggerClient::UserOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::UserOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_20->new(); # Body_20 | User info
+my $body = WWW::SwaggerClient::Object::Body_21->new(); # Body_21 | User info
 my $uid = uid_example; # String | room uid
 
 eval { 
@@ -22177,7 +22868,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.UserOperationApi()
-body =  # Body_20 | User info
+body =  # Body_21 | User info
 uid = uid_example # String | room uid (optional)
 
 try: 
@@ -22209,7 +22900,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_20"
+        "$ref" : "#/components/schemas/body_21"
       }
     }
   },
