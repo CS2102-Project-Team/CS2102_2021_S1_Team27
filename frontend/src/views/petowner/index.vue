@@ -11,7 +11,8 @@
             <el-date-picker
               v-model="param.startdate"
               type="date"
-              placeholder="--select-date--">
+              placeholder="--select-date--"
+              :picker-options="startOptions">
             </el-date-picker>
           </div>
         </el-col>
@@ -23,7 +24,8 @@
             <el-date-picker
               v-model="param.enddate"
               type="date"
-              placeholder="--end-date--">
+              placeholder="--end-date--"
+              :picker-options="endOptions">
             </el-date-picker>
           </div>
         </el-col>
@@ -160,6 +162,24 @@ export default {
         petcategory: [{ required: true, message: 'Please specify one of your pets', trigger: 'blur' }],
       },
       loading: false,
+      startOptions: {
+        disabledDate: (time) => {
+          const a = time.getTime() < Date.now();
+          if (this.param.enddate !== '') {
+            return time.getTime() >= new Date(this.param.enddate).getTime() || a;
+          }
+          return a;
+        },
+      },
+      endOptions: {
+        disabledDate: (time) => {
+          const a = time.getTime() < Date.now();
+          if (this.param.startdate !== '') {
+            return time.getTime() <= new Date(this.param.startdate).getTime() || a;
+          }
+          return a;
+        },
+      },
     };
   },
   methods: {

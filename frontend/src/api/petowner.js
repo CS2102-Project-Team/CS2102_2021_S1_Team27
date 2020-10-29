@@ -51,12 +51,12 @@ export function searchPets() {
 
 export function updatePet(data) {
   const params = {};
-  const { name, remark } = data;
+  const { name, type, remark } = data;
   return request({
     url: '/petowner/pet',
     method: 'put',
     params,
-    data: { name, remark },
+    data: { name, type, remark },
   });
 }
 
