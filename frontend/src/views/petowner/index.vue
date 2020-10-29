@@ -185,6 +185,13 @@ export default {
   methods: {
     getSlot() {
       this.vacancies = [];
+      if (this.param.startdate === '' || this.param.enddate === '' || this.param.petcategory === '') {
+        this.$notify({
+          title: 'Please fill in the start date, end date and the pet category.',
+          duration: 0,
+        });
+        return;
+      }
       searchVacancy(this.param).then((results) => {
         let i;
         for (i = 0; i < results.data.length; i += 1) {
@@ -224,6 +231,13 @@ export default {
       const petname = this.pname;
       const { startdate, enddate } = this.param;
       const { paymentmethod, deliverymode } = this;
+      if (petname === '' || paymentmethod === '' || deliverymode === '') {
+        this.$notify({
+          title: 'Please specify your pet, payment method and delivery mode.',
+          duration: 0,
+        });
+        return;
+      }
       const data = {
         caretakername, petname, startdate, enddate, paymentmethod, deliverymode,
       };

@@ -76,6 +76,13 @@ export default {
       this.$router.push('/po/pets/add_pet');
     },
     updateRemark() {
+      if (this.param.type === '') {
+        this.$notify({
+          title: 'Please specify your new pet category.',
+          duration: 0,
+        });
+        return;
+      }
       updatePet(this.param).then(() => {
         this.$notify({
           title: 'Update Pets Remark Successfully.',

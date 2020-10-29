@@ -62,6 +62,14 @@ export default {
   },
   methods: {
     addPet() {
+      if (this.param.name === '' || this.param.type === '') {
+        this.$notify({
+          title: 'Please specify your pet name and pet category',
+          message: '',
+          duration: 0,
+        });
+        return;
+      }
       addPet(this.param).then(() => {
         this.$notify({
           title: 'Your pet is successfully added',
