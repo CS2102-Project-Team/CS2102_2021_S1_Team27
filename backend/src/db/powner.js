@@ -68,6 +68,13 @@ async function changeBid(username, petname, caretakerusername,
   return rows;
 }
 
+async function payOrder(username, petname, caretakerusername,
+  startdate, enddate) {
+  const { rows } = await db.query('UPDATE orders SET status = \'Payment Received\' WHERE powner = $1 AND pname = $2 AND ctaker = $3 AND sdate = $4 AND edate = $5', [username, petname, caretakerusername,
+    startdate, enddate]);
+  return rows;
+}
+
 module.exports = {
   functions: {
     getUserByEmail,
@@ -82,5 +89,6 @@ module.exports = {
     getAllBids,
     deleteBid,
     changeBid,
+    payOrder,
   },
 };
