@@ -8,8 +8,10 @@
       <div class='text'>{{ 'End Date: ' + order.edate }}</div>
       <div class='text'>{{ 'Delivery Mode: ' + order.delivery }}</div>
       <div class='text'>{{ 'Status: ' + order.status }}</div>
+      <div class='text'>{{ 'Rating: ' + order.rating }}</div>
+      <div class='text'>{{ 'Feedback: ' + order.review }}</div>
       <span>
-        <el-button v-on:click="order.ratingVisible=true">
+        <el-button v-if="canGiveRating(order)" v-on:click="order.ratingVisible=true">
           Give Rating
         </el-button>
         <el-button v-if="canMakePayment(order)" v-on:click="order.paymentVisible=true">
@@ -73,6 +75,12 @@ export default {
           const thisData = results.data[i];
           thisData.ratingVisible = false;
           thisData.paymentVisible = false;
+          if (!thisData.rating) {
+            thisData.rating = 'Not Given';
+          }
+          if (!thisData.review) {
+            thisData.review = 'Not Given';
+          }
           this.orders.push(thisData);
         }
       }).catch((err) => {
@@ -87,7 +95,7 @@ export default {
       return order.status === 'Pending Payment' && order.payment === 'credit card';
     },
     canGiveRating(order) {
-      return order.edate <= Date.now() && order.status === 'Payment Received';
+      return new Date(order.edate).getDate() <= Date.now() && (order.status === 'Pending Payment' || order.status === 'Payment Received');
     },
     placeRating(order) {
       this.param.petname = order.pname;
