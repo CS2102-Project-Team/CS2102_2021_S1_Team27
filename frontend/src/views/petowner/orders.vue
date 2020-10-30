@@ -9,7 +9,7 @@
       <div class='text'>{{ 'Delivery Mode: ' + order.delivery }}</div>
       <div class='text'>{{ 'Status: ' + order.status }}</div>
       <span>
-        <el-button v-if="canGiveRating(order)" v-on:click="order.ratingVisible=true">
+        <el-button v-on:click="order.ratingVisible=true">
           Give Rating
         </el-button>
         <el-button v-if="canMakePayment(order)" v-on:click="order.paymentVisible=true">
@@ -19,7 +19,7 @@
       <el-dialog title='Give Rating' :visible.sync="order.ratingVisible" width="50%">
         <div class='text'>Rating</div>
         <br/>
-        <el-select v-model="param.rating" placeholder="--select-rating--">
+        <el-select v-model.number="param.rating" placeholder="--select-rating--">
           <el-option v-for="(mark,index) in [1,2,3,4,5]" :key="index"
           :label="mark" :value="mark">
           </el-option>
@@ -94,17 +94,13 @@ export default {
       this.param.caretakerusername = order.ctaker;
       this.param.startdate = order.sdate;
       this.param.enddate = order.edate;
-      if (this.param === 0) {
-        this.$notify({
-          title: 'Please specify your rating for the service.',
-          duration: 0,
-        });
-      }
       giveRating(this.param).then(() => {
         this.$notify({
           title: 'Your Rating is successfully placed.',
           duration: 0,
         });
+      }).then(() => {
+        searchOrder();
       }).catch((err) => {
         this.$notify({
           title: 'Giving rating failed',

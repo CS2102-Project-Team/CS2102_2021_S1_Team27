@@ -52,7 +52,24 @@
     </el-form>
     <div>
       <el-card class='box-card' v-for="(vacancy,index) in vacancies" v-bind:key="index">
-        <div class='text item'>{{ 'Care Taker Name: ' + vacancy.realname }}</div>
+        <div v-on:click="vacancy.reviewVisible=true; getCTReview(vacancy.username)"
+        class='text item'>
+          {{ 'Care Taker Name: ' + vacancy.realname }}
+        </div>
+        <el-dialog title='All Reviews of this care taker' :visible.sync="vacancy.dialogVisible">
+          <el-form label-width="80px">
+            <el-form-item>
+              <div class='text'>
+                {{ 'Care Taker Name: ' + vacancy.realname }}
+              </div>
+              <el-card class='box-card' v-for="(pastorder,index) in pastorders" v-bind:key="index">
+                <div class='text'>{{ "Pet Category: " + pastorder.petcategory }}</div>
+                <div class='text'>{{ "Rating: " + pastorder.rating }}</div>
+                <div class='text'>{{ "Review: " + pastorder.review }}</div>
+              </el-card>
+            </el-form-item>
+          </el-form>
+        </el-dialog>
         <br/>
         <div class='text item' v-if="vacancy.fulltime">{{ 'Full Time' }}</div>
         <div class='text item' v-else>{{ 'Part Time' }}</div>
@@ -67,7 +84,9 @@
         <el-dialog title='Place Order' :visible.sync="vacancy.dialogVisible" width="50%">
           <el-form label-width="80px">
             <el-form-item>
-              <div class='text'>{{ 'Care Taker Name: ' + vacancy.realname }}</div>
+              <div class='text'>
+                {{ 'Care Taker Name: ' + vacancy.realname }}
+              </div>
             </el-form-item>
             <el-form-item>
               <div class='text' v-if="vacancy.fulltime">{{ 'Full Time' }}</div>
@@ -137,7 +156,7 @@
 </template>
 
 <script>
-import { searchVacancy, placeOrder, searchPets } from '@/api/petowner';
+import { searchVacancy, placeOrder, searchPets, getCTReview } from '@/api/petowner';
 import leftbar from './components/leftbar.vue';
 
 export default {
@@ -151,6 +170,7 @@ export default {
       paymentmethod: '',
       deliverymode: '',
       vacancies: [],
+      pastorders: [],
       param: {
         startdate: '',
         enddate: '',
@@ -200,6 +220,7 @@ export default {
             thisData.rating = 'No rating has been given to this caretaker yet';
           }
           thisData.dialogVisible = false;
+          thisData.reviewVisible = false;
           this.vacancies.push(thisData);
         }
         // this.vacancies = results.data;
@@ -211,9 +232,16 @@ export default {
         });
       });
     },
-    orderDetail(vacancy) {
-      this.$router.push('/po/placeorder');
-      console.log(vacancy);
+    getCTReview(caretakerusername) {
+      getCTReview(caretakerusername).then((results) => {
+        this.pastorders = results.data;
+      }).catch((err) => {
+        this.$notify({
+          title: 'Get all rating informations failed.',
+          message: err.response.errors,
+          duration: 0,
+        });
+      });
     },
     getPets() {
       searchPets().then((results) => {

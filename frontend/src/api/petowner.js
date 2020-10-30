@@ -38,12 +38,27 @@ export function searchOrder() {
   });
 }
 
-export function giveRating(param) {
-  const data = {};
+export function giveRating(data) {
+  const param = {};
+  const {
+    petname, caretakerusername, startdate, enddate, rating, feedback,
+  } = data;
   return request({
     url: '/petowner/order',
     method: 'put',
     param,
+    data: {
+      petname, caretakerusername, startdate, enddate, rating, feedback,
+    },
+  });
+}
+
+export function getCTReview(caretakerusername) {
+  const data = {};
+  return request({
+    url: '/caretaker/reviews',
+    method: 'get',
+    param: { caretakerusername },
     data,
   });
 }
