@@ -5,4 +5,4 @@
 
 > Admin site for Pet-Anything, built on top of [vue-admin-template](https://github.com/PanJiaChen/vue-admin-template).
 
-Live: <https://pet-anything-admin.netlify.app/>
+Live: <https://admin.pet-anything.ml/>
