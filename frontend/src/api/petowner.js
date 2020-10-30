@@ -38,6 +38,16 @@ export function searchOrder() {
   });
 }
 
+export function giveRating(param) {
+  const data = {};
+  return request({
+    url: '/petowner/order',
+    method: 'put',
+    param,
+    data,
+  });
+}
+
 export function searchPets() {
   const params = {};
   const data = {};
