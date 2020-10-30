@@ -16,7 +16,7 @@ export function getInfo(token) {
       data: {
         roles: ['admin'],
         introduction: 'I am a super administrator',
-        avatar: 'https://avatars1.githubusercontent.com/u/34601854?s=400&u=ff0de9a0d4df47ed8d4ff46076f8c4645a94dbbe&v=4',
+        avatar: 'https://github.com/CS2102-Project-Team.png',
         name: 'Admin'
       }
     })
