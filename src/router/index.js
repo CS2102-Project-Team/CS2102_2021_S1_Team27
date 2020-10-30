@@ -56,6 +56,32 @@ export const constantRoutes = [
   },
 
   {
+    path: '/pricing',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Priging Management',
+        component: () => import('@/views/pricing/index'),
+        meta: { title: 'Pricing Management', icon: 'dollar-sign' }
+      }
+    ]
+  },
+
+  {
+    path: '/leaves',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Leaves Management',
+        component: () => import('@/views/leaves/index'),
+        meta: { title: 'Leaves Management', icon: 'calendar' }
+      }
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',

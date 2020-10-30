@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+const mockUser = {
+  roles: ['admin'],
+  introduction: 'I am a super administrator',
+  avatar: 'https://github.com/CS2102-Project-Team.png',
+  name: 'adminLRC',
+  email: 'admin@petanything.ml'
+}
+
 export function login(data) {
   const { username, password } = data
   return request({
@@ -10,15 +18,28 @@ export function login(data) {
   })
 }
 
-export function getInfo(token) {
-  return new Promise((resolve) => {
-    resolve({
-      data: {
-        roles: ['admin'],
-        introduction: 'I am a super administrator',
-        avatar: 'https://github.com/CS2102-Project-Team.png',
-        name: 'Admin'
-      }
+export function getInfo() {
+  return new Promise((resolve, reject) => {
+    request({
+      url: '/admin',
+      method: 'get'
+    }).then(response => {
+      const { username, email } = response
+      resolve({
+        data: {
+          roles: ['admin'],
+          introduction: 'I am a super administrator',
+          avatar: 'https://github.com/CS2102-Project-Team.png',
+          name: username,
+          email
+        }
+      })
+    // eslint-disable-next-line handle-callback-err
+    }).catch(error => {
+      resolve({
+        data: mockUser
+      })
+      // reject(error)
     })
   })
 }
