@@ -182,9 +182,8 @@ export default {
       this.loading = true;
       const email = { email: this.param.email };
       getotp(email)
-        .then((response) => {
+        .then(() => {
           this.loading = false;
-          const { data } = response;
           this.$notify({
             title: 'getotp successful',
             message: `An OTP has been sent to your email ${this.param.email}`,
