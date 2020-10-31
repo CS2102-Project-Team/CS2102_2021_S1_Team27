@@ -69,7 +69,9 @@ export function giveRating(data) {
 
 export function getCTReview(caretakerusername) {
   const data = {};
-  console.log("Requesting CT Review");
+  // eslint-disable-next-line no-console
+  console.log('Requesting CT Review');
+  // eslint-disable-next-line no-console
   console.log(caretakerusername);
   return request({
     url: '/caretaker/reviews',

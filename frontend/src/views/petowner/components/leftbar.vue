@@ -38,7 +38,7 @@ export default {
     navigation(message, path) {
       // eslint-disable-next-line no-console
       console.log(message);
-      this.$router.push(path).catch((err) => {});
+      this.$router.push(path).catch(() => {});
     },
     goToPets() {
       this.navigation(this.petMessage, '/po/pets');
