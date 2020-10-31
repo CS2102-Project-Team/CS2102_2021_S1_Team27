@@ -38,6 +38,21 @@ export function searchOrder() {
   });
 }
 
+export function makePayment(data) {
+  const {
+    petname, caretakerusername, startdate, enddate,
+  } = data;
+  const param = {};
+  return request({
+    url: '/petowner/pay',
+    method: 'put',
+    param,
+    data: {
+      petname, caretakerusername, startdate, enddate,
+    },
+  });
+}
+
 export function giveRating(data) {
   const param = {};
   const {

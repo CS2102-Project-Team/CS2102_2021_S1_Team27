@@ -39,9 +39,14 @@
       </el-dialog>
       <el-dialog title='Make payment' :visible.sync="order.paymentVisible" width="50%">
         <div class='text'>Select Card</div>
+        <el-select v-model="selectedCard" placeholder="--select-card--">
+          <el-option v-for="(card, index) in myCards" :key="index"
+          :label="card.cardnumber" :value="card.cardnumber">
+          </el-option>
+        </el-select>
         <br/>
         <span>
-          <el-button type="primary" v-on:click="order.paymentVisible=false">Confirm</el-button>
+          <el-button type="primary" v-on:click="makePayment(order)">Confirm</el-button>
           <el-button v-on:click="order.paymentVisible=false">Cancel</el-button>
         </span>
       </el-dialog>
@@ -50,13 +55,16 @@
 </template>
 
 <script>
-import { searchOrder, giveRating } from '@/api/petowner';
+import { searchOrder, giveRating, makePayment } from '@/api/petowner';
+import { getCards } from '@/api/user';
 import leftbar from './components/leftbar.vue';
 
 export default {
   data() {
     return {
       orders: [],
+      myCards: [],
+      selectedCard: '',
       param: {
         petname: '',
         caretakerusername: '',
@@ -69,6 +77,7 @@ export default {
   },
   methods: {
     getOrders() {
+      this.orders = [];
       searchOrder().then((results) => {
         let i;
         for (i = 0; i < results.data.length; i += 1) {
@@ -91,11 +100,47 @@ export default {
         });
       });
     },
+    getAllCards() {
+      this.myCards = [];
+      getCards().then((results) => {
+        this.myCards = results.data;
+      }).catch((err) => {
+        this.$notify({
+          title: 'Get Credit Cards Info Failed.',
+          message: err.response.status,
+          duration: 0,
+        });
+      });
+    },
     canMakePayment(order) {
       return order.status === 'Pending Payment' && order.payment === 'credit card';
     },
     canGiveRating(order) {
       return new Date(order.edate).getDate() <= Date.now() && (order.status === 'Pending Payment' || order.status === 'Payment Received');
+    },
+    makePayment(order) {
+      const petname = order.pname;
+      const caretakerusername = order.ctaker;
+      const startdate = order.sdate;
+      const enddate = order.edate;
+      const data = {
+        petname, caretakerusername, startdate, enddate,
+      };
+      makePayment(data).then(() => {
+        this.$notify({
+          title: 'Payment is successfully made.',
+          duration: 0,
+        });
+      }).then(() => {
+        this.paymentVisible = false;
+        this.getOrders();
+      }).catch((err) => {
+        this.$notify({
+          title: 'Payment failed',
+          message: err.response.status,
+          duration: 0,
+        });
+      });
     },
     placeRating(order) {
       this.param.petname = order.pname;
@@ -108,7 +153,7 @@ export default {
           duration: 0,
         });
       }).then(() => {
-        searchOrder();
+        this.getOrders();
       }).catch((err) => {
         this.$notify({
           title: 'Giving rating failed',
@@ -123,6 +168,7 @@ export default {
   },
   beforeMount() {
     this.getOrders();
+    this.getAllCards();
   },
 };
 </script>
