@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-responsive.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <script src="assets/js/jquery-1.8.3.min.js" type="text/javascript"></script>
+  <script src="assets/js/main.js" type="text/javascript"></script>
+
+  <title>REST API Resources</title>
+</head>
+<body>
+  <div class="header">
+    <div class="top-bar">
+      <h1 id="logo"><a class="logo" href="/"><span>Swagger</span><span class="light">API Docs</span></a></h1>
+    </div>
+  </div>
+  <div class="model-container"></div>
+  <div class="content">
+    <div class="box clearfix">
+      <div class="sidebar">
+        <div class="section-box">
+          <div class="section-header">
+            Overview
+          </div>
+          <ul>
+            <li>Getting Started</li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/AdminApi">AdminApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/AdminApi#admingetsalary">admingetsalary</a></li>
+            <li><a href="#!/AdminApi#getadmin">getadmin</a></li>
+            <li><a href="#!/AdminApi#getleavers">getleavers</a></li>
+            <li><a href="#!/AdminApi#getprice">getprice</a></li>
+            <li><a href="#!/AdminApi#getservice">getservice</a></li>
+            <li><a href="#!/AdminApi#putleavers">putleavers</a></li>
+            <li><a href="#!/AdminApi#putprice">putprice</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/AdminAuthenticationApi">AdminAuthenticationApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/AdminAuthenticationApi#logina">logina</a></li>
+            <li><a href="#!/AdminAuthenticationApi#updatepswda">updatepswda</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/AuthenticationApi">AuthenticationApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/AuthenticationApi#getotp">getotp</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/CareTakerApi">CareTakerApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/CareTakerApi#ctgetreviews">ctgetreviews</a></li>
+            <li><a href="#!/CareTakerApi#getcaretakerinfo">getcaretakerinfo</a></li>
+            <li><a href="#!/CareTakerApi#postcaretakerregistration">postcaretakerregistration</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/CareTakerOperationApi">CareTakerOperationApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/CareTakerOperationApi#ctgetorders">ctgetorders</a></li>
+            <li><a href="#!/CareTakerOperationApi#ctgetstats">ctgetstats</a></li>
+            <li><a href="#!/CareTakerOperationApi#ctputpayment">ctputpayment</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/FullTimeCareTakerOperationApi">FullTimeCareTakerOperationApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/FullTimeCareTakerOperationApi#ctapplyleave">ctapplyleave</a></li>
+            <li><a href="#!/FullTimeCareTakerOperationApi#ctgetallleaves">ctgetallleaves</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/PartTimeCareTakerOperationApi">PartTimeCareTakerOperationApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/PartTimeCareTakerOperationApi#ctaddpetcategory">ctaddpetcategory</a></li>
+            <li><a href="#!/PartTimeCareTakerOperationApi#ctdeletepetcategory">ctdeletepetcategory</a></li>
+            <li><a href="#!/PartTimeCareTakerOperationApi#ctgetavailability">ctgetavailability</a></li>
+            <li><a href="#!/PartTimeCareTakerOperationApi#ctputorders">ctputorders</a></li>
+            <li><a href="#!/PartTimeCareTakerOperationApi#ctupdateavailability">ctupdateavailability</a></li>
+            <li><a href="#!/PartTimeCareTakerOperationApi#ctupdatepetcategory">ctupdatepetcategory</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/PetOwnerOperationApi">PetOwnerOperationApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/PetOwnerOperationApi#podeletepets">podeletepets</a></li>
+            <li><a href="#!/PetOwnerOperationApi#pogetbid">pogetbid</a></li>
+            <li><a href="#!/PetOwnerOperationApi#pogetpets">pogetpets</a></li>
+            <li><a href="#!/PetOwnerOperationApi#popay">popay</a></li>
+            <li><a href="#!/PetOwnerOperationApi#popostbid">popostbid</a></li>
+            <li><a href="#!/PetOwnerOperationApi#popostpets">popostpets</a></li>
+            <li><a href="#!/PetOwnerOperationApi#poputbid">poputbid</a></li>
+            <li><a href="#!/PetOwnerOperationApi#poputpets">poputpets</a></li>
+            <li><a href="#!/PetOwnerOperationApi#posearch">posearch</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/UserApi">UserApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/UserApi#deleteuserbilling">deleteuserbilling</a></li>
+            <li><a href="#!/UserApi#getuser">getuser</a></li>
+            <li><a href="#!/UserApi#getuserbilling">getuserbilling</a></li>
+            <li><a href="#!/UserApi#putuser">putuser</a></li>
+            <li><a href="#!/UserApi#putuserbilling">putuserbilling</a></li>
+          </ul>
+        </div>
+        <div class="section-box">
+          <div class="section-header">
+            <a href="#!/UserAuthenticationApi">UserAuthenticationApi</a>
+          </div>
+          <ul>
+            <li><a href="#!/UserAuthenticationApi#fgtpswd">fgtpswd</a></li>
+            <li><a href="#!/UserAuthenticationApi#login">login</a></li>
+            <li><a href="#!/UserAuthenticationApi#register">register</a></li>
+            <li><a href="#!/UserAuthenticationApi#updatepswd">updatepswd</a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="non-sidebar">
+      <div class="main-content">
+        <h2>Getting Started</h2>
+        <p>To begin using your fancy HTTP API, follow the steps below.</p>
+        <p>You can add some helpful tips, here</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
