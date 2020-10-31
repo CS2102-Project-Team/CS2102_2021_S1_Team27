@@ -66,9 +66,8 @@ export default {
               this.$router.push('/profile');
               this.loading = false;
             }).catch((error) => {
-              // console.log(error.response.data.error);
-              // console.log(error.response.status);
-              this.$message.error(error.response.data.error);
+              // eslint-disable-next-line no-nested-ternary
+              this.$message.error(error.response ? (error.response.data ? error.response.data.error : 'err') : 'err');
               this.loading = false;
             });
         } else {
