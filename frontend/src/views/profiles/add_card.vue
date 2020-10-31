@@ -21,9 +21,13 @@
         <el-col>
           <el-form-item prop="expdate">
             <span>Expiry Date</span>
-            <el-input v-model="param.exp">
-              <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
-            </el-input>
+            <div>
+              <el-date-picker
+                v-model="param.exp"
+                type="date"
+                placeholder="--expiry-date--">
+              </el-date-picker>
+            </div>
           </el-form-item>
         </el-col>
         <el-col>

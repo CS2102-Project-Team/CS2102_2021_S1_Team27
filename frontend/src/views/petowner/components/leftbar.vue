@@ -1,15 +1,25 @@
 <template>
   <div id="leftbar">
     <el-form class="ms-content">
-      <div class="bar-btn">
-        <el-button type="primary" v-on:click="goToService()" plain>Search for Service</el-button>
-      </div>
-      <div class="bar-btn">
-        <el-button type="primary" v-on:click="goToOrders()" plain>My Orders</el-button>
-      </div>
-      <div class="bar-btn">
-        <el-button type="primary" v-on:click="goToPets()" plain>My Pets</el-button>
-      </div>
+      <el-row :gutter="20">
+        <el-col :span="6">
+          <div class="bar-btn">
+            <el-button type="primary" v-on:click="goToService()" plain>
+              Search for Service
+            </el-button>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="bar-btn">
+            <el-button type="primary" v-on:click="goToOrders()" plain>My Orders</el-button>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="bar-btn">
+            <el-button type="primary" v-on:click="goToPets()" plain>My Pets</el-button>
+          </div>
+        </el-col>
+      </el-row>
     </el-form>
   </div>
 </template>
