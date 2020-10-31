@@ -38,6 +38,21 @@ router.get('/', auth.authenticateToken, async (req, res) => {
     res.status(500).json({ error: 'error' });
   }
 });
+
+router.get('/reviews', auth.authenticateToken, async (req, res) => {
+  try {
+    const { caretakerusername } = req.body;
+    if (!caretakerusername) {
+      res.status(500).json('No username');
+      return;
+    }
+    const inRes = await db.functions.getReviews(caretakerusername);
+    res.status(200).json(inRes);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
 /*
 router.get('/', (req, res) => res.redirect(307, 'https://cs2102-doc.netlify.app/'));
 Skip authentication: (req,res,next) => {req.user = 'kyle';next();},

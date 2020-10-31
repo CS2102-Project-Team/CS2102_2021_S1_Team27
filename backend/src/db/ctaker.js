@@ -5,6 +5,11 @@ async function getCaretaker(username) {
   return rows;
 }
 
+async function getReviews(username) {
+  const { rows } = await db.query('SELECT ptype petcategory,rating, review FROM orders WHERE ctaker=$1 AND rating IS NOT NULL', [username]);
+  return rows;
+}
+
 async function insertCaretaker(username, realname) {
   await db.query('UPDATE accounts SET realname=$2 WHERE username=$1', [username, realname]);
   const { rows } = await db.query('INSERT INTO caretakers(username, fulltime, maxpets) VALUES ($1, false, 2)', [username]);
@@ -75,6 +80,7 @@ async function addAvailability(username, startDate, endDate) {
 module.exports = {
   functions: {
     getCaretaker,
+    getReviews,
     insertCaretaker,
     getCategory,
     insertCategory,
