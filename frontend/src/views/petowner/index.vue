@@ -221,6 +221,8 @@ export default {
           const thisData = results.data[i];
           if (thisData.rating === '-1') {
             thisData.rating = 'No rating has been given to this caretaker yet';
+          } else {
+            thisData.rating = Number.parseFloat(thisData.rating).toFixed(2);
           }
           thisData.dialogVisible = false;
           thisData.reviewVisible = false;
