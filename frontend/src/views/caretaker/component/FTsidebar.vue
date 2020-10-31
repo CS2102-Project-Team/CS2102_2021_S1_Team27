@@ -37,7 +37,7 @@
 
 <script>
 export default {
-  name: 'full time care taker side bar',
+  name: 'fulltime_caretaker_sidebar',
   methods: {
     linkClicked(route) {
       if (route !== this.$router.currentRoute.path) {

@@ -90,7 +90,7 @@ export function deleteCareTakerPetCategory(data) {
 
 export function getCareTakerAvaliablity() {
   return request({
-    url: '/caretaker/petcategory',
+    url: '/caretaker/availability',
     method: 'get',
   });
 }
@@ -98,8 +98,8 @@ export function getCareTakerAvaliablity() {
 export function updateCareTakerAvaliablity(data) {
   const { startdate, enddate } = data;
   return request({
-    url: '/caretaker/petcategory',
-    method: 'get',
+    url: '/caretaker/availability',
+    method: 'post',
     data: { startdate, enddate },
   });
 }
