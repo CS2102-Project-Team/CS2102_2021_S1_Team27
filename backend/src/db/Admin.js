@@ -37,7 +37,8 @@ async function getFullTimePrices() {
 
 // insert or update
 async function insertFullTimePrice(category, attribute, price) {
-  const { rows } = await db.query('INSERT INTO fulltime_price(ptype, $1) VALUES ($2, $3)', [attribute, category, price]);
+  console.debug(price);
+  const { rows } = await db.query('UPDATE fulltime_price SET price1=$3 WHERE ptype = $2', [attribute, category, price]);
   return rows;
 }
 

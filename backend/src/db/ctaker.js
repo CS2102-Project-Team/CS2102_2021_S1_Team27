@@ -72,6 +72,12 @@ async function addAvailability(username, startDate, endDate) {
   return rows;
 }
 
+// if rating is not null, the service has completed
+async function getReview(cname) {
+  const { rows } = await db.query('SELECT ptype AS petcategory, rating, review FROM orders WHERE ctaker = $1 AND rating <> null', [cname]);
+  return rows;
+}
+
 module.exports = {
   functions: {
     getCaretaker,
@@ -88,5 +94,6 @@ module.exports = {
     acceptRejectBid,
     getAvailability,
     addAvailability,
+    getReview
   },
 };
