@@ -11,7 +11,6 @@ export function searchVacancy(data) {
 }
 
 export function placeOrder(data) {
-  console.log(data);
   const {
     caretakername, petname, startdate, enddate, paymentmethod, deliverymode,
   } = data;
@@ -42,11 +41,11 @@ export function makePayment(data) {
   const {
     petname, caretakerusername, startdate, enddate,
   } = data;
-  const param = {};
+  const params = {};
   return request({
     url: '/petowner/pay',
     method: 'put',
-    param,
+    params,
     data: {
       petname, caretakerusername, startdate, enddate,
     },
@@ -54,14 +53,14 @@ export function makePayment(data) {
 }
 
 export function giveRating(data) {
-  const param = {};
+  const params = {};
   const {
     petname, caretakerusername, startdate, enddate, rating, feedback,
   } = data;
   return request({
     url: '/petowner/order',
     method: 'put',
-    param,
+    params,
     data: {
       petname, caretakerusername, startdate, enddate, rating, feedback,
     },
@@ -70,10 +69,12 @@ export function giveRating(data) {
 
 export function getCTReview(caretakerusername) {
   const data = {};
+  console.log("Requesting CT Review");
+  console.log(caretakerusername);
   return request({
     url: '/caretaker/reviews',
     method: 'get',
-    param: { caretakerusername },
+    params: { caretakerusername },
     data,
   });
 }

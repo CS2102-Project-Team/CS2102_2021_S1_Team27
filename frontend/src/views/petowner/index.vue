@@ -52,11 +52,11 @@
     </el-form>
     <div>
       <el-card class='box-card' v-for="(vacancy,index) in vacancies" v-bind:key="index">
-        <div v-on:click="vacancy.reviewVisible=true; getCTReview(vacancy.username)"
-        class='text item'>
+        <div class='text item'>
           {{ 'Care Taker Name: ' + vacancy.realname }}
         </div>
-        <el-dialog title='All Reviews of this care taker' :visible.sync="vacancy.dialogVisible">
+        <el-dialog title='All Reviews of this care taker'
+        :visible.sync="vacancy.reviewVisible" width="50%">
           <el-form label-width="80px">
             <el-form-item>
               <div class='text'>
@@ -81,6 +81,9 @@
         <div class='text item'>{{ 'Total Price: ' + vacancy.totalprice }}</div>
         <br/>
         <el-button type="primary" v-on:click="vacancy.dialogVisible=true">place order</el-button>
+        <el-button v-on:click="vacancy.reviewVisible=true; getCTReview(vacancy.username)">
+          Get Caretaker Details
+        </el-button>
         <el-dialog title='Place Order' :visible.sync="vacancy.dialogVisible" width="50%">
           <el-form label-width="80px">
             <el-form-item>
