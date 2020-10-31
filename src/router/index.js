@@ -56,6 +56,27 @@ export const constantRoutes = [
   },
 
   {
+    path: '/usermanagement',
+    component: Layout,
+    name: 'User Management',
+    meta: { title: 'User Management', icon: 'users' },
+    children: [
+      {
+        path: 'caretaker',
+        name: 'Caretaker',
+        component: () => import('@/views/usermanagement/caretaker/index'),
+        meta: { title: 'Catetaker', icon: 'smile' }
+      },
+      {
+        path: 'petowner',
+        name: 'Petowner',
+        component: () => import('@/views/usermanagement/petowner/index'),
+        meta: { title: 'Petowner', icon: 'frown' }
+      }
+    ]
+  },
+
+  {
     path: '/pricing',
     component: Layout,
     children: [

@@ -4,7 +4,7 @@ const mockUser = {
   roles: ['admin'],
   introduction: 'I am a super administrator',
   avatar: 'https://github.com/CS2102-Project-Team.png',
-  name: 'adminLRC',
+  name: 'GodErosion',
   email: 'admin@petanything.ml'
 }
 

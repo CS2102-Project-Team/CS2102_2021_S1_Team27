@@ -1,22 +1,27 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
-    <panel-group @handleSetLineChartData="handleSetLineChartData" />
-    <el-row :gutter="32">
-      <el-col :xs="24" :sm="24" :lg="8">
+    <div class="dashboard-text" style="margin-bottom:60px;">name: {{ name }}</div>
+    <el-row :gutter="100" style="margin-bottom:30px;">
+      <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
-          <raddar-chart />
+          <revenue />
         </div>
       </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
+      <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
-          <pie-chart />
+          <service />
         </div>
       </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <bar-chart />
-        </div>
+    </el-row>
+    <el-row :gutter="12" style="margin-bottom:30px;">
+      <el-col :xs="24" :sm="24" :md="24" :lg="9">
+        <featured-caretakers />
+      </el-col>
+      <el-col :xs="24" :sm="12" :md="12" :lg="9">
+        <featured-petowners />
+      </el-col>
+      <el-col :xs="24" :sm="12" :md="12" :lg="6">
+        <todo-list />
       </el-col>
     </el-row>
   </div>
@@ -24,10 +29,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import PanelGroup from './components/PanelGroup'
-import RaddarChart from './components/RaddarChart'
-import PieChart from './components/PieChart'
-import BarChart from './components/BarChart'
+import TodoList from './components/TodoList'
+import Revenue from './components/Revenue'
+import Service from './components/Service'
+import FeaturedCaretakers from './components/FeaturedCaretakers'
+import FeaturedPetowners from './components/FeaturedPetowners'
 
 const lineChartData = {
   newVisitis: {
@@ -51,10 +57,11 @@ const lineChartData = {
 export default {
   name: 'Dashboard',
   components: {
-    PanelGroup,
-    RaddarChart,
-    PieChart,
-    BarChart
+    TodoList,
+    Revenue,
+    Service,
+    FeaturedCaretakers,
+    FeaturedPetowners
   },
   data() {
     return {
