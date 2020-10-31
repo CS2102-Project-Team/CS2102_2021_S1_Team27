@@ -41,7 +41,7 @@ router.get('/', auth.authenticateToken, async (req, res) => {
 
 router.get('/reviews', auth.authenticateToken, async (req, res) => {
   try {
-    const { caretakerusername } = req.body;
+    const { caretakerusername } = req.param;
     if (!caretakerusername) {
       res.status(422).json({ error: 'No username' });
       return;
