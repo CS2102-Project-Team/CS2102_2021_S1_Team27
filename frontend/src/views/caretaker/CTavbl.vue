@@ -114,7 +114,7 @@ import {
 } from '@/api/caretaker';
 import lang from 'element-ui/lib/locale/lang/en';
 import locale from 'element-ui/lib/locale';
-import PTsidebar from '../caretaker/component/PTsidebar';
+import PTsidebar from './component/PTsidebar.vue';
 
 locale.use(lang);
 

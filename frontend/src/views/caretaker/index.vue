@@ -266,8 +266,8 @@ import {
   getCareTakerInfo, acceptOrder, addCareTakerPetCategory,
   updateCareTakerPetCategory, deleteCareTakerPetCategory,
 } from '@/api/caretaker';
-import FTsidebar from '../caretaker/component/FTsidebar';
-import PTsidebar from '../caretaker/component/PTsidebar';
+import FTsidebar from './component/FTsidebar.vue';
+import PTsidebar from './component/PTsidebar.vue';
 
 export default {
   components: { FTsidebar, PTsidebar },
@@ -289,8 +289,8 @@ export default {
     };
     return {
       isCareTaker: false,
-      pendingorders: '',
-      petcategory: '',
+      pendingorders: [],
+      petcategory: [],
       isPartTime: false,
       type: '',
       rating: 0,
@@ -410,6 +410,7 @@ export default {
       this.addPCFormVisible = true;
     },
     updatePCFormBtn() {
+      // eslint-disable-next-line consistent-return
       this.$refs.updatePC.validate((valid) => {
         if (valid) {
           updateCareTakerPetCategory(this.form).then(() => {
@@ -442,6 +443,7 @@ export default {
       });
     },
     addPCFormBtn() {
+      // eslint-disable-next-line consistent-return
       this.$refs.addPC.validate((valid) => {
         if (valid) {
           addCareTakerPetCategory(this.form).then(() => {

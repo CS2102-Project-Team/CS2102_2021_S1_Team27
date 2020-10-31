@@ -58,6 +58,7 @@ export default {
       });
     },
     apply() {
+      // eslint-disable-next-line consistent-return
       this.$refs.CTapply.validate((valid) => {
         if (valid) {
           this.loading = true;

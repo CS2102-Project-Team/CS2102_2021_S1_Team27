@@ -115,7 +115,7 @@ import {
 } from '@/api/caretaker';
 import lang from 'element-ui/lib/locale/lang/en';
 import locale from 'element-ui/lib/locale';
-import FTsidebar from '../caretaker/component/FTsidebar';
+import FTsidebar from './component/FTsidebar.vue';
 
 locale.use(lang);
 
