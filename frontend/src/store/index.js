@@ -54,7 +54,7 @@ const store = new Vuex.Store({
         resolve();
       });
     },
-    signup({ commit }) {
+    signup() {
       return new Promise((resolve) => {
         resetRouter();
         resolve();

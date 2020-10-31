@@ -75,7 +75,15 @@ export default [
     component: () => import('@/views/petowner/orders'),
   },
   {
+    path: '/po/placeorder',
+    component: () => import('@/views/petowner/placeorder'),
+  },
+  {
     path: '/po/pets',
     component: () => import('@/views/petowner/pets'),
+  },
+  {
+    path: '/po/pets/add_pet',
+    component: () => import('@/views/petowner/addpetpage'),
   },
 ];

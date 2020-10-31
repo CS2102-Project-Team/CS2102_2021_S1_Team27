@@ -5,7 +5,7 @@
         <el-col>
           <el-form-item prop="cardnumber">
             <span>Card Number</span>
-            <el-input v-model.number="param.cardnumber">
+            <el-input v-model="param.cardnumber">
               <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
             </el-input>
           </el-form-item>
@@ -21,9 +21,13 @@
         <el-col>
           <el-form-item prop="expdate">
             <span>Expiry Date</span>
-            <el-input v-model="param.exp">
-              <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
-            </el-input>
+            <div>
+              <el-date-picker
+                v-model="param.exp"
+                type="date"
+                placeholder="--expiry-date--">
+              </el-date-picker>
+            </div>
           </el-form-item>
         </el-col>
         <el-col>
@@ -56,7 +60,7 @@ export default {
   data() {
     return {
       param: {
-        cardnumber: 0,
+        cardnumber: '',
         holdername: '',
         cvv: '',
         exp: '',

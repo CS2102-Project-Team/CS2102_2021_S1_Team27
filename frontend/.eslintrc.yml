@@ -9,4 +9,10 @@ parserOptions:
   sourceType: module
 plugins:
   - vue
-rules: {}
+rules: {
+  import/no-cycle: off # due to bad design of PanJiaChen/vue-element-admin which has cyclic dependency
+}
+settings:
+  import/resolver:
+    webpack:
+      config: 'webpack.config.js'
