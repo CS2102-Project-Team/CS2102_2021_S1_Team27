@@ -87,7 +87,7 @@ router.get('/price', auth.authenticateAdminToken, async (req, res) => {
 });
 
 // insert or update
-router.put('/price', auth.authenticateAdminToken, async (req, res) => {
+router.put('/price', auth.authenticateToken, async (req, res) => {
   const { category } = req.body;
   const { classes } = req.body;
   const { price } = req.body;
