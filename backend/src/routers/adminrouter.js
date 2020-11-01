@@ -142,4 +142,14 @@ router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
+router.get('/caretakers', auth.authenticateToken, async (req, res) => {
+  try {
+    const inRes = await db.functions.getAllCaretaker();
+    res.status(200).json(inRes);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
 module.exports = router;

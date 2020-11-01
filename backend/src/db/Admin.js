@@ -51,6 +51,11 @@ async function addLeave(username, startDate, endDate, status) {
   return rows;
 }
 
+async function getAllCaretaker() {
+  const { rows } = await db.query('SELECT username, (SELECT realname FROM accounts a WHERE a.username = username) AS name, fulltime, (SELECT addres FROM accounts a1 WHERE a1.username = username) AS address, (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers');
+  return rows;
+}
+
 module.exports = {
   functions: {
     getAdminByEmail,
@@ -63,5 +68,6 @@ module.exports = {
     insertFullTimePrice,
     getLeave,
     addLeave,
+    getAllCaretaker,
   },
 };
