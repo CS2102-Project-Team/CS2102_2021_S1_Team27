@@ -42,7 +42,7 @@ router.get('/', auth.authenticateToken, async (req, res) => {
 router.get('/reviews', auth.authenticateToken, async (req, res) => {
   try {
     const { caretakerusername } = req.query; // not params
-    console.log(caretakerusername)
+    console.log(caretakerusername);
     if (!caretakerusername) {
       res.status(422).json({ error: 'No username' });
       return;
@@ -202,6 +202,22 @@ router.get('/availability', auth.authenticateToken, async (req, res) => {
   }
 });
 
+router.post('/availability-d', auth.authenticateToken, async (req, res) => {
+  try {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const element of req.body) {
+      // eslint-disable-next-line
+      // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
+      await db.functions.addAvailabilityDup(req.user.username, element.startdate, element.enddate);
+    }
+    res.status(200).json('success');
+    return;
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'error' });
+  }
+});
+
 router.post('/availability', auth.authenticateToken, async (req, res) => {
   try {
     // eslint-disable-next-line no-restricted-syntax
@@ -213,7 +229,12 @@ router.post('/availability', auth.authenticateToken, async (req, res) => {
     res.status(200).json('success');
     return;
   } catch (err) {
-    res.status(500).json({ error: 'error' });
+    if (err.code === '23505') {
+      res.status(422).json({ error: err.detail });
+    } else {
+      console.log(err);
+      res.status(500).json({ error: 'error' });
+    }
   }
 });
 

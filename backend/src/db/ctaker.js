@@ -77,6 +77,11 @@ async function addAvailability(username, startDate, endDate) {
   return rows;
 }
 
+async function addAvailabilityDup(username, startDate, endDate) {
+  const { rows } = await db.query('INSERT INTO available(ctaker, date, status) SELECT $1, dd::date, \'available\' FROM generate_series($2::timestamp, $3::timestamp, \'1 day\'::interval) dd ON CONFLICT DO NOTHING', [username, startDate, endDate]);
+  return rows;
+}
+
 module.exports = {
   functions: {
     getCaretaker,
@@ -94,5 +99,6 @@ module.exports = {
     acceptRejectBid,
     getAvailability,
     addAvailability,
+    addAvailabilityDup,
   },
 };
