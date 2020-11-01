@@ -84,7 +84,6 @@ async function addAvailability(username, startDate, endDate) {
 
 async function addLeave(username, startDate, endDate) {
   const { rows } = await db.query('CALL update_leave($1, $2, $3)', [username, startDate, endDate]);
-  console.log(rows);
   return rows;
 }
 

@@ -273,7 +273,6 @@ router.post('/availability', auth.authenticateToken, async (req, res) => {
   }
 });
 
-
 router.post('/leaves', auth.authenticateToken, async (req, res) => {
   try {
     // eslint-disable-next-line no-restricted-syntax
