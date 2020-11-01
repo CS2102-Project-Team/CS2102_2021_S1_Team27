@@ -133,7 +133,8 @@ export default {
           const date = parseDate(time);
           // console.log(date);
           return (time.getTime() + oneDay < Date.now())
-            || (vm.avblArray === [] ? false : vm.avblArray.includes(date));
+            || (vm.avblArray === [] ? false : vm.avblArray.includes(date))
+            || (time.getTime() + oneDay > Date.now() + 365 * 2 * oneDay);
         },
       },
     };

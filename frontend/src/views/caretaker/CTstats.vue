@@ -23,7 +23,7 @@
                         </el-col>
                         <el-col class = "text item">
                             <span>
-                                {{'Expected salary for this month: '+ this.salary}}
+                                {{'Expected salary for this month: S$'+ this.salary}}
                             </span>
                         </el-col>
                     </el-row>
