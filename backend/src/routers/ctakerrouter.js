@@ -141,9 +141,13 @@ router.put('/orders/payment', auth.authenticateToken, async (req, res) => {
   const { enddate } = req.body;
   const { ownerusername } = req.body;
   const { petname } = req.body;
+  const { received } = req.query;
 
   try {
-    await db.functions.updateOrder(ownerusername, petname, startdate, enddate);
+    console.log(received);
+    if (received === 'true') {
+      await db.functions.updateOrder(ownerusername, petname, startdate, enddate);
+    }
     res.status(204).json('success');
     return;
   } catch (err) {
