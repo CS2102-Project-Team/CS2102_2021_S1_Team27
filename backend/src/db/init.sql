@@ -74,9 +74,9 @@ CREATE TABLE looksafter(
 
 CREATE TABLE fulltime_price(
     ptype VARCHAR PRIMARY KEY REFERENCES pettypes(ptype),
-    price1 INT,
-    price2 INT,
-    price3 INT
+    price1 INT, --  <=2
+    price2 INT, --  2<x<=4
+    price3 INT -- x > 4
 );
 
 --INSERT INTO looksafter VALUES ('kyle2', 20, 'cat');
@@ -242,3 +242,19 @@ END;
 $$
 language plpgsql;
 --one thing yet to finalize is how to send notification when the procedure is rolled back
+
+CREATE OR REPLACE PROCEDURE update_price(category VARCHAR) AS
+$$
+DECLARE price1t INTEGER;
+DECLARE price2t INTEGER;
+DECLARE price3t INTEGER;
+
+BEGIN
+SELECT price1, price2, price3 INTO (price1t, price2t, price3t) FROM fulltime_price WHERE ptype = category;
+UPDATE looksafter L SET L.price = price1t WHERE L.ptype = category AND ANY (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = L.ctaker) <=2;
+UPDATE looksafter L SET L.price = price2t WHERE L.ptype = category AND ANY (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = L.ctaker) > 2 AND ANY (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = L.ctaker) <= 4;
+UPDATE looksafter L SET L.price = price3t WHERE L.ptype = category AND ANY (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = L.ctaker) > 4;
+END;
+$$
+
+language plpgsql;
