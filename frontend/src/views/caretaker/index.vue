@@ -119,7 +119,7 @@
                 <el-table
                   :data = "petcategory"
                   border
-                  max-height="150"
+                  max-height="250"
                   empty-text= "empty"
                   :key = "pcTableKey">
                     <el-table-column
@@ -496,6 +496,6 @@ export default {
     padding: 18px 0;
   }
   .ptct_petcategory {
-    height: 400px;
+    height: 350px;
   }
 </style>
