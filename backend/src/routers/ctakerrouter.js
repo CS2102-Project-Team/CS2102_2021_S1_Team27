@@ -200,6 +200,7 @@ router.post('/orders', auth.authenticateToken, async (req, res) => {
   }
 });
 
+/*
 router.get('/reviews', auth.authenticateToken, async (req, res) => {
   try {
     const inRes = await db.functions.getReview(req.query.caretakerusername);
@@ -209,12 +210,13 @@ router.get('/reviews', auth.authenticateToken, async (req, res) => {
     res.status(500).json({ error: 'error' });
   }
 });
+*/
 
 router.get('/availability', auth.authenticateToken, async (req, res) => {
   try {
     const inRes = await db.functions.getAvailability(req.user.username);
     res.status(200).json(inRes.map((element) => {
-      element.date = element.date.toISOString().split('T')[0];
+      element = element.date.toISOString().split('T')[0];
       return element;
     }));
     return;

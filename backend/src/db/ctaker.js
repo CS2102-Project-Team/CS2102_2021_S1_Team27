@@ -94,7 +94,7 @@ async function getLeave(username) {
 
 // if rating is not null, the service has completed
 async function getReview(cname) {
-  const { rows } = await db.query('SELECT ptype AS petcategory, rating, review FROM orders WHERE ctaker = $1 AND rating <> null', [cname]);
+  const { rows } = await db.query('SELECT ptype AS petcategory, rating, review FROM orders WHERE ctaker = $1 AND rating IS NOT NULL', [cname]);
   return rows;
 }
 

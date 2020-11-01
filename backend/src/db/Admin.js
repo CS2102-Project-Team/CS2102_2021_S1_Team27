@@ -41,12 +41,13 @@ async function insertFullTimePrice(category, attribute, price) {
   return rows;
 }
 
+// one thing to change -> clash is not stored.
 async function getLeave() {
-  const { rows } = await db.query('SELECT * FROM fulltime_price');
+  const { rows } = await db.query('SELECT ctaker AS caretakerusername, startdate, enddate, clash, status FROM leave');
   return rows;
 }
 
-async function addLeave(username, startDate, endDate, status) {
+async function updateLeaveStatus(username, startDate, endDate, status) {
   const { rows } = await db.query('UPDATE leave SET status = $4 WHERE ctaker = $1 AND startdate = $2 AND enddate = $3', [username, startDate, endDate, status]);
   return rows;
 }
@@ -72,7 +73,7 @@ module.exports = {
     getFullTimePrices,
     insertFullTimePrice,
     getLeave,
-    addLeave,
+    updateLeaveStatus,
     getAllCaretaker,
     getAllPetowners,
   },
