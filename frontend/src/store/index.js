@@ -12,14 +12,19 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     token: getToken(),
+    isPartTime: true,
   },
   mutations: {
     SET_TOKEN: (state, token) => {
       state.token = token;
     },
+    SET_ISPT: (state, isPartTime) => {
+      state.isPartTime = isPartTime;
+    },
   },
   getters: {
     token: (state) => state.token,
+    isPartTime: (state) => state.isPartTime,
   },
   actions: {
     login({ commit }, userinfo) {
@@ -42,6 +47,8 @@ const store = new Vuex.Store({
     logout({ commit }) {
       return new Promise((resolve) => {
         commit('SET_TOKEN', '');
+        // reset isPartTime to true(default value) after logout
+        commit('SET_ISPT', true);
         removeToken();
         resetRouter();
         resolve();
