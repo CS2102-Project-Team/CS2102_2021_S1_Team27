@@ -87,6 +87,11 @@ async function addLeave(username, startDate, endDate) {
   return rows;
 }
 
+async function getLeave(username) {
+  const { rows } = await db.query('SELECT startdate, enddate, status FROM leave WHERE ctaker=$1', [username]);
+  return rows;
+}
+
 // if rating is not null, the service has completed
 async function getReview(cname) {
   const { rows } = await db.query('SELECT ptype AS petcategory, rating, review FROM orders WHERE ctaker = $1 AND rating <> null', [cname]);
@@ -119,5 +124,6 @@ module.exports = {
     updateOrder,
     addAvailabilityDup,
     addLeave,
+    getLeave,
   },
 };

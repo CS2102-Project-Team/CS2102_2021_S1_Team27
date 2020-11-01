@@ -214,7 +214,7 @@ router.get('/availability', auth.authenticateToken, async (req, res) => {
   try {
     const inRes = await db.functions.getAvailability(req.user.username);
     res.status(200).json(inRes.map((element) => {
-      element = element.date.toISOString().split('T')[0];
+      element.date = element.date.toISOString().split('T')[0];
       return element;
     }));
     return;
@@ -290,6 +290,20 @@ router.post('/leaves', auth.authenticateToken, async (req, res) => {
       console.log(err);
       res.status(500).json({ error: 'error' });
     }
+  }
+});
+
+router.get('/leaves', auth.authenticateToken, async (req, res) => {
+  try {
+    const inRes = await db.functions.getLeave(req.user.username);
+    res.status(200).json(inRes.map((element) => {
+      element.startdate = element.startdate.toISOString().split('T')[0];
+      element.enddate = element.enddate.toISOString().split('T')[0];
+      return element;
+    }));
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
   }
 });
 
