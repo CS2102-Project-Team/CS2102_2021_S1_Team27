@@ -35,9 +35,18 @@ async function getFullTimePrices() {
   return rows;
 }
 
-// insert or update
-async function insertFullTimePrice(category, attribute, price) {
-  const { rows } = await db.query('UPDATE fulltime_price SET price1=$3 WHERE ptype = $2', [attribute, category, price]);
+// insert or update, a little strange bug needs debugging.
+async function insertFullTimePrice1(category, price) {
+  const { rows } = await db.query('UPDATE fulltime_price SET price1=$2 WHERE ptype = $1', [category, price]);
+  return rows;
+}
+
+async function insertFullTimePrice2(category, price) {
+  const { rows } = await db.query('UPDATE fulltime_price SET price2=$2 WHERE ptype = $1', [category, price]);
+  return rows;
+}
+async function insertFullTimePrice3(category, price) {
+  const { rows } = await db.query('UPDATE fulltime_price SET price3=$2 WHERE ptype = $1', [category, price]);
   return rows;
 }
 
@@ -71,7 +80,9 @@ module.exports = {
     changePasswordByEmail,
     changePasswordByUsername,
     getFullTimePrices,
-    insertFullTimePrice,
+    insertFullTimePrice1,
+    insertFullTimePrice2,
+    insertFullTimePrice3,
     getLeave,
     updateLeaveStatus,
     getAllCaretaker,

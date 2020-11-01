@@ -87,7 +87,7 @@ router.get('/price', auth.authenticateAdminToken, async (req, res) => {
 });
 
 // insert or update
-router.post('/price', auth.authenticateAdminToken, async (req, res) => {
+router.put('/price', auth.authenticateAdminToken, async (req, res) => {
   const { category } = req.body;
   const { classes } = req.body;
   const { price } = req.body;
@@ -100,15 +100,13 @@ router.post('/price', auth.authenticateAdminToken, async (req, res) => {
     return;
   }
   try {
-    let attribute = '';
     if (classes === 1) {
-      attribute = 'price1';
+      await db.functions.insertFullTimePrice1(category, price);
     } else if (classes === 2) {
-      attribute = 'price2';
+      await db.functions.insertFullTimePrice2(category, price);
     } else {
-      attribute = 'price3';
+      await db.functions.insertFullTimePrice3(category, price);
     }
-    await db.functions.insertFullTimePrice(category, attribute, price);
     res.status(204).json('success');
     return;
   } catch (err) {
@@ -142,7 +140,7 @@ router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.get('/caretakers', auth.authenticateToken, async (req, res) => {
+router.get('/caretakers', auth.authenticateAdminToken, async (req, res) => {
   try {
     const inRes = await db.functions.getAllCaretaker();
     res.status(200).json(inRes);
@@ -152,7 +150,7 @@ router.get('/caretakers', auth.authenticateToken, async (req, res) => {
   }
 });
 
-router.get('/petowners', auth.authenticateToken, async (req, res) => {
+router.get('/petowners', auth.authenticateAdminToken, async (req, res) => {
   try {
     const inRes = await db.functions.getAllPetowners();
     res.status(200).json(inRes);
