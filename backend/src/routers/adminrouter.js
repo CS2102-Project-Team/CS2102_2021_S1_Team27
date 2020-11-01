@@ -32,6 +32,7 @@ router.get('/', (req, res) => res.redirect(307, 'https://cs2102-doc.netlify.app/
 Skip authentication: (req,res,next) => {req.user = 'kyle';next();},
 */
 
+/*
 router.get('/cards', auth.authenticateAdminToken, async (req, res) => {
   try {
     const insRes = await db.functions.getCards(req.user.username);
@@ -63,11 +64,96 @@ router.post('/cards', auth.authenticateAdminToken, async (req, res) => {
     res.status(500).json({ error: 'error' });
   }
 });
+*/
 
-router.get('/admin', auth.authenticateAdminToken, async (req, res) => {
+router.get('/', auth.authenticateAdminToken, async (req, res) => {
   try {
     const adminInfo = await db.functions.getAdminByUsername(req.user.username);
     res.status(200).json({ username: adminInfo.username, email: adminInfo.email });
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.get('/price', auth.authenticateAdminToken, async (req, res) => {
+  try {
+    const prices = await db.functions.getFullTimePrices();
+    res.status(200).json(prices);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+// insert or update
+router.put('/price', auth.authenticateAdminToken, async (req, res) => {
+  const { category } = req.body;
+  const { classes } = req.body;
+  const { price } = req.body;
+
+  if (typeof category !== 'string'
+        || typeof classes !== 'number'
+        || typeof price !== 'number'
+  ) {
+    res.status(400);
+    return;
+  }
+  try {
+    if (classes === 1) {
+      await db.functions.insertFullTimePrice1(category, price);
+    } else if (classes === 2) {
+      await db.functions.insertFullTimePrice2(category, price);
+    } else {
+      await db.functions.insertFullTimePrice3(category, price);
+    }
+    res.status(204).json('success');
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.get('/leave', auth.authenticateAdminToken, async (req, res) => {
+  try {
+    const leave = await db.functions.getLeave();
+    res.status(200).json(leave);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
+  try {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const element of req.body) {
+      // eslint-disable-next-line
+      // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
+      await db.functions.addLeave(element.caretakerusername, element.startdate,
+        element.enddate, element.approve);
+    }
+    res.status(200).json('success');
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.get('/caretakers', auth.authenticateAdminToken, async (req, res) => {
+  try {
+    const inRes = await db.functions.getAllCaretaker();
+    res.status(200).json(inRes);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.get('/petowners', auth.authenticateAdminToken, async (req, res) => {
+  try {
+    const inRes = await db.functions.getAllPetowners();
+    res.status(200).json(inRes);
     return;
   } catch (err) {
     res.status(500).json({ error: 'error' });

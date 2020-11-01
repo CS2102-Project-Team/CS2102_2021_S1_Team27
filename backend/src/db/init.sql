@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS caretakers;
 DROP TABLE IF EXISTS pets;
 DROP TABLE IF EXISTS pettypes;
 DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS fulltime_price;
 
 
 
@@ -72,6 +73,13 @@ CREATE TABLE looksafter(
     PRIMARY KEY (ctaker, ptype)
 );
 
+CREATE TABLE fulltime_price(
+    ptype VARCHAR PRIMARY KEY REFERENCES pettypes(ptype),
+    price1 INT,
+    price2 INT,
+    price3 INT
+);
+
 --INSERT INTO looksafter VALUES ('kyle2', 20, 'cat');
 
 CREATE TABLE calendar(
@@ -88,6 +96,16 @@ CREATE TABLE available(
     status VARCHAR DEFAULT 'available', --available, full
     PRIMARY KEY(ctaker, date)
 );
+
+CREATE TABLE leave(
+    ctaker VARCHAR REFERENCES caretakers(username),
+    startdate DATE REFERENCES calendar(date),
+    enddate DATE REFERENCES calendar(date),
+    clash VARCHAR DEFAULT 'false',
+    status VARCHAR DEFAULT 'pending', --pending, approved
+    PRIMARY KEY(ctaker, startdate, enddate)
+);
+
 
 CREATE TABLE orders(
     bidtime TIMESTAMP,
@@ -192,3 +210,36 @@ CREATE TRIGGER update_available_after_payment
 AFTER INSERT OR UPDATE ON orders
 FOR EACH ROW WHEN (NEW.status = 'Payment Received' OR NEW.status = 'Pending Payment')
 EXECUTE FUNCTION update_available(); 
+
+
+-- CREATE OR REPLACE FUNCTION update_clash()
+-- RETURNS TRIGGER AS
+-- $$ 
+-- BEGIN
+-- if EXISTS (SELECT 1 FROM orders O WHERE O.sdate <= NEW.enddate AND O.edate >= NEW.startdate AND O.ctaker = NEW.ctaker)
+-- THEN 
+-- UPDATE leave L SET clash = 'true' WHERE L.ctaker = NEW.ctaker AND L.startdate = NEW.startdate AND L.enddate = NEW.enddate;
+-- END IF;
+-- RETURN NEW;
+-- END;
+-- $$
+-- LANGUAGE plpgsql;
+
+-- CREATE TRIGGER update_clash_after_leave
+-- AFTER INSERT ON leave
+-- FOR EACH ROW
+-- EXECUTE PROCEDURE update_clash();
+
+
+CREATE OR REPLACE PROCEDURE update_leave(ctakerV VARCHAR, startdateV DATE, enddateV DATE) AS
+$$
+BEGIN
+if NOT EXISTS (SELECT 1 FROM orders O WHERE O.sdate <= enddateV AND O.edate >= startdateV AND O.ctaker = ctakerV)
+THEN
+INSERT INTO leave(ctaker, startdate , enddate) VALUES (ctakerV, startdateV, enddateV);
+RAISE NOTICE 'sucessfully done!';
+END IF;
+END;
+$$
+language plpgsql;
+--one thing yet to finalize is how to send notification when the procedure is rolled back

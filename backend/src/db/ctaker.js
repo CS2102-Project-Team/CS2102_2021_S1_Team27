@@ -46,6 +46,11 @@ async function getOrders(username) {
   return rows;
 }
 
+async function updateOrder(ownerusername, petname, startdate, enddate) {
+  const { rows } = await db.query('UPDATE orders SET status = \'Payment Received\' WHERE powner=$1 AND pname=$2 AND sdate = $3 AND edate=$4', [ownerusername, petname, startdate, enddate]);
+  return rows;
+}
+
 async function getPendingOrders(username) {
   const { rows } = await db.query('SELECT sdate startdate, edate enddate, remark specialrequirement, ptype petcategory, pname petname, powner ownerusername, status, delivery deliverymode FROM orders WHERE ctaker=$1 AND status=\'Pending Caretaker Acceptance\'', [username]);
   return rows;
@@ -82,6 +87,22 @@ async function addAvailability(username, startDate, endDate) {
   return rows;
 }
 
+async function addLeave(username, startDate, endDate) {
+  const { rows } = await db.query('CALL update_leave($1, $2, $3)', [username, startDate, endDate]);
+  return rows;
+}
+
+async function getLeave(username) {
+  const { rows } = await db.query('SELECT startdate, enddate, status FROM leave WHERE ctaker=$1', [username]);
+  return rows;
+}
+
+// if rating is not null, the service has completed
+async function getReview(cname) {
+  const { rows } = await db.query('SELECT ptype AS petcategory, rating, review FROM orders WHERE ctaker = $1 AND rating IS NOT NULL', [cname]);
+  return rows;
+}
+
 async function addAvailabilityDup(username, startDate, endDate) {
   const { rows } = await db.query('INSERT INTO available(ctaker, date, status) SELECT $1, dd::date, \'available\' FROM generate_series($2::timestamp, $3::timestamp, \'1 day\'::interval) dd ON CONFLICT DO NOTHING', [username, startDate, endDate]);
   return rows;
@@ -105,6 +126,10 @@ module.exports = {
     acceptRejectBid,
     getAvailability,
     addAvailability,
+    getReview,
+    updateOrder,
     addAvailabilityDup,
+    addLeave,
+    getLeave,
   },
 };

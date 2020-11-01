@@ -30,6 +30,47 @@ async function changePasswordByUsername(username, password) {
   return rows;
 }
 
+async function getFullTimePrices() {
+  const { rows } = await db.query('SELECT ptype category, price1, price2, price3 FROM fulltime_price');
+  return rows;
+}
+
+// insert or update, a little strange bug needs debugging.
+async function insertFullTimePrice1(category, price) {
+  const { rows } = await db.query('UPDATE fulltime_price SET price1=$2 WHERE ptype = $1', [category, price]);
+  return rows;
+}
+
+async function insertFullTimePrice2(category, price) {
+  const { rows } = await db.query('UPDATE fulltime_price SET price2=$2 WHERE ptype = $1', [category, price]);
+  return rows;
+}
+async function insertFullTimePrice3(category, price) {
+  const { rows } = await db.query('UPDATE fulltime_price SET price3=$2 WHERE ptype = $1', [category, price]);
+  return rows;
+}
+
+// one thing to change -> clash is not stored.
+async function getLeave() {
+  const { rows } = await db.query('SELECT ctaker AS caretakerusername, startdate, enddate, clash, status FROM leave');
+  return rows;
+}
+
+async function updateLeaveStatus(username, startDate, endDate, status) {
+  const { rows } = await db.query('UPDATE leave SET status = $4 WHERE ctaker = $1 AND startdate = $2 AND enddate = $3', [username, startDate, endDate, status]);
+  return rows;
+}
+
+async function getAllCaretaker() {
+  const { rows } = await db.query('SELECT username, (SELECT realname FROM accounts a WHERE a.username = username) AS name, fulltime, (SELECT addres FROM accounts a1 WHERE a1.username = username) AS address, (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers');
+  return rows;
+}
+
+async function getAllPetowners() {
+  const { rows } = await db.query('SELECT powner AS username, (SELECT COUNT(*) FROM orders a WHERE a.powner = powner) AS deal, (SELECT SUM(a2.price) FROM orders a2 WHERE a2.powner = powner) FROM orders');
+  return rows;
+}
+
 module.exports = {
   functions: {
     getAdminByEmail,
@@ -38,5 +79,13 @@ module.exports = {
     insertAvailability,
     changePasswordByEmail,
     changePasswordByUsername,
+    getFullTimePrices,
+    insertFullTimePrice1,
+    insertFullTimePrice2,
+    insertFullTimePrice3,
+    getLeave,
+    updateLeaveStatus,
+    getAllCaretaker,
+    getAllPetowners,
   },
 };
