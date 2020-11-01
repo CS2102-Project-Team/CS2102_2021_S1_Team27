@@ -116,7 +116,7 @@ export default {
       return order.status === 'Pending Payment' && order.payment === 'credit card';
     },
     canGiveRating(order) {
-      return new Date(order.edate).getDate() <= Date.now() && (order.status === 'Pending Payment' || order.status === 'Payment Received');
+      return new Date(order.edate).getTime() <= Date.now() && (order.status === 'Pending Payment' || order.status === 'Payment Received');
     },
     makePayment(order) {
       const petname = order.pname;
