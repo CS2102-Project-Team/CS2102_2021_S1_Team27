@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import { getService } from '@/api/service'
 import echarts from 'echarts'
 require('echarts/theme/macarons') // echarts theme
 import resize from './mixins/resize'
@@ -25,7 +26,8 @@ export default {
   },
   data() {
     return {
-      chart: null
+      chart: null,
+      data: null
     }
   },
   mounted() {
@@ -42,56 +44,58 @@ export default {
   },
   methods: {
     initChart() {
-      this.chart = echarts.init(this.$el, 'macarons')
-      this.chart.setOption({
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: { // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-          }
-        },
-        grid: {
-          top: 10,
-          left: '2%',
-          right: '2%',
-          bottom: '3%',
-          containLabel: true
-        },
-        xAxis: [{
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-          axisTick: {
-            alignWithLabel: true
-          }
-        }],
-        yAxis: [{
-          type: 'value',
-          axisTick: {
-            show: false
-          }
-        }],
-        series: [{
-          name: 'pageA',
-          type: 'bar',
-          stack: 'vistors',
-          barWidth: '60%',
-          data: [79, 52, 200, 334, 390, 330, 220],
-          animationDuration
-        }, {
-          name: 'pageB',
-          type: 'bar',
-          stack: 'vistors',
-          barWidth: '60%',
-          data: [80, 52, 200, 334, 390, 330, 220],
-          animationDuration
-        }, {
-          name: 'pageC',
-          type: 'bar',
-          stack: 'vistors',
-          barWidth: '60%',
-          data: [30, 52, 200, 334, 390, 330, 220],
-          animationDuration
-        }]
+      const currentDate = new Date()
+      const currentYear = currentDate.getFullYear() // 2020
+      const currentMonth = currentDate.getMonth() // start from 0
+      const toMonth = `${('0000' + currentYear).substr(-4)}-${('00' + (currentMonth + 1)).substr(-2)}`
+      const fromMonth = `${('0000' + (currentMonth - 12 >= 0 ? currentYear : currentYear - 1)).substr(-4)}-${('00' + ((currentMonth + 12) % 12 + 1)).substr(-2)}`
+      getService({ from: fromMonth, to: toMonth }).then(data => {
+        this.data = data
+        const options = {
+          title: {
+            text: 'Service'
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow' // 'line' | 'shadow'
+            }
+          },
+          grid: {
+            left: '5%',
+            right: '5%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: [{
+            type: 'category',
+            data: data.map(x => x.month),
+            axisTick: {
+              alignWithLabel: true
+            }
+          }],
+          yAxis: [{
+            type: 'value',
+            axisTick: {
+              show: false
+            }
+          }],
+          series: ['cat', 'dog', 'fish'].map(petcategory => {
+            return {
+              name: petcategory,
+              type: 'bar',
+              barWidth: '60%',
+              stack: 'vistors',
+              data: data.map(x => x.pethour[petcategory]),
+              animationDuration
+            }
+          }),
+          color: [
+            '#16A085', '#3498DB', '#2E4053'
+          ]
+        }
+        this.chart = echarts.init(this.$el, 'macarons')
+        this.chart.setOption(options)
       })
     }
   }

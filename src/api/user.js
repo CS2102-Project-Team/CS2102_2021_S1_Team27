@@ -34,8 +34,8 @@ export function getInfo() {
           email
         }
       })
-    // eslint-disable-next-line handle-callback-err
     }).catch(error => {
+      console.log(error)
       resolve({
         data: mockUser
       })

@@ -1,5 +1,5 @@
 <template>
   <div>
-    Hello~
+    Featured Caretakers will be shown here
   </div>
 </template>

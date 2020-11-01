@@ -1,5 +1,5 @@
 <template>
   <div>
-    Hello~
+    Review leave applications here~
   </div>
 </template>

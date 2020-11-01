@@ -1,5 +1,5 @@
 <template>
   <div>
-    Hello~
+    Set pricing here
   </div>
 </template>
