@@ -152,4 +152,14 @@ router.get('/caretakers', auth.authenticateToken, async (req, res) => {
   }
 });
 
+router.get('/petowners', auth.authenticateToken, async (req, res) => {
+  try {
+    const inRes = await db.functions.getAllPetowners();
+    res.status(200).json(inRes);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
 module.exports = router;

@@ -56,6 +56,11 @@ async function getAllCaretaker() {
   return rows;
 }
 
+async function getAllPetowners() {
+  const { rows } = await db.query('SELECT powner AS username, (SELECT COUNT(*) FROM orders a WHERE a.powner = powner) AS deal, (SELECT SUM(a2.price) FROM orders a2 WHERE a2.powner = powner) FROM orders');
+  return rows;
+}
+
 module.exports = {
   functions: {
     getAdminByEmail,
@@ -69,5 +74,6 @@ module.exports = {
     getLeave,
     addLeave,
     getAllCaretaker,
+    getAllPetowners,
   },
 };
