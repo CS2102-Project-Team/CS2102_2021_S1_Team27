@@ -84,6 +84,6 @@ export default {
   }
   .ct_stats {
     width: 480px;
-    flex: center;
+    /* float: center; */
   }
 </style>
