@@ -12,7 +12,7 @@ async function getReviews(username) {
 
 async function insertCaretaker(username, realname) {
   await db.query('UPDATE accounts SET realname=$2 WHERE username=$1', [username, realname]);
-  const { rows } = await db.query('INSERT INTO caretakers(username, fulltime, maxpets) VALUES ($1, false, 2)', [username]);
+  const { rows } = await db.query('INSERT INTO caretakers(username, fulltime, maxpets, apptime) VALUES ($1, false, 2, current_timestamp)', [username]);
   return rows;
 }
 
