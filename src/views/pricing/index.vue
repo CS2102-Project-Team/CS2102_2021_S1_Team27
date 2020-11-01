@@ -8,17 +8,17 @@
         <div class="inputRow">
           <span style="display: inline-block; width: 80px;">Class 1:</span>
           <el-input v-model="form.dog1" style="width: 180px;" />
-          <el-button type="primary" class="updateBtn" @click="onSubmit">Update</el-button>
+          <el-button type="primary" class="updateBtn" @click="onSubmit('dog1')">Update</el-button>
         </div>
         <div class="inputRow">
           <span style="display: inline-block; width: 80px;">Class 2:</span>
           <el-input v-model="form.dog2" style="width: 180px;" />
-          <el-button type="primary" class="updateBtn" @click="onSubmit">Update</el-button>
+          <el-button type="primary" class="updateBtn" @click="onSubmit('dog2')">Update</el-button>
         </div>
         <div class="inputRow">
           <span style="display: inline-block; width: 80px;">Class 3:</span>
           <el-input v-model="form.dog3" style="width: 180px;" />
-          <el-button type="primary" class="updateBtn" @click="onSubmit">Update</el-button>
+          <el-button type="primary" class="updateBtn" @click="onSubmit('dog3')">Update</el-button>
         </div>
       </el-form>
     </el-card>
@@ -30,17 +30,17 @@
         <div class="inputRow">
           <span style="display: inline-block; width: 80px;">Class 1:</span>
           <el-input v-model="form.cat1" style="width: 180px;" />
-          <el-button type="primary" class="updateBtn" @click="onSubmit">Update</el-button>
+          <el-button type="primary" class="updateBtn" @click="onSubmit('cat1')">Update</el-button>
         </div>
         <div class="inputRow">
           <span style="display: inline-block; width: 80px;">Class 2:</span>
           <el-input v-model="form.cat2" style="width: 180px;" />
-          <el-button type="primary" class="updateBtn" @click="onSubmit">Update</el-button>
+          <el-button type="primary" class="updateBtn" @click="onSubmit('cat2')">Update</el-button>
         </div>
         <div class="inputRow">
           <span style="display: inline-block; width: 80px;">Class 3:</span>
           <el-input v-model="form.cat3" style="width: 180px;" />
-          <el-button type="primary" class="updateBtn" @click="onSubmit">Update</el-button>
+          <el-button type="primary" class="updateBtn" @click="onSubmit('cat3')">Update</el-button>
         </div>
       </el-form>
     </el-card>
@@ -52,17 +52,17 @@
         <div class="inputRow">
           <span style="display: inline-block; width: 80px;">Class 1:</span>
           <el-input v-model="form.fish1" style="width: 180px;" />
-          <el-button type="primary" class="updateBtn" @click="onSubmit">Update</el-button>
+          <el-button type="primary" class="updateBtn" @click="onSubmit('fish1')">Update</el-button>
         </div>
         <div class="inputRow">
           <span style="display: inline-block; width: 80px;">Class 2:</span>
           <el-input v-model="form.fish2" style="width: 180px;" />
-          <el-button type="primary" class="updateBtn" @click="onSubmit">Update</el-button>
+          <el-button type="primary" class="updateBtn" @click="onSubmit('fish2')">Update</el-button>
         </div>
         <div class="inputRow">
           <span style="display: inline-block; width: 80px;">Class 3:</span>
           <el-input v-model="form.fish3" style="width: 180px;" />
-          <el-button type="primary" class="updateBtn" @click="onSubmit">Update</el-button>
+          <el-button type="primary" class="updateBtn" @click="onSubmit('fish3')">Update</el-button>
         </div>
       </el-form>
     </el-card>
@@ -70,18 +70,20 @@
 </template>
 
 <script>
+import { getPrice, putPrice } from '@/api/price'
 export default {
   data() {
     return {
       form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        dog1: '',
+        dog2: '',
+        dog3: '',
+        cat1: '',
+        cat2: '',
+        cat3: '',
+        fish1: '',
+        fish2: '',
+        fish3: ''
       }
     }
   },
@@ -89,9 +91,44 @@ export default {
     this.fetchData()
   },
   methods: {
-    fetchData() {},
-    onSubmit() {
-      console.log('submit!')
+    fetchData() {
+      getPrice().then(data => {
+        data.forEach(element => {
+          switch (element.category) {
+            case 'dog':
+              this.form.dog1 = element.price1
+              this.form.dog2 = element.price2
+              this.form.dog3 = element.price3
+              break
+            case 'cat':
+              this.form.cat1 = element.price1
+              this.form.cat2 = element.price2
+              this.form.cat3 = element.price3
+              break
+            case 'fish':
+              this.form.fish1 = element.price1
+              this.form.fish2 = element.price2
+              this.form.fish3 = element.price3
+              break
+          }
+        })
+      })
+    },
+    onSubmit(key) {
+      console.log('submited!')
+      const data = {
+        category: key.substr(0, 3),
+        classes: parseInt(key.substr(-1)),
+        price: parseInt(this.form[key])
+      }
+      putPrice(data).then(() => {
+        this.$message({
+          message: 'Price successfully updated',
+          type: 'success'
+        })
+      }).catch(error => {
+        this.$message.error(`Oops, price not updated :< ${error}`)
+      })
     }
   }
 }
