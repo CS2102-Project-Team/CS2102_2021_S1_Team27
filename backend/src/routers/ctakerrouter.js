@@ -273,4 +273,25 @@ router.post('/availability', auth.authenticateToken, async (req, res) => {
   }
 });
 
+
+router.post('/leaves', auth.authenticateToken, async (req, res) => {
+  try {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const element of req.body) {
+      // eslint-disable-next-line
+      // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
+      await db.functions.addLeave(req.user.username, element.startdate, element.enddate);
+    }
+    res.status(200).json('success');
+    return;
+  } catch (err) {
+    if (err.code === '23505') {
+      res.status(422).json({ error: err.detail });
+    } else {
+      console.log(err);
+      res.status(500).json({ error: 'error' });
+    }
+  }
+});
+
 module.exports = router;
