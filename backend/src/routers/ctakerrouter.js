@@ -34,6 +34,22 @@ router.get('/', auth.authenticateToken, async (req, res) => {
     res.status(500).json({ error: 'error' });
   }
 });
+
+router.get('/reviews', auth.authenticateToken, async (req, res) => {
+  try {
+    const { caretakerusername } = req.query; // not params
+    console.log(caretakerusername);
+    if (!caretakerusername) {
+      res.status(422).json({ error: 'No username' });
+      return;
+    }
+    const inRes = await db.functions.getReviews(caretakerusername);
+    res.status(200).json(inRes);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
 /*
 router.get('/', (req, res) => res.redirect(307, 'https://cs2102-doc.netlify.app/'));
 Skip authentication: (req,res,next) => {req.user = 'kyle';next();},
@@ -198,11 +214,42 @@ router.get('/availability', auth.authenticateToken, async (req, res) => {
   try {
     const inRes = await db.functions.getAvailability(req.user.username);
     res.status(200).json(inRes.map((element) => {
-      element.date = element.date.toISOString().split('T')[0];
+      element = element.date.toISOString().split('T')[0];
       return element;
     }));
     return;
   } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.post('/availability-d-d', auth.authenticateToken, async (req, res) => {
+  try {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const element of req.body) {
+      // eslint-disable-next-line
+      // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
+      await db.functions.addAvailabilityDup(req.user.username, element.startdate, element.enddate);
+    }
+    res.status(200).json('success');
+    return;
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.post('/availability-d', auth.authenticateToken, async (req, res) => {
+  try {
+    if (!req.body.startdate) {
+      res.status(422).json('No startdate');
+    }
+    // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
+    await db.functions.addAvailabilityDup(req.user.username, req.body.startdate, req.body.enddate);
+    res.status(200).json('success');
+    return;
+  } catch (err) {
+    console.log(err);
     res.status(500).json({ error: 'error' });
   }
 });
@@ -218,7 +265,12 @@ router.post('/availability', auth.authenticateToken, async (req, res) => {
     res.status(200).json('success');
     return;
   } catch (err) {
-    res.status(500).json({ error: 'error' });
+    if (err.code === '23505') {
+      res.status(422).json({ error: err.detail });
+    } else {
+      console.log(err);
+      res.status(500).json({ error: 'error' });
+    }
   }
 });
 

@@ -31,7 +31,7 @@ async function deletePet(username, petname) {
 }
 
 async function getService(petcategory, startdate, enddate) {
-  const { rows } = await db.query('SELECT realname, addres, fulltime, (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating, price * ($3::DATE - $2::DATE + 1) AS totalprice FROM (caretakers C JOIN looksafter ON ctaker=C.username AND ptype=$1) NATURAL JOIN accounts WHERE ($3::DATE-$2::DATE+1) = (SELECT COUNT(*) FROM available A WHERE A.ctaker=C.username AND date>=$2 AND date<=$3 AND status=\'available\')', [petcategory, startdate, enddate]);
+  const { rows } = await db.query('SELECT username, realname, addres, fulltime, (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating, price * ($3::DATE - $2::DATE + 1) AS totalprice FROM (caretakers C JOIN looksafter ON ctaker=C.username AND ptype=$1) NATURAL JOIN accounts WHERE ($3::DATE-$2::DATE+1) = (SELECT COUNT(*) FROM available A WHERE A.ctaker=C.username AND date>=$2 AND date<=$3 AND status=\'available\')', [petcategory, startdate, enddate]);
   return rows;
 }
 // just a little unsure -> is the address ctaker's or user's
@@ -68,6 +68,13 @@ async function changeBid(username, petname, caretakerusername,
   return rows;
 }
 
+async function payOrder(username, petname, caretakerusername,
+  startdate, enddate) {
+  const { rows } = await db.query('UPDATE orders SET status = \'Payment Received\' WHERE powner = $1 AND pname = $2 AND ctaker = $3 AND sdate = $4 AND edate = $5', [username, petname, caretakerusername,
+    startdate, enddate]);
+  return rows;
+}
+
 module.exports = {
   functions: {
     getUserByEmail,
@@ -82,5 +89,6 @@ module.exports = {
     getAllBids,
     deleteBid,
     changeBid,
+    payOrder,
   },
 };

@@ -250,4 +250,22 @@ router.put('/order', auth.authenticateToken, async (req, res) => {
   }
 });
 
+// Tested
+router.put('/pay', auth.authenticateToken, async (req, res) => {
+  const { petname } = req.body;
+  const { caretakerusername } = req.body;
+  const { startdate } = req.body;
+  const { enddate } = req.body;
+  try {
+    await db.functions.payOrder(req.user.username, petname, caretakerusername,
+      startdate, enddate);
+    res.status(204).json('success');
+    return;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
+    res.status(500).json({ error: 'Order not exists' });
+  }
+});
+
 module.exports = router;
