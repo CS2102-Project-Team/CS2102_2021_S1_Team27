@@ -120,6 +120,21 @@ router.get('/orders', auth.authenticateToken, async (req, res) => {
   }
 });
 
+router.put('/orders/payment', auth.authenticateToken, async (req, res) => {
+  const { startdate } = req.body;
+  const { enddate } = req.body;
+  const { ownerusername } = req.body;
+  const { petname } = req.body;
+
+  try {
+    await db.functions.updateOrder(ownerusername, petname, startdate, enddate);
+    res.status(204).json('success');
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
 /* Unfinished */
 router.get('/stats', auth.authenticateToken, async (req, res) => {
   try {

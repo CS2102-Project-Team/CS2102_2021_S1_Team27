@@ -36,6 +36,12 @@ async function getOrders(username) {
   return rows;
 }
 
+async function updateOrder(ownerusername, petname, startdate, enddate) {
+  const { rows } = await db.query('UPDATE orders SET status = \'Payment Received\' WHERE powner=$1 AND pname=$2 AND sdate = $3 AND edate=$4', [ownerusername, petname, startdate, enddate]);
+  console.log(rows);
+  return rows;
+}
+
 async function getPendingOrders(username) {
   const { rows } = await db.query('SELECT sdate startdate, edate enddate, remark specialrequirement, ptype petcategory, pname petname, powner ownerusername, status, delivery deliverymode FROM orders WHERE ctaker=$1 AND status=\'Pending Caretaker Acceptance\'', [username]);
   return rows;
@@ -95,5 +101,6 @@ module.exports = {
     getAvailability,
     addAvailability,
     getReview,
+    updateOrder,
   },
 };
