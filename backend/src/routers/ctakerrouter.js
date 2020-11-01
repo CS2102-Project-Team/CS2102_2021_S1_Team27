@@ -149,7 +149,8 @@ router.get('/stats', auth.authenticateToken, async (req, res) => {
       result.petday = inRes[0].sum ? inRes[0].sum : 0;
     }
     if (req.query.salary) {
-      const inRes = await db.functions.getSalary(req.user.username);
+      const fulltime = await db.functions.checkFulltime(req.user.username);
+      const inRes = await db.functions.getSalary(req.user.username, fulltime);
       result.salary = inRes;
     }
     res.status(200).json(result);
