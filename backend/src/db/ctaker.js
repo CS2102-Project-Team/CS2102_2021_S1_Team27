@@ -5,6 +5,11 @@ async function getCaretaker(username) {
   return rows;
 }
 
+async function checkFulltime(username) {
+  const { rows } = await db.query('SELECT fulltime FROM caretakers WHERE username = $1', [username]);
+  return rows[0];
+}
+
 async function getReviews(username) {
   const { rows } = await db.query('SELECT ptype petcategory,rating, review FROM orders WHERE ctaker=$1 AND rating IS NOT NULL', [username]);
   return rows;
@@ -85,6 +90,7 @@ async function addAvailabilityDup(username, startDate, endDate) {
 module.exports = {
   functions: {
     getCaretaker,
+    checkFulltime,
     getReviews,
     insertCaretaker,
     getCategory,
