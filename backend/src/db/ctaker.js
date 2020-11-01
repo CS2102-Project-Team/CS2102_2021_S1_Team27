@@ -82,10 +82,11 @@ async function addAvailability(username, startDate, endDate) {
   return rows;
 }
 
-
 // if rating is not null, the service has completed
 async function getReview(cname) {
   const { rows } = await db.query('SELECT ptype AS petcategory, rating, review FROM orders WHERE ctaker = $1 AND rating <> null', [cname]);
+  return rows;
+}
 
 async function addAvailabilityDup(username, startDate, endDate) {
   const { rows } = await db.query('INSERT INTO available(ctaker, date, status) SELECT $1, dd::date, \'available\' FROM generate_series($2::timestamp, $3::timestamp, \'1 day\'::interval) dd ON CONFLICT DO NOTHING', [username, startDate, endDate]);

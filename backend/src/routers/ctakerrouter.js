@@ -244,7 +244,6 @@ router.post('/availability-d', auth.authenticateToken, async (req, res) => {
     if (!req.body.startdate) {
       res.status(422).json('No startdate');
     }
-    // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
     await db.functions.addAvailabilityDup(req.user.username, req.body.startdate, req.body.enddate);
     res.status(200).json('success');
     return;

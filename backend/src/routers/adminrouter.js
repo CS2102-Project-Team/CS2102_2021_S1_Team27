@@ -32,6 +32,7 @@ router.get('/', (req, res) => res.redirect(307, 'https://cs2102-doc.netlify.app/
 Skip authentication: (req,res,next) => {req.user = 'kyle';next();},
 */
 
+/*
 router.get('/cards', auth.authenticateAdminToken, async (req, res) => {
   try {
     const insRes = await db.functions.getCards(req.user.username);
@@ -63,6 +64,7 @@ router.post('/cards', auth.authenticateAdminToken, async (req, res) => {
     res.status(500).json({ error: 'error' });
   }
 });
+*/
 
 router.get('/', auth.authenticateAdminToken, async (req, res) => {
   try {
