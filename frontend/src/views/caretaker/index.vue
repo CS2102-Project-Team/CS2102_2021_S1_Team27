@@ -17,12 +17,12 @@
                 </div>
                 <div class="ct_info_body">
                     <el-row>
-                        <el-col>
+                        <el-col class = "text item">
                             <span>
                                 {{'Type: '+ this.type}}
                             </span>
                         </el-col>
-                        <el-col>
+                        <el-col class = "text item">
                             <span>
                                 {{'Rating: '+ this.rating}}
                             </span>
@@ -488,5 +488,11 @@ export default {
 </script>
 
 <style>
+.text {
+    font-size: 14px;
+  }
 
+.item {
+    padding: 18px 0;
+  }
 </style>

@@ -12,43 +12,28 @@
     </el-aside>
     <el-container>
         <el-main>
-            <!-- ptct means part-time caretaker -->
-            <!-- <el-card class="ptct_avbl">
+            <el-card class="ptct_avbl">
                 <div slot="header" class="clearfix">
                     <span>My Current Avaliability</span>
                 </div>
-                <el-table
-                  :data = "leavesapplied"
-                  max-height="250"
-                  border
-                  empty-text= "empty"
-                  :key = "leaveTableKey"
-                  >
-                    <el-table-column
-                        label = "start date"
-                        prop = "startdate"
-                        >
-                    </el-table-column>
-                    <el-table-column
-                        label = "end date"
-                        prop = "enddate"
-                        >
-                    </el-table-column>
-                    <el-table-column
-                        label = "status"
-                        prop = "status"
-                        >
-                    </el-table-column>
-                </el-table>
-            </el-card> -->
+                <el-calendar>
+                  <template
+                    slot="dateCell"
+                    slot-scope="{data}">
+                        <div class="calendar-day">{{ data.day.split('-').slice(2).join('-') }}</div>
+                        <p v-if="isAvbl(data.day)"
+                          :class = "isAvbl(data.day) ? 'isAvbl' : ''"
+                          >
+                          available
+                        </p>
+                        <!-- <div v-if="data.day.split('-').slice(1)[0] == value" >
+                        </div> -->
+                  </template>
+                </el-calendar>
+            </el-card>
             <el-card class="ptct_addavbl">
                 <div slot="header" class="clearfix">
                     <span>Add Avaliability</span>
-                    <!-- <el-button type="text" @click="addPCBtn"
-                      :disabled = "addedPetTypes.length === 3"
-                      style="float: right; padding: 3px 0">
-                      Add Pet Category
-                    </el-button> -->
                 </div>
                 <!-- can add in max height for the table -->
                 <el-date-picker
@@ -105,10 +90,7 @@
 </template>
 
 <script>
-// NOTE the way how addedPetTypes is maintained is very bad(dependent on a lot of functions)
-// whether addPetCategory button is disabled is also very dependent on addedPetTypes(length === 3)
-// will see how
-// TODO add Loading signs for all buttons
+
 import {
   getCareTakerAvaliablity, updateCareTakerAvaliablity,
 } from '@/api/caretaker';
@@ -150,8 +132,8 @@ export default {
           }
           const date = parseDate(time);
           // console.log(date);
-          return time.getTime() + oneDay < Date.now()
-            || vm.avblArray === [] ? false : vm.avblArray.includes(date);
+          return (time.getTime() + oneDay < Date.now())
+            || (vm.avblArray === [] ? false : vm.avblArray.includes(date));
         },
       },
     };
@@ -192,15 +174,12 @@ export default {
         this.$message.error(error.response.data.error);
       });
     },
-    closeDialog() {
-      this.applyLeaveVisible = false;
+    isAvbl(day) {
+      return this.avblArray.includes(day);
     },
-    // logData() {
-    //   console.log('pending orders');
-    //   console.log(this.pendingorders);
-    //   console.log('pet category');
-    //   console.log(this.petcategory);
-    // },
+    closeDialog() {
+      this.addAvblVisible = false;
+    },
   },
   beforeMount() {
     this.getCTAvbl();
@@ -210,5 +189,7 @@ export default {
 </script>
 
 <style>
-
+  .isAvbl {
+    color:#009E60;
+  }
 </style>

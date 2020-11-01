@@ -16,13 +16,29 @@ export function registerCareTaker(data) {
   });
 }
 
-export function getCareTakerOrders() {
+export function getCareTakerOrders(pastorderRequired) {
+  const params = { pastorder: pastorderRequired };
   return request({
     url: '/caretaker/orders',
     method: 'get',
+    params,
   });
 }
 
+export function updateCareTakerOrdersPayment(data) {
+  const {
+    startdate, enddate, ownerusername, petname,
+  } = data;
+  const params = { received: true };
+  return request({
+    url: '/caretaker/orders/payment',
+    method: 'put',
+    params,
+    data: {
+      startdate, enddate, ownerusername, petname,
+    },
+  });
+}
 // TODO Check if it is correct
 export function getCareTakerStats() {
   const params = { petday: true, salary: true };
@@ -98,9 +114,9 @@ export function getCareTakerAvaliablity() {
 export function updateCareTakerAvaliablity(data) {
   const { startdate, enddate } = data;
   return request({
-    url: '/caretaker/availability',
+    url: '/caretaker/availability-d-d',
     method: 'post',
-    data: { startdate, enddate },
+    data: [{ startdate, enddate }],
   });
 }
 
