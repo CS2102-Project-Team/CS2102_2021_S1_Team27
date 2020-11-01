@@ -38,7 +38,6 @@ async function getOrders(username) {
 
 async function updateOrder(ownerusername, petname, startdate, enddate) {
   const { rows } = await db.query('UPDATE orders SET status = \'Payment Received\' WHERE powner=$1 AND pname=$2 AND sdate = $3 AND edate=$4', [ownerusername, petname, startdate, enddate]);
-  console.log(rows);
   return rows;
 }
 
