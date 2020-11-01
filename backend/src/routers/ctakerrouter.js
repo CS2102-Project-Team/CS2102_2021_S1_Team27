@@ -8,7 +8,6 @@ const db = require('../db/ctaker');
 
 const router = express.Router();
 
-/* Unfinished */
 router.get('/', auth.authenticateToken, async (req, res) => {
   try {
     const rows = await db.functions.getCaretaker(req.user.username);
@@ -18,10 +17,7 @@ router.get('/', auth.authenticateToken, async (req, res) => {
       res.status(521).json({ error: 'User is not registered as a care taker' });
       return;
     }
-    /* rows3.forEach((element) => {
-      element.startdate = element.startdate.toISOString().split('T')[0];
-      element.enddate = element.enddate.toISOString().split('T')[0];
-    }); */
+
     const results = {};
     results.type = (rows[0].fulltime) ? 'full time' : 'part time';
     results.rating = Number(rows[0].rating).toFixed(2);
@@ -140,6 +136,25 @@ router.get('/orders', auth.authenticateToken, async (req, res) => {
   }
 });
 
+router.put('/orders/payment', auth.authenticateToken, async (req, res) => {
+  const { startdate } = req.body;
+  const { enddate } = req.body;
+  const { ownerusername } = req.body;
+  const { petname } = req.body;
+  const { received } = req.query;
+
+  try {
+    console.log(received);
+    if (received === 'true') {
+      await db.functions.updateOrder(ownerusername, petname, startdate, enddate);
+    }
+    res.status(204).json('success');
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
 /* Unfinished */
 router.get('/stats', auth.authenticateToken, async (req, res) => {
   try {
@@ -189,6 +204,18 @@ router.post('/orders', auth.authenticateToken, async (req, res) => {
     res.status(500).json({ error: 'error' });
   }
 });
+
+/*
+router.get('/reviews', auth.authenticateToken, async (req, res) => {
+  try {
+    const inRes = await db.functions.getReview(req.query.caretakerusername);
+    res.status(200).json(inRes);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+*/
 
 router.get('/availability', auth.authenticateToken, async (req, res) => {
   try {
@@ -250,6 +277,40 @@ router.post('/availability', auth.authenticateToken, async (req, res) => {
       console.log(err);
       res.status(500).json({ error: 'error' });
     }
+  }
+});
+
+router.post('/leaves', auth.authenticateToken, async (req, res) => {
+  try {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const element of req.body) {
+      // eslint-disable-next-line
+      // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
+      await db.functions.addLeave(req.user.username, element.startdate, element.enddate);
+    }
+    res.status(200).json('success');
+    return;
+  } catch (err) {
+    if (err.code === '23505') {
+      res.status(422).json({ error: err.detail });
+    } else {
+      console.log(err);
+      res.status(500).json({ error: 'error' });
+    }
+  }
+});
+
+router.get('/leaves', auth.authenticateToken, async (req, res) => {
+  try {
+    const inRes = await db.functions.getLeave(req.user.username);
+    res.status(200).json(inRes.map((element) => {
+      element.startdate = element.startdate.toISOString().split('T')[0];
+      element.enddate = element.enddate.toISOString().split('T')[0];
+      return element;
+    }));
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
   }
 });
 
