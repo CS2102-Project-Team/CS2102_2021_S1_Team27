@@ -202,7 +202,7 @@ router.get('/availability', auth.authenticateToken, async (req, res) => {
   }
 });
 
-router.post('/availability-d', auth.authenticateToken, async (req, res) => {
+router.post('/availability-d-d', auth.authenticateToken, async (req, res) => {
   try {
     // eslint-disable-next-line no-restricted-syntax
     for (const element of req.body) {
@@ -210,6 +210,21 @@ router.post('/availability-d', auth.authenticateToken, async (req, res) => {
       // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
       await db.functions.addAvailabilityDup(req.user.username, element.startdate, element.enddate);
     }
+    res.status(200).json('success');
+    return;
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.post('/availability-d', auth.authenticateToken, async (req, res) => {
+  try {
+    if (!req.body.startdate) {
+      res.status(422).json('No startdate');
+    }
+    // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
+    await db.functions.addAvailabilityDup(req.user.username, req.body.startdate, req.body.enddate);
     res.status(200).json('success');
     return;
   } catch (err) {
