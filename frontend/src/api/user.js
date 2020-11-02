@@ -65,7 +65,7 @@ export function updateUserInfo({ address, phone, realname }) {
 
 export function addCard(data) {
   const {
-    cardnumber, holdername, cvv, exp,
+    cardnumber, cvv, exp,
   } = data;
   const params = {};
   return request({

@@ -161,7 +161,9 @@
 </template>
 
 <script>
-import { searchVacancy, placeOrder, searchPets, getCTReview } from '@/api/petowner';
+import {
+  searchVacancy, placeOrder, searchPets, getCTReview,
+} from '@/api/petowner';
 import leftbar from './components/leftbar.vue';
 
 export default {
