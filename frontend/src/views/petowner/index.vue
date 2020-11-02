@@ -12,6 +12,7 @@
               v-model="param.startdate"
               type="date"
               placeholder="--select-date--"
+              value-format="yyyy-MM-dd"
               :picker-options="startOptions">
             </el-date-picker>
           </div>
@@ -25,6 +26,7 @@
               v-model="param.enddate"
               type="date"
               placeholder="--end-date--"
+              value-format="yyyy-MM-dd"
               :picker-options="endOptions">
             </el-date-picker>
           </div>
@@ -198,7 +200,7 @@ export default {
         disabledDate: (time) => {
           const a = time.getTime() < Date.now();
           if (this.param.startdate !== '') {
-            return time.getTime() < new Date(this.param.startdate).getTime() || a;
+            return time.getTime() < new Date(this.param.startdate).getTime() - 8.64e7 || a;
           }
           return a;
         },
@@ -215,15 +217,7 @@ export default {
         });
         return;
       }
-      const { petcategory } = this.param;
-      const startdate1 = new Date(this.param.startdate);
-      const enddate1 = new Date(this.param.enddate);
-      startdate1.setDate(startdate1.getDate() + 1);
-      enddate1.setDate(enddate1.getDate() + 1);
-      const startdate = startdate1.toISOString().split('T')[0];
-      const enddate = enddate1.toISOString().split('T')[0];
-      const searchParams = { startdate, enddate, petcategory };
-      searchVacancy(searchParams).then((results) => {
+      searchVacancy(this.param).then((results) => {
         let i;
         for (i = 0; i < results.data.length; i += 1) {
           const thisData = results.data[i];
@@ -270,12 +264,7 @@ export default {
     placeOrder(vacancy) {
       const caretakername = vacancy.username;
       const petname = this.pname;
-      const startdate1 = new Date(this.param.startdate);
-      const enddate1 = new Date(this.param.enddate);
-      startdate1.setDate(startdate1.getDate() + 1);
-      enddate1.setDate(enddate1.getDate() + 1);
-      const startdate = startdate1.toISOString().split('T')[0];
-      const enddate = enddate1.toISOString().split('T')[0];
+      const { startdate, enddate } = this.param;
       const { paymentmethod, deliverymode } = this;
       if (petname === '' || paymentmethod === '' || deliverymode === '') {
         this.$notify({
