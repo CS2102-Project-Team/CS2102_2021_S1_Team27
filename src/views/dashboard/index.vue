@@ -13,14 +13,14 @@
         </div>
       </el-col>
     </el-row>
-    <el-row :gutter="12" style="margin-bottom:30px;">
-      <el-col :xs="24" :sm="24" :md="24" :lg="9">
+    <el-row :gutter="36" style="margin-bottom:30px;">
+      <el-col :xs="24" :sm="12" :md="12" :lg="8">
         <featured-caretakers />
       </el-col>
-      <el-col :xs="24" :sm="12" :md="12" :lg="9">
+      <el-col :xs="24" :sm="12" :md="12" :lg="8">
         <featured-petowners />
       </el-col>
-      <el-col :xs="24" :sm="12" :md="12" :lg="6">
+      <el-col :xs="24" :sm="24" :md="24" :lg="8">
         <todo-list />
       </el-col>
     </el-row>

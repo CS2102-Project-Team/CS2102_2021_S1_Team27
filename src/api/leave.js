@@ -10,10 +10,10 @@ export function getLeave(data) {
 }
 
 export function putLeave(data) {
-  const { username, startdate, enddate, approve } = data
+  const { caretakerusername, startdate, enddate, approve } = data
   return request({
     url: '/admin/leave',
     method: 'put',
-    data: { username, startdate, enddate, approve }
+    data: { caretakerusername, startdate, enddate, approve }
   })
 }
