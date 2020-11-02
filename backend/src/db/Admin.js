@@ -11,7 +11,7 @@ async function getAdminByUsername(username) {
 }
 
 async function promotePartime(username) {
-  const { rows } = await db.query('UPDATE caretakers SET fulltime=true WHERE username = $1', [username]);
+  const { rows } = await db.query('BEGIN; UPDATE caretakers SET fulltime=true WHERE username = $1; INSERT INTO looksafter(ctaker, price, ptype) SELECT $1, 0, ptype FROM pettypes; SELECT update_price(ptype) FROM pettypes; COMMIT;', [username]);
   return rows;
 }
 
