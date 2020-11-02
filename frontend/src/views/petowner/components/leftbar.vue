@@ -1,26 +1,25 @@
 <template>
   <div id="leftbar">
-    <el-form class="ms-content">
-      <el-row :gutter="20">
-        <el-col :span="6">
-          <div class="bar-btn">
-            <el-button type="primary" v-on:click="goToService()" plain>
-              Search for Service
-            </el-button>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="bar-btn">
-            <el-button type="primary" v-on:click="goToOrders()" plain>My Orders</el-button>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="bar-btn">
-            <el-button type="primary" v-on:click="goToPets()" plain>My Pets</el-button>
-          </div>
-        </el-col>
-      </el-row>
-    </el-form>
+    <el-menu class="sidebar">
+      <el-menu-item index="1" @click="goToService()">
+        <template slot="title" >
+          <i class="el-icon-menu"></i>
+          Search For Service
+        </template>
+      </el-menu-item>
+      <el-menu-item index="2" @click="goToPets()">
+        <template slot="title" >
+          <i class="el-icon-menu"></i>
+          View My Pets
+        </template>
+      </el-menu-item>
+      <el-menu-item index="3" @click="goToOrders()">
+        <template slot="title" >
+          <i class="el-icon-menu"></i>
+          View My Orders
+        </template>
+      </el-menu-item>
+    </el-menu>
   </div>
 </template>
 
