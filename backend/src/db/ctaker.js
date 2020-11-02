@@ -61,10 +61,29 @@ async function getPetday(username) {
   return rows;
 }
 
-/* Unfinished */
-async function getSalary(username) {
-  const { rows } = await db.query('SELECT SUM(edate - sdate + 1) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) = EXTRACT(MONTH FROM current_timestamp)', [username]);
+async function getTotalOrderAmount(username) {
+  const { rows } = await db.query('SELECT SUM(price * 1.0 / (edate-sdate+1) * (earlier_date(edate, end_of_month(now()::DATE)) - later_date(sdate, start_of_month(now()::DATE)) + 1)) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM current_timestamp) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM current_timestamp)', [username]);
   return rows;
+}
+
+/* Unfinished */
+async function getSalary(username, fulltime) {
+  if (fulltime) {
+    const coeff = 0.8;
+    const petday = await getPetday(username);
+    if (petday <= 60) {
+      return 3000;
+    } else {
+      const totalAmount = await getTotalOrderAmount(username);
+      return 3000 + coeff*totalAmount/petday*(petday-60);
+    }
+  } else {
+    const totalAmount = await getTotalOrderAmount(username);
+    const coeff = 0.75;
+    return coeff * totalAmount;
+  }
+  /* const { rows } = await db.query('SELECT SUM(edate - sdate + 1) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) = EXTRACT(MONTH FROM current_timestamp)', [username]);
+  return rows; */
 }
 
 async function checkFull(username, startdate, enddate) {
