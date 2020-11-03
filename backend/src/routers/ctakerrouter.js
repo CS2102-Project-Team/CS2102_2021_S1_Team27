@@ -290,6 +290,55 @@ router.post('/leaves', auth.authenticateToken, async (req, res) => {
       if (await db.functions.checkclash(req.user.username, element.startdate, element.enddate) === 'true') {
         res.status(422).json({ error: 'time clash when leave' });
       }
+
+      // eslint-disable-next-line no-await-in-loop
+      const availability = await db.functions.getAvailability(req.user.username);
+      const storage = [];
+      // eslint-disable-next-line no-restricted-syntax
+      for (const a of availability) {
+        const temp = new Date(a.date);
+        // eslint-disable-next-line no-empty
+        if (temp >= new Date(element.startdate) && temp <= new Date(element.enddate)) {
+
+        } else {
+          storage.push(temp);
+        }
+      }
+      storage.sort((o1, o2) => o1 - o2);
+      const results = [];
+      let index = 0;
+      let interval = 1;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const datetemp of storage) {
+        // eslint-disable-next-line max-len
+        // console.log(new Date(new Date(storage[index + 1]).valueOf() - 1000 * 3600 * 24).getTime() - datetemp.getTime() === 0);
+        // eslint-disable-next-line max-len
+        if (index === 0 || new Date(new Date(storage[index + 1]).valueOf() - 1000 * 3600 * 24).getTime() === datetemp.getTime()) {
+          // console.log(new Date(storage[index + 1]) - datetemp);
+          interval += 1;
+        } else {
+          results.push(interval);
+          interval = 1;
+        }
+        index += 1;
+      }
+      if (interval !== 1) {
+        results.push(interval);
+      }
+
+      let count = 0;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const duration of results) {
+        // console.log(duration);
+        if (duration >= 150) {
+          count += 1;
+        }
+      }
+
+      if (count < 2) {
+        res.status(422).json({ error: 'leave application cannot meet the 2 consequtive 150 working days requirement' });
+      }
+
       // eslint-disable-next-line no-await-in-loop
       await db.functions.addLeave(req.user.username, element.startdate, element.enddate);
     }
