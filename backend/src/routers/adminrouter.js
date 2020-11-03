@@ -1,6 +1,7 @@
 const express = require('express');
 const auth = require('./auth');
 const db = require('../db/Admin');
+const dbct = require('../db/ctaker');
 // const { body, validationResult } = require('express-validator');
 
 const router = express.Router();
@@ -156,15 +157,14 @@ router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.get('/caretakers', auth.authenticateAdminToken, async (req, res) => {
+router.get('/caretakers', auth.authenticateToken, async (req, res) => {
   try {
     const inRes = await db.functions.getAllCaretaker();
-    inRes.map((element) => {
-      // eslint-disable-next-line no-param-reassign
-      element.salary = 6;
-      // should be getSalary afterwards
-      return element;
-    });
+    // eslint-disable-next-line no-restricted-syntax, no-var, vars-on-top
+    for (var element of inRes) {
+      // eslint-disable-next-line no-await-in-loop
+      element.salary = await dbct.functions.getSalary(element.username, element.fulltime);
+    }
     res.status(200).json(inRes);
     return;
   } catch (err) {
@@ -176,6 +176,55 @@ router.get('/petowners', auth.authenticateAdminToken, async (req, res) => {
   try {
     const inRes = await db.functions.getAllPetowners();
     res.status(200).json(inRes);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+
+router.get('/service', auth.authenticateToken, async (req, res) => {
+  try {
+    const { from } = req.query;
+    const { to } = req.query;
+    // eslint-disable-next-line no-var
+    const fromMonth = from.substring(5);
+    const toMonth = to.substring(5);
+    // eslint-disable-next-line radix
+    let fromIntMonth = parseInt(fromMonth);
+    // eslint-disable-next-line radix
+    const toIntMonth = parseInt(toMonth);
+    const fromYear = from.substring(0, 4);
+    const toYear = to.substring(0, 4);
+    // eslint-disable-next-line radix
+    const fromIntYear = parseInt(fromYear);
+    // eslint-disable-next-line radix
+    const toIntYear = parseInt(toYear);
+    if (fromIntYear !== toIntYear) {
+      res.status(422).json({ error: 'Please enter the range within the current year' });
+    }
+    const Res = [];
+    while (fromIntMonth <= toIntMonth) {
+      const result = {};
+      const pethour = {};
+      // eslint-disable-next-line prefer-template, quotes
+      const curr = fromYear + "-" + fromIntMonth.toString();
+      // eslint-disable-next-line no-plusplus
+      fromIntMonth++;
+      // eslint-disable-next-line no-await-in-loop
+      const catN = await dbct.functions.getPetdayByCat(curr);
+      // eslint-disable-next-line no-await-in-loop
+      const dogN = await dbct.functions.getPetdayByDog(curr);
+      // eslint-disable-next-line no-await-in-loop
+      const fishN = await dbct.functions.getPetdayByFish(curr);
+      result.month = curr;
+      pethour.cat = catN;
+      pethour.dog = dogN;
+      pethour.fish = fishN;
+      result.pethour = pethour;
+      Res.push(result);
+    }
+    res.status(200).json(Res);
     return;
   } catch (err) {
     res.status(500).json({ error: 'error' });
