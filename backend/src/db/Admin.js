@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+const { user } = require('pg/lib/defaults');
 const db = require('./index');
 
 async function getAdminByEmail(email) {
@@ -78,6 +80,12 @@ async function getAllPetowners() {
 async function checkclash(username, startdate, enddate) {
   const { rows } = await db.query('SELECT check_clash($1, $2, $3)', [username, startdate, enddate]);
   return rows[0].check_clash;
+}
+
+// eslint-disable-next-line no-unused-vars
+async function checkIfFullTime(username) {
+  const { rows } = await db.query('SELECT fulltime FROM caretakers WHERE username = $1', [username]);
+  return rows;
 }
 
 module.exports = {

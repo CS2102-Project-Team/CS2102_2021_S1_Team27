@@ -268,9 +268,9 @@ SELECT price1 INTO price1t FROM fulltime_price WHERE ptype = category;
 SELECT price2 INTO price2t FROM fulltime_price WHERE ptype = category;
 SELECT price3 INTO price3t FROM fulltime_price WHERE ptype = category;
 RAISE NOTICE 'i want to print % and %', price1t,price2t;
-UPDATE looksafter SET price = price1t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) <=2;
-UPDATE looksafter SET price = price2t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) > 2 AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) <= 4;
-UPDATE looksafter SET price = price3t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) > 4;
+UPDATE looksafter SET price = price1t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) <=2 AND (SELECT fulltime FROM caretakers WHERE username = ctaker) = TRUE;
+UPDATE looksafter SET price = price2t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) > 2 AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) <= 4 AND (SELECT fulltime FROM caretakers WHERE username = ctaker) = TRUE;
+UPDATE looksafter SET price = price3t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) > 4 AND (SELECT fulltime FROM caretakers WHERE username = ctaker) = TRUE;
 END;
 $$
 
