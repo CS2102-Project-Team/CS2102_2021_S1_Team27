@@ -175,6 +175,13 @@ router.get('/caretakers', auth.authenticateAdminToken, async (req, res) => {
 router.get('/petowners', auth.authenticateAdminToken, async (req, res) => {
   try {
     const inRes = await db.functions.getAllPetowners();
+    inRes.map((element) => {
+      // eslint-disable-next-line radix, no-param-reassign
+      element.deals = parseInt(element.deals);
+      // eslint-disable-next-line radix, no-param-reassign
+      element.spending = parseInt(element.spending);
+      return element;
+    });
     res.status(200).json(inRes);
     return;
   } catch (err) {
