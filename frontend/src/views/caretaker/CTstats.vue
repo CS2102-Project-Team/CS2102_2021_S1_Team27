@@ -57,7 +57,7 @@ export default {
       getCareTakerStats().then((response) => {
         const { data } = response;
         this.petday = data.petday;
-        this.salary = data.salary.sum;
+        this.salary = data.salary;
         if (!this.salary) {
           this.salary = 0;
         }
