@@ -233,15 +233,29 @@ EXECUTE FUNCTION update_available();
 CREATE OR REPLACE PROCEDURE update_leave(ctakerV VARCHAR, startdateV DATE, enddateV DATE) AS
 $$
 BEGIN
-if NOT EXISTS (SELECT 1 FROM orders O WHERE O.sdate <= enddateV AND O.edate >= startdateV AND O.ctaker = ctakerV)
+if check_clash(ctakerV, startdateV, enddateV) = 'false'
 THEN
-INSERT INTO leave(ctaker, startdate , enddate) VALUES (ctakerV, startdateV, enddateV);
+INSERT INTO leave(ctaker, startdate, enddate, clash) VALUES (ctakerV, startdateV, enddateV, check_clash(ctakerV, startdateV, enddateV));
 RAISE NOTICE 'sucessfully done!';
 END IF;
 END;
 $$
 language plpgsql;
 --one thing yet to finalize is how to send notification when the procedure is rolled back
+
+CREATE OR REPLACE FUNCTION check_clash(ctakerV VARCHAR, startdateV DATE, enddateV DATE) 
+RETURNS varchar AS
+$$
+DECLARE clash varchar = 'true';
+BEGIN
+if NOT EXISTS (SELECT 1 FROM orders O WHERE O.sdate <= enddateV AND O.edate >= startdateV AND O.ctaker = ctakerV AND (O.status = 'Payment Received' OR O.status = 'Pending Payment' OR O.status = 'Pending Caretaker Acceptance'))
+THEN
+clash = 'false';
+END IF;
+RETURN clash;
+END;
+$$
+language plpgsql;
 
 CREATE OR REPLACE PROCEDURE update_price(category VARCHAR) AS
 $$

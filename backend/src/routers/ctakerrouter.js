@@ -285,6 +285,10 @@ router.post('/leaves', auth.authenticateToken, async (req, res) => {
     for (const element of req.body) {
       // eslint-disable-next-line
       // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
+      if (await db.functions.checkclash(req.user.username, element.startdate, element.enddate) === 'true') {
+        res.status(422).json({ error: 'time clash when leave' });
+      }
+      // eslint-disable-next-line no-await-in-loop
       await db.functions.addLeave(req.user.username, element.startdate, element.enddate);
     }
     res.status(200).json('success');

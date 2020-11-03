@@ -87,7 +87,7 @@ router.get('/price', auth.authenticateAdminToken, async (req, res) => {
 });
 
 // insert or update
-router.put('/price', auth.authenticateToken, async (req, res) => {
+router.put('/price', auth.authenticateAdminToken, async (req, res) => {
   const { category } = req.body;
   const { classes } = req.body;
   const { price } = req.body;
@@ -117,6 +117,22 @@ router.put('/price', auth.authenticateToken, async (req, res) => {
 router.get('/leave', auth.authenticateAdminToken, async (req, res) => {
   try {
     const leave = await db.functions.getLeave();
+    // eslint-disable-next-line no-var, no-restricted-syntax, vars-on-top
+    for (var temp of leave) {
+      // eslint-disable-next-line no-await-in-loop
+      if (await db.functions.checkclash(temp.caretakerusername, temp.startdate, temp.enddate) === 'true') {
+        temp.clash = 'true';
+      } else {
+        temp.clash = 'false';
+      }
+    }
+    leave.map((element) => {
+      // eslint-disable-next-line no-param-reassign, prefer-destructuring
+      element.startdate = element.startdate.toISOString().split('T')[0];
+      // eslint-disable-next-line no-param-reassign, prefer-destructuring
+      element.enddate = element.enddate.toISOString().split('T')[0];
+      return element;
+    });
     res.status(200).json(leave);
     return;
   } catch (err) {
@@ -143,6 +159,12 @@ router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
 router.get('/caretakers', auth.authenticateAdminToken, async (req, res) => {
   try {
     const inRes = await db.functions.getAllCaretaker();
+    inRes.map((element) => {
+      // eslint-disable-next-line no-param-reassign
+      element.salary = 6;
+      // should be getSalary afterwards
+      return element;
+    });
     res.status(200).json(inRes);
     return;
   } catch (err) {

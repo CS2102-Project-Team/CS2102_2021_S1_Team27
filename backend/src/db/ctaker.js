@@ -103,6 +103,11 @@ async function addAvailabilityDup(username, startDate, endDate) {
   return rows;
 }
 
+async function checkclash(username, startdate, enddate) {
+  const { rows } = await db.query('SELECT check_clash($1, $2, $3)', [username, startdate, enddate]);
+  return rows[0].check_clash;
+}
+
 module.exports = {
   functions: {
     getCaretaker,
@@ -125,5 +130,6 @@ module.exports = {
     addAvailabilityDup,
     addLeave,
     getLeave,
+    checkclash,
   },
 };

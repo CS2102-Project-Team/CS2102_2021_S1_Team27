@@ -71,8 +71,13 @@ async function getAllCaretaker() {
 }
 
 async function getAllPetowners() {
-  const { rows } = await db.query('SELECT powner AS username, (SELECT COUNT(*) FROM orders a WHERE a.powner = powner) AS deal, (SELECT SUM(a2.price) FROM orders a2 WHERE a2.powner = powner) FROM orders');
+  const { rows } = await db.query('SELECT DISTINCT powner AS username, (SELECT COUNT(*) FROM orders a WHERE a.powner = powner) AS deals, (SELECT SUM(a2.price) FROM orders a2 WHERE a2.powner = powner) AS spending FROM orders');
   return rows;
+}
+
+async function checkclash(username, startdate, enddate) {
+  const { rows } = await db.query('SELECT check_clash($1, $2, $3)', [username, startdate, enddate]);
+  return rows[0].check_clash;
 }
 
 module.exports = {
@@ -91,5 +96,6 @@ module.exports = {
     updateLeaveStatus,
     getAllCaretaker,
     getAllPetowners,
+    checkclash,
   },
 };
