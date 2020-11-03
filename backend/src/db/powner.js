@@ -37,11 +37,14 @@ async function getService(petcategory, startdate, enddate) {
 // just a little unsure -> is the address ctaker's or user's
 
 async function insertBid(
-  powner, pname, ctaker, ptype, startdate, enddate, paymentmethod, deliverymode,
+  powner, pname, ctaker, ptype, startdate, enddate, paymentmethod, deliverymode, remark,
 ) {
   const bidstatus = 'Pending Caretaker Acceptance';
-  const { rows } = await db.query('INSERT INTO orders(bidtime, powner, pname, ctaker, ptype, sdate, edate, delivery, payment, status) VALUES (current_timestamp, $1, $2, $3, $4, $5, $6, $7, $8, $9)',
-    [powner, pname, ctaker, ptype, startdate, enddate, deliverymode, paymentmethod, bidstatus]);
+  const p = await db.query('SELECT price * ($4::DATE - $3::DATE + 1) AS totalprice FROM looksafter WHERE ctaker=$1 AND ptype=$2', [ctaker, ptype, startdate, enddate]);
+  const price = p.rows[0].totalprice;
+  const { rows } = await db.query('INSERT INTO orders(bidtime, powner, pname, ctaker, ptype, sdate, edate, delivery, payment, status, remark, price) VALUES (current_timestamp, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
+    // eslint-disable-next-line max-len
+    [powner, pname, ctaker, ptype, startdate, enddate, deliverymode, paymentmethod, bidstatus, remark, price]);
   return rows;
 }
 

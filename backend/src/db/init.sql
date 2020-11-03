@@ -62,7 +62,8 @@ CREATE TABLE caretakers(
     fulltime BOOLEAN DEFAULT FALSE,
     sumrating INT DEFAULT 0,
     numrating INT DEFAULT 0,
-    maxpets INT --maximum concurrent pets being taken
+    maxpets INT, --maximum concurrent pets being taken
+    apptime TIMESTAMP
 );
 
 CREATE TABLE looksafter(

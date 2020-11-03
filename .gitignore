@@ -1,6 +1,7 @@
 .vscode
 /frontend
 backend/node_modules/
+backend/src/db/index.js
 __pycache__
 /pet_anything_tests
 /venv

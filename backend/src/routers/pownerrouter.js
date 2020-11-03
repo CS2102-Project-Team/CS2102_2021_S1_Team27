@@ -138,11 +138,12 @@ router.post('/order', auth.authenticateToken, async (req, res) => {
   try {
     const pet = await db.functions.getThePet(username, petname);
     const { ptype } = pet[0];
+    const { remark } = pet[0];
     // eslint-disable-next-line no-console
     console.log(ptype);
 
     await db.functions.insertBid(username, petname, caretakername, ptype,
-      startdate, enddate, paymentmethod, deliverymode);
+      startdate, enddate, paymentmethod, deliverymode, remark);
 
     res.status(204).json('success');
     return;

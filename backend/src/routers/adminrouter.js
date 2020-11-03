@@ -96,7 +96,7 @@ router.put('/price', auth.authenticateAdminToken, async (req, res) => {
         || typeof classes !== 'number'
         || typeof price !== 'number'
   ) {
-    res.status(400);
+    res.sendStatus(400);
     return;
   }
   try {

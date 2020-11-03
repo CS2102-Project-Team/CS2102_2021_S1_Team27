@@ -5,6 +5,11 @@ async function getCaretaker(username) {
   return rows;
 }
 
+async function checkFulltime(username) {
+  const { rows } = await db.query('SELECT fulltime FROM caretakers WHERE username = $1', [username]);
+  return rows[0].fulltime;
+}
+
 async function getReviews(username) {
   const { rows } = await db.query('SELECT ptype petcategory,rating, review FROM orders WHERE ctaker=$1 AND rating IS NOT NULL', [username]);
   return rows;
@@ -12,7 +17,7 @@ async function getReviews(username) {
 
 async function insertCaretaker(username, realname) {
   await db.query('UPDATE accounts SET realname=$2 WHERE username=$1', [username, realname]);
-  const { rows } = await db.query('INSERT INTO caretakers(username, fulltime, maxpets) VALUES ($1, false, 2)', [username]);
+  const { rows } = await db.query('INSERT INTO caretakers(username, fulltime, maxpets, apptime) VALUES ($1, false, 2, current_timestamp)', [username]);
   return rows;
 }
 
@@ -52,14 +57,61 @@ async function getPendingOrders(username) {
 }
 
 async function getPetday(username) {
-  const { rows } = await db.query('SELECT SUM(earlier_date(edate, end_of_month(now()::DATE)) - later_date(sdate, start_of_month(now()::DATE)) + 1) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM current_timestamp) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM current_timestamp)', [username]);
-  return rows;
+  const { rows } = await db.query('SELECT SUM(earlier_date(edate, end_of_month(now()::DATE)) - later_date(sdate, start_of_month(now()::DATE)) + 1) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM current_timestamp) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM current_timestamp) AND status =\'Payment Received\'', [username]);
+  return rows[0].sum ? Number(rows[0].sum) : 0;
 }
 
-/* Unfinished */
-async function getSalary(username) {
-  const { rows } = await db.query('SELECT SUM(edate - sdate + 1) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) = EXTRACT(MONTH FROM current_timestamp)', [username]);
-  return rows;
+async function getPetdayMonth(username, month) {
+  const monthtimestamp = `${month}-01`;
+  const { rows } = await db.query('SELECT SUM(earlier_date(edate, end_of_month($2::DATE)) - later_date(sdate, start_of_month($2::DATE)) + 1) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM $2::DATE) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM $2::DATE) AND status =\'Payment Received\'', [username, monthtimestamp]);
+  return rows[0].sum ? Number(rows[0].sum) : 0;
+}
+
+async function getTotalOrderAmount(username) {
+  const { rows } = await db.query('SELECT SUM(price * 1.0 / (edate-sdate+1) * (earlier_date(edate, end_of_month(now()::DATE)) - later_date(sdate, start_of_month(now()::DATE)) + 1)) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM current_timestamp) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM current_timestamp) AND status =\'Payment Received\'', [username]);
+  return rows[0].sum ? Number(rows[0].sum) : 0;
+}
+
+async function getTotalOrderAmountMonth(username, month) {
+  const monthtimestamp = `${month}-01`;
+  const { rows } = await db.query('SELECT SUM(price * 1.0 / (edate-sdate+1) * (earlier_date(edate, end_of_month($2::DATE)) - later_date(sdate, start_of_month($2::DATE)) + 1)) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM $2) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM $2) AND status =\'Payment Received\'', [username, monthtimestamp]);
+  return rows[0].sum ? Number(rows[0].sum) : 0;
+}
+
+async function getSalary(username, fulltime) {
+  if (fulltime) {
+    const coeff = 0.8;
+    const petday = await getPetday(username);
+    if (petday <= 60) {
+      return 3000;
+    }
+    const totalAmount = await getTotalOrderAmount(username);
+    return 3000 + coeff * (totalAmount / petday) * (petday - 60);
+  }
+  /* Part-time */
+  const totalAmount = await getTotalOrderAmount(username);
+  const coeff = 0.75;
+  return coeff * totalAmount;
+
+  // eslint-disable-next-line max-len
+  /* const { rows } = await db.query('SELECT SUM(edate - sdate + 1) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) = EXTRACT(MONTH FROM current_timestamp)', [username]);
+  return rows; */
+}
+
+async function getSalaryMonth(username, fulltime, month) {
+  if (fulltime) {
+    const coeff = 0.8;
+    const petday = await getPetdayMonth(username, month);
+    if (petday <= 60) {
+      return 3000;
+    }
+    const totalAmount = await getTotalOrderAmountMonth(username, month);
+    return 3000 + coeff * (totalAmount / petday) * (petday - 60);
+  }
+  /* Part-time */
+  const totalAmount = await getTotalOrderAmountMonth(username, month);
+  const coeff = 0.75;
+  return coeff * totalAmount;
 }
 
 async function checkFull(username, startdate, enddate) {
@@ -111,6 +163,7 @@ async function checkclash(username, startdate, enddate) {
 module.exports = {
   functions: {
     getCaretaker,
+    checkFulltime,
     getReviews,
     insertCaretaker,
     getCategory,
@@ -121,6 +174,9 @@ module.exports = {
     getPendingOrders,
     getPetday,
     getSalary,
+    getPetdayMonth,
+    getSalaryMonth,
+    getTotalOrderAmountMonth,
     checkFull,
     acceptRejectBid,
     getAvailability,
