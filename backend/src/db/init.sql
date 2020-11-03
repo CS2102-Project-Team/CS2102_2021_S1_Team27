@@ -79,6 +79,10 @@ CREATE TABLE fulltime_price(
     price3 INT -- x > 4
 );
 
+INSERT INTO fulltime_price VALUES ('cat', 10, 10, 10);
+INSERT INTO fulltime_price VALUES ('dog', 20, 20, 20);
+INSERT INTO fulltime_price VALUES ('fish', 10, 15, 20);
+
 --INSERT INTO looksafter VALUES ('kyle2', 20, 'cat');
 
 CREATE TABLE calendar(
