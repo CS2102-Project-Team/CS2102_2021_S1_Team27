@@ -155,23 +155,24 @@ router.put('/orders/payment', auth.authenticateToken, async (req, res) => {
   }
 });
 
-/* Unfinished */
 router.get('/stats', auth.authenticateToken, async (req, res) => {
   try {
     const result = {};
     if (req.query.petday) {
+      // const inRes = await db.functions.getPetdayMonth(req.user.username, '2020-10');
       const inRes = await db.functions.getPetday(req.user.username);
-      result.petday = inRes[0].sum ? inRes[0].sum : 0;
+      result.petday = inRes;
     }
     if (req.query.salary) {
       const fulltime = await db.functions.checkFulltime(req.user.username);
+      // const inRes = await db.functions.getSalaryMonth(req.user.username, fulltime, '2020-10');
       const inRes = await db.functions.getSalary(req.user.username, fulltime);
       result.salary = inRes;
     }
     res.status(200).json(result);
     return;
   } catch (err) {
-    res.status(500).json({ error: 'error' });
+    res.status(500).json({ error: err });
   }
 });
 
