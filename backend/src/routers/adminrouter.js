@@ -182,8 +182,7 @@ router.get('/petowners', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-
-router.get('/service', auth.authenticateToken, async (req, res) => {
+router.get('/service', auth.authenticateAdminToken, async (req, res) => {
   try {
     const { from } = req.query;
     const { to } = req.query;
@@ -222,6 +221,56 @@ router.get('/service', auth.authenticateToken, async (req, res) => {
       pethour.dog = dogN;
       pethour.fish = fishN;
       result.pethour = pethour;
+      Res.push(result);
+    }
+    res.status(200).json(Res);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.get('/revenue', auth.authenticateToken, async (req, res) => {
+  try {
+    const { from } = req.query;
+    const { to } = req.query;
+    // eslint-disable-next-line no-var
+    const fromMonth = from.substring(5);
+    const toMonth = to.substring(5);
+    // eslint-disable-next-line radix
+    let fromIntMonth = parseInt(fromMonth);
+    // eslint-disable-next-line radix
+    const toIntMonth = parseInt(toMonth);
+    const fromYear = from.substring(0, 4);
+    const toYear = to.substring(0, 4);
+    // eslint-disable-next-line radix
+    const fromIntYear = parseInt(fromYear);
+    // eslint-disable-next-line radix
+    const toIntYear = parseInt(toYear);
+    if (fromIntYear !== toIntYear) {
+      res.status(422).json({ error: 'Please enter the range within the current year' });
+    }
+    const Res = [];
+    while (fromIntMonth <= toIntMonth) {
+      const result = {};
+      // eslint-disable-next-line prefer-template, quotes
+      const curr = fromYear + "-" + fromIntMonth.toString();
+      // eslint-disable-next-line no-plusplus
+      fromIntMonth++;
+      // eslint-disable-next-line no-await-in-loop
+      const income = await dbct.functions.getAllTotalOrderAmountMonth(curr);
+      // eslint-disable-next-line no-await-in-loop
+      const ctakers = await db.functions.getAllCaretaker();
+      let salary = 0;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const temp of ctakers) {
+        // eslint-disable-next-line no-await-in-loop, no-unused-vars
+        salary += await dbct.functions.getSalaryMonth(temp.username, temp.fulltime, curr);
+      }
+      result.month = curr;
+      result.income = income;
+      result.salary = salary;
+      result.revenue = income - salary;
       Res.push(result);
     }
     res.status(200).json(Res);

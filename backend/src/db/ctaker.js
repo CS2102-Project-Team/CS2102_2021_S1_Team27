@@ -96,6 +96,12 @@ async function getTotalOrderAmountMonth(username, month) {
   return rows[0].sum ? Number(rows[0].sum) : 0;
 }
 
+async function getAllTotalOrderAmountMonth(month) {
+  const monthtimestamp = `${month}-01`;
+  const { rows } = await db.query('SELECT SUM(price * 1.0 / (edate-sdate+1) * (earlier_date(edate, end_of_month($1::DATE)) - later_date(sdate, start_of_month($1::DATE)) + 1)) FROM orders WHERE EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM $1) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM $1) AND status =\'Payment Received\'', [monthtimestamp]);
+  return rows[0].sum ? Number(rows[0].sum) : 0;
+}
+
 async function getSalary(username, fulltime) {
   if (fulltime) {
     const coeff = 0.8;
@@ -208,5 +214,6 @@ module.exports = {
     getPetdayByCat,
     getPetdayByFish,
     getPetdayByDog,
+    getAllTotalOrderAmountMonth,
   },
 };
