@@ -144,12 +144,14 @@ router.get('/leave', auth.authenticateAdminToken, async (req, res) => {
 router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
   try {
     // eslint-disable-next-line no-restricted-syntax
-    for (const element of req.body) {
-      // eslint-disable-next-line
-      // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
-      await db.functions.addLeave(element.caretakerusername, element.startdate,
-        element.enddate, element.approve);
-    }
+    const { caretakerusername } = req.body;
+    const { startdate } = req.body;
+    const { enddate } = req.body;
+    const { approve } = req.body;
+    // eslint-disable-next-line
+    // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
+    await db.functions.updateLeaveStatus(caretakerusername, startdate,
+      enddate, approve);
     res.status(200).json('success');
     return;
   } catch (err) {
@@ -189,7 +191,7 @@ router.get('/petowners', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.get('/service', auth.authenticateToken, async (req, res) => {
+router.get('/service', auth.authenticateAdminToken, async (req, res) => {
   try {
     const { from } = req.query;
     const { to } = req.query;

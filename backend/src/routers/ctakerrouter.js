@@ -335,7 +335,7 @@ router.post('/leaves', auth.authenticateToken, async (req, res) => {
       }
 
       if (count < 2) {
-        res.status(422).json({ error: 'leave application cannot meet the 2 consequtive 150 working days requirement' });
+        res.status(423).json({ error: 'leave application cannot meet the 2 consequtive 150 working days requirement' });
       }
 
       // eslint-disable-next-line no-await-in-loop
@@ -345,7 +345,7 @@ router.post('/leaves', auth.authenticateToken, async (req, res) => {
     return;
   } catch (err) {
     if (err.code === '23505') {
-      res.status(422).json({ error: err.detail });
+      res.status(422).json({ error: 'Sorry, the application already exists' });
     } else {
       console.log(err);
       res.status(500).json({ error: 'error' });
