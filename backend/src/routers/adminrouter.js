@@ -149,9 +149,11 @@ router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
     const { enddate } = req.body;
     const { approve } = req.body;
     // eslint-disable-next-line
-    // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
-    await db.functions.updateLeaveStatus(caretakerusername, startdate,
-      enddate, approve);
+    if (approve === true) {
+      // eslint-disable-next-line no-await-in-loop, max-len
+      await db.functions.updateLeaveStatus(caretakerusername, startdate,
+        enddate, 'approved');
+    }
     res.status(200).json('success');
     return;
   } catch (err) {
