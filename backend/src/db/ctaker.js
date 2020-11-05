@@ -41,8 +41,12 @@ async function deleteCategory(username, pettype) {
   return rows;
 }
 
-async function getOrders(username) {
-  const { rows } = await db.query('SELECT sdate startdate, edate enddate, remark specialrequirement, ptype petcategory, pname petname, powner ownerusername, status, delivery deliverymode, rating, review FROM orders WHERE ctaker=$1', [username]);
+async function getOrders(username, pastorder) {
+  if (pastorder) {
+    const { rows } = await db.query('SELECT sdate startdate, edate enddate, remark specialrequirement, ptype petcategory, pname petname, powner ownerusername, status, delivery deliverymode, rating, review FROM orders WHERE ctaker=$1', [username]);
+    return rows;
+  }
+  const { rows } = await db.query('SELECT sdate startdate, edate enddate, remark specialrequirement, ptype petcategory, pname petname, powner ownerusername, status, delivery deliverymode, rating, review FROM orders WHERE ctaker=$1 AND enddate>=NOW()::DATE', [username]);
   return rows;
 }
 

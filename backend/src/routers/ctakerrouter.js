@@ -124,7 +124,8 @@ router.delete('/petcategory', auth.authenticateToken, async (req, res) => {
 
 router.get('/orders', auth.authenticateToken, async (req, res) => {
   try {
-    const inRes = await db.functions.getOrders(req.user.username);
+    const { pastorder } = req.query;
+    const inRes = await db.functions.getOrders(req.user.username, pastorder);
     res.status(200).json(inRes.map((element) => {
       element.startdate = element.startdate.toISOString().split('T')[0];
       element.enddate = element.enddate.toISOString().split('T')[0];
