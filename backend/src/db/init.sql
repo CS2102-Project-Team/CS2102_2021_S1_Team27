@@ -153,22 +153,53 @@ RETURNS DATE AS
 $$ SELECT (CASE WHEN $1 <= $2 THEN $1 ELSE $2 END);
 $$ language 'sql';
 
+CREATE OR REPLACE FUNCTION get_rating(VARCHAR)
+RETURNS NUMERIC AS
+$$ SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) FROM caretakers WHERE username = $1;
+$$ language 'sql';
 
 --triggers
 
+
+CREATE OR REPLACE PROCEDURE update_maxpets(ctaker VARCHAR) AS
+$$ DECLARE ft BOOLEAN;
+BEGIN
+SELECT fulltime INTO ft FROM caretakers WHERE username = ctaker;
+IF ft = false THEN
+    IF get_rating(ctaker) >= 4 THEN
+        UPDATE caretakers SET maxpets=5 WHERE username = ctaker;
+    ELSE
+        UPDATE caretakers SET maxpets=2 WHERE username = ctaker;
+    END IF;
+END IF;
+END; 
+$$
+LANGUAGE plpgsql;
+
+
 CREATE OR REPLACE FUNCTION update_rating()
 RETURNS TRIGGER AS
-$$ BEGIN
+$$ 
+DECLARE ft BOOLEAN;
+BEGIN
+SELECT fulltime INTO ft FROM caretakers WHERE username = NEW.ctaker;
 IF OLD.rating IS NULL THEN
     UPDATE caretakers SET numrating = numrating + 1 WHERE username = NEW.ctaker;
     UPDATE caretakers SET sumrating = sumrating + NEW.rating WHERE username = NEW.ctaker;
 ELSE
     UPDATE caretakers SET sumrating = sumrating + NEW.rating - OLD.rating WHERE username = NEW.ctaker;
 END IF;
+CALL update_maxpets(NEW.ctaker);
+IF fulltime = true THEN
+    UPDATE looksafter L SET price = (SELECT price1 FROM fulltime_price F WHERE F.ptype=L.ptype) WHERE ctaker=NEW.ctaker AND get_rating(ctaker)<=2;
+    UPDATE looksafter L SET price = (SELECT price2 FROM fulltime_price F WHERE F.ptype=L.ptype) WHERE ctaker=NEW.ctaker AND get_rating(ctaker)>2 AND get_rating(ctaker)<=4;
+    UPDATE looksafter L SET price = (SELECT price3 FROM fulltime_price F WHERE F.ptype=L.ptype) WHERE ctaker=NEW.ctaker AND get_rating(ctaker)>4;
+END IF;
+
 RETURN NEW;
 END; $$
 LANGUAGE plpgsql;
---can add changes to maxpetsallowed and service price(for full time) as well
+
 
 CREATE TRIGGER update_rating
 AFTER UPDATE OF rating ON orders 
