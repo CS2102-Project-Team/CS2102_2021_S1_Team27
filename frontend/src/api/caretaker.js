@@ -132,7 +132,7 @@ export function updateCareTakerLeaves(data) {
   const { startdate, enddate } = data;
   return request({
     url: '/caretaker/leaves',
-    method: 'put',
+    method: 'post',
     data: { startdate, enddate },
   });
 }

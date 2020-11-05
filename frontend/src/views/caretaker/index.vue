@@ -38,7 +38,7 @@
                 <!-- added in max height for the table -->
                 <el-table
                   :data = "pendingorders"
-                  max-height="400"
+                  max-height="250"
                   border
                   empty-text= "empty"
                   :key = "pdTableKey"
@@ -126,7 +126,7 @@
                 <el-table
                   :data = "petcategory"
                   border
-                  max-height="250"
+                  max-height="200"
                   empty-text= "empty"
                   :key = "pcTableKey">
                     <el-table-column
