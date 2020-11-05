@@ -141,7 +141,7 @@ router.get('/leave', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.put('/leave', auth.authenticateToken, async (req, res) => {
+router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
   try {
     // eslint-disable-next-line no-restricted-syntax
     const { caretakerusername } = req.body;
