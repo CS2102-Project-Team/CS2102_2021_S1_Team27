@@ -50,8 +50,7 @@ export default {
       const toMonth = `${('0000' + currentYear).substr(-4)}-${('00' + (currentMonth + 1)).substr(-2)}`
       const fromMonth = `${('0000' + (currentMonth - 12 >= 0 ? currentYear : currentYear - 1)).substr(-4)}-${('00' + ((currentMonth + 12) % 12 + 1)).substr(-2)}`
       getRevenue({ from: fromMonth, to: toMonth }).then(data => {
-        console.log('in revenue.vue')
-        console.log(JSON.stringify(data))
+        console.log(`in revenue.vue: ${JSON.stringify(data)}`)
         this.data = data
         const options = {
           title: {
