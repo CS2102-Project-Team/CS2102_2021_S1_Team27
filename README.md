@@ -1,6 +1,6 @@
 # CS2102_2021_S1_Team27 Frontend
 
-<https://pet-anything.netlify.app/>
+<https://pet-anything.ml/>
 
 This branch hosts the frontend of CS2102_2021_S1_Team27 project. **Do not merge this branch to master**!
 
@@ -23,7 +23,3 @@ The recommanded deelopment envireonment is Linux/Mac/Windows WSL + VSCode.
 ## Deploying to Netlify
 
 The `frontend` branch on GitHub will be automatically deployed to Netlify
-
-## Troubleshooting
-
-TBC
