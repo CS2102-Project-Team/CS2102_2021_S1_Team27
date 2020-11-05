@@ -11,7 +11,7 @@
   <h3 class="section">HTTP Method</h3>
   <code>GET</code>
   <h3 class="section">Response Type</h3>
-  <div class="model" data-model="inline_response_200_13"><a href="">List</a></div>
+  <div class="model" data-model="inline_response_200_15"><a href="">List</a></div>
   <h3 class="section">Parameters</h3>
   <ul>
 	  <li class="parameter">
@@ -20,10 +20,45 @@
       
       
       
-      <span class="param-name">year</span>
+      <span class="param-name">from</span>
       <span class="param-type">String</span>
       
-      <p class="param-description">specified month</p>
+      <p class="param-description">yyyy-mm</p>
+	  </li>
+	  <li class="parameter">
+      
+      <span class="param-in">Query: </span>
+      
+      
+      
+      <span class="param-name">to</span>
+      <span class="param-type">String</span>
+      
+      <p class="param-description">yyyy-mm</p>
+	  </li>
+  </ul>
+  <h2><a name="adminpromote"></a>adminpromote</h2>
+  <hr>
+  <p></p>
+  
+  <h3 class="section">URL</h3>
+  <code>https://pet-anything.herokuapp.com/api/v1/admin/promote</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>POST</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model=""><a href=""></a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+	  <li class="parameter">
+      
+      
+      
+      
+      <span class="param-in">Body: </span>
+      <span class="param-name">body</span>
+      <span class="param-type">Body_20(Body_20)</span>
+      
+      <p class="param-description"></p>
 	  </li>
   </ul>
   <h2><a name="getadmin"></a>getadmin</h2>
@@ -35,7 +70,33 @@
   <h3 class="section">HTTP Method</h3>
   <code>GET</code>
   <h3 class="section">Response Type</h3>
-  <div class="model" data-model="inline_response_200_10"><a href="">inline_response_200_10</a></div>
+  <div class="model" data-model="inline_response_200_12"><a href="">inline_response_200_12</a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+  </ul>
+  <h2><a name="getadmincaretakers"></a>getadmincaretakers</h2>
+  <hr>
+  <p></p>
+  
+  <h3 class="section">URL</h3>
+  <code>https://pet-anything.herokuapp.com/api/v1/admin/caretakers</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>GET</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model="inline_response_200_10"><a href="">List</a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+  </ul>
+  <h2><a name="getadminpetowners"></a>getadminpetowners</h2>
+  <hr>
+  <p></p>
+  
+  <h3 class="section">URL</h3>
+  <code>https://pet-anything.herokuapp.com/api/v1/admin/petowners</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>GET</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model="inline_response_200_11"><a href="">List</a></div>
   <h3 class="section">Parameters</h3>
   <ul>
   </ul>
@@ -48,7 +109,7 @@
   <h3 class="section">HTTP Method</h3>
   <code>GET</code>
   <h3 class="section">Response Type</h3>
-  <div class="model" data-model="inline_response_200_12"><a href="">List</a></div>
+  <div class="model" data-model="inline_response_200_14"><a href="">List</a></div>
   <h3 class="section">Parameters</h3>
   <ul>
 	  <li class="parameter">
@@ -72,7 +133,7 @@
   <h3 class="section">HTTP Method</h3>
   <code>GET</code>
   <h3 class="section">Response Type</h3>
-  <div class="model" data-model="inline_response_200_11"><a href="">List</a></div>
+  <div class="model" data-model="inline_response_200_13"><a href="">List</a></div>
   <h3 class="section">Parameters</h3>
   <ul>
   </ul>
@@ -85,9 +146,31 @@
   <h3 class="section">HTTP Method</h3>
   <code>GET</code>
   <h3 class="section">Response Type</h3>
-  <div class="model" data-model="inline_response_200_14"><a href="">List</a></div>
+  <div class="model" data-model="inline_response_200_16"><a href="">List</a></div>
   <h3 class="section">Parameters</h3>
   <ul>
+	  <li class="parameter">
+      
+      <span class="param-in">Query: </span>
+      
+      
+      
+      <span class="param-name">from</span>
+      <span class="param-type">String</span>
+      
+      <p class="param-description">yyyy-mm</p>
+	  </li>
+	  <li class="parameter">
+      
+      <span class="param-in">Query: </span>
+      
+      
+      
+      <span class="param-name">to</span>
+      <span class="param-type">String</span>
+      
+      <p class="param-description">yyyy-mm</p>
+	  </li>
   </ul>
   <h2><a name="putleavers"></a>putleavers</h2>
   <hr>
@@ -108,7 +191,7 @@
       
       <span class="param-in">Body: </span>
       <span class="param-name">body</span>
-      <span class="param-type">Body_21(Body_21)</span>
+      <span class="param-type">Body_22(Body_22)</span>
       
       <p class="param-description">approve or reject a leae application</p>
 	  </li>
@@ -132,7 +215,7 @@
       
       <span class="param-in">Body: </span>
       <span class="param-name">body</span>
-      <span class="param-type">Body_20(Body_20)</span>
+      <span class="param-type">Body_21(Body_21)</span>
       
       <p class="param-description">price information</p>
 	  </li>
