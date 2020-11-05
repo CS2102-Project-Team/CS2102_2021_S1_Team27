@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS looksafter;
 DROP TABLE IF EXISTS caretakers;
 DROP TABLE IF EXISTS pets;
 DROP TABLE IF EXISTS pettypes;
+DROP TABLE IF EXISTS petowners;
 DROP TABLE IF EXISTS accounts;
 DROP TABLE IF EXISTS fulltime_price;
 
@@ -82,7 +83,7 @@ CREATE TABLE fulltime_price(
 
 INSERT INTO fulltime_price VALUES ('cat', 10, 10, 10);
 INSERT INTO fulltime_price VALUES ('dog', 20, 20, 20);
-INSERT INTO fulltime_price VALUES ('fish', 10, 15, 20);
+INSERT INTO fulltime_price VALUES ('bird', 10, 15, 20);
 
 --INSERT INTO looksafter VALUES ('kyle2', 20, 'cat');
 
@@ -285,7 +286,7 @@ language plpgsql;
 
 
 
-CREATE OR REPLACE FUNCTION update_available()
+CREATE OR REPLACE FUNCTION update_available_leave()
 RETURNS TRIGGER AS
 $$ 
 DECLARE maxpet INTEGER;
@@ -299,4 +300,4 @@ LANGUAGE plpgsql;
 CREATE TRIGGER update_available_after_leave
 AFTER INSERT OR UPDATE ON leave
 FOR EACH ROW WHEN (NEW.status = 'approved')
-EXECUTE FUNCTION update_available(); 
+EXECUTE FUNCTION update_available_leave(); 

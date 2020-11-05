@@ -189,7 +189,7 @@ router.get('/petowners', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.get('/service', auth.authenticateAdminToken, async (req, res) => {
+router.get('/service', auth.authenticateToken, async (req, res) => {
   try {
     const { from } = req.query;
     const { to } = req.query;
@@ -229,6 +229,7 @@ router.get('/service', auth.authenticateAdminToken, async (req, res) => {
         // eslint-disable-next-line no-await-in-loop
         const number = await dbct.functions.getPetdayByPet(t.ptype, dateString);
         const name = t.ptype; // cat , dog, fish
+        // console.log(t.ptype, dateString, number);
         pethour[name] = number;
       }
       // pethour.cat = catN;
@@ -279,6 +280,7 @@ router.get('/revenue', auth.authenticateAdminToken, async (req, res) => {
       const income = await dbct.functions.getAllTotalOrderAmountMonth(dateString);
       // eslint-disable-next-line no-await-in-loop
       const ctakers = await db.functions.getAllCaretaker();
+      // console.log(ctakers);
       let salary = 0;
       // eslint-disable-next-line no-restricted-syntax
       for (const temp of ctakers) {
