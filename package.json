@@ -1,8 +1,8 @@
 {
-  "name": "vue-admin-template",
+  "name": "petanything-admin",
   "version": "4.4.0",
-  "description": "A vue admin template with Element UI & axios & iconfont & permission control & lint",
-  "author": "Pan <panfree23@gmail.com>",
+  "description": "Admin platform for Pet-Anything",
+  "author": "lirc572 <lirc572@gmail.com>",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build:prod": "vue-cli-service build",
