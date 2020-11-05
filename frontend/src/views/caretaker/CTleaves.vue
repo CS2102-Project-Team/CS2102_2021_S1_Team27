@@ -28,16 +28,19 @@
                     <el-table-column
                         label = "start date"
                         prop = "startdate"
+                        sortable
                         >
                     </el-table-column>
                     <el-table-column
                         label = "end date"
                         prop = "enddate"
+                        sortable
                         >
                     </el-table-column>
                     <el-table-column
                         label = "status"
                         prop = "status"
+                        sortable
                         >
                     </el-table-column>
                 </el-table>
@@ -122,14 +125,16 @@ locale.use(lang);
 export default {
   components: { FTsidebar },
   data() {
+    // eslint-disable-next-line no-var
+    // var vm = this;
     return {
-      leavesapplied: '',
+      leavesapplied: [],
       CTLeavesFetched: false,
       applyLeaveVisible: false,
       formLabelWidth: '120px',
       // use componentkey to re-render the table when there is a change in orders
       leaveTableKey: 0,
-      dates: '',
+      dates: [],
       data: {
         startdate: '',
         enddate: '',
@@ -137,8 +142,10 @@ export default {
       pickerOptions: {
         disabledDate(time) {
           const oneDay = 1000 * 3600 * 24;
-          return time.getTime() + oneDay < Date.now()
-            || ((time.getTime() - Date.now()) / oneDay) > 60;
+
+          // console.log(date);
+          return (time.getTime() + oneDay < Date.now());
+          // || (vm.leavesapplied === [] ? false : vm.leavesapplied.includes(date));
         },
       },
     };
@@ -150,6 +157,7 @@ export default {
         this.leavesapplied = data;
         this.CTLeavesFetched = true;
         this.leaveTableKey += 1;
+        // console.log(this.leavesapplied);
       }).catch((error) => {
         this.$message.error(error.response.data.error);
       });

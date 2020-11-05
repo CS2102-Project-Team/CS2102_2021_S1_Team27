@@ -133,6 +133,6 @@ export function updateCareTakerLeaves(data) {
   return request({
     url: '/caretaker/leaves',
     method: 'post',
-    data: { startdate, enddate },
+    data: [{ startdate, enddate }],
   });
 }

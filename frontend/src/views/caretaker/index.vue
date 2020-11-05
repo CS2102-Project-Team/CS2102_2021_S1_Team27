@@ -500,7 +500,7 @@ export default {
   }
 
   .item {
-    padding: 18px 0;
+    padding: 5px 0;
   }
   .ptct_petcategory {
     height: 350px;
