@@ -861,20 +861,26 @@
   }
 };
             defs["body_17"] = {
-  "required" : [ "enddate", "startdate" ],
+  "required" : [ "caretakerusername", "enddate", "petname", "startdate" ],
   "type" : "object",
   "properties" : {
+    "petname" : {
+      "type" : "string",
+      "example" : "Fido"
+    },
+    "caretakerusername" : {
+      "type" : "string",
+      "example" : "kyle"
+    },
     "startdate" : {
-      "type" : "string"
+      "type" : "string",
+      "example" : "2020-04-30"
     },
     "enddate" : {
-      "type" : "string"
+      "type" : "string",
+      "example" : "2020-05-10"
     }
-  },
-  "example" : [ {
-    "startdate" : "11/15/20",
-    "enddate" : "11/30/20"
-  } ]
+  }
 };
             defs["body_18"] = {
   "required" : [ "enddate", "startdate" ],
@@ -888,27 +894,25 @@
     }
   },
   "example" : [ {
-    "startdate" : "11/15/20",
-    "enddate" : "11/30/20"
+    "startdate" : "2020-01-01",
+    "enddate" : "2020-01-30"
   } ]
 };
             defs["body_19"] = {
-  "required" : [ "category", "classes", "price" ],
+  "required" : [ "enddate", "startdate" ],
   "type" : "object",
   "properties" : {
-    "category" : {
-      "type" : "string",
-      "example" : "dog"
+    "startdate" : {
+      "type" : "string"
     },
-    "classes" : {
-      "type" : "string",
-      "example" : "2"
-    },
-    "price" : {
-      "type" : "integer",
-      "example" : 220
+    "enddate" : {
+      "type" : "string"
     }
-  }
+  },
+  "example" : [ {
+    "startdate" : "11/15/20",
+    "enddate" : "11/30/20"
+  } ]
 };
             defs["body_2"] = {
   "required" : [ "password" ],
@@ -929,6 +933,34 @@
   }
 };
             defs["body_20"] = {
+  "required" : [ "caretaker" ],
+  "type" : "object",
+  "properties" : {
+    "caretaker" : {
+      "type" : "string",
+      "example" : "lirc572"
+    }
+  }
+};
+            defs["body_21"] = {
+  "required" : [ "category", "classes", "price" ],
+  "type" : "object",
+  "properties" : {
+    "category" : {
+      "type" : "string",
+      "example" : "dog"
+    },
+    "classes" : {
+      "type" : "string",
+      "example" : "2"
+    },
+    "price" : {
+      "type" : "integer",
+      "example" : 220
+    }
+  }
+};
+            defs["body_22"] = {
   "required" : [ "approve", "caretakeruername", "enddate", "startdate" ],
   "type" : "object",
   "properties" : {
@@ -1125,6 +1157,59 @@
   }
 };
             defs["inline_response_200_10"] = {
+  "required" : [ "address", "name", "rating", "salary", "type", "username" ],
+  "type" : "object",
+  "properties" : {
+    "username" : {
+      "type" : "string"
+    },
+    "name" : {
+      "type" : "string"
+    },
+    "type" : {
+      "type" : "string"
+    },
+    "address" : {
+      "type" : "string"
+    },
+    "rating" : {
+      "type" : "number"
+    },
+    "salary" : {
+      "type" : "integer"
+    }
+  }
+};
+            defs["inline_response_200_11"] = {
+  "required" : [ "deals", "spending", "username" ],
+  "type" : "object",
+  "properties" : {
+    "username" : {
+      "type" : "string"
+    },
+    "deals" : {
+      "type" : "integer"
+    },
+    "spending" : {
+      "type" : "integer"
+    }
+  }
+};
+            defs["inline_response_200_12"] = {
+  "required" : [ "email", "username" ],
+  "type" : "object",
+  "properties" : {
+    "username" : {
+      "type" : "string",
+      "example" : "azq"
+    },
+    "email" : {
+      "type" : "string",
+      "example" : "aa@bb.cc"
+    }
+  }
+};
+            defs["inline_response_200_13"] = {
   "required" : [ "category", "price1", "price2", "price3" ],
   "type" : "object",
   "properties" : {
@@ -1142,7 +1227,7 @@
     }
   }
 };
-            defs["inline_response_200_11"] = {
+            defs["inline_response_200_14"] = {
   "required" : [ "caretakerusername", "clash", "enddate", "startdate", "status" ],
   "type" : "object",
   "properties" : {
@@ -1163,7 +1248,7 @@
     }
   }
 };
-            defs["inline_response_200_12"] = {
+            defs["inline_response_200_15"] = {
   "required" : [ "income", "month", "revenue", "salary" ],
   "type" : "object",
   "properties" : {
@@ -1181,7 +1266,7 @@
     }
   }
 };
-            defs["inline_response_200_13"] = {
+            defs["inline_response_200_16"] = {
   "required" : [ "category", "month", "pethour" ],
   "type" : "object",
   "properties" : {
@@ -1396,18 +1481,44 @@
   }
 };
             defs["inline_response_200_8"] = {
+  "required" : [ "availability" ],
+  "type" : "object",
+  "properties" : {
+    "availability" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/inline_response_200_8_availability"
+      }
+    }
+  }
+};
+            defs["inline_response_200_8_availability"] = {
+  "required" : [ "enddate", "startdate" ],
+  "type" : "object",
+  "properties" : {
+    "startdate" : {
+      "type" : "string",
+      "example" : "2020-11-30"
+    },
+    "enddate" : {
+      "type" : "string",
+      "example" : "2020-12-30"
+    }
+  }
+};
+            defs["inline_response_200_9"] = {
   "required" : [ "leavesapplied" ],
   "type" : "object",
   "properties" : {
     "leavesapplied" : {
       "type" : "array",
       "items" : {
-        "$ref" : "#/components/schemas/inline_response_200_8_leavesapplied"
+        "$ref" : "#/components/schemas/inline_response_200_9_leavesapplied"
       }
     }
   }
 };
-            defs["inline_response_200_8_leavesapplied"] = {
+            defs["inline_response_200_9_leavesapplied"] = {
   "required" : [ "enddate", "startdate", "status" ],
   "type" : "object",
   "properties" : {
@@ -1422,20 +1533,6 @@
     "status" : {
       "type" : "string",
       "example" : "pending"
-    }
-  }
-};
-            defs["inline_response_200_9"] = {
-  "required" : [ "email", "username" ],
-  "type" : "object",
-  "properties" : {
-    "username" : {
-      "type" : "string",
-      "example" : "azq"
-    },
-    "email" : {
-      "type" : "string",
-      "example" : "aa@bb.cc"
     }
   }
 };
@@ -1593,8 +1690,17 @@
                     <li data-group="Admin" data-name="admingetsalary" class="">
                       <a href="#api-Admin-admingetsalary">admingetsalary</a>
                     </li>
+                    <li data-group="Admin" data-name="adminpromote" class="">
+                      <a href="#api-Admin-adminpromote">adminpromote</a>
+                    </li>
                     <li data-group="Admin" data-name="getadmin" class="">
                       <a href="#api-Admin-getadmin">getadmin</a>
+                    </li>
+                    <li data-group="Admin" data-name="getadmincaretakers" class="">
+                      <a href="#api-Admin-getadmincaretakers">getadmincaretakers</a>
+                    </li>
+                    <li data-group="Admin" data-name="getadminpetowners" class="">
+                      <a href="#api-Admin-getadminpetowners">getadminpetowners</a>
                     </li>
                     <li data-group="Admin" data-name="getleavers" class="">
                       <a href="#api-Admin-getleavers">getleavers</a>
@@ -1678,6 +1784,9 @@
                     <li data-group="PetOwnerOperation" data-name="pogetpets" class="">
                       <a href="#api-PetOwnerOperation-pogetpets">pogetpets</a>
                     </li>
+                    <li data-group="PetOwnerOperation" data-name="popay" class="">
+                      <a href="#api-PetOwnerOperation-popay">popay</a>
+                    </li>
                     <li data-group="PetOwnerOperation" data-name="popostbid" class="">
                       <a href="#api-PetOwnerOperation-popostbid">popostbid</a>
                     </li>
@@ -1747,7 +1856,7 @@
                       <article id="api-Admin-admingetsalary-0" data-group="User" data-name="admingetsalary" data-version="0">
                         <div class="pull-left">
                           <h1>admingetsalary</h1>
-                          <p>Given the year, get the amount of income, salaries and revenue (income - salary) of each month.</p>
+                          <p>Given the range (inclusive of both ends), get the amount of income, salaries and revenue (income - salary) of each month.</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -1778,7 +1887,7 @@
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
  -H "Authorization: Bearer [[accessToken]]"\
 -H "Accept: application/json"\
-"https://pet-anything.herokuapp.com/api/v1/admin/revenue?year="</code></pre>
+"https://pet-anything.herokuapp.com/api/v1/admin/revenue?from=&to="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Admin-admingetsalary-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1796,9 +1905,10 @@ public class AdminApiExample {
 
 
         AdminApi apiInstance = new AdminApi();
-        String year = year_example; // String | specified month
+        String from = from_example; // String | yyyy-mm
+        String to = to_example; // String | yyyy-mm
         try {
-            array[inline_response_200_12] result = apiInstance.admingetsalary(year);
+            array[inline_response_200_15] result = apiInstance.admingetsalary(from, to);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AdminApi#admingetsalary");
@@ -1815,9 +1925,10 @@ public class AdminApiExample {
 
     public static void main(String[] args) {
         AdminApi apiInstance = new AdminApi();
-        String year = year_example; // String | specified month
+        String from = from_example; // String | yyyy-mm
+        String to = to_example; // String | yyyy-mm
         try {
-            array[inline_response_200_12] result = apiInstance.admingetsalary(year);
+            array[inline_response_200_15] result = apiInstance.admingetsalary(from, to);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AdminApi#admingetsalary");
@@ -1832,13 +1943,15 @@ public class AdminApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-Admin-admingetsalary-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-String *year = year_example; // specified month (optional)
+String *from = from_example; // yyyy-mm (optional)
+String *to = to_example; // yyyy-mm (optional)
 
 AdminApi *apiInstance = [[AdminApi alloc] init];
 
-// Given the year, get the amount of income, salaries and revenue (income - salary) of each month.
-[apiInstance admingetsalaryWith:year
-              completionHandler: ^(array[inline_response_200_12] output, NSError* error) {
+// Given the range (inclusive of both ends), get the amount of income, salaries and revenue (income - salary) of each month.
+[apiInstance admingetsalaryWith:from
+    to:to
+              completionHandler: ^(array[inline_response_200_15] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -1856,7 +1969,8 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 var api = new Cs2102.AdminApi()
 var opts = { 
-  'year': year_example // {{String}} specified month
+  'from': from_example, // {{String}} yyyy-mm
+  'to': to_example // {{String}} yyyy-mm
 };
 var callback = function(error, data, response) {
   if (error) {
@@ -1888,12 +2002,13 @@ namespace Example
 
 
             var apiInstance = new AdminApi();
-            var year = year_example;  // String | specified month (optional) 
+            var from = from_example;  // String | yyyy-mm (optional) 
+            var to = to_example;  // String | yyyy-mm (optional) 
 
             try
             {
-                // Given the year, get the amount of income, salaries and revenue (income - salary) of each month.
-                array[inline_response_200_12] result = apiInstance.admingetsalary(year);
+                // Given the range (inclusive of both ends), get the amount of income, salaries and revenue (income - salary) of each month.
+                array[inline_response_200_15] result = apiInstance.admingetsalary(from, to);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1912,10 +2027,11 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiAdminApi();
-$year = year_example; // String | specified month
+$from = from_example; // String | yyyy-mm
+$to = to_example; // String | yyyy-mm
 
 try {
-    $result = $api_instance->admingetsalary($year);
+    $result = $api_instance->admingetsalary($from, $to);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling AdminApi->admingetsalary: ', $e->getMessage(), PHP_EOL;
@@ -1930,10 +2046,11 @@ use WWW::SwaggerClient::AdminApi;
 
 
 my $api_instance = WWW::SwaggerClient::AdminApi->new();
-my $year = year_example; # String | specified month
+my $from = from_example; # String | yyyy-mm
+my $to = to_example; # String | yyyy-mm
 
 eval { 
-    my $result = $api_instance->admingetsalary(year => $year);
+    my $result = $api_instance->admingetsalary(from => $from, to => $to);
     print Dumper($result);
 };
 if ($@) {
@@ -1951,11 +2068,12 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.AdminApi()
-year = year_example # String | specified month (optional)
+from = from_example # String | yyyy-mm (optional)
+to = to_example # String | yyyy-mm (optional)
 
 try: 
-    # Given the year, get the amount of income, salaries and revenue (income - salary) of each month.
-    api_response = api_instance.admingetsalary(year=year)
+    # Given the range (inclusive of both ends), get the amount of income, salaries and revenue (income - salary) of each month.
+    api_response = api_instance.admingetsalary(from=from, to=to)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AdminApi->admingetsalary: %s\n" % e)</code></pre>
@@ -1974,11 +2092,11 @@ except ApiException as e:
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">year</td>
+                                <tr><td style="width:150px;">from</td>
                                 <td>
                                 
                                 
-                                    <div id="d2e199_admingetsalary_year">
+                                    <div id="d2e199_admingetsalary_from">
                                         <div class="json-schema-view">
                                             <div class="primitive">
                                                 <span class="type">
@@ -1986,7 +2104,26 @@ except ApiException as e:
                                                 </span>
                                 
                                                     <div class="inner description">
-                                                        specified month
+                                                        yyyy-mm
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                                <tr><td style="width:150px;">to</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_admingetsalary_to">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    String
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        yyyy-mm
                                                     </div>
                                             </div>
                                         </div>
@@ -2033,7 +2170,7 @@ except ApiException as e:
           "revenue" : 1000000
         } ],
         "items" : {
-          "$ref" : "#/components/schemas/inline_response_200_12"
+          "$ref" : "#/components/schemas/inline_response_200_15"
         },
         "x-content-type" : "application/json"
       }
@@ -2163,6 +2300,422 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
+                    <div id="api-Admin-adminpromote">
+                      <article id="api-Admin-adminpromote-0" data-group="User" data-name="adminpromote" data-version="0">
+                        <div class="pull-left">
+                          <h1>adminpromote</h1>
+                          <p>Promote a part time caretaker</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/admin/promote</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Admin-adminpromote-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Admin-adminpromote-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Admin-adminpromote-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Admin-adminpromote-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Admin-adminpromote-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Admin-adminpromote-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Admin-adminpromote-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Admin-adminpromote-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Admin-adminpromote-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Admin-adminpromote-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Admin-adminpromote-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Admin-adminpromote-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+ -H "Authorization: Bearer [[accessToken]]"\
+-H "Accept: application/json"\
+-H "Content-Type: application/json"\
+"https://pet-anything.herokuapp.com/api/v1/admin/promote"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Admin-adminpromote-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.AdminApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AdminApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        AdminApi apiInstance = new AdminApi();
+        Body_20 body = ; // Body_20 | 
+        try {
+            apiInstance.adminpromote(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminApi#adminpromote");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Admin-adminpromote-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.AdminApi;
+
+public class AdminApiExample {
+
+    public static void main(String[] args) {
+        AdminApi apiInstance = new AdminApi();
+        Body_20 body = ; // Body_20 | 
+        try {
+            apiInstance.adminpromote(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminApi#adminpromote");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Admin-adminpromote-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Admin-adminpromote-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+Body_20 *body = ; // 
+
+AdminApi *apiInstance = [[AdminApi alloc] init];
+
+// Promote a part time caretaker
+[apiInstance adminpromoteWith:body
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Admin-adminpromote-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
+var defaultClient = Cs2102.ApiClient.instance;
+
+
+var api = new Cs2102.AdminApi()
+var body = ; // {{Body_20}} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.adminpromote(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Admin-adminpromote-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Admin-adminpromote-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class adminpromoteExample
+    {
+        public void main()
+        {
+
+
+            var apiInstance = new AdminApi();
+            var body = new Body_20(); // Body_20 | 
+
+            try
+            {
+                // Promote a part time caretaker
+                apiInstance.adminpromote(body);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AdminApi.adminpromote: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Admin-adminpromote-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+$api_instance = new Swagger\Client\ApiAdminApi();
+$body = ; // Body_20 | 
+
+try {
+    $api_instance->adminpromote($body);
+} catch (Exception $e) {
+    echo 'Exception when calling AdminApi->adminpromote: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Admin-adminpromote-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::AdminApi;
+
+
+my $api_instance = WWW::SwaggerClient::AdminApi->new();
+my $body = WWW::SwaggerClient::Object::Body_20->new(); # Body_20 | 
+
+eval { 
+    $api_instance->adminpromote(body => $body);
+};
+if ($@) {
+    warn "Exception when calling AdminApi->adminpromote: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Admin-adminpromote-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = swagger_client.AdminApi()
+body =  # Body_20 | 
+
+try: 
+    # Promote a part time caretaker
+    api_instance.adminpromote(body)
+except ApiException as e:
+    print("Exception when calling AdminApi->adminpromote: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+                                <td>
+                                
+                                
+                                <script>
+                                $(document).ready(function() {
+                                  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/body_20"
+      }
+    }
+  },
+  "required" : true
+};
+                                  var schema = schemaWrapper.content["application/json"].schema;
+                                  if (schema.$ref != null) {
+                                    schema = defsParser.$refs.get(schema.$ref);
+                                  } else {
+                                    schemaWrapper.components = {};
+                                    schemaWrapper.components.schemas = Object.assign({}, defs);
+                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                      console.log(err);
+                                    });
+                                  }
+                                
+                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                  var result = $('#d2e199_adminpromote_body');
+                                  result.empty();
+                                  result.append(view.render());
+                                });
+                                </script>
+                                <div id="d2e199_adminpromote_body"></div>
+                                </td>
+                                </tr>
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 204 - Successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 403 - Invalid access token </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-adminpromote-403-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-adminpromote-403-schema">
+                                  <div id='responses-adminpromote-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Invalid access token",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_403"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-adminpromote-403-schema-data').val(stringify(schema));
+                                        var result = $('#responses-adminpromote-403-schema-403');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-adminpromote-403-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 422 - Rejected by system because of clashes,may be because of invalid dates for the leave application </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-adminpromote-422-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-adminpromote-422-schema">
+                                  <div id='responses-adminpromote-422-schema-422' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Rejected by system because of clashes,may be because of invalid dates for the leave application",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_422_5"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-adminpromote-422-schema-data').val(stringify(schema));
+                                        var result = $('#responses-adminpromote-422-schema-422');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-adminpromote-422-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - Internal server error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-adminpromote-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-adminpromote-500-schema">
+                                  <div id='responses-adminpromote-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Internal server error",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_403"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-adminpromote-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-adminpromote-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-adminpromote-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Admin-getadmin">
                       <article id="api-Admin-getadmin-0" data-group="User" data-name="getadmin" data-version="0">
                         <div class="pull-left">
@@ -2217,7 +2770,7 @@ public class AdminApiExample {
 
         AdminApi apiInstance = new AdminApi();
         try {
-            inline_response_200_9 result = apiInstance.getadmin();
+            inline_response_200_12 result = apiInstance.getadmin();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AdminApi#getadmin");
@@ -2235,7 +2788,7 @@ public class AdminApiExample {
     public static void main(String[] args) {
         AdminApi apiInstance = new AdminApi();
         try {
-            inline_response_200_9 result = apiInstance.getadmin();
+            inline_response_200_12 result = apiInstance.getadmin();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AdminApi#getadmin");
@@ -2255,7 +2808,7 @@ AdminApi *apiInstance = [[AdminApi alloc] init];
 
 // Return user info
 [apiInstance getadminWithCompletionHandler: 
-              ^(inline_response_200_9 output, NSError* error) {
+              ^(inline_response_200_12 output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -2306,7 +2859,7 @@ namespace Example
             try
             {
                 // Return user info
-                inline_response_200_9 result = apiInstance.getadmin();
+                inline_response_200_12 result = apiInstance.getadmin();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2399,7 +2952,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/inline_response_200_9"
+        "$ref" : "#/components/schemas/inline_response_200_12"
       }
     }
   }
@@ -2527,6 +3080,766 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
+                    <div id="api-Admin-getadmincaretakers">
+                      <article id="api-Admin-getadmincaretakers-0" data-group="User" data-name="getadmincaretakers" data-version="0">
+                        <div class="pull-left">
+                          <h1>getadmincaretakers</h1>
+                          <p>Return a list of all caretakers</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/admin/caretakers</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Admin-getadmincaretakers-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Admin-getadmincaretakers-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Admin-getadmincaretakers-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Admin-getadmincaretakers-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Admin-getadmincaretakers-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Admin-getadmincaretakers-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Admin-getadmincaretakers-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Admin-getadmincaretakers-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Admin-getadmincaretakers-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Admin-getadmincaretakers-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Admin-getadmincaretakers-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Admin-getadmincaretakers-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+ -H "Authorization: Bearer [[accessToken]]"\
+-H "Accept: application/json"\
+"https://pet-anything.herokuapp.com/api/v1/admin/caretakers"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Admin-getadmincaretakers-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.AdminApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AdminApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        AdminApi apiInstance = new AdminApi();
+        try {
+            array[inline_response_200_10] result = apiInstance.getadmincaretakers();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminApi#getadmincaretakers");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Admin-getadmincaretakers-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.AdminApi;
+
+public class AdminApiExample {
+
+    public static void main(String[] args) {
+        AdminApi apiInstance = new AdminApi();
+        try {
+            array[inline_response_200_10] result = apiInstance.getadmincaretakers();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminApi#getadmincaretakers");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Admin-getadmincaretakers-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Admin-getadmincaretakers-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+AdminApi *apiInstance = [[AdminApi alloc] init];
+
+// Return a list of all caretakers
+[apiInstance getadmincaretakersWithCompletionHandler: 
+              ^(array[inline_response_200_10] output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Admin-getadmincaretakers-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
+var defaultClient = Cs2102.ApiClient.instance;
+
+
+var api = new Cs2102.AdminApi()
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getadmincaretakers(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Admin-getadmincaretakers-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Admin-getadmincaretakers-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class getadmincaretakersExample
+    {
+        public void main()
+        {
+
+
+            var apiInstance = new AdminApi();
+
+            try
+            {
+                // Return a list of all caretakers
+                array[inline_response_200_10] result = apiInstance.getadmincaretakers();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AdminApi.getadmincaretakers: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Admin-getadmincaretakers-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+$api_instance = new Swagger\Client\ApiAdminApi();
+
+try {
+    $result = $api_instance->getadmincaretakers();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AdminApi->getadmincaretakers: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Admin-getadmincaretakers-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::AdminApi;
+
+
+my $api_instance = WWW::SwaggerClient::AdminApi->new();
+
+eval { 
+    my $result = $api_instance->getadmincaretakers();
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling AdminApi->getadmincaretakers: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Admin-getadmincaretakers-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = swagger_client.AdminApi()
+
+try: 
+    # Return a list of all caretakers
+    api_response = api_instance.getadmincaretakers()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AdminApi->getadmincaretakers: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getadmincaretakers-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getadmincaretakers-200-schema">
+                                  <div id='responses-getadmincaretakers-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Successful operation",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "example" : [ {
+          "username" : "bdukowsky111",
+          "name" : "Bernie Dukowsky",
+          "fulltime" : false,
+          "address" : "135 Dover Rd, 139770",
+          "rating" : 4.5,
+          "salary" : 123
+        }, {
+          "username" : "nickmeck233",
+          "name" : "Nick Mecklenberg",
+          "fulltime" : true,
+          "address" : "920 Commonwealth Ave, 579884",
+          "rating" : 4.7,
+          "salary" : 345
+        } ],
+        "items" : {
+          "$ref" : "#/components/schemas/inline_response_200_10"
+        },
+        "x-content-type" : "application/json"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getadmincaretakers-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getadmincaretakers-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getadmincaretakers-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 403 - Invalid access token </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getadmincaretakers-403-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getadmincaretakers-403-schema">
+                                  <div id='responses-getadmincaretakers-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Invalid access token",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_403"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getadmincaretakers-403-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getadmincaretakers-403-schema-403');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getadmincaretakers-403-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - Internal server error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getadmincaretakers-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getadmincaretakers-500-schema">
+                                  <div id='responses-getadmincaretakers-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Internal server error",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_403"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getadmincaretakers-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getadmincaretakers-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getadmincaretakers-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Admin-getadminpetowners">
+                      <article id="api-Admin-getadminpetowners-0" data-group="User" data-name="getadminpetowners" data-version="0">
+                        <div class="pull-left">
+                          <h1>getadminpetowners</h1>
+                          <p>Return a list of all petowners</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/admin/petowners</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Admin-getadminpetowners-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Admin-getadminpetowners-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Admin-getadminpetowners-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Admin-getadminpetowners-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Admin-getadminpetowners-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Admin-getadminpetowners-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Admin-getadminpetowners-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Admin-getadminpetowners-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Admin-getadminpetowners-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Admin-getadminpetowners-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Admin-getadminpetowners-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Admin-getadminpetowners-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+ -H "Authorization: Bearer [[accessToken]]"\
+-H "Accept: application/json"\
+"https://pet-anything.herokuapp.com/api/v1/admin/petowners"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Admin-getadminpetowners-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.AdminApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AdminApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        AdminApi apiInstance = new AdminApi();
+        try {
+            array[inline_response_200_11] result = apiInstance.getadminpetowners();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminApi#getadminpetowners");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Admin-getadminpetowners-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.AdminApi;
+
+public class AdminApiExample {
+
+    public static void main(String[] args) {
+        AdminApi apiInstance = new AdminApi();
+        try {
+            array[inline_response_200_11] result = apiInstance.getadminpetowners();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AdminApi#getadminpetowners");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Admin-getadminpetowners-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Admin-getadminpetowners-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+AdminApi *apiInstance = [[AdminApi alloc] init];
+
+// Return a list of all petowners
+[apiInstance getadminpetownersWithCompletionHandler: 
+              ^(array[inline_response_200_11] output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Admin-getadminpetowners-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
+var defaultClient = Cs2102.ApiClient.instance;
+
+
+var api = new Cs2102.AdminApi()
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getadminpetowners(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Admin-getadminpetowners-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Admin-getadminpetowners-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class getadminpetownersExample
+    {
+        public void main()
+        {
+
+
+            var apiInstance = new AdminApi();
+
+            try
+            {
+                // Return a list of all petowners
+                array[inline_response_200_11] result = apiInstance.getadminpetowners();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AdminApi.getadminpetowners: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Admin-getadminpetowners-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+$api_instance = new Swagger\Client\ApiAdminApi();
+
+try {
+    $result = $api_instance->getadminpetowners();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AdminApi->getadminpetowners: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Admin-getadminpetowners-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::AdminApi;
+
+
+my $api_instance = WWW::SwaggerClient::AdminApi->new();
+
+eval { 
+    my $result = $api_instance->getadminpetowners();
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling AdminApi->getadminpetowners: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Admin-getadminpetowners-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = swagger_client.AdminApi()
+
+try: 
+    # Return a list of all petowners
+    api_response = api_instance.getadminpetowners()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AdminApi->getadminpetowners: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getadminpetowners-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getadminpetowners-200-schema">
+                                  <div id='responses-getadminpetowners-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Successful operation",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "example" : [ {
+          "username" : "bdukowsky111",
+          "deals" : 20,
+          "spending" : 520
+        }, {
+          "username" : "nickmeck233",
+          "deals" : 2000,
+          "spending" : 5201314
+        } ],
+        "items" : {
+          "$ref" : "#/components/schemas/inline_response_200_11"
+        },
+        "x-content-type" : "application/json"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getadminpetowners-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getadminpetowners-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getadminpetowners-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 403 - Invalid access token </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getadminpetowners-403-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getadminpetowners-403-schema">
+                                  <div id='responses-getadminpetowners-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Invalid access token",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_403"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getadminpetowners-403-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getadminpetowners-403-schema-403');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getadminpetowners-403-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - Internal server error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-getadminpetowners-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-getadminpetowners-500-schema">
+                                  <div id='responses-getadminpetowners-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Internal server error",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_403"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-getadminpetowners-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-getadminpetowners-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-getadminpetowners-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Admin-getleavers">
                       <article id="api-Admin-getleavers-0" data-group="User" data-name="getleavers" data-version="0">
                         <div class="pull-left">
@@ -2582,7 +3895,7 @@ public class AdminApiExample {
         AdminApi apiInstance = new AdminApi();
         Boolean includeHistory = true; // Boolean | if false, show only the pending leave applications.
         try {
-            array[inline_response_200_11] result = apiInstance.getleavers(includeHistory);
+            array[inline_response_200_14] result = apiInstance.getleavers(includeHistory);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AdminApi#getleavers");
@@ -2601,7 +3914,7 @@ public class AdminApiExample {
         AdminApi apiInstance = new AdminApi();
         Boolean includeHistory = true; // Boolean | if false, show only the pending leave applications.
         try {
-            array[inline_response_200_11] result = apiInstance.getleavers(includeHistory);
+            array[inline_response_200_14] result = apiInstance.getleavers(includeHistory);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AdminApi#getleavers");
@@ -2622,7 +3935,7 @@ AdminApi *apiInstance = [[AdminApi alloc] init];
 
 // List all full time caretaker that applies for leave.
 [apiInstance getleaversWith:includeHistory
-              completionHandler: ^(array[inline_response_200_11] output, NSError* error) {
+              completionHandler: ^(array[inline_response_200_14] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -2677,7 +3990,7 @@ namespace Example
             try
             {
                 // List all full time caretaker that applies for leave.
-                array[inline_response_200_11] result = apiInstance.getleavers(includeHistory);
+                array[inline_response_200_14] result = apiInstance.getleavers(includeHistory);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2820,7 +4133,7 @@ except ApiException as e:
           "status" : "approved"
         } ],
         "items" : {
-          "$ref" : "#/components/schemas/inline_response_200_11"
+          "$ref" : "#/components/schemas/inline_response_200_14"
         },
         "x-content-type" : "application/json"
       }
@@ -3004,7 +4317,7 @@ public class AdminApiExample {
 
         AdminApi apiInstance = new AdminApi();
         try {
-            array[inline_response_200_10] result = apiInstance.getprice();
+            array[inline_response_200_13] result = apiInstance.getprice();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AdminApi#getprice");
@@ -3022,7 +4335,7 @@ public class AdminApiExample {
     public static void main(String[] args) {
         AdminApi apiInstance = new AdminApi();
         try {
-            array[inline_response_200_10] result = apiInstance.getprice();
+            array[inline_response_200_13] result = apiInstance.getprice();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AdminApi#getprice");
@@ -3042,7 +4355,7 @@ AdminApi *apiInstance = [[AdminApi alloc] init];
 
 // Get the three different classes of prices for each pet category.
 [apiInstance getpriceWithCompletionHandler: 
-              ^(array[inline_response_200_10] output, NSError* error) {
+              ^(array[inline_response_200_13] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -3093,7 +4406,7 @@ namespace Example
             try
             {
                 // Get the three different classes of prices for each pet category.
-                array[inline_response_200_10] result = apiInstance.getprice();
+                array[inline_response_200_13] result = apiInstance.getprice();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -3202,14 +4515,9 @@ except ApiException as e:
           "price1" : 80,
           "price2" : 180,
           "price3" : 280
-        }, {
-          "category" : "mouse",
-          "price1" : 80,
-          "price2" : 180,
-          "price3" : 280
         } ],
         "items" : {
-          "$ref" : "#/components/schemas/inline_response_200_10"
+          "$ref" : "#/components/schemas/inline_response_200_13"
         },
         "x-content-type" : "application/json"
       }
@@ -3343,7 +4651,7 @@ except ApiException as e:
                       <article id="api-Admin-getservice-0" data-group="User" data-name="getservice" data-version="0">
                         <div class="pull-left">
                           <h1>getservice</h1>
-                          <p>Given the year, return the total number of (pet * days) being taken care of each month and category.</p>
+                          <p>Given the range (inclusive of both ends), return the total number of (pet * days) being taken care of each month and category.</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -3374,7 +4682,7 @@ except ApiException as e:
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
  -H "Authorization: Bearer [[accessToken]]"\
 -H "Accept: application/json"\
-"https://pet-anything.herokuapp.com/api/v1/admin/service"</code></pre>
+"https://pet-anything.herokuapp.com/api/v1/admin/service?from=&to="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Admin-getservice-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -3392,8 +4700,10 @@ public class AdminApiExample {
 
 
         AdminApi apiInstance = new AdminApi();
+        String from = from_example; // String | yyyy-mm
+        String to = to_example; // String | yyyy-mm
         try {
-            array[inline_response_200_13] result = apiInstance.getservice();
+            array[inline_response_200_16] result = apiInstance.getservice(from, to);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AdminApi#getservice");
@@ -3410,8 +4720,10 @@ public class AdminApiExample {
 
     public static void main(String[] args) {
         AdminApi apiInstance = new AdminApi();
+        String from = from_example; // String | yyyy-mm
+        String to = to_example; // String | yyyy-mm
         try {
-            array[inline_response_200_13] result = apiInstance.getservice();
+            array[inline_response_200_16] result = apiInstance.getservice(from, to);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AdminApi#getservice");
@@ -3426,12 +4738,15 @@ public class AdminApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-Admin-getservice-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+String *from = from_example; // yyyy-mm (optional)
+String *to = to_example; // yyyy-mm (optional)
 
 AdminApi *apiInstance = [[AdminApi alloc] init];
 
-// Given the year, return the total number of (pet * days) being taken care of each month and category.
-[apiInstance getserviceWithCompletionHandler: 
-              ^(array[inline_response_200_13] output, NSError* error) {
+// Given the range (inclusive of both ends), return the total number of (pet * days) being taken care of each month and category.
+[apiInstance getserviceWith:from
+    to:to
+              completionHandler: ^(array[inline_response_200_16] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -3448,6 +4763,10 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.AdminApi()
+var opts = { 
+  'from': from_example, // {{String}} yyyy-mm
+  'to': to_example // {{String}} yyyy-mm
+};
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -3455,7 +4774,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.getservice(callback);
+api.getservice(opts, callback);
 </code></pre>
                             </div>
 
@@ -3478,11 +4797,13 @@ namespace Example
 
 
             var apiInstance = new AdminApi();
+            var from = from_example;  // String | yyyy-mm (optional) 
+            var to = to_example;  // String | yyyy-mm (optional) 
 
             try
             {
-                // Given the year, return the total number of (pet * days) being taken care of each month and category.
-                array[inline_response_200_13] result = apiInstance.getservice();
+                // Given the range (inclusive of both ends), return the total number of (pet * days) being taken care of each month and category.
+                array[inline_response_200_16] result = apiInstance.getservice(from, to);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -3501,9 +4822,11 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiAdminApi();
+$from = from_example; // String | yyyy-mm
+$to = to_example; // String | yyyy-mm
 
 try {
-    $result = $api_instance->getservice();
+    $result = $api_instance->getservice($from, $to);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling AdminApi->getservice: ', $e->getMessage(), PHP_EOL;
@@ -3518,9 +4841,11 @@ use WWW::SwaggerClient::AdminApi;
 
 
 my $api_instance = WWW::SwaggerClient::AdminApi->new();
+my $from = from_example; # String | yyyy-mm
+my $to = to_example; # String | yyyy-mm
 
 eval { 
-    my $result = $api_instance->getservice();
+    my $result = $api_instance->getservice(from => $from, to => $to);
     print Dumper($result);
 };
 if ($@) {
@@ -3538,10 +4863,12 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.AdminApi()
+from = from_example # String | yyyy-mm (optional)
+to = to_example # String | yyyy-mm (optional)
 
 try: 
-    # Given the year, return the total number of (pet * days) being taken care of each month and category.
-    api_response = api_instance.getservice()
+    # Given the range (inclusive of both ends), return the total number of (pet * days) being taken care of each month and category.
+    api_response = api_instance.getservice(from=from, to=to)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AdminApi->getservice: %s\n" % e)</code></pre>
@@ -3554,6 +4881,51 @@ except ApiException as e:
 
 
 
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">from</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_getservice_from">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    String
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        yyyy-mm
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                                <tr><td style="width:150px;">to</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_getservice_to">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    String
+                                                </span>
+                                
+                                                    <div class="inner description">
+                                                        yyyy-mm
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                            </table>
 
                           <h2>Responses</h2>
                             <h3> Status: 200 - Successful operation </h3>
@@ -3578,23 +4950,35 @@ except ApiException as e:
         "type" : "array",
         "example" : [ {
           "month" : "2019-01",
-          "category" : "cat",
-          "pethour" : 5000
-        }, {
-          "month" : "2019-01",
-          "category" : "dog",
-          "pethour" : 5000
-        }, {
-          "month" : "2019-02",
-          "category" : "cat",
-          "pethour" : 5000
+          "pethour" : {
+            "cat" : 5000,
+            "dog" : 4000,
+            "fish" : 3000
+          }
         }, {
           "month" : "2019-02",
-          "category" : "dog",
-          "pethour" : 5000
+          "pethour" : {
+            "cat" : 5000,
+            "dog" : 4000,
+            "fish" : 3000
+          }
+        }, {
+          "month" : "2019-03",
+          "pethour" : {
+            "cat" : 5000,
+            "dog" : 4000,
+            "fish" : 3000
+          }
+        }, {
+          "month" : "2019-04",
+          "pethour" : {
+            "cat" : 5000,
+            "dog" : 4000,
+            "fish" : 3000
+          }
         } ],
         "items" : {
-          "$ref" : "#/components/schemas/inline_response_200_13"
+          "$ref" : "#/components/schemas/inline_response_200_16"
         },
         "x-content-type" : "application/json"
       }
@@ -3682,7 +5066,7 @@ public class AdminApiExample {
 
 
         AdminApi apiInstance = new AdminApi();
-        Body_20 body = ; // Body_20 | approve or reject a leae application
+        Body_22 body = ; // Body_22 | approve or reject a leae application
         try {
             apiInstance.putleavers(body);
         } catch (ApiException e) {
@@ -3700,7 +5084,7 @@ public class AdminApiExample {
 
     public static void main(String[] args) {
         AdminApi apiInstance = new AdminApi();
-        Body_20 body = ; // Body_20 | approve or reject a leae application
+        Body_22 body = ; // Body_22 | approve or reject a leae application
         try {
             apiInstance.putleavers(body);
         } catch (ApiException e) {
@@ -3716,7 +5100,7 @@ public class AdminApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-Admin-putleavers-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_20 *body = ; // approve or reject a leae application
+Body_22 *body = ; // approve or reject a leae application
 
 AdminApi *apiInstance = [[AdminApi alloc] init];
 
@@ -3736,7 +5120,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.AdminApi()
-var body = ; // {{Body_20}} approve or reject a leae application
+var body = ; // {{Body_22}} approve or reject a leae application
 
 var callback = function(error, data, response) {
   if (error) {
@@ -3768,7 +5152,7 @@ namespace Example
 
 
             var apiInstance = new AdminApi();
-            var body = new Body_20(); // Body_20 | approve or reject a leae application
+            var body = new Body_22(); // Body_22 | approve or reject a leae application
 
             try
             {
@@ -3791,7 +5175,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiAdminApi();
-$body = ; // Body_20 | approve or reject a leae application
+$body = ; // Body_22 | approve or reject a leae application
 
 try {
     $api_instance->putleavers($body);
@@ -3808,7 +5192,7 @@ use WWW::SwaggerClient::AdminApi;
 
 
 my $api_instance = WWW::SwaggerClient::AdminApi->new();
-my $body = WWW::SwaggerClient::Object::Body_20->new(); # Body_20 | approve or reject a leae application
+my $body = WWW::SwaggerClient::Object::Body_22->new(); # Body_22 | approve or reject a leae application
 
 eval { 
     $api_instance->putleavers(body => $body);
@@ -3828,7 +5212,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.AdminApi()
-body =  # Body_20 | approve or reject a leae application
+body =  # Body_22 | approve or reject a leae application
 
 try: 
     # Approve or reject a leave application. Note that only applications without clash can be approved.
@@ -3859,7 +5243,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_20"
+        "$ref" : "#/components/schemas/body_22"
       }
     }
   },
@@ -4051,7 +5435,7 @@ public class AdminApiExample {
 
 
         AdminApi apiInstance = new AdminApi();
-        Body_19 body = ; // Body_19 | price information
+        Body_21 body = ; // Body_21 | price information
         try {
             apiInstance.putprice(body);
         } catch (ApiException e) {
@@ -4069,7 +5453,7 @@ public class AdminApiExample {
 
     public static void main(String[] args) {
         AdminApi apiInstance = new AdminApi();
-        Body_19 body = ; // Body_19 | price information
+        Body_21 body = ; // Body_21 | price information
         try {
             apiInstance.putprice(body);
         } catch (ApiException e) {
@@ -4085,7 +5469,7 @@ public class AdminApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-Admin-putprice-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_19 *body = ; // price information
+Body_21 *body = ; // price information
 
 AdminApi *apiInstance = [[AdminApi alloc] init];
 
@@ -4105,7 +5489,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.AdminApi()
-var body = ; // {{Body_19}} price information
+var body = ; // {{Body_21}} price information
 
 var callback = function(error, data, response) {
   if (error) {
@@ -4137,7 +5521,7 @@ namespace Example
 
 
             var apiInstance = new AdminApi();
-            var body = new Body_19(); // Body_19 | price information
+            var body = new Body_21(); // Body_21 | price information
 
             try
             {
@@ -4160,7 +5544,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiAdminApi();
-$body = ; // Body_19 | price information
+$body = ; // Body_21 | price information
 
 try {
     $api_instance->putprice($body);
@@ -4177,7 +5561,7 @@ use WWW::SwaggerClient::AdminApi;
 
 
 my $api_instance = WWW::SwaggerClient::AdminApi->new();
-my $body = WWW::SwaggerClient::Object::Body_19->new(); # Body_19 | price information
+my $body = WWW::SwaggerClient::Object::Body_21->new(); # Body_21 | price information
 
 eval { 
     $api_instance->putprice(body => $body);
@@ -4197,7 +5581,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.AdminApi()
-body =  # Body_19 | price information
+body =  # Body_21 | price information
 
 try: 
     # Update the price for each pet category and the service class.
@@ -4228,7 +5612,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_19"
+        "$ref" : "#/components/schemas/body_21"
       }
     }
   },
@@ -7059,7 +8443,7 @@ except ApiException as e:
                       <article id="api-CareTakerOperation-ctgetorders-0" data-group="User" data-name="ctgetorders" data-version="0">
                         <div class="pull-left">
                           <h1>ctgetorders</h1>
-                          <p>Return all orders or all orders except past/completed orders(depending on parameter) that belong to the caretaker</p>
+                          <p>Return all orders or all orders except past/completed orders(depending on parameter) that belong(s) to the caretaker. If pastorder &#x3D; true, return all orders(including rejected bids) associated with the caretaker. If pastorder &#x3D; false, return all current and future orders except rejected bids associated with the caretaker.</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -7148,7 +8532,7 @@ Boolean *pastorder = true; // true if need past/completed orders (optional)
 
 CareTakerOperationApi *apiInstance = [[CareTakerOperationApi alloc] init];
 
-// Return all orders or all orders except past/completed orders(depending on parameter) that belong to the caretaker
+// Return all orders or all orders except past/completed orders(depending on parameter) that belong(s) to the caretaker. If pastorder = true, return all orders(including rejected bids) associated with the caretaker. If pastorder = false, return all current and future orders except rejected bids associated with the caretaker.
 [apiInstance ctgetordersWith:pastorder
               completionHandler: ^(array[inline_response_200_6] output, NSError* error) {
                             if (output) {
@@ -7204,7 +8588,7 @@ namespace Example
 
             try
             {
-                // Return all orders or all orders except past/completed orders(depending on parameter) that belong to the caretaker
+                // Return all orders or all orders except past/completed orders(depending on parameter) that belong(s) to the caretaker. If pastorder = true, return all orders(including rejected bids) associated with the caretaker. If pastorder = false, return all current and future orders except rejected bids associated with the caretaker.
                 array[inline_response_200_6] result = apiInstance.ctgetorders(pastorder);
                 Debug.WriteLine(result);
             }
@@ -7266,7 +8650,7 @@ api_instance = swagger_client.CareTakerOperationApi()
 pastorder = true # Boolean | true if need past/completed orders (optional)
 
 try: 
-    # Return all orders or all orders except past/completed orders(depending on parameter) that belong to the caretaker
+    # Return all orders or all orders except past/completed orders(depending on parameter) that belong(s) to the caretaker. If pastorder = true, return all orders(including rejected bids) associated with the caretaker. If pastorder = false, return all current and future orders except rejected bids associated with the caretaker.
     api_response = api_instance.ctgetorders(pastorder=pastorder)
     pprint(api_response)
 except ApiException as e:
@@ -8358,7 +9742,7 @@ public class FullTimeCareTakerOperationApiExample {
 
 
         FullTimeCareTakerOperationApi apiInstance = new FullTimeCareTakerOperationApi();
-        Body_18 body = ; // Body_18 | an object in format of (startdate:XX , enddate: XX)
+        Body_19 body = ; // Body_19 | an object in format of (startdate:XX , enddate: XX)
         try {
             apiInstance.ctapplyleave(body);
         } catch (ApiException e) {
@@ -8376,7 +9760,7 @@ public class FullTimeCareTakerOperationApiExample {
 
     public static void main(String[] args) {
         FullTimeCareTakerOperationApi apiInstance = new FullTimeCareTakerOperationApi();
-        Body_18 body = ; // Body_18 | an object in format of (startdate:XX , enddate: XX)
+        Body_19 body = ; // Body_19 | an object in format of (startdate:XX , enddate: XX)
         try {
             apiInstance.ctapplyleave(body);
         } catch (ApiException e) {
@@ -8392,7 +9776,7 @@ public class FullTimeCareTakerOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-FullTimeCareTakerOperation-ctapplyleave-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_18 *body = ; // an object in format of (startdate:XX , enddate: XX)
+Body_19 *body = ; // an object in format of (startdate:XX , enddate: XX)
 
 FullTimeCareTakerOperationApi *apiInstance = [[FullTimeCareTakerOperationApi alloc] init];
 
@@ -8412,7 +9796,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.FullTimeCareTakerOperationApi()
-var body = ; // {{Body_18}} an object in format of (startdate:XX , enddate: XX)
+var body = ; // {{Body_19}} an object in format of (startdate:XX , enddate: XX)
 
 var callback = function(error, data, response) {
   if (error) {
@@ -8444,7 +9828,7 @@ namespace Example
 
 
             var apiInstance = new FullTimeCareTakerOperationApi();
-            var body = new Body_18(); // Body_18 | an object in format of (startdate:XX , enddate: XX)
+            var body = new Body_19(); // Body_19 | an object in format of (startdate:XX , enddate: XX)
 
             try
             {
@@ -8467,7 +9851,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiFullTimeCareTakerOperationApi();
-$body = ; // Body_18 | an object in format of (startdate:XX , enddate: XX)
+$body = ; // Body_19 | an object in format of (startdate:XX , enddate: XX)
 
 try {
     $api_instance->ctapplyleave($body);
@@ -8484,7 +9868,7 @@ use WWW::SwaggerClient::FullTimeCareTakerOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::FullTimeCareTakerOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_18->new(); # Body_18 | an object in format of (startdate:XX , enddate: XX)
+my $body = WWW::SwaggerClient::Object::Body_19->new(); # Body_19 | an object in format of (startdate:XX , enddate: XX)
 
 eval { 
     $api_instance->ctapplyleave(body => $body);
@@ -8504,7 +9888,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.FullTimeCareTakerOperationApi()
-body =  # Body_18 | an object in format of (startdate:XX , enddate: XX)
+body =  # Body_19 | an object in format of (startdate:XX , enddate: XX)
 
 try: 
     # Apply for a leave by the full time care taker
@@ -8535,7 +9919,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_18"
+        "$ref" : "#/components/schemas/body_19"
       }
     }
   },
@@ -8775,7 +10159,7 @@ public class FullTimeCareTakerOperationApiExample {
 
         FullTimeCareTakerOperationApi apiInstance = new FullTimeCareTakerOperationApi();
         try {
-            inline_response_200_8 result = apiInstance.ctgetallleaves();
+            inline_response_200_9 result = apiInstance.ctgetallleaves();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FullTimeCareTakerOperationApi#ctgetallleaves");
@@ -8793,7 +10177,7 @@ public class FullTimeCareTakerOperationApiExample {
     public static void main(String[] args) {
         FullTimeCareTakerOperationApi apiInstance = new FullTimeCareTakerOperationApi();
         try {
-            inline_response_200_8 result = apiInstance.ctgetallleaves();
+            inline_response_200_9 result = apiInstance.ctgetallleaves();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FullTimeCareTakerOperationApi#ctgetallleaves");
@@ -8813,7 +10197,7 @@ FullTimeCareTakerOperationApi *apiInstance = [[FullTimeCareTakerOperationApi all
 
 // Return all leaves applied by the full time care taker
 [apiInstance ctgetallleavesWithCompletionHandler: 
-              ^(inline_response_200_8 output, NSError* error) {
+              ^(inline_response_200_9 output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -8864,7 +10248,7 @@ namespace Example
             try
             {
                 // Return all leaves applied by the full time care taker
-                inline_response_200_8 result = apiInstance.ctgetallleaves();
+                inline_response_200_9 result = apiInstance.ctgetallleaves();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -8957,7 +10341,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/inline_response_200_8"
+        "$ref" : "#/components/schemas/inline_response_200_9"
       }
     }
   }
@@ -9862,7 +11246,7 @@ public class PartTimeCareTakerOperationApiExample {
 
         PartTimeCareTakerOperationApi apiInstance = new PartTimeCareTakerOperationApi();
         try {
-            array['String'] result = apiInstance.ctgetavailability();
+            inline_response_200_8 result = apiInstance.ctgetavailability();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PartTimeCareTakerOperationApi#ctgetavailability");
@@ -9880,7 +11264,7 @@ public class PartTimeCareTakerOperationApiExample {
     public static void main(String[] args) {
         PartTimeCareTakerOperationApi apiInstance = new PartTimeCareTakerOperationApi();
         try {
-            array['String'] result = apiInstance.ctgetavailability();
+            inline_response_200_8 result = apiInstance.ctgetavailability();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PartTimeCareTakerOperationApi#ctgetavailability");
@@ -9900,7 +11284,7 @@ PartTimeCareTakerOperationApi *apiInstance = [[PartTimeCareTakerOperationApi all
 
 // Return the availability indicated by the part time care taker
 [apiInstance ctgetavailabilityWithCompletionHandler: 
-              ^(array['String'] output, NSError* error) {
+              ^(inline_response_200_8 output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -9951,7 +11335,7 @@ namespace Example
             try
             {
                 // Return the availability indicated by the part time care taker
-                array['String'] result = apiInstance.ctgetavailability();
+                inline_response_200_8 result = apiInstance.ctgetavailability();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -10044,16 +11428,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "type" : "array",
-        "example" : [ {
-          "date" : "11/15/20"
-        }, {
-          "startdate" : "12/15/20"
-        } ],
-        "items" : {
-          "type" : "string"
-        },
-        "x-content-type" : "application/json"
+        "$ref" : "#/components/schemas/inline_response_200_8"
       }
     }
   }
@@ -10697,7 +12072,7 @@ public class PartTimeCareTakerOperationApiExample {
 
 
         PartTimeCareTakerOperationApi apiInstance = new PartTimeCareTakerOperationApi();
-        Body_17 body = ; // Body_17 | An array of objects in format of (startdate:XX , enddate: XX)
+        Body_18 body = ; // Body_18 | One single object in format of (startdate:XX , enddate: XX)
         try {
             apiInstance.ctupdateavailability(body);
         } catch (ApiException e) {
@@ -10715,7 +12090,7 @@ public class PartTimeCareTakerOperationApiExample {
 
     public static void main(String[] args) {
         PartTimeCareTakerOperationApi apiInstance = new PartTimeCareTakerOperationApi();
-        Body_17 body = ; // Body_17 | An array of objects in format of (startdate:XX , enddate: XX)
+        Body_18 body = ; // Body_18 | One single object in format of (startdate:XX , enddate: XX)
         try {
             apiInstance.ctupdateavailability(body);
         } catch (ApiException e) {
@@ -10731,7 +12106,7 @@ public class PartTimeCareTakerOperationApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-PartTimeCareTakerOperation-ctupdateavailability-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-Body_17 *body = ; // An array of objects in format of (startdate:XX , enddate: XX)
+Body_18 *body = ; // One single object in format of (startdate:XX , enddate: XX)
 
 PartTimeCareTakerOperationApi *apiInstance = [[PartTimeCareTakerOperationApi alloc] init];
 
@@ -10751,7 +12126,7 @@ var defaultClient = Cs2102.ApiClient.instance;
 
 
 var api = new Cs2102.PartTimeCareTakerOperationApi()
-var body = ; // {{Body_17}} An array of objects in format of (startdate:XX , enddate: XX)
+var body = ; // {{Body_18}} One single object in format of (startdate:XX , enddate: XX)
 
 var callback = function(error, data, response) {
   if (error) {
@@ -10783,7 +12158,7 @@ namespace Example
 
 
             var apiInstance = new PartTimeCareTakerOperationApi();
-            var body = new Body_17(); // Body_17 | An array of objects in format of (startdate:XX , enddate: XX)
+            var body = new Body_18(); // Body_18 | One single object in format of (startdate:XX , enddate: XX)
 
             try
             {
@@ -10806,7 +12181,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 $api_instance = new Swagger\Client\ApiPartTimeCareTakerOperationApi();
-$body = ; // Body_17 | An array of objects in format of (startdate:XX , enddate: XX)
+$body = ; // Body_18 | One single object in format of (startdate:XX , enddate: XX)
 
 try {
     $api_instance->ctupdateavailability($body);
@@ -10823,7 +12198,7 @@ use WWW::SwaggerClient::PartTimeCareTakerOperationApi;
 
 
 my $api_instance = WWW::SwaggerClient::PartTimeCareTakerOperationApi->new();
-my $body = WWW::SwaggerClient::Object::Body_17->new(); # Body_17 | An array of objects in format of (startdate:XX , enddate: XX)
+my $body = WWW::SwaggerClient::Object::Body_18->new(); # Body_18 | One single object in format of (startdate:XX , enddate: XX)
 
 eval { 
     $api_instance->ctupdateavailability(body => $body);
@@ -10843,7 +12218,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.PartTimeCareTakerOperationApi()
-body =  # Body_17 | An array of objects in format of (startdate:XX , enddate: XX)
+body =  # Body_18 | One single object in format of (startdate:XX , enddate: XX)
 
 try: 
     # Update the availability indicated by the part time care taker
@@ -10870,11 +12245,11 @@ except ApiException as e:
                                 <script>
                                 $(document).ready(function() {
                                   var schemaWrapper = {
-  "description" : "An array of objects in format of (startdate:XX , enddate: XX)",
+  "description" : "One single object in format of (startdate:XX , enddate: XX)",
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/body_17"
+        "$ref" : "#/components/schemas/body_18"
       }
     }
   },
@@ -12525,6 +13900,375 @@ except ApiException as e:
                                     </script>
                                   </div>
                                   <input id='responses-pogetpets-500-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-PetOwnerOperation-popay">
+                      <article id="api-PetOwnerOperation-popay-0" data-group="User" data-name="popay" data-version="0">
+                        <div class="pull-left">
+                          <h1>popay</h1>
+                          <p>Pet owner set the order status to be payment received. This is only used when the payment mode is credit card.</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/petowner/pay</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-PetOwnerOperation-popay-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-PetOwnerOperation-popay-0-java">Java</a></li>
+                          <li class=""><a href="#examples-PetOwnerOperation-popay-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-PetOwnerOperation-popay-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-PetOwnerOperation-popay-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-PetOwnerOperation-popay-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-PetOwnerOperation-popay-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-PetOwnerOperation-popay-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-PetOwnerOperation-popay-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-PetOwnerOperation-popay-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-PetOwnerOperation-popay-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-PetOwnerOperation-popay-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X PUT\
+ -H "Authorization: Bearer [[accessToken]]"\
+-H "Accept: application/json"\
+-H "Content-Type: application/json"\
+"https://pet-anything.herokuapp.com/api/v1/petowner/pay"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-PetOwnerOperation-popay-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.PetOwnerOperationApi;
+
+import java.io.File;
+import java.util.*;
+
+public class PetOwnerOperationApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        PetOwnerOperationApi apiInstance = new PetOwnerOperationApi();
+        Body_17 body = ; // Body_17 | order detail
+        try {
+            apiInstance.popay(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PetOwnerOperationApi#popay");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-PetOwnerOperation-popay-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.PetOwnerOperationApi;
+
+public class PetOwnerOperationApiExample {
+
+    public static void main(String[] args) {
+        PetOwnerOperationApi apiInstance = new PetOwnerOperationApi();
+        Body_17 body = ; // Body_17 | order detail
+        try {
+            apiInstance.popay(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PetOwnerOperationApi#popay");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-PetOwnerOperation-popay-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-PetOwnerOperation-popay-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+Body_17 *body = ; // order detail
+
+PetOwnerOperationApi *apiInstance = [[PetOwnerOperationApi alloc] init];
+
+// Pet owner set the order status to be payment received. This is only used when the payment mode is credit card.
+[apiInstance popayWith:body
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-PetOwnerOperation-popay-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Cs2102 = require('cs2102');
+var defaultClient = Cs2102.ApiClient.instance;
+
+
+var api = new Cs2102.PetOwnerOperationApi()
+var body = ; // {{Body_17}} order detail
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.popay(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-PetOwnerOperation-popay-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-PetOwnerOperation-popay-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class popayExample
+    {
+        public void main()
+        {
+
+
+            var apiInstance = new PetOwnerOperationApi();
+            var body = new Body_17(); // Body_17 | order detail
+
+            try
+            {
+                // Pet owner set the order status to be payment received. This is only used when the payment mode is credit card.
+                apiInstance.popay(body);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling PetOwnerOperationApi.popay: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-PetOwnerOperation-popay-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+$api_instance = new Swagger\Client\ApiPetOwnerOperationApi();
+$body = ; // Body_17 | order detail
+
+try {
+    $api_instance->popay($body);
+} catch (Exception $e) {
+    echo 'Exception when calling PetOwnerOperationApi->popay: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-PetOwnerOperation-popay-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::PetOwnerOperationApi;
+
+
+my $api_instance = WWW::SwaggerClient::PetOwnerOperationApi->new();
+my $body = WWW::SwaggerClient::Object::Body_17->new(); # Body_17 | order detail
+
+eval { 
+    $api_instance->popay(body => $body);
+};
+if ($@) {
+    warn "Exception when calling PetOwnerOperationApi->popay: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-PetOwnerOperation-popay-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = swagger_client.PetOwnerOperationApi()
+body =  # Body_17 | order detail
+
+try: 
+    # Pet owner set the order status to be payment received. This is only used when the payment mode is credit card.
+    api_instance.popay(body)
+except ApiException as e:
+    print("Exception when calling PetOwnerOperationApi->popay: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+                                <td>
+                                
+                                
+                                <script>
+                                $(document).ready(function() {
+                                  var schemaWrapper = {
+  "description" : "order detail",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/body_17"
+      }
+    }
+  },
+  "required" : true
+};
+                                  var schema = schemaWrapper.content["application/json"].schema;
+                                  if (schema.$ref != null) {
+                                    schema = defsParser.$refs.get(schema.$ref);
+                                  } else {
+                                    schemaWrapper.components = {};
+                                    schemaWrapper.components.schemas = Object.assign({}, defs);
+                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                      console.log(err);
+                                    });
+                                  }
+                                
+                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                  var result = $('#d2e199_popay_body');
+                                  result.empty();
+                                  result.append(view.render());
+                                });
+                                </script>
+                                <div id="d2e199_popay_body"></div>
+                                </td>
+                                </tr>
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 204 - Successful operation </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 403 - Invalid access token </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-popay-403-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-popay-403-schema">
+                                  <div id='responses-popay-403-schema-403' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Invalid access token",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_403_1"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-popay-403-schema-data').val(stringify(schema));
+                                        var result = $('#responses-popay-403-schema-403');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-popay-403-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 500 - Internal server error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-popay-500-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-popay-500-schema">
+                                  <div id='responses-popay-500-schema-500' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Internal server error",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/inline_response_500_2"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-popay-500-schema-data').val(stringify(schema));
+                                        var result = $('#responses-popay-500-schema-500');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-popay-500-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
