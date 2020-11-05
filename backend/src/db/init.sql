@@ -75,10 +75,14 @@ CREATE TABLE looksafter(
 
 CREATE TABLE fulltime_price(
     ptype VARCHAR PRIMARY KEY REFERENCES pettypes(ptype),
-    price1 INT,
-    price2 INT,
-    price3 INT
+    price1 INT, --  <=2
+    price2 INT, --  2<x<=4
+    price3 INT -- x > 4
 );
+
+INSERT INTO fulltime_price VALUES ('cat', 10, 10, 10);
+INSERT INTO fulltime_price VALUES ('dog', 20, 20, 20);
+INSERT INTO fulltime_price VALUES ('fish', 10, 15, 20);
 
 --INSERT INTO looksafter VALUES ('kyle2', 20, 'cat');
 
@@ -265,12 +269,65 @@ EXECUTE FUNCTION update_available();
 CREATE OR REPLACE PROCEDURE update_leave(ctakerV VARCHAR, startdateV DATE, enddateV DATE) AS
 $$
 BEGIN
-if NOT EXISTS (SELECT 1 FROM orders O WHERE O.sdate <= enddateV AND O.edate >= startdateV AND O.ctaker = ctakerV)
+if check_clash(ctakerV, startdateV, enddateV) = 'false'
 THEN
-INSERT INTO leave(ctaker, startdate , enddate) VALUES (ctakerV, startdateV, enddateV);
+INSERT INTO leave(ctaker, startdate, enddate, clash) 
+VALUES (ctakerV, startdateV, enddateV, check_clash(ctakerV, startdateV, enddateV));
 RAISE NOTICE 'sucessfully done!';
 END IF;
 END;
 $$
 language plpgsql;
 --one thing yet to finalize is how to send notification when the procedure is rolled back
+
+CREATE OR REPLACE FUNCTION check_clash(ctakerV VARCHAR, startdateV DATE, enddateV DATE) 
+RETURNS varchar AS
+$$
+DECLARE clash varchar = 'true';
+BEGIN
+if NOT EXISTS (SELECT 1 FROM orders O WHERE O.sdate <= enddateV AND O.edate >= startdateV AND O.ctaker = ctakerV 
+AND (O.status = 'Payment Received' OR O.status = 'Pending Payment' OR O.status = 'Pending Caretaker Acceptance'))
+THEN
+clash = 'false';
+END IF;
+RETURN clash;
+END;
+$$
+language plpgsql;
+
+CREATE OR REPLACE PROCEDURE update_price(category VARCHAR) AS
+$$
+DECLARE price1t INTEGER;
+DECLARE price2t INTEGER;
+DECLARE price3t INTEGER;
+
+BEGIN
+SELECT price1 INTO price1t FROM fulltime_price WHERE ptype = category;
+SELECT price2 INTO price2t FROM fulltime_price WHERE ptype = category;
+SELECT price3 INTO price3t FROM fulltime_price WHERE ptype = category;
+RAISE NOTICE 'i want to print % and %', price1t,price2t;
+UPDATE looksafter SET price = price1t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) <=2 AND (SELECT fulltime FROM caretakers WHERE username = ctaker) = TRUE;
+UPDATE looksafter SET price = price2t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) > 2 AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) <= 4 AND (SELECT fulltime FROM caretakers WHERE username = ctaker) = TRUE;
+UPDATE looksafter SET price = price3t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) > 4 AND (SELECT fulltime FROM caretakers WHERE username = ctaker) = TRUE;
+END;
+$$
+
+language plpgsql;
+
+
+
+CREATE OR REPLACE FUNCTION update_available()
+RETURNS TRIGGER AS
+$$ 
+DECLARE maxpet INTEGER;
+BEGIN
+DELETE FROM available WHERE ctaker = NEW.ctaker AND (date <= NEW.enddate AND date >= NEW.startdate);
+RETURN NEW;
+END; $$
+LANGUAGE plpgsql;
+
+
+CREATE TRIGGER update_available_after_leave
+AFTER INSERT OR UPDATE ON leave
+FOR EACH ROW WHEN (NEW.status = 'approved')
+EXECUTE FUNCTION update_available(); 

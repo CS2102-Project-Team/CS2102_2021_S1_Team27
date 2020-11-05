@@ -1,6 +1,7 @@
 const express = require('express');
 const auth = require('./auth');
 const db = require('../db/Admin');
+const dbct = require('../db/ctaker');
 // const { body, validationResult } = require('express-validator');
 
 const router = express.Router();
@@ -117,6 +118,22 @@ router.put('/price', auth.authenticateAdminToken, async (req, res) => {
 router.get('/leave', auth.authenticateAdminToken, async (req, res) => {
   try {
     const leave = await db.functions.getLeave();
+    // eslint-disable-next-line no-var, no-restricted-syntax, vars-on-top
+    for (var temp of leave) {
+      // eslint-disable-next-line no-await-in-loop
+      if (await db.functions.checkclash(temp.caretakerusername, temp.startdate, temp.enddate) === 'true') {
+        temp.clash = 'true';
+      } else {
+        temp.clash = 'false';
+      }
+    }
+    leave.map((element) => {
+      // eslint-disable-next-line no-param-reassign, prefer-destructuring
+      element.startdate = element.startdate.toISOString().split('T')[0];
+      // eslint-disable-next-line no-param-reassign, prefer-destructuring
+      element.enddate = element.enddate.toISOString().split('T')[0];
+      return element;
+    });
     res.status(200).json(leave);
     return;
   } catch (err) {
@@ -143,6 +160,11 @@ router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
 router.get('/caretakers', auth.authenticateAdminToken, async (req, res) => {
   try {
     const inRes = await db.functions.getAllCaretaker();
+    // eslint-disable-next-line no-restricted-syntax, no-var, vars-on-top
+    for (var element of inRes) {
+      // eslint-disable-next-line no-await-in-loop
+      element.salary = await dbct.functions.getSalary(element.username, element.fulltime);
+    }
     res.status(200).json(inRes);
     return;
   } catch (err) {
@@ -153,7 +175,124 @@ router.get('/caretakers', auth.authenticateAdminToken, async (req, res) => {
 router.get('/petowners', auth.authenticateAdminToken, async (req, res) => {
   try {
     const inRes = await db.functions.getAllPetowners();
+    inRes.map((element) => {
+      // eslint-disable-next-line radix, no-param-reassign
+      element.deals = parseInt(element.deals);
+      // eslint-disable-next-line radix, no-param-reassign
+      element.spending = parseInt(element.spending);
+      return element;
+    });
     res.status(200).json(inRes);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.get('/service', auth.authenticateAdminToken, async (req, res) => {
+  try {
+    const { from } = req.query;
+    const { to } = req.query;
+    const start = new Date(from);
+    const end = new Date(to);
+    // // eslint-disable-next-line no-var
+    // const fromMonth = from.substring(5);
+    // const toMonth = to.substring(5);
+    // // eslint-disable-next-line radix
+    // let fromIntMonth = parseInt(fromMonth);
+    // // eslint-disable-next-line radix
+    // const toIntMonth = parseInt(toMonth);
+    // const fromYear = from.substring(0, 4);
+    // const toYear = to.substring(0, 4);
+    // // eslint-disable-next-line radix
+    // const fromIntYear = parseInt(fromYear);
+    // // eslint-disable-next-line radix
+    // const toIntYear = parseInt(toYear);
+    // if (fromIntYear !== toIntYear) {
+    //   res.status(422).json({ error: 'Please enter the range within the current year' });
+    // }
+    const Res = [];
+    while (start <= end) {
+      const result = {};
+      const pethour = {};
+      // eslint-disable-next-line prefer-template, quotes
+      // const curr = fromYear + "-" + fromIntMonth.toString();
+      // eslint-disable-next-line no-plusplus
+      const dateString = start.toISOString().substring(0, 7);
+      // eslint-disable-next-line no-await-in-loop
+      const type = await db.functions.getPetType();
+
+      result.month = dateString;
+
+      // eslint-disable-next-line no-restricted-syntax
+      for (const t of type) {
+        // eslint-disable-next-line no-await-in-loop
+        const number = await dbct.functions.getPetdayByPet(t.ptype, dateString);
+        const name = t.ptype; // cat , dog, fish
+        pethour[name] = number;
+      }
+      // pethour.cat = catN;
+      // pethour.dog = dogN;
+      // pethour.fish = fishN;
+      result.pethour = pethour;
+      Res.push(result);
+      start.setMonth(start.getMonth() + 1);
+    }
+    res.status(200).json(Res);
+    return;
+  } catch (err) {
+    res.status(500).json({ error: 'error' });
+  }
+});
+
+router.get('/revenue', auth.authenticateAdminToken, async (req, res) => {
+  try {
+    const { from } = req.query;
+    const { to } = req.query;
+    const start = new Date(from);
+    const end = new Date(to);
+    // // eslint-disable-next-line no-var
+    // const fromMonth = from.substring(5);
+    // const toMonth = to.substring(5);
+    // // eslint-disable-next-line radix
+    // let fromIntMonth = parseInt(fromMonth);
+    // // eslint-disable-next-line radix
+    // const toIntMonth = parseInt(toMonth);
+    // const fromYear = from.substring(0, 4);
+    // const toYear = to.substring(0, 4);
+    // // eslint-disable-next-line radix
+    // const fromIntYear = parseInt(fromYear);
+    // // eslint-disable-next-line radix
+    // const toIntYear = parseInt(toYear);
+    // if (fromIntYear !== toIntYear) {
+    //   res.status(422).json({ error: 'Please enter the range within the current year' });
+    // }
+    const Res = [];
+    while (start <= end) {
+      const result = {};
+      // eslint-disable-next-line prefer-template, quotes
+      // const curr = fromYear + "-" + fromIntMonth.toString();
+      // // eslint-disable-next-line no-plusplus
+      // fromIntMonth++;
+      const dateString = start.toISOString().substring(0, 7);
+      // eslint-disable-next-line no-await-in-loop
+      const income = await dbct.functions.getAllTotalOrderAmountMonth(dateString);
+      // eslint-disable-next-line no-await-in-loop
+      const ctakers = await db.functions.getAllCaretaker();
+      let salary = 0;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const temp of ctakers) {
+        // eslint-disable-next-line no-await-in-loop, no-unused-vars
+        salary += await dbct.functions.getSalaryMonth(temp.username, temp.fulltime, dateString);
+      }
+      result.month = dateString;
+      result.income = income;
+      result.salary = salary;
+      result.revenue = income - salary;
+      Res.push(result);
+      start.setMonth(start.getMonth() + 1);
+    }
+    res.status(200).json(Res);
     return;
   } catch (err) {
     res.status(500).json({ error: 'error' });

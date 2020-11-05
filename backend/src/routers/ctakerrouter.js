@@ -288,6 +288,57 @@ router.post('/leaves', auth.authenticateToken, async (req, res) => {
     for (const element of req.body) {
       // eslint-disable-next-line
       // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
+      if (await db.functions.checkclash(req.user.username, element.startdate, element.enddate) === 'true') {
+        res.status(422).json({ error: 'time clash when leave' });
+      }
+
+      // eslint-disable-next-line no-await-in-loop
+      const availability = await db.functions.getAvailability(req.user.username);
+      const storage = [];
+      // eslint-disable-next-line no-restricted-syntax
+      for (const a of availability) {
+        const temp = new Date(a.date.getTime() + (1000 * 60 * 60 * 24));
+        // eslint-disable-next-line max-len, no-empty
+        if (temp >= new Date(new Date(element.startdate).getTime() + (1000 * 60 * 60 * 24)) && temp <= new Date(new Date(element.enddate).getTime() + (1000 * 60 * 60 * 24))) {
+
+        } else {
+          storage.push(temp);
+        }
+      }
+      storage.sort((o1, o2) => o1 - o2);
+      const results = [];
+      let interval = 1;
+      // eslint-disable-next-line no-restricted-syntax
+      for (let i = 0; i < storage.length - 1; i += 1) {
+        // eslint-disable-next-line max-len
+        // console.log(new Date(new Date(storage[index + 1]).valueOf() - 1000 * 3600 * 24).getTime() - datetemp.getTime() === 0);
+        // eslint-disable-next-line max-len
+        if (new Date(new Date(storage[i + 1]).valueOf() - 1000 * 3600 * 24).getTime() === storage[i].getTime()) {
+          // console.log(new Date(storage[index + 1]) - datetemp);
+          interval += 1;
+        } else {
+          results.push(interval);
+          interval = 1;
+        }
+      }
+      if (interval !== 0) {
+        results.push(interval);
+      }
+
+      let count = 0;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const duration of results) {
+        console.log(duration);
+        if (duration >= 150) {
+          count += 1;
+        }
+      }
+
+      if (count < 2) {
+        res.status(422).json({ error: 'leave application cannot meet the 2 consequtive 150 working days requirement' });
+      }
+
+      // eslint-disable-next-line no-await-in-loop
       await db.functions.addLeave(req.user.username, element.startdate, element.enddate);
     }
     res.status(200).json('success');

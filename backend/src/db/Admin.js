@@ -38,15 +38,19 @@ async function getFullTimePrices() {
 // insert or update, a little strange bug needs debugging.
 async function insertFullTimePrice1(category, price) {
   const { rows } = await db.query('UPDATE fulltime_price SET price1=$2 WHERE ptype = $1', [category, price]);
+  await db.query('CALL update_price($1)', [category]);
   return rows;
 }
 
 async function insertFullTimePrice2(category, price) {
   const { rows } = await db.query('UPDATE fulltime_price SET price2=$2 WHERE ptype = $1', [category, price]);
+  await db.query('CALL update_price($1)', [category]);
   return rows;
 }
+
 async function insertFullTimePrice3(category, price) {
   const { rows } = await db.query('UPDATE fulltime_price SET price3=$2 WHERE ptype = $1', [category, price]);
+  await db.query('CALL update_price($1)', [category]);
   return rows;
 }
 
@@ -67,7 +71,17 @@ async function getAllCaretaker() {
 }
 
 async function getAllPetowners() {
-  const { rows } = await db.query('SELECT powner AS username, (SELECT COUNT(*) FROM orders a WHERE a.powner = powner) AS deal, (SELECT SUM(a2.price) FROM orders a2 WHERE a2.powner = powner) FROM orders');
+  const { rows } = await db.query('SELECT DISTINCT powner AS username, (SELECT COUNT(*) FROM orders a WHERE a.powner = powner AND (a.status =\'Payment Received\' OR a.status=\'Pending Payment\')) AS deals, (SELECT SUM(a2.price) FROM orders a2 WHERE a2.powner = powner AND (a2.status =\'Payment Received\' OR a2.status=\'Pending Payment\')) AS spending FROM orders');
+  return rows;
+}
+
+async function checkclash(username, startdate, enddate) {
+  const { rows } = await db.query('SELECT check_clash($1, $2, $3)', [username, startdate, enddate]);
+  return rows[0].check_clash;
+}
+
+async function getPetType() {
+  const { rows } = await db.query('SELECT * FROM pettypes');
   return rows;
 }
 
@@ -87,5 +101,7 @@ module.exports = {
     updateLeaveStatus,
     getAllCaretaker,
     getAllPetowners,
+    checkclash,
+    getPetType,
   },
 };

@@ -71,6 +71,30 @@ async function getPetdayMonth(username, month) {
   return rows[0].sum ? Number(rows[0].sum) : 0;
 }
 
+async function getPetdayByCat(month) {
+  const monthtimestamp = `${month}-01`;
+  const { rows } = await db.query('SELECT SUM(earlier_date(edate, end_of_month($1::DATE)) - later_date(sdate, start_of_month($1::DATE)) + 1) FROM orders WHERE ptype = \'cat\' AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM $1::DATE) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM $1::DATE) AND status =\'Payment Received\'', [monthtimestamp]);
+  return rows[0].sum ? Number(rows[0].sum) : 0;
+}
+
+async function getPetdayByPet(type, month) {
+  const monthtimestamp = `${month}-01`;
+  const { rows } = await db.query('SELECT SUM(earlier_date(edate, end_of_month($1::DATE)) - later_date(sdate, start_of_month($1::DATE)) + 1) FROM orders WHERE ptype = $2 AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM $1::DATE) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM $1::DATE) AND status =\'Payment Received\'', [monthtimestamp, type]);
+  return rows[0].sum ? Number(rows[0].sum) : 0;
+}
+
+async function getPetdayByDog(month) {
+  const monthtimestamp = `${month}-01`;
+  const { rows } = await db.query('SELECT SUM(earlier_date(edate, end_of_month($1::DATE)) - later_date(sdate, start_of_month($1::DATE)) + 1) FROM orders WHERE ptype = \'dog\' AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM $1::DATE) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM $1::DATE) AND status =\'Payment Received\'', [monthtimestamp]);
+  return rows[0].sum ? Number(rows[0].sum) : 0;
+}
+
+async function getPetdayByFish(month) {
+  const monthtimestamp = `${month}-01`;
+  const { rows } = await db.query('SELECT SUM(earlier_date(edate, end_of_month($1::DATE)) - later_date(sdate, start_of_month($1::DATE)) + 1) FROM orders WHERE ptype = \'fish\' AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM $1::DATE) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM $1::DATE) AND status =\'Payment Received\'', [monthtimestamp]);
+  return rows[0].sum ? Number(rows[0].sum) : 0;
+}
+
 async function getTotalOrderAmount(username) {
   const { rows } = await db.query('SELECT SUM(price * 1.0 / (edate-sdate+1) * (earlier_date(edate, end_of_month(now()::DATE)) - later_date(sdate, start_of_month(now()::DATE)) + 1)) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM current_timestamp) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM current_timestamp) AND status =\'Payment Received\'', [username]);
   return rows[0].sum ? Number(rows[0].sum) : 0;
@@ -79,6 +103,12 @@ async function getTotalOrderAmount(username) {
 async function getTotalOrderAmountMonth(username, month) {
   const monthtimestamp = `${month}-01`;
   const { rows } = await db.query('SELECT SUM(price * 1.0 / (edate-sdate+1) * (earlier_date(edate, end_of_month($2::DATE)) - later_date(sdate, start_of_month($2::DATE)) + 1)) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM $2) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM $2) AND status =\'Payment Received\'', [username, monthtimestamp]);
+  return rows[0].sum ? Number(rows[0].sum) : 0;
+}
+
+async function getAllTotalOrderAmountMonth(month) {
+  const monthtimestamp = `${month}-01`;
+  const { rows } = await db.query('SELECT SUM(price * 1.0 / (edate-sdate+1) * (earlier_date(edate, end_of_month($1::DATE)) - later_date(sdate, start_of_month($1::DATE)) + 1)) FROM orders WHERE EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM $1) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM $1) AND status =\'Payment Received\'', [monthtimestamp]);
   return rows[0].sum ? Number(rows[0].sum) : 0;
 }
 
@@ -159,6 +189,11 @@ async function addAvailabilityDup(username, startDate, endDate) {
   return rows;
 }
 
+async function checkclash(username, startdate, enddate) {
+  const { rows } = await db.query('SELECT check_clash($1, $2, $3)', [username, startdate, enddate]);
+  return rows[0].check_clash;
+}
+
 module.exports = {
   functions: {
     getCaretaker,
@@ -185,5 +220,11 @@ module.exports = {
     addAvailabilityDup,
     addLeave,
     getLeave,
+    checkclash,
+    getPetdayByCat,
+    getPetdayByFish,
+    getPetdayByDog,
+    getAllTotalOrderAmountMonth,
+    getPetdayByPet,
   },
 };
