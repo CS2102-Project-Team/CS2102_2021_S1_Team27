@@ -282,3 +282,21 @@ END;
 $$
 
 language plpgsql;
+
+
+
+CREATE OR REPLACE FUNCTION update_available()
+RETURNS TRIGGER AS
+$$ 
+DECLARE maxpet INTEGER;
+BEGIN
+DELETE FROM available WHERE ctaker = NEW.ctaker AND (date <= NEW.enddate AND date >= NEW.startdate);
+RETURN NEW;
+END; $$
+LANGUAGE plpgsql;
+
+
+CREATE TRIGGER update_available_after_leave
+AFTER INSERT OR UPDATE ON leave
+FOR EACH ROW WHEN (NEW.status = 'approved')
+EXECUTE FUNCTION update_available(); 
