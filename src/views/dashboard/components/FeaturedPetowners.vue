@@ -1,9 +1,10 @@
 <template>
-  <el-card class="card">
+  <el-card shadow="hover" class="card">
     <div slot="header" class="clearfix">
       <span>Featured Petowners</span>
     </div>
     <div v-for="o in list" :key="o" class="text item">
+      <i class="el-icon-goods" />
       {{ `${o.username} spent ${o.spending} this month!` }}
     </div>
   </el-card>

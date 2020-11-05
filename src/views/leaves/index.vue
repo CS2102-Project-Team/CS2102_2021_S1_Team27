@@ -38,8 +38,8 @@
         <el-table-column fixed="right" class-name="status-col" label="Action" width="100">
           <template slot-scope="scope">
             <div v-if="scope.row.status==='pending'">
-              <el-tag type="info" @click="updateLeave(scope.row, true)">Approve</el-tag>
-              <el-tag type="warning">Reject</el-tag>
+              <el-tag class="hand" type="info" @click="updateLeave(scope.row, true)">Approve</el-tag>
+              <el-tag class="hand" type="warning" @click="updateLeave(scope.row, false)">Reject</el-tag>
             </div>
             <div v-else>
               <i class="el-icon-platform-eleme" />
@@ -119,5 +119,8 @@ export default {
     font-size: 30px;
     line-height: 46px;
   }
+}
+.hand {
+  cursor: pointer;
 }
 </style>

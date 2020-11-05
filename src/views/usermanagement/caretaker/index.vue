@@ -41,13 +41,15 @@
             {{ scope.row.fulltime }}
           </template>
         </el-table-column>
-        <el-table-column fixed="right" class-name="status-col" label="Action" width="100">
+        <el-table-column fixed="right" class-name="status-col" label="Action" width="100" style="margin: auto;">
           <template slot-scope="scope">
             <div v-if="scope.row.fulltime==false">
-              <el-tag type="info" @click="promoteUser(scope.row.username)">Approve</el-tag>
+              <el-tag class="hand" @click="promoteUser(scope.row.username)">Promote</el-tag>
             </div>
             <div v-else>
-              <i class="el-icon-platform-eleme" />
+              <el-tag type="info">
+                <i class="el-icon-platform-eleme" />
+              </el-tag>
             </div>
           </template>
         </el-table-column>
@@ -85,9 +87,9 @@ export default {
         this.listLoading = false
       })
     },
-    promoteUser(username) {
+    promoteUser(caretaker) {
       promote({
-        username
+        caretaker
       }).then(() => {
         this.$message({
           message: 'Caretaker promoted',
@@ -110,5 +112,8 @@ export default {
     font-size: 30px;
     line-height: 46px;
   }
+}
+.hand {
+  cursor: pointer;
 }
 </style>

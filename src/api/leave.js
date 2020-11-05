@@ -14,6 +14,8 @@ export function putLeave(data) {
   return request({
     url: '/admin/leave',
     method: 'put',
-    data: { caretakerusername, startdate, enddate, approve }
+    data: [
+      { caretakerusername, startdate, enddate, approve }
+    ]
   })
 }
