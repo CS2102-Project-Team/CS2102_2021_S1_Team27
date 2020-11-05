@@ -189,7 +189,7 @@ router.get('/petowners', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.get('/service', auth.authenticateToken, async (req, res) => {
+router.get('/service', auth.authenticateAdminToken, async (req, res) => {
   try {
     const { from } = req.query;
     const { to } = req.query;
