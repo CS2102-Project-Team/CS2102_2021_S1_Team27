@@ -240,7 +240,8 @@ $$
 BEGIN
 if check_clash(ctakerV, startdateV, enddateV) = 'false'
 THEN
-INSERT INTO leave(ctaker, startdate, enddate, clash) VALUES (ctakerV, startdateV, enddateV, check_clash(ctakerV, startdateV, enddateV));
+INSERT INTO leave(ctaker, startdate, enddate, clash) 
+VALUES (ctakerV, startdateV, enddateV, check_clash(ctakerV, startdateV, enddateV));
 RAISE NOTICE 'sucessfully done!';
 END IF;
 END;
@@ -253,7 +254,8 @@ RETURNS varchar AS
 $$
 DECLARE clash varchar = 'true';
 BEGIN
-if NOT EXISTS (SELECT 1 FROM orders O WHERE O.sdate <= enddateV AND O.edate >= startdateV AND O.ctaker = ctakerV AND (O.status = 'Payment Received' OR O.status = 'Pending Payment' OR O.status = 'Pending Caretaker Acceptance'))
+if NOT EXISTS (SELECT 1 FROM orders O WHERE O.sdate <= enddateV AND O.edate >= startdateV AND O.ctaker = ctakerV 
+AND (O.status = 'Payment Received' OR O.status = 'Pending Payment' OR O.status = 'Pending Caretaker Acceptance'))
 THEN
 clash = 'false';
 END IF;

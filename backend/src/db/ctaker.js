@@ -73,6 +73,12 @@ async function getPetdayByCat(month) {
   return rows[0].sum ? Number(rows[0].sum) : 0;
 }
 
+async function getPetdayByPet(type, month) {
+  const monthtimestamp = `${month}-01`;
+  const { rows } = await db.query('SELECT SUM(earlier_date(edate, end_of_month($1::DATE)) - later_date(sdate, start_of_month($1::DATE)) + 1) FROM orders WHERE ptype = $2 AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM $1::DATE) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM $1::DATE) AND status =\'Payment Received\'', [monthtimestamp, type]);
+  return rows[0].sum ? Number(rows[0].sum) : 0;
+}
+
 async function getPetdayByDog(month) {
   const monthtimestamp = `${month}-01`;
   const { rows } = await db.query('SELECT SUM(earlier_date(edate, end_of_month($1::DATE)) - later_date(sdate, start_of_month($1::DATE)) + 1) FROM orders WHERE ptype = \'dog\' AND EXTRACT(MONTH FROM sdate) <= EXTRACT(MONTH FROM $1::DATE) AND EXTRACT(MONTH FROM edate) >= EXTRACT(MONTH FROM $1::DATE) AND status =\'Payment Received\'', [monthtimestamp]);
@@ -215,5 +221,6 @@ module.exports = {
     getPetdayByFish,
     getPetdayByDog,
     getAllTotalOrderAmountMonth,
+    getPetdayByPet,
   },
 };

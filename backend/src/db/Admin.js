@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-const { user } = require('pg/lib/defaults');
 const db = require('./index');
 
 async function getAdminByEmail(email) {
@@ -73,7 +71,7 @@ async function getAllCaretaker() {
 }
 
 async function getAllPetowners() {
-  const { rows } = await db.query('SELECT DISTINCT powner AS username, (SELECT COUNT(*) FROM orders a WHERE a.powner = powner) AS deals, (SELECT SUM(a2.price) FROM orders a2 WHERE a2.powner = powner) AS spending FROM orders');
+  const { rows } = await db.query('SELECT DISTINCT powner AS username, (SELECT COUNT(*) FROM orders a WHERE a.powner = powner AND (a.status =\'Payment Received\' OR a.status=\'Pending Payment\')) AS deals, (SELECT SUM(a2.price) FROM orders a2 WHERE a2.powner = powner AND (a2.status =\'Payment Received\' OR a2.status=\'Pending Payment\')) AS spending FROM orders');
   return rows;
 }
 
@@ -82,9 +80,8 @@ async function checkclash(username, startdate, enddate) {
   return rows[0].check_clash;
 }
 
-// eslint-disable-next-line no-unused-vars
-async function checkIfFullTime(username) {
-  const { rows } = await db.query('SELECT fulltime FROM caretakers WHERE username = $1', [username]);
+async function getPetType() {
+  const { rows } = await db.query('SELECT * FROM pettypes');
   return rows;
 }
 
@@ -105,5 +102,6 @@ module.exports = {
     getAllCaretaker,
     getAllPetowners,
     checkclash,
+    getPetType,
   },
 };

@@ -296,9 +296,9 @@ router.post('/leaves', auth.authenticateToken, async (req, res) => {
       const storage = [];
       // eslint-disable-next-line no-restricted-syntax
       for (const a of availability) {
-        const temp = new Date(a.date);
-        // eslint-disable-next-line no-empty
-        if (temp >= new Date(element.startdate) && temp <= new Date(element.enddate)) {
+        const temp = new Date(a.date.getTime() + (1000 * 60 * 60 * 24));
+        // eslint-disable-next-line max-len, no-empty
+        if (temp >= new Date(new Date(element.startdate).getTime() + (1000 * 60 * 60 * 24)) && temp <= new Date(new Date(element.enddate).getTime() + (1000 * 60 * 60 * 24))) {
 
         } else {
           storage.push(temp);
@@ -306,30 +306,28 @@ router.post('/leaves', auth.authenticateToken, async (req, res) => {
       }
       storage.sort((o1, o2) => o1 - o2);
       const results = [];
-      let index = 0;
       let interval = 1;
       // eslint-disable-next-line no-restricted-syntax
-      for (const datetemp of storage) {
+      for (let i = 0; i < storage.length - 1; i += 1) {
         // eslint-disable-next-line max-len
         // console.log(new Date(new Date(storage[index + 1]).valueOf() - 1000 * 3600 * 24).getTime() - datetemp.getTime() === 0);
         // eslint-disable-next-line max-len
-        if (index === 0 || new Date(new Date(storage[index + 1]).valueOf() - 1000 * 3600 * 24).getTime() === datetemp.getTime()) {
+        if (new Date(new Date(storage[i + 1]).valueOf() - 1000 * 3600 * 24).getTime() === storage[i].getTime()) {
           // console.log(new Date(storage[index + 1]) - datetemp);
           interval += 1;
         } else {
           results.push(interval);
           interval = 1;
         }
-        index += 1;
       }
-      if (interval !== 1) {
+      if (interval !== 0) {
         results.push(interval);
       }
 
       let count = 0;
       // eslint-disable-next-line no-restricted-syntax
       for (const duration of results) {
-        // console.log(duration);
+        console.log(duration);
         if (duration >= 150) {
           count += 1;
         }
