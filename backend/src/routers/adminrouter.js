@@ -6,7 +6,7 @@ const dbct = require('../db/ctaker');
 
 const router = express.Router();
 
-router.post('/promote', auth.authenticateToken, async (req, res) => {
+router.post('/promote', auth.authenticateAdminToken, async (req, res) => {
   try {
     const { caretaker } = req.body;
     await db.functions.promotePartime(caretaker);
@@ -141,7 +141,7 @@ router.get('/leave', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.put('/leave', auth.authenticateToken, async (req, res) => {
+router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
   try {
     // eslint-disable-next-line no-restricted-syntax
     const { caretakerusername } = req.body;
@@ -196,7 +196,7 @@ router.get('/petowners', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.get('/service', auth.authenticateToken, async (req, res) => {
+router.get('/service', auth.authenticateAdminToken, async (req, res) => {
   try {
     const { from } = req.query;
     const { to } = req.query;
@@ -253,7 +253,7 @@ router.get('/service', auth.authenticateToken, async (req, res) => {
   }
 });
 
-router.get('/revenue', auth.authenticateToken, async (req, res) => {
+router.get('/revenue', auth.authenticateAdminToken, async (req, res) => {
   try {
     const { from } = req.query;
     const { to } = req.query;
