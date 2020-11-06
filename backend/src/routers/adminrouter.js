@@ -161,7 +161,6 @@ router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
     const { approve } = req.body;
     // eslint-disable-next-line
     if (approve === true) {
-      // eslint-disable-next-line no-await-in-loop, max-len
       await db.functions.updateLeaveStatus(caretakerusername, startdate,
         enddate, 'approved');
     } else {
