@@ -286,6 +286,7 @@ router.get('/revenue', auth.authenticateAdminToken, async (req, res) => {
     //   res.status(422).json({ error: 'Please enter the range within the current year' });
     // }
     const Res = [];
+    const ctakers = await db.functions.getAllCaretaker();
     while (start <= end) {
       const result = {};
       // eslint-disable-next-line prefer-template, quotes
@@ -294,16 +295,21 @@ router.get('/revenue', auth.authenticateAdminToken, async (req, res) => {
       // fromIntMonth++;
       const dateString = start.toISOString().substring(0, 7);
       // eslint-disable-next-line no-await-in-loop
-      const income = await dbct.functions.getAllTotalOrderAmountMonth(dateString);
-      // eslint-disable-next-line no-await-in-loop
-      const ctakers = await db.functions.getAllCaretaker();
-      // console.log(ctakers);
+      const promisesToAwait = [];
+      let income;
+      promisesToAwait.push(
+        income = dbct.functions.getAllTotalOrderAmountMonth(dateString),
+      );
       let salary = 0;
       // eslint-disable-next-line no-restricted-syntax
       for (const temp of ctakers) {
         // eslint-disable-next-line no-await-in-loop, no-unused-vars
-        salary += await dbct.functions.getSalaryMonth(temp.username, dateString);
+        promisesToAwait.push(
+          salary += dbct.functions.getSalaryMonth(temp.username, dateString),
+        );
       }
+      // eslint-disable-next-line no-await-in-loop
+      await Promise.all(promisesToAwait);
       result.month = dateString;
       result.income = income;
       result.salary = salary;
