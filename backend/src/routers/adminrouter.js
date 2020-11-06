@@ -298,14 +298,15 @@ router.get('/revenue', auth.authenticateAdminToken, async (req, res) => {
       const promisesToAwait = [];
       let income;
       promisesToAwait.push(
-        income = dbct.functions.getAllTotalOrderAmountMonth(dateString),
+        dbct.functions.getAllTotalOrderAmountMonth(dateString).then((value) => { income = value; }),
       );
       let salary = 0;
       // eslint-disable-next-line no-restricted-syntax
       for (const temp of ctakers) {
         // eslint-disable-next-line no-await-in-loop, no-unused-vars
         promisesToAwait.push(
-          salary += dbct.functions.getSalaryMonth(temp.username, dateString),
+          // eslint-disable-next-line no-loop-func,max-len
+          dbct.functions.getSalaryMonth(temp.username, dateString).then((value) => { salary += value; }),
         );
       }
       // eslint-disable-next-line no-await-in-loop
