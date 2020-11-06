@@ -83,7 +83,7 @@ CREATE TABLE fulltime_price(
 
 INSERT INTO fulltime_price VALUES ('cat', 10, 10, 10);
 INSERT INTO fulltime_price VALUES ('dog', 20, 20, 20);
-INSERT INTO fulltime_price VALUES ('bird', 10, 15, 20);
+INSERT INTO fulltime_price VALUES ('fish', 10, 15, 20);
 
 --INSERT INTO looksafter VALUES ('kyle2', 20, 'cat');
 
@@ -310,6 +310,27 @@ RAISE NOTICE 'i want to print % and %', price1t,price2t;
 UPDATE looksafter SET price = price1t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) <=2 AND (SELECT fulltime FROM caretakers WHERE username = ctaker) = TRUE;
 UPDATE looksafter SET price = price2t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) > 2 AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) <= 4 AND (SELECT fulltime FROM caretakers WHERE username = ctaker) = TRUE;
 UPDATE looksafter SET price = price3t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) > 4 AND (SELECT fulltime FROM caretakers WHERE username = ctaker) = TRUE;
+END;
+$$
+
+language plpgsql;
+
+CREATE OR REPLACE FUNCTION update_price_f(category VARCHAR)
+RETURNS INT AS
+$$
+DECLARE price1t INTEGER;
+DECLARE price2t INTEGER;
+DECLARE price3t INTEGER;
+
+BEGIN
+SELECT price1 INTO price1t FROM fulltime_price WHERE ptype = category;
+SELECT price2 INTO price2t FROM fulltime_price WHERE ptype = category;
+SELECT price3 INTO price3t FROM fulltime_price WHERE ptype = category;
+RAISE NOTICE 'i want to print % and %', price1t,price2t;
+UPDATE looksafter SET price = price1t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) <=2 AND (SELECT fulltime FROM caretakers WHERE username = ctaker) = TRUE;
+UPDATE looksafter SET price = price2t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) > 2 AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) <= 4 AND (SELECT fulltime FROM caretakers WHERE username = ctaker) = TRUE;
+UPDATE looksafter SET price = price3t WHERE ptype = category AND (SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) AS rating FROM caretakers WHERE username = ctaker) > 4 AND (SELECT fulltime FROM caretakers WHERE username = ctaker) = TRUE;
+return 1;
 END;
 $$
 
