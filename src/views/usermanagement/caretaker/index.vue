@@ -96,6 +96,7 @@ export default {
           message: 'Caretaker promoted',
           type: 'success'
         })
+        this.fetchData()
       }).catch(error => {
         this.$message.error(`Oops, caretaker not promoted :< ${error}`)
       })
