@@ -9,8 +9,19 @@ const router = express.Router();
 router.post('/promote', auth.authenticateAdminToken, async (req, res) => {
   try {
     const { caretaker } = req.body;
+    // await dbadjs.query('BEGIN');
+    // const queryText = 'UPDATE caretakers SET fulltime=true, maxpets=5 WHERE username = $1';
+    // await dbadjs.query(queryText, [caretaker]);
+    // eslint-disable-next-line max-len
+    // const queryText2 = 'INSERT INTO looksafter(ctaker, price, ptype) SELECT $1, 0, ptype FROM pettypes';
+    // await dbadjs.query(queryText2, [caretaker]);
+    // const queryText3 = 'SELECT update_price_f(ptype) FROM pettypes';
+    // await dbadjs.query(queryText3);
+    // await dbadjs.query('COMMIT');
     await db.functions.promotePartime(caretaker);
-    await db.functions.insertAvailability(caretaker, '2020-10-01', '2021-12-31');
+    // await db.functions.promotePartimeStep2(caretaker);
+    // await db.functions.promotePartimeStep3(caretaker);
+    // await db.functions.insertAvailability(caretaker, '2020-10-01', '2021-12-31');
     // await db.functions.updatePriceforFulltimer(caretaker);
     res.status(204).json('success');
     return;

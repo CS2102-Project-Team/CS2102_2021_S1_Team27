@@ -11,8 +11,19 @@ async function getAdminByUsername(username) {
 }
 
 async function promotePartime(username) {
-  const { rows } = await db.query('BEGIN; UPDATE caretakers SET fulltime=true, maxpets=5 WHERE username = $1; INSERT INTO looksafter(ctaker, price, ptype) SELECT $1, 0, ptype FROM pettypes; SELECT update_price_f(ptype) FROM pettypes; COMMIT;', [username]);
-  return rows;
+  await db.query('BEGIN');
+  const queryText = 'UPDATE caretakers SET fulltime=true, maxpets=5 WHERE username = $1';
+  await db.query(queryText, [username]);
+  const queryText2 = 'INSERT INTO looksafter(ctaker, price, ptype) SELECT $1, 0, ptype FROM pettypes';
+  await db.query(queryText2, [username]);
+  const queryText3 = 'SELECT update_price_f(ptype) FROM pettypes';
+  await db.query(queryText3);
+  const insertAvail = 'INSERT INTO available(ctaker, date) SELECT $1, dd::date FROM generate_series($2::timestamp, $3::timestamp, \'1 day\'::interval) dd ON CONFLICT DO NOTHING';
+  await db.query(insertAvail, [username, '2020-10-01', '2021-12-31']);
+  await db.query('COMMIT');
+  // eslint-disable-next-line max-len
+  // const { rows } = await db.query('UPDATE caretakers SET fulltime=true, maxpets=5 WHERE username = $1; INSERT INTO looksafter(ctaker, price, ptype) SELECT $1, 0, ptype FROM pettypes; SELECT update_price_f(ptype) FROM pettypes; COMMIT;', [username]);
+  // return rows;
 }
 
 async function insertAvailability(username, startdate, enddate) {
