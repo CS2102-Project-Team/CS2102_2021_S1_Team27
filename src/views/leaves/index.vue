@@ -38,11 +38,11 @@
         <el-table-column fixed="right" class-name="status-col" label="Action" width="100">
           <template slot-scope="scope">
             <div v-if="scope.row.status==='pending'">
-              <el-tag class="hand tag" type="info" @click="updateLeave(scope.row, true)">Approve</el-tag>
-              <el-tag class="hand tag" type="warning" @click="updateLeave(scope.row, false)">Reject</el-tag>
+              <el-tag class="hand tag" effect="dark" @click="updateLeave(scope.row, true)">Approve</el-tag>
+              <el-tag class="hand tag" type="danger" effect="dark" @click="updateLeave(scope.row, false)">Reject</el-tag>
             </div>
             <div v-else>
-              <el-tag class="tag" type="info">
+              <el-tag class="tag" type="info" effect="plain">
                 <i class="el-icon-platform-eleme" />
               </el-tag>
             </div>

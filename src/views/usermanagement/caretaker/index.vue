@@ -45,10 +45,10 @@
         <el-table-column fixed="right" class-name="status-col" label="Action" width="100">
           <template slot-scope="scope">
             <div v-if="scope.row.fulltime==false">
-              <el-tag class="hand tag" @click="promoteUser(scope.row.username)">Promote</el-tag>
+              <el-tag class="hand tag" effect="dark" @click="promoteUser(scope.row.username)">Promote</el-tag>
             </div>
             <div v-else>
-              <el-tag class="tag" type="info">
+              <el-tag class="tag" type="info" effect="plain">
                 <i class="el-icon-platform-eleme" />
               </el-tag>
             </div>
