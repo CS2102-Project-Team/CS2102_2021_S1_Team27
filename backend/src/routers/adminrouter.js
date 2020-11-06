@@ -181,7 +181,7 @@ router.get('/caretakers', auth.authenticateAdminToken, async (req, res) => {
     // eslint-disable-next-line no-restricted-syntax, no-var, vars-on-top
     for (var element of inRes) {
       // eslint-disable-next-line no-await-in-loop
-      element.salary = await dbct.functions.getSalary(element.username, element.fulltime);
+      element.salary = await dbct.functions.getSalary(element.username);
     }
     res.status(200).json(inRes);
     return;
@@ -303,7 +303,7 @@ router.get('/revenue', auth.authenticateAdminToken, async (req, res) => {
       // eslint-disable-next-line no-restricted-syntax
       for (const temp of ctakers) {
         // eslint-disable-next-line no-await-in-loop, no-unused-vars
-        salary += await dbct.functions.getSalaryMonth(temp.username, temp.fulltime, dateString);
+        salary += await dbct.functions.getSalaryMonth(temp.username, dateString);
       }
       result.month = dateString;
       result.income = income;

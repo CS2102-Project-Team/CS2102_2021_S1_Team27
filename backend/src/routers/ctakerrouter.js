@@ -165,9 +165,8 @@ router.get('/stats', auth.authenticateToken, async (req, res) => {
       result.petday = inRes;
     }
     if (req.query.salary) {
-      const fulltime = await db.functions.checkFulltime(req.user.username);
       // const inRes = await db.functions.getSalaryMonth(req.user.username, fulltime, '2020-10');
-      const inRes = await db.functions.getSalary(req.user.username, fulltime);
+      const inRes = await db.functions.getSalary(req.user.username);
       result.salary = inRes;
     }
     res.status(200).json(result);
