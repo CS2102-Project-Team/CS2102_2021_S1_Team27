@@ -28,7 +28,7 @@
         </el-table-column>
         <el-table-column sortable prop="rating" label="rating" width="120">
           <template slot-scope="scope">
-            <span>{{ scope.row.rating > -1 ? scope.row.rating.toFixed(1) : 'No rating' }}</span>
+            <span>{{ parseFloat(scope.row.rating) > -1 ? parseFloat(scope.row.rating).toFixed(1) : 'No rating' }}</span>
           </template>
         </el-table-column>
         <el-table-column sortable prop="salary" label="salary" width="120">
@@ -38,7 +38,8 @@
         </el-table-column>
         <el-table-column sortable prop="fulltime" label="fulltime?" width="120">
           <template slot-scope="scope">
-            {{ scope.row.fulltime }}
+            <i v-if="scope.row.fulltime" class="el-icon-check" />
+            <i v-else class="el-icon-close" />
           </template>
         </el-table-column>
         <el-table-column fixed="right" class-name="status-col" label="Action" width="100">
