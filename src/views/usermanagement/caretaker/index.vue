@@ -28,7 +28,7 @@
         </el-table-column>
         <el-table-column sortable prop="rating" label="rating" width="120">
           <template slot-scope="scope">
-            <span>{{ scope.row.rating }}</span>
+            <span>{{ scope.row.rating > -1 ? scope.row.rating.toFixed(1) : 'No rating' }}</span>
           </template>
         </el-table-column>
         <el-table-column sortable prop="salary" label="salary" width="120">
