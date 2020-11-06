@@ -15,12 +15,12 @@
             {{ scope.row.caretakerusername }}
           </template>
         </el-table-column>
-        <el-table-column label="start date">
+        <el-table-column sortable prop="startdate" label="start date">
           <template slot-scope="scope">
             {{ scope.row.startdate }}
           </template>
         </el-table-column>
-        <el-table-column label="end date">
+        <el-table-column sortable prop="enddate" label="end date">
           <template slot-scope="scope">
             <span>{{ scope.row.enddate }}</span>
           </template>
@@ -32,17 +32,19 @@
         </el-table-column>
         <el-table-column class-name="status-col" label="Status" width="100">
           <template slot-scope="scope">
-            <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
+            <el-tag class="tag" :type="statusType(scope.row.status)">{{ scope.row.status }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column fixed="right" class-name="status-col" label="Action" width="100">
           <template slot-scope="scope">
             <div v-if="scope.row.status==='pending'">
-              <el-tag class="hand" type="info" @click="updateLeave(scope.row, true)">Approve</el-tag>
-              <el-tag class="hand" type="warning" @click="updateLeave(scope.row, false)">Reject</el-tag>
+              <el-tag class="hand tag" type="info" @click="updateLeave(scope.row, true)">Approve</el-tag>
+              <el-tag class="hand tag" type="warning" @click="updateLeave(scope.row, false)">Reject</el-tag>
             </div>
             <div v-else>
-              <i class="el-icon-platform-eleme" />
+              <el-tag class="tag" type="info">
+                <i class="el-icon-platform-eleme" />
+              </el-tag>
             </div>
           </template>
         </el-table-column>
@@ -102,9 +104,22 @@ export default {
           message: 'Application status successfully updated',
           type: 'success'
         })
+        this.fetchData()
       }).catch(error => {
         this.$message.error(`Oops, application status not updated :< ${error}`)
       })
+    },
+    statusType(status) {
+      switch (status) {
+        case 'pending':
+          return 'warning'
+        case 'approved':
+          return ''
+        case 'rejected':
+          return 'danger'
+        default:
+          return 'info'
+      }
     }
   }
 }
@@ -122,5 +137,9 @@ export default {
 }
 .hand {
   cursor: pointer;
+}
+.tag {
+  width: 70px;
+  text-align: center;
 }
 </style>

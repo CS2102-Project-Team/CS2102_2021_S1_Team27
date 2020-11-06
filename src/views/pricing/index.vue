@@ -1,10 +1,11 @@
 <template>
   <div class="pricing-container">
+    <h1>Pricing Management</h1>
     <el-card class="card">
       <div slot="header" class="clearfix">
         <span>Dog</span>
       </div>
-      <el-form ref="form" :model="form" label-width="120px">
+      <el-form ref="form" v-loading="loading" :model="form" label-width="120px">
         <div class="inputRow">
           <span style="display: inline-block; width: 80px;">Class 1:</span>
           <el-input v-model="form.dog1" style="width: 180px;" />
@@ -26,7 +27,7 @@
       <div slot="header" class="clearfix">
         <span>Cat</span>
       </div>
-      <el-form ref="form" :model="form" label-width="120px">
+      <el-form ref="form" v-loading="loading" :model="form" label-width="120px">
         <div class="inputRow">
           <span style="display: inline-block; width: 80px;">Class 1:</span>
           <el-input v-model="form.cat1" style="width: 180px;" />
@@ -48,7 +49,7 @@
       <div slot="header" class="clearfix">
         <span>Fish</span>
       </div>
-      <el-form ref="form" :model="form" label-width="120px">
+      <el-form ref="form" v-loading="loading" :model="form" label-width="120px">
         <div class="inputRow">
           <span style="display: inline-block; width: 80px;">Class 1:</span>
           <el-input v-model="form.fish1" style="width: 180px;" />
@@ -84,7 +85,8 @@ export default {
         fish1: '',
         fish2: '',
         fish3: ''
-      }
+      },
+      loading: true
     }
   },
   created() {
@@ -92,6 +94,7 @@ export default {
   },
   methods: {
     fetchData() {
+      this.loading = true
       getPrice().then(data => {
         data.forEach(element => {
           switch (element.category) {
@@ -112,6 +115,11 @@ export default {
               break
           }
         })
+        this.loading = false
+      }).catch(error => {
+        console.log(error)
+        this.$message.error('Oops, err fetching prices')
+        this.loading = false
       })
     },
     onSubmit(key) {

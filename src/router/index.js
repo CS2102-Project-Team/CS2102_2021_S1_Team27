@@ -95,9 +95,9 @@ export const constantRoutes = [
     children: [
       {
         path: 'index',
-        name: 'Leaves Management',
+        name: 'Leave Management',
         component: () => import('@/views/leaves/index'),
-        meta: { title: 'Leaves Management', icon: 'calendar' }
+        meta: { title: 'Leave Management', icon: 'calendar' }
       }
     ]
   },
