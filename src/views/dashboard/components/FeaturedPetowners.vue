@@ -4,7 +4,7 @@
       <span>Featured Petowners</span>
     </div>
     <div v-for="o in list" :key="o" class="text item">
-      <i class="el-icon-goods" />
+      <i class="el-icon-s-goods" style="color:FUCHSIA" />
       {{ `${o.username} spent $${o.spending} this month!` }}
     </div>
   </el-card>

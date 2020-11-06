@@ -4,7 +4,7 @@
       <span>Featured Caretakers</span>
     </div>
     <div v-for="o in list" :key="o" class="text item">
-      <i class="el-icon-star-off" />
+      <i class="el-icon-star-on" style="color:CORAL" />
       {{ `${o.username} earned $${o.salary} this month!` }}
     </div>
   </el-card>
