@@ -6,7 +6,7 @@ const dbct = require('../db/ctaker');
 
 const router = express.Router();
 
-router.post('/promote', auth.authenticateAdminToken, async (req, res) => {
+router.post('/promote', auth.authenticateToken, async (req, res) => {
   try {
     const { caretaker } = req.body;
     await db.functions.promotePartime(caretaker);
@@ -15,7 +15,7 @@ router.post('/promote', auth.authenticateAdminToken, async (req, res) => {
     res.status(204).json('success');
     return;
   } catch (err) {
-    res.status(500).json({ error: 'error' });
+    res.status(500).json({ error: err });
   }
 });
 
@@ -141,7 +141,7 @@ router.get('/leave', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
+router.put('/leave', auth.authenticateToken, async (req, res) => {
   try {
     // eslint-disable-next-line no-restricted-syntax
     const { caretakerusername } = req.body;
@@ -153,6 +153,9 @@ router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
       // eslint-disable-next-line no-await-in-loop, max-len
       await db.functions.updateLeaveStatus(caretakerusername, startdate,
         enddate, 'approved');
+    } else {
+      await db.functions.updateLeaveStatus(caretakerusername, startdate,
+        enddate, 'rejected');
     }
     res.status(200).json('success');
     return;
@@ -193,7 +196,7 @@ router.get('/petowners', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.get('/service', auth.authenticateAdminToken, async (req, res) => {
+router.get('/service', auth.authenticateToken, async (req, res) => {
   try {
     const { from } = req.query;
     const { to } = req.query;
@@ -250,7 +253,7 @@ router.get('/service', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.get('/revenue', auth.authenticateAdminToken, async (req, res) => {
+router.get('/revenue', auth.authenticateToken, async (req, res) => {
   try {
     const { from } = req.query;
     const { to } = req.query;
