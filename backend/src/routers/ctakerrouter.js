@@ -165,9 +165,8 @@ router.get('/stats', auth.authenticateToken, async (req, res) => {
       result.petday = inRes;
     }
     if (req.query.salary) {
-      const fulltime = await db.functions.checkFulltime(req.user.username);
       // const inRes = await db.functions.getSalaryMonth(req.user.username, fulltime, '2020-10');
-      const inRes = await db.functions.getSalary(req.user.username, fulltime);
+      const inRes = await db.functions.getSalary(req.user.username);
       result.salary = inRes;
     }
     res.status(200).json(result);
@@ -234,12 +233,14 @@ router.get('/availability', auth.authenticateToken, async (req, res) => {
 
 router.post('/availability-d-d', auth.authenticateToken, async (req, res) => {
   try {
+    const promisesToAwait = [];
     // eslint-disable-next-line no-restricted-syntax
     for (const element of req.body) {
-      // eslint-disable-next-line
-      // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
-      await db.functions.addAvailabilityDup(req.user.username, element.startdate, element.enddate);
+      promisesToAwait.push(
+        db.functions.addAvailabilityDup(req.user.username, element.startdate, element.enddate),
+      );
     }
+    await Promise.all(promisesToAwait);
     res.status(200).json('success');
     return;
   } catch (err) {
@@ -262,12 +263,12 @@ router.post('/availability-d', auth.authenticateToken, async (req, res) => {
   }
 });
 
+/**
 router.post('/availability', auth.authenticateToken, async (req, res) => {
   try {
     // eslint-disable-next-line no-restricted-syntax
     for (const element of req.body) {
       // eslint-disable-next-line
-      // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
       await db.functions.addAvailability(req.user.username, element.startdate, element.enddate);
     }
     res.status(200).json('success');
@@ -281,6 +282,7 @@ router.post('/availability', auth.authenticateToken, async (req, res) => {
     }
   }
 });
+*/
 
 router.post('/leaves', auth.authenticateToken, async (req, res) => {
   try {

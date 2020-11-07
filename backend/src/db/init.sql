@@ -64,7 +64,8 @@ CREATE TABLE caretakers(
     sumrating INT DEFAULT 0,
     numrating INT DEFAULT 0,
     maxpets INT, --maximum concurrent pets being taken
-    apptime TIMESTAMP
+    apptime TIMESTAMP,
+    fulltimesince DATE
 );
 
 CREATE TABLE looksafter(
@@ -163,6 +164,10 @@ RETURNS NUMERIC AS
 $$ SELECT (CASE WHEN numrating=0 THEN -1 ELSE (sumrating+0.0)/numrating END) FROM caretakers WHERE username = $1;
 $$ language 'sql';
 
+CREATE OR REPLACE FUNCTION check_fulltime(VARCHAR, DATE)
+RETURNS BOOLEAN AS
+$$ SELECT (CASE WHEN (SELECT fulltime FROM caretakers WHERE username=$1)=TRUE AND (SELECT fulltimesince FROM caretakers WHERE username=$1)<($2::DATE) THEN TRUE ELSE FALSE END);
+$$ language 'sql';
 --triggers
 
 

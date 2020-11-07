@@ -161,7 +161,6 @@ router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
     const { approve } = req.body;
     // eslint-disable-next-line
     if (approve === true) {
-      // eslint-disable-next-line no-await-in-loop, max-len
       await db.functions.updateLeaveStatus(caretakerusername, startdate,
         enddate, 'approved');
     } else {
@@ -181,8 +180,8 @@ router.get('/caretakers', auth.authenticateToken, async (req, res) => {
     // eslint-disable-next-line no-restricted-syntax, no-var, vars-on-top
     for (var element of inRes) {
       // eslint-disable-next-line no-await-in-loop
-      element.salary = await dbct.functions.getSalary(element.username, element.fulltime);
       element.rating = parseFloat(element.rating);
+      element.salary = await dbct.functions.getSalary(element.username);
     }
     res.status(200).json(inRes);
     return;
@@ -288,6 +287,7 @@ router.get('/revenue', auth.authenticateAdminToken, async (req, res) => {
     //   res.status(422).json({ error: 'Please enter the range within the current year' });
     // }
     const Res = [];
+    const ctakers = await db.functions.getAllCaretaker();
     while (start <= end) {
       const result = {};
       // eslint-disable-next-line prefer-template, quotes
@@ -296,16 +296,22 @@ router.get('/revenue', auth.authenticateAdminToken, async (req, res) => {
       // fromIntMonth++;
       const dateString = start.toISOString().substring(0, 7);
       // eslint-disable-next-line no-await-in-loop
-      const income = await dbct.functions.getAllTotalOrderAmountMonth(dateString);
-      // eslint-disable-next-line no-await-in-loop
-      const ctakers = await db.functions.getAllCaretaker();
-      // console.log(ctakers);
+      const promisesToAwait = [];
+      let income;
+      promisesToAwait.push(
+        dbct.functions.getAllTotalOrderAmountMonth(dateString).then((value) => { income = value; }),
+      );
       let salary = 0;
       // eslint-disable-next-line no-restricted-syntax
       for (const temp of ctakers) {
         // eslint-disable-next-line no-await-in-loop, no-unused-vars
-        salary += await dbct.functions.getSalaryMonth(temp.username, temp.fulltime, dateString);
+        promisesToAwait.push(
+          // eslint-disable-next-line no-loop-func,max-len
+          dbct.functions.getSalaryMonth(temp.username, dateString).then((value) => { salary += value; }),
+        );
       }
+      // eslint-disable-next-line no-await-in-loop
+      await Promise.all(promisesToAwait);
       result.month = dateString;
       result.income = income;
       result.salary = salary;

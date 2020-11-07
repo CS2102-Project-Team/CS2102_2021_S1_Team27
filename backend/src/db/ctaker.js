@@ -84,40 +84,16 @@ async function getTotalOrderAmountMonth(username, month) {
   return rows[0].sum ? Number(rows[0].sum) : 0;
 }
 
-async function getTotalOrderAmount(username) {
-  const today = new Date();
-  const res = await getTotalOrderAmountMonth(username, today.toISOString().substring(0, 7));
-  return res;
-}
-
 async function getAllTotalOrderAmountMonth(month) {
   const monthtimestamp = `${month}-01`;
   const { rows } = await db.query('SELECT SUM(price * 1.0 / (edate-sdate+1) * (earlier_date(edate, end_of_month($1::DATE)) - later_date(sdate, start_of_month($1::DATE)) + 1)) FROM orders WHERE sdate <= end_of_month($1::DATE) AND edate >= start_of_month($1::DATE) AND status =\'Payment Received\'', [monthtimestamp]);
   return rows[0].sum ? Number(rows[0].sum) : 0;
 }
 
-async function getSalary(username, fulltime) {
-  if (fulltime) {
-    const coeff = 0.8;
-    const petday = await getPetday(username);
-    if (petday <= 60) {
-      return 3000;
-    }
-    const totalAmount = await getTotalOrderAmount(username);
-    return 3000 + coeff * (totalAmount / petday) * (petday - 60);
-  }
-  /* Part-time */
-  const totalAmount = await getTotalOrderAmount(username);
-  const coeff = 0.75;
-  return coeff * totalAmount;
-
-  // eslint-disable-next-line max-len
-  /* const { rows } = await db.query('SELECT SUM(edate - sdate + 1) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) = EXTRACT(MONTH FROM current_timestamp)', [username]);
-  return rows; */
-}
-
-async function getSalaryMonth(username, fulltime, month) {
-  if (fulltime) {
+async function getSalaryMonth(username, month) {
+  const monthtimestamp = `${month}-01`;
+  const fulltime = await db.query('SELECT check_fulltime($1, $2)', [username, monthtimestamp]);
+  if (fulltime === 'true') {
     const coeff = 0.8;
     const petday = await getPetdayMonth(username, month);
     if (petday <= 60) {
@@ -130,6 +106,21 @@ async function getSalaryMonth(username, fulltime, month) {
   const totalAmount = await getTotalOrderAmountMonth(username, month);
   const coeff = 0.75;
   return coeff * totalAmount;
+}
+
+async function getTotalOrderAmount(username) {
+  const today = new Date();
+  const res = await getTotalOrderAmountMonth(username, today.toISOString().substring(0, 7));
+  return res;
+}
+
+async function getSalary(username) {
+  const today = new Date();
+  const res = await getSalaryMonth(username, today.toISOString().substring(0, 7));
+  return res;
+  // eslint-disable-next-line max-len
+  /* const { rows } = await db.query('SELECT SUM(edate - sdate + 1) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) = EXTRACT(MONTH FROM current_timestamp)', [username]);
+  return rows; */
 }
 
 async function checkFull(username, startdate, enddate) {
@@ -197,6 +188,7 @@ module.exports = {
     getPendingOrders,
     getPetday,
     getSalary,
+    getTotalOrderAmount,
     getPetdayMonth,
     getSalaryMonth,
     getTotalOrderAmountMonth,
