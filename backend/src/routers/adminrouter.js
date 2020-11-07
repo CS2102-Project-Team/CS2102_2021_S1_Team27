@@ -179,8 +179,8 @@ router.get('/caretakers', auth.authenticateToken, async (req, res) => {
     const inRes = await db.functions.getAllCaretaker();
     // eslint-disable-next-line no-restricted-syntax, no-var, vars-on-top
     for (var element of inRes) {
-      // eslint-disable-next-line no-await-in-loop
       element.rating = parseFloat(element.rating);
+      // eslint-disable-next-line no-await-in-loop
       element.salary = await dbct.functions.getSalary(element.username);
     }
     res.status(200).json(inRes);
