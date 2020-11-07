@@ -178,6 +178,11 @@ async function checkclash(username, startdate, enddate) {
   return rows[0].check_clash;
 }
 
+async function checkOverlapLeave(username, startdate, enddate) {
+  const { rows } = await db.query('SELECT check_invalid_application($1, $2, $3)', [username, startdate, enddate]);
+  return rows[0].check_invalid_application;
+}
+
 module.exports = {
   functions: {
     getCaretaker,
@@ -207,5 +212,6 @@ module.exports = {
     checkclash,
     getAllTotalOrderAmountMonth,
     getPetdayByPet,
+    checkOverlapLeave,
   },
 };

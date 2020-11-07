@@ -175,13 +175,14 @@ router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.get('/caretakers', auth.authenticateAdminToken, async (req, res) => {
+router.get('/caretakers', auth.authenticateToken, async (req, res) => {
   try {
     const inRes = await db.functions.getAllCaretaker();
     // eslint-disable-next-line no-restricted-syntax, no-var, vars-on-top
     for (var element of inRes) {
       // eslint-disable-next-line no-await-in-loop
       element.salary = await dbct.functions.getSalary(element.username, element.fulltime);
+      element.rating = parseFloat(element.rating);
     }
     res.status(200).json(inRes);
     return;

@@ -353,3 +353,18 @@ CREATE TRIGGER update_available_after_leave
 AFTER INSERT OR UPDATE ON leave
 FOR EACH ROW WHEN (NEW.status = 'approved')
 EXECUTE FUNCTION update_available_leave(); 
+
+
+CREATE OR REPLACE FUNCTION check_invalid_application(ctakerV VARCHAR, startdateV DATE, enddateV DATE) 
+RETURNS varchar AS
+$$
+DECLARE clash varchar = 'false';
+BEGIN
+if EXISTS (SELECT 1 FROM leave O WHERE O.startdate <= enddateV AND O.enddate >= startdateV AND O.ctaker = ctakerV AND (O.status = 'pending' OR O.status = 'approved'))
+THEN
+clash = 'true';
+END IF;
+RETURN clash;
+END;
+$$
+language plpgsql;
