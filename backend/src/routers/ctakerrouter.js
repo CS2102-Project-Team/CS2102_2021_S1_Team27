@@ -342,7 +342,7 @@ router.post('/leaves', auth.authenticateToken, async (req, res) => {
       }
 
       if (count < 2) {
-        res.status(423).json({ error: 'leave application cannot meet the 2 consequtive 150 working days requirement' });
+        res.status(423).json({ error: 'leave application cannot meet the 2 consecutive 150 working days requirement' });
       }
 
       // eslint-disable-next-line no-await-in-loop
