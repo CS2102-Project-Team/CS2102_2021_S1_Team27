@@ -174,7 +174,7 @@ router.put('/leave', auth.authenticateAdminToken, async (req, res) => {
   }
 });
 
-router.get('/caretakers', auth.authenticateToken, async (req, res) => {
+router.get('/caretakers', auth.authenticateAdminToken, async (req, res) => {
   try {
     const inRes = await db.functions.getAllCaretaker();
     // eslint-disable-next-line no-restricted-syntax, no-var, vars-on-top
