@@ -291,10 +291,12 @@ router.post('/leaves', auth.authenticateToken, async (req, res) => {
       // eslint-disable-next-line no-await-in-loop
       if (await db.functions.checkOverlapLeave(req.user.username, element.startdate, element.enddate) === 'true') {
         res.status(422).json({ error: 'Overlap with existing leave application' });
+        return;
       }
       // eslint-disable-next-line no-await-in-loop, max-len
       if (await db.functions.checkclash(req.user.username, element.startdate, element.enddate) === 'true') {
         res.status(422).json({ error: 'time clash when leave' });
+        return;
       }
 
       // eslint-disable-next-line no-await-in-loop
@@ -343,6 +345,7 @@ router.post('/leaves', auth.authenticateToken, async (req, res) => {
 
       if (count < 2) {
         res.status(423).json({ error: 'leave application cannot meet the 2 consecutive 150 working days requirement' });
+        return;
       }
 
       // eslint-disable-next-line no-await-in-loop
