@@ -125,6 +125,14 @@ export default {
       return new Date(order.edate).getTime() <= Date.now() && (order.status === 'Pending Payment' || order.status === 'Payment Received');
     },
     makePayment(order) {
+      if (this.selectedCard === '') {
+        this.$notify({
+          title: 'Specify a card for payment',
+          message: 'Please choose a credit card in order to make payment.',
+          duration: 0,
+        });
+        return;
+      }
       const petname = order.pname;
       const caretakerusername = order.ctaker;
       const startdate = order.sdate;
