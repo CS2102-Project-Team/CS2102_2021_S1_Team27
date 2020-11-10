@@ -47,6 +47,7 @@ module.exports = (options = {}) => ({
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
+      favicon: 'src/assets/favicon.ico',
     }),
   ],
   resolve: {
