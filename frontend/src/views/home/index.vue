@@ -57,12 +57,4 @@ export default {
     font-family: 'Kaushan Script', cursive;
     padding: 430px 0px 0px 0px;
   }
-  .home-wrap{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-image: url(../../assets/img/login-bg.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
 </style>
