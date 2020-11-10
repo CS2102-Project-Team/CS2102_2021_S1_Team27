@@ -1,5 +1,5 @@
 <template>
-  <div class = "home-wrap"> 
+  <div class = "home-wrap">
     <div class="center fill">
       <div>
       <h1 class = "title2">Welcome to</h1>
