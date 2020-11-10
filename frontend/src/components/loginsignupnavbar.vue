@@ -34,7 +34,7 @@ export default {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #AAB7B8;
+    background-color:#FFFAFA;
   }
 
   .title-text {
@@ -61,11 +61,11 @@ export default {
   }
 
   li p:hover:not(.active):not(.title-text) {
-    background-color: wheat;
+    background-color: #F0F8FF;
   }
 
   .active {
-    background-color: sandybrown;
+    background-color: #FAEBD7;
   }
 
   .title {
