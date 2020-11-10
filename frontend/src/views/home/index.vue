@@ -2,11 +2,9 @@
   <div class = "home-wrap">
     <div class="center fill">
       <div>
-      <h1 class = "title2">Welcome to</h1>
-      <h1 class="title">Pet-Anything</h1>
-      <h2 class = "slogan title2">
+      <h1 class = "slogan title2">
           No job is too big, No pup is too small
-      </h2>
+      </h1>
       </div>
     </div>
   </div>
@@ -55,8 +53,7 @@ export default {
     color: #fff;
   }
   .slogan {
-    margin: 5%;
-    font-family: 'Trebuchet MS';
+    font-family: 'Kaushan Script', cursive;
   }
   .home-wrap{
     position: relative;
