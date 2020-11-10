@@ -24,7 +24,7 @@
             <div>
               <el-date-picker
                 v-model="param.exp"
-                type="date"
+                type="month"
                 placeholder="--expiry-date--">
               </el-date-picker>
             </div>
