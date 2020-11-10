@@ -322,7 +322,7 @@ router.get('/revenue', auth.authenticateAdminToken, async (req, res) => {
     res.status(200).json(Res);
     return;
   } catch (err) {
-    res.status(500).json({ error: 'error' });
+    res.status(500).json({ error: err });
   }
 });
 
