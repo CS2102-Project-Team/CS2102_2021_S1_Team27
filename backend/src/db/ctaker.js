@@ -93,7 +93,8 @@ async function getAllTotalOrderAmountMonth(month) {
 async function getSalaryMonth(username, month) {
   const monthtimestamp = `${month}-01`;
   const fulltime = await db.query('SELECT check_fulltime($1, $2)', [username, monthtimestamp]);
-  if (fulltime === 'true') {
+  const ft = fulltime.rows[0].check_fulltime;
+  if (ft) {
     const coeff = 0.8;
     const petday = await getPetdayMonth(username, month);
     if (petday <= 60) {
