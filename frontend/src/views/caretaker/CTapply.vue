@@ -65,21 +65,27 @@ export default {
           registerCareTaker(this.param).then(() => {
             // if the real name has been updated
             this.$message.success('success in applying to be a care taker');
+            // console.log('success in applying to be a care taker');
             if (this.param.realname.trim() !== this.param.prevrealname.trim()) {
+              // console.log('different real name');
               updateUserInfo(this.param).then(() => {
                 this.loading = false;
                 // this.$message.success('success in updating real name');
+                // console.log('success in updating real name');
                 this.$router.push('/caretaker');
               }).catch((error1) => {
                 this.loading = false;
+                // console.log('error in updating real name');
                 this.$message.error(error1.response.data.error);
               });
             } else {
               this.loading = false;
+              // console.log('same real name');
               this.$router.push('/caretaker');
             }
           }).catch((error) => {
             this.loading = false;
+            // console.log('error in registering as a care taker');
             this.$message.error(error.response.data.error);
           });
         } else {
