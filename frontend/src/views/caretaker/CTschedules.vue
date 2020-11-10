@@ -74,7 +74,7 @@
                     <el-table-column
                         fixed = "right"
                         label = "action"
-                        width = "100">
+                        width = "130">
                         <template slot-scope="scope">
                           <el-button
                             v-if = "scope.row.status.trim() === 'Pending Payment'"
