@@ -84,7 +84,7 @@ async function getAllCaretaker() {
 }
 
 async function getAllPetowners() {
-  const { rows } = await db.query('SELECT DISTINCT powner AS username, (SELECT COUNT(*) FROM orders a WHERE a.powner = powner AND (a.status =\'Payment Received\' OR a.status=\'Pending Payment\')) AS deals, (SELECT SUM(a2.price) FROM orders a2 WHERE a2.powner = powner AND (a2.status =\'Payment Received\' OR a2.status=\'Pending Payment\')) AS spending FROM orders');
+  const { rows } = await db.query('SELECT DISTINCT username, (SELECT COUNT(*) FROM orders a WHERE a.powner = username AND (a.status =\'Payment Received\' OR a.status=\'Pending Payment\')) AS deals, (SELECT SUM(a2.price) FROM orders a2 WHERE a2.powner = username AND (a2.status =\'Payment Received\' OR a2.status=\'Pending Payment\')) AS spending FROM accounts');
   return rows;
 }
 
