@@ -40,9 +40,9 @@ export default {
     background-repeat: no-repeat;
   }
   .center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
     text-align: center;
   }
   h1.title {
@@ -50,10 +50,12 @@ export default {
     color: #fff;
   }
   .title2 {
+    font-size: 40px;
     color: #fff;
   }
   .slogan {
     font-family: 'Kaushan Script', cursive;
+    padding: 430px 0px 0px 0px;
   }
   .home-wrap{
     position: relative;
