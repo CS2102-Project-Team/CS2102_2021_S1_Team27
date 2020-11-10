@@ -35,8 +35,6 @@
                 </el-date-picker>
               </div>
             </el-col>
-          </el-row>
-          <el-row :gutter="50">
             <el-col :span="5">
               Pet Category
             </el-col>
