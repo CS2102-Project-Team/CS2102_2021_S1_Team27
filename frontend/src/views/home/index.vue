@@ -1,6 +1,6 @@
 <template>
   <div class = "home-wrap">
-    <div class="center fill">
+    <div class="center">
       <div>
       <h1 class = "slogan title2">
           No job is too big, No pup is too small
@@ -28,17 +28,17 @@ export default {
 </script>
 
 <style scoped>
-  .fill {
-    /* width: 100%;
+  /* .fill {
+    width: 100%;
     height: 100%;
-    background-color: wheat; */
+    background-color: wheat;
     position: relative;
     width: 100%;
     height: 100%;
     background-image: url(../../assets/img/home-pic.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-  }
+  } */
   .center {
     /* display: flex; */
     /* justify-content: center; */
@@ -56,5 +56,13 @@ export default {
   .slogan {
     font-family: 'Kaushan Script', cursive;
     padding: 430px 0px 0px 0px;
+  }
+  .home-wrap{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../assets/img/home-pic.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 </style>
