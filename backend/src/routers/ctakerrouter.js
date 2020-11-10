@@ -288,10 +288,15 @@ router.post('/leaves', auth.authenticateToken, async (req, res) => {
   try {
     // eslint-disable-next-line no-restricted-syntax
     for (const element of req.body) {
-      // eslint-disable-next-line
-      // eslint-disable-next-line no-await-in-loop, eslint-disable-next-line max-len
+      // eslint-disable-next-line no-await-in-loop
+      if (await db.functions.checkOverlapLeave(req.user.username, element.startdate, element.enddate) === 'true') {
+        res.status(422).json({ error: 'Overlap with existing leave application' });
+        return;
+      }
+      // eslint-disable-next-line no-await-in-loop, max-len
       if (await db.functions.checkclash(req.user.username, element.startdate, element.enddate) === 'true') {
         res.status(422).json({ error: 'time clash when leave' });
+        return;
       }
 
       // eslint-disable-next-line no-await-in-loop
@@ -330,14 +335,17 @@ router.post('/leaves', auth.authenticateToken, async (req, res) => {
       let count = 0;
       // eslint-disable-next-line no-restricted-syntax
       for (const duration of results) {
-        console.log(duration);
-        if (duration >= 150) {
+        // console.log(duration);
+        if (duration >= 300) {
+          count += 2;
+        } else if (duration >= 150) {
           count += 1;
         }
       }
 
       if (count < 2) {
-        res.status(423).json({ error: 'leave application cannot meet the 2 consequtive 150 working days requirement' });
+        res.status(423).json({ error: 'leave application cannot meet the 2 consecutive 150 working days requirement' });
+        return;
       }
 
       // eslint-disable-next-line no-await-in-loop

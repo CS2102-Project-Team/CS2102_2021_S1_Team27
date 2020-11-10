@@ -11,7 +11,7 @@ async function getPets(username) {
 }
 
 async function getThePet(username, petname) {
-  const { rows } = await db.query('SELECT ptype FROM pets WHERE powner = $1 AND pname = $2', [username, petname]);
+  const { rows } = await db.query('SELECT ptype, remark FROM pets WHERE powner = $1 AND pname = $2', [username, petname]);
   return rows;
 }
 
