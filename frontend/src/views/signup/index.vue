@@ -210,18 +210,18 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  background-image: url(../../assets/img/signup-bg.jpg);
+  background-image: url(../../assets/img/lisu_bg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
 }
 .ms-signup {
   position: absolute;
-  left: 35%;
-  top: 10%;
+  left: 5%;
+  top: 0%;
   width: 350px;
   margin: 100px 0 0 100px;
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(40, 55, 71, 0.6);
   overflow: hidden;
 }
 .ms-content {
@@ -232,7 +232,7 @@ export default {
   line-height: 50px;
   text-align: center;
   font-size: 20px;
-  color: #444;
+  color: rgb(255, 255, 255);
   border-bottom: 1px solid #ddd;
 }
 .signup-btn {
