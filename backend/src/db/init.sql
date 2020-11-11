@@ -168,6 +168,21 @@ CREATE OR REPLACE FUNCTION check_fulltime(VARCHAR, DATE)
 RETURNS BOOLEAN AS
 $$ SELECT (CASE WHEN (SELECT fulltime FROM caretakers WHERE username=$1)=TRUE AND (SELECT fulltimesince FROM caretakers WHERE username=$1)<($2::DATE) THEN TRUE ELSE FALSE END);
 $$ language 'sql';
+                   
+CREATE OR REPLACE FUNCTION del_acc(varchar)
+RETURNS INT AS
+$$ DELETE FROM cards WHERE username=$1;
+DELETE FROM orders WHERE powner = $1 OR ctaker = $1;
+DELETE FROM leave WHERE ctaker = $1;
+DELETE FROM available WHERE ctaker = $1;
+DELETE FROM looksafter WHERE ctaker = $1;
+DELETE FROM caretakers WHERE username= $1;
+DELETE FROM pets WHERE powner= $1;
+DELETE FROM cards WHERE username= $1;
+DELETE FROM accounts WHERE username= $1 RETURNING 1;
+$$ language 'sql';
+                   
+                 
 --triggers
 
 
