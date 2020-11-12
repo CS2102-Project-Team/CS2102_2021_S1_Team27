@@ -106,8 +106,13 @@ export default {
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
           }).catch((e) => {
-            this.$message.error(e)
-            console.log(e)
+            const ecd = e.toString().trim().slice(-3)
+            if (ecd === '404') {
+              this.$message.error('Account does not exist')
+            } else if (ecd === '403') {
+              this.$message.error('Wrong password')
+            }
+            // console.log(e.toString())
             this.loading = false
           })
         } else {
