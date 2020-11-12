@@ -42,7 +42,8 @@ async function deleteCategory(username, pettype) {
 }
 
 async function getOrders(username, pastorder) {
-  if (pastorder) {
+  console.log(pastorder);
+  if (pastorder === true) {
     const { rows } = await db.query('SELECT sdate startdate, edate enddate, remark specialrequirement, ptype petcategory, pname petname, powner ownerusername, status, delivery deliverymode, rating, review FROM orders WHERE ctaker=$1', [username]);
     return rows;
   }
