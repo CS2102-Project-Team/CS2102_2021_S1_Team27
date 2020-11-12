@@ -133,9 +133,9 @@ router.get('/leave', auth.authenticateAdminToken, async (req, res) => {
     for (var temp of leave) {
       // eslint-disable-next-line no-await-in-loop
       if (await db.functions.checkclash(temp.caretakerusername, temp.startdate, temp.enddate) === 'true') {
-        temp.clash = 'true';
+        temp.clash = true;
       } else {
-        temp.clash = 'false';
+        temp.clash = false;
       }
     }
     leave.map((element) => {
