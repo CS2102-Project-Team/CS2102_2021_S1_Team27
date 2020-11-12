@@ -389,7 +389,7 @@ export default {
         // remove this entry from showing
         this.deleteRow(index, this.pendingorders);
         this.pdTableKey += 1;
-        this.$message.success('accepted an order');
+        this.$message.success('declined an order');
       }).catch((error) => {
         this.$message.error(error.response.data.error);
       });
