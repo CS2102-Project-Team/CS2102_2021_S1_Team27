@@ -27,7 +27,8 @@
         </el-table-column>
         <el-table-column label="Clash?" width="100" align="center">
           <template slot-scope="scope">
-            {{ scope.row.clash }}
+            <i v-if="scope.row.clash" class="el-icon-check" />
+            <i v-else class="el-icon-close" />
           </template>
         </el-table-column>
         <el-table-column class-name="status-col" label="Status" width="100">
@@ -78,7 +79,12 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getLeave({ include_history: true }).then(data => {
+      getLeave({ include_history: true }).then(data => data.map(x => {
+        if (typeof x.clash === 'string') {
+          x.clash = x.clash.toLowerCase() !== 'false'
+        }
+        return x
+      })).then(data => {
         this.list = data
         this.listLoading = false
         if (!data.length) {
