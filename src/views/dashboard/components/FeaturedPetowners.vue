@@ -8,7 +8,7 @@
       <span style="color: ORANGERED;">{{ `${o.username}` }}</span>
       spent
       <span style="color: LIMEGREEN;">{{ `$${o.spending.toFixed(2)}` }}</span>
-      this month!
+      in total!
     </div>
   </el-card>
 </template>
