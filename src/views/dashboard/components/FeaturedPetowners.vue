@@ -6,7 +6,9 @@
     <div v-for="o in list" :key="o.username" class="text item">
       <i class="el-icon-s-goods" style="color:FUCHSIA" />
       <span style="color: ORANGERED;">{{ `${o.username}` }}</span>
-      {{ `spent $${o.spending.toFixed(2)} this month!` }}
+      spent
+      <span style="color: LIMEGREEN;">{{ `$${o.spending.toFixed(2)}` }}</span>
+      this month!
     </div>
   </el-card>
 </template>

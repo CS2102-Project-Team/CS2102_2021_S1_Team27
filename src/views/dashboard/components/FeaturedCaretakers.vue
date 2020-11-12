@@ -6,7 +6,9 @@
     <div v-for="o in list" :key="o.username" class="text item">
       <i class="el-icon-star-on" style="color:CORAL" />
       <span style="color: MEDIUMSLATEBLUE;">{{ `${o.username}` }}</span>
-      {{ `earned $${o.salary.toFixed(2)} this month!` }}
+      earned
+      <span style="color: LIMEGREEN;">{{ `$${o.salary.toFixed(2)}` }}</span>
+      this month!
     </div>
   </el-card>
 </template>
