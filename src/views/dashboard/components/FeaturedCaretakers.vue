@@ -3,9 +3,10 @@
     <div slot="header" class="clearfix">
       <span>Featured Caretakers</span>
     </div>
-    <div v-for="o in list" :key="o" class="text item">
+    <div v-for="o in list" :key="o.username" class="text item">
       <i class="el-icon-star-on" style="color:CORAL" />
-      {{ `${o.username} earned $${o.salary} this month!` }}
+      <span style="color: MEDIUMSLATEBLUE;">{{ `${o.username}` }}</span>
+      {{ `earned $${o.salary.toFixed(2)} this month!` }}
     </div>
   </el-card>
 </template>
@@ -25,7 +26,12 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getCaretakers().then(data => {
+      getCaretakers().then(
+        data => data.map(x => {
+          x.salary = x.salary ? x.salary : 0
+          return x
+        })
+      ).then(data => {
         this.list = data
         this.list.sort((a, b) => b.salary - a.salary)
         this.list = this.list.slice(0, 7)

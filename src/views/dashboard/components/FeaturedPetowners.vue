@@ -3,9 +3,10 @@
     <div slot="header" class="clearfix">
       <span>Featured Petowners</span>
     </div>
-    <div v-for="o in list" :key="o" class="text item">
+    <div v-for="o in list" :key="o.username" class="text item">
       <i class="el-icon-s-goods" style="color:FUCHSIA" />
-      {{ `${o.username} spent $${o.spending} this month!` }}
+      <span style="color: ORANGERED;">{{ `${o.username}` }}</span>
+      {{ `spent $${o.spending.toFixed(2)} this month!` }}
     </div>
   </el-card>
 </template>
@@ -25,7 +26,12 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getPetowners().then(data => {
+      getPetowners().then(
+        data => data.map(x => {
+          x.spending = x.spending ? x.spending : 0
+          return x
+        })
+      ).then(data => {
         this.list = data
         this.list.sort((a, b) => b.spending - a.spending)
         this.list = this.list.slice(0, 7)

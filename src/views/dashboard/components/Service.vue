@@ -50,7 +50,7 @@ export default {
       const toMonth = `${('0000' + currentYear).substr(-4)}-${('00' + (currentMonth + 1)).substr(-2)}`
       const fromMonth = `${('0000' + (currentMonth - 12 >= 0 ? currentYear : currentYear - 1)).substr(-4)}-${('00' + ((currentMonth + 12) % 12 + 1)).substr(-2)}`
       getService({ from: fromMonth, to: toMonth }).then(data => {
-        console.log(`in service.vue: ${JSON.stringify(data)}`)
+        // console.log(`in service.vue: ${JSON.stringify(data)}`)
         this.data = data
         const options = {
           title: {
@@ -87,7 +87,7 @@ export default {
               type: 'bar',
               barWidth: '60%',
               stack: 'vistors',
-              data: data.map(x => x.pethour[petcategory]),
+              data: data.map(x => parseInt(x.pethour[petcategory])),
               animationDuration
             }
           }),
