@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-form :model="param" :rules="rules" class="ms-content">
-      <el-row>
-        <el-col>
+      <el-row type="flex" justify="center">
+        <el-col :span="10">
           <el-form-item prop="address">
             <span>Updated Address</span>
             <el-input v-model="param.address">
@@ -10,7 +10,9 @@
             </el-input>
           </el-form-item>
         </el-col>
-        <el-col>
+      </el-row>
+      <el-row type="flex" justify="center">
+        <el-col :span="10">
           <el-form-item prop="phone">
             <span>Updated Phone Number</span>
             <el-input v-model="param.phone">
@@ -18,7 +20,9 @@
             </el-input>
           </el-form-item>
         </el-col>
-        <el-col>
+      </el-row>
+      <el-row type="flex" justify="center">
+        <el-col :span="10">
           <el-form-item prop="realname">
             <span>Updated Real Name</span>
             <el-input v-model="param.realname">
@@ -26,7 +30,9 @@
             </el-input>
           </el-form-item>
         </el-col>
-        <el-col>
+      </el-row>
+      <el-row type="flex" justify="center">
+        <el-col :span="10">
           <el-form-item>
             <div class="bar-btn">
               <el-button type="primary" v-on:click="updateProfile()">update</el-button>

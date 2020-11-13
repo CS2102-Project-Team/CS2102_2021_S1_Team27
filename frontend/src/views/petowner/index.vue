@@ -1,98 +1,103 @@
 <template>
   <div>
     <el-container>
+
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
         <leftbar/>
       </el-aside>
+
       <el-main>
+
         <el-form :model="param" :rules="rules" class="ms-content">
-          <el-row>
-            <el-col :span="5">
+          <el-row type="flex" align="middle" justify="center">
+            <el-col :span="2">
               From
             </el-col>
-            <el-col :span="15">
+            <el-col :span="5">
               <div>
-                <el-date-picker
-                  v-model="param.startdate"
-                  type="date"
-                  placeholder="--select-date--"
-                  value-format="yyyy-MM-dd"
-                  :picker-options="startOptions">
+                <el-date-picker v-model="param.startdate" type="date" placeholder="--select-date--"
+                                value-format="yyyy-MM-dd" :picker-options="startOptions">
                 </el-date-picker>
               </div>
             </el-col>
-            <el-col :span="5">
+            <el-col :span="2">
               To
             </el-col>
-            <el-col :span="15">
+            <el-col :span="5">
               <div>
-                <el-date-picker
-                  v-model="param.enddate"
-                  type="date"
-                  placeholder="--end-date--"
-                  value-format="yyyy-MM-dd"
-                  :picker-options="endOptions">
+                <el-date-picker v-model="param.enddate" type="date" placeholder="--end-date--"
+                                value-format="yyyy-MM-dd" :picker-options="endOptions">
                 </el-date-picker>
               </div>
             </el-col>
-            <el-col :span="5">
+            <el-col :span="2">
               Pet Category
             </el-col>
-            <el-col :span="15">
-              <el-form-item prop="petcategory">
+            <el-col :span="5">
+              <div>
                 <el-select v-model="param.petcategory" placeholder="--select-pet-type--">
                   <el-option v-for="(category,index) in categories" :key="index"
-                  :label="category" :value="category">
+                             :label="category" :value="category">
                   </el-option>
                 </el-select>
-              </el-form-item>
+              </div>
             </el-col>
-            <el-col :span="5">
-              <el-form-item>
-                <div class="bar-btn">
-                  <el-button type="primary" v-on:click="getSlot()">search</el-button>
-                </div>
-              </el-form-item>
+            <el-col :span="2">
+              <div class="bar-btn">
+                <el-button type="primary" v-on:click="getSlot()">search</el-button>
+              </div>
             </el-col>
           </el-row>
         </el-form>
+
         <div>
-          <el-card class='box-card' v-for="(vacancy,index) in vacancies" v-bind:key="index">
-            <div class='text item'>
-              {{ 'Care Taker Name: ' + vacancy.realname }}
-            </div>
+          <el-table :data="vacancies" border max-height="500">
+            <el-table-column prop="realname" label="Caretaker Name" width="150">
+            </el-table-column>
+            <el-table-column prop="realname" label="Caretaker Type" width="150">
+            </el-table-column>
+            <el-table-column prop="addres" label="Address" width="200">
+            </el-table-column>
+            <el-table-column prop="rating" label="Rating" width="150">
+            </el-table-column>
+            <el-table-column prop="totalprice" label="Total Price" width="100">
+            </el-table-column>
+            <el-table-column label="Caretaker Details" width="200">
+              <template slot-scope="scope">
+                <el-button @click="scope.row.reviewVisible=true; getCTReview(scope.row.username)"
+                           type="text" size="small">
+                Get Caretaker Past Reviews
+                </el-button>
+              </template>
+            </el-table-column>
+            <el-table-column label="Place Order" width="150">
+              <template slot-scope="scope">
+                <el-button @click="scope.row.dialogVisible=true" type="primary" size="small">
+                  Place Order
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+
+          <div v-for="(vacancy,index) in vacancies" v-bind:key="index">
+
             <el-dialog title='All Reviews of this care taker'
-            :visible.sync="vacancy.reviewVisible" width="50%">
-              <el-form label-width="80px">
-                <el-form-item>
-                  <div class='text'>
-                    {{ 'Care Taker Name: ' + vacancy.realname }}
-                  </div>
-                  <el-card class='box-card' v-for="(pastorder,index) in pastorders"
-                  v-bind:key="index">
-                    <div class='text'>{{ "Pet Category: " + pastorder.petcategory }}</div>
-                    <div class='text'>{{ "Rating: " + pastorder.rating }}</div>
-                    <div class='text'>{{ "Review: " + pastorder.review }}</div>
-                  </el-card>
-                </el-form-item>
-              </el-form>
+                       :visible.sync="vacancy.reviewVisible" width="50%">
+                <el-row type="flex" justify="center" align="middle">
+                    <div class='text'>{{ 'Care Taker Name: ' + vacancy.realname }}</div>
+                </el-row>
+                <el-row type="flex" justify="center" align="middle">
+                    <el-table :data="pastorders" border max-height="250" style="width: 50%">
+                        <el-table-column prop="petcategory" label="Pet Category" width="100">
+                        </el-table-column>
+                        <el-table-column prop="rating" label="Rating" width="100">
+                        </el-table-column>
+                        <el-table-column prop="review" label="Review" width="200">
+                        </el-table-column>
+                    </el-table>
+                </el-row>
             </el-dialog>
-            <br/>
-            <div class='text item' v-if="vacancy.fulltime">{{ 'Full Time' }}</div>
-            <div class='text item' v-else>{{ 'Part Time' }}</div>
-            <br/>
-            <div class='text item'>{{ 'Address: ' + vacancy.addres }}</div>
-            <br/>
-            <div class='text item'>{{ 'Rating: ' + vacancy.rating }}</div>
-            <br/>
-            <div class='text item'>{{ 'Total Price: ' + vacancy.totalprice }}</div>
-            <br/>
-            <el-button type="primary" v-on:click="vacancy.dialogVisible=true">
-              place order
-            </el-button>
-            <el-button v-on:click="vacancy.reviewVisible=true; getCTReview(vacancy.username)">
-              Get Caretaker Details
-            </el-button>
+
             <el-dialog title='Place Order' :visible.sync="vacancy.dialogVisible" width="50%">
               <el-form label-width="80px">
                 <el-form-item>
@@ -162,8 +167,10 @@
                   <el-button type="primary" v-on:click="placeOrder(vacancy)">Confirm</el-button>
                 </span>
             </el-dialog>
-          </el-card>
+
+          </div>
         </div>
+
       </el-main>
     </el-container>
   </div>
@@ -233,7 +240,7 @@ export default {
         for (i = 0; i < results.data.length; i += 1) {
           const thisData = results.data[i];
           if (thisData.rating === '-1') {
-            thisData.rating = 'No rating has been given to this caretaker yet';
+            thisData.rating = 'No rating given yet';
           } else {
             thisData.rating = Number.parseFloat(thisData.rating).toFixed(2);
           }
