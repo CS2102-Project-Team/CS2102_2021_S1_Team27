@@ -5,23 +5,25 @@
         <leftbar/>
       </el-aside>
       <el-main>
-        <el-card class='box-card' v-for="(order,index) in orders" v-bind:key="index">
-          <div class='text'>{{ 'Pet Name: ' + order.pname }}</div>
-          <div class='text'>{{ 'Caretaker Username: ' + order.ctaker }}</div>
-          <div class='text'>{{ 'Start Date: ' + order.sdate }}</div>
-          <div class='text'>{{ 'End Date: ' + order.edate }}</div>
-          <div class='text'>{{ 'Delivery Mode: ' + order.delivery }}</div>
-          <div class='text'>{{ 'Status: ' + order.status }}</div>
-          <div class='text'>{{ 'Rating: ' + order.rating }}</div>
-          <div class='text'>{{ 'Feedback: ' + order.review }}</div>
-          <span>
-            <el-button v-if="canGiveRating(order)" v-on:click="order.ratingVisible=true">
-              Give Rating
-            </el-button>
-            <el-button v-if="canMakePayment(order)" v-on:click="order.paymentVisible=true">
-              Make Payment
-            </el-button>
-          </span>
+
+        <el-table :data="orders" border style="width: 100%" max-height="500">
+          <el-table-column fixed prop="pname" label="Pet Name" Width="100"></el-table-column>
+          <el-table-column prop="ctaker" label="Caretaker Username" Width="150"></el-table-column>
+          <el-table-column prop="sdate" label="Start Date" Width="150"></el-table-column>
+          <el-table-column prop="edate" label="End Date" Width="150"></el-table-column>
+          <el-table-column prop="delivery" label="Delivery Mode" Width="150"></el-table-column>
+          <el-table-column prop="status" label="Status" Width="200"></el-table-column>
+          <el-table-column prop="rating" label="Rating" Width="150"></el-table-column>
+          <el-table-column prop="review" label="Feedback" Width="150"></el-table-column>
+          <el-table-column fixed="right" label="Actions" Width="150">
+            <template slot-scope="scope">
+              <el-button v-if="canMakePayment(scope.row)" type="text" size="small" @click="orders[scope.$index].paymentVisible=true">Pay</el-button>
+              <el-button v-if="canGiveRating(scope.row)" type="text" size="small" @click="orders[scope.$index].ratingVisible=true">Feedback</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+
+        <div v-for="(order,index) in orders" v-bind:key="index">
           <el-dialog title='Give Rating' :visible.sync="order.ratingVisible" width="50%">
             <div class='text'>Rating</div>
             <br/>
@@ -54,7 +56,8 @@
               <el-button v-on:click="order.paymentVisible=false">Cancel</el-button>
             </span>
           </el-dialog>
-        </el-card>
+        </div>
+
       </el-main>
     </el-container>
   </div>

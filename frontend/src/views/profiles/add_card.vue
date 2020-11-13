@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-form :model="param" :rules="rules" class="ms-content">
-      <el-row>
-        <el-col>
+      <el-row type="flex" justify="center">
+        <el-col :span="10">
           <el-form-item prop="cardnumber">
             <span>Card Number</span>
             <el-input v-model="param.cardnumber">
@@ -10,7 +10,9 @@
             </el-input>
           </el-form-item>
         </el-col>
-        <el-col>
+      </el-row>
+      <el-row type="flex" justify="center">
+        <el-col :span="10">
           <el-form-item prop="holdername">
             <span>Holder Name</span>
             <el-input v-model="param.holdername">
@@ -18,19 +20,18 @@
             </el-input>
           </el-form-item>
         </el-col>
-        <el-col>
+      </el-row>
+      <el-row type="flex" justify="center">
+        <el-col :span="5">
           <el-form-item prop="expdate">
             <span>Expiry Date</span>
             <div>
-              <el-date-picker
-                v-model="param.exp"
-                type="month"
-                placeholder="--expiry-date--">
+              <el-date-picker v-model="param.exp" type="month" placeholder="--expiry-date--">
               </el-date-picker>
             </div>
           </el-form-item>
         </el-col>
-        <el-col>
+        <el-col :span="5">
           <el-form-item prop="cvv">
             <span>CVV</span>
             <el-input v-model="param.cvv">
@@ -38,7 +39,9 @@
             </el-input>
           </el-form-item>
         </el-col>
-        <el-col>
+      </el-row>
+      <el-row type="flex" justify="center">
+        <el-col :span="10">
           <el-form-item>
             <div class="bar-btn">
               <el-button type="primary" v-on:click="addCard()">Add Card</el-button>

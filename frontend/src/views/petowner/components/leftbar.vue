@@ -3,19 +3,19 @@
     <el-menu class="sidebar">
       <el-menu-item index="1" @click="goToService()">
         <template slot="title" >
-          <i class="el-icon-menu"></i>
+          <i class="el-icon-user"></i>
           Search For Service
         </template>
       </el-menu-item>
       <el-menu-item index="2" @click="goToPets()">
         <template slot="title" >
-          <i class="el-icon-menu"></i>
+          <i class="el-icon-setting"></i>
           View My Pets
         </template>
       </el-menu-item>
       <el-menu-item index="3" @click="goToOrders()">
         <template slot="title" >
-          <i class="el-icon-menu"></i>
+          <i class="el-icon-files"></i>
           View My Orders
         </template>
       </el-menu-item>

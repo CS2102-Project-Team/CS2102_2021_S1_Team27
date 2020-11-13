@@ -1,32 +1,33 @@
 <template>
-  <div>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span>{{ username }}</span>
-        <el-button style="float: right; padding: 3px 0" type="text" @click="goToEdit()">
-          Edit Profile
-        </el-button>
-      </div>
-      <div class="text item">
-        {{ 'Email: ' + email }}
-      </div>
-      <div class="text item">
-        {{ 'Address: ' + address }}
-      </div>
-      <div class="text item">
-        {{ 'Phone: ' + phone }}
-      </div>
-      <div class="text item">
-        {{ 'Real Name: ' + realname }}
-      </div>
-    </el-card>
-    <div>My Credit Cards</div>
-    <el-card v-for="(card,index) in cards" v-bind:key="index">
-      <span>{{ 'Card Number: ' + card.cardnumber }}</span>
-      <el-button type="primary" v-on:click="deleteCard(card.cardnumber)">Delete Card</el-button>
-    </el-card>
-    <el-button type="primary" v-on:click="goToAddCard()">Add Card</el-button>
-  </div>
+  <el-container>
+    <el-header align="center">
+    </el-header>
+    <el-main>
+      <el-row :gutter="20" type="flex" justify="center" align="middle">
+        <el-col :span="10" align="center">
+          <div class="text item">My Profile</div>
+          <el-card class="box-card" shadow="hover">
+            <div slot="header" class="clearfix">
+              <span class="text item">{{ 'Username: ' + username }}</span>
+              <el-button style="float: right; padding: 3px 0" type="text" @click="goToEdit()">Edit Profile</el-button>
+            </div>
+            <div class="text item">{{ 'Email: ' + email }}</div>
+            <div class="text item">{{ 'Address: ' + address }}</div>
+            <div class="text item">{{ 'Phone: ' + phone }}</div>
+            <div class="text item">{{ 'Real Name: ' + realname }}</div>
+          </el-card>
+        </el-col>
+        <el-col :span="10" align="center">
+          <div class="text item">My Credit Cards</div>
+          <el-card class="box-card" v-for="(card,index) in cards" v-bind:key="index" shadow="hover">
+            <span class="text item">{{ 'Card Number: ' + card.cardnumber }}</span> 
+            <el-button style="float: right; padding: 3px 0" type="text" @click="deleteCard(card.cardnumber)">Delete Card</el-button>
+          </el-card>
+          <el-button type="primary" v-on:click="goToAddCard()">Add Card</el-button>
+        </el-col>
+      </el-row>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
