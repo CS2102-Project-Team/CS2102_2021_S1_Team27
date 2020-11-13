@@ -1,8 +1,15 @@
 <template>
   <div>
+    <el-container>
+    
+    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+      <leftbar/>
+    </el-aside>
+
+    <el-main>
     <el-form :model="param" :rules="rules" class="ms-content">
-      <el-row>
-        <el-col>
+      <el-row :gutter="20" type="flex" justify="center" align="middle">
+        <el-col :span="5">
           <el-form-item prop="name">
             <span>Pet Name</span>
             <el-input v-model="param.name">
@@ -10,16 +17,19 @@
             </el-input>
           </el-form-item>
         </el-col>
-        <el-col>
+        <el-col :span="5">
           <el-form-item prop="type">
             <span>Pet Category</span>
-            <el-select v-model="param.type" placeholder="--pet-category--">
+            <br/>
+            <el-select v-model="param.type" placeholder="--pet-category--" size="medium">
               <el-option v-for="(category,index) in categories" v-bind:key=index :value=category>
               </el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col>
+      </el-row>
+      <el-row :gutter="20" type="flex" justify="center">
+        <el-col :span="10">
           <el-form-item prop="remark">
             <span>Remark</span>
             <el-input v-model="param.remark">
@@ -27,7 +37,9 @@
             </el-input>
           </el-form-item>
         </el-col>
-        <el-col>
+      </el-row>
+      <el-row :gutter="20" type="flex" justify="center">
+        <el-col :span="10">
           <el-form-item>
             <div class="bar-btn">
               <el-button type="primary" v-on:click="addPet()">Add Pet</el-button>
@@ -39,11 +51,15 @@
         </el-col>
       </el-row>
     </el-form>
+    </el-main>
+
+    </el-container>
   </div>
 </template>
 
 <script>
 import { addPet } from '@/api/petowner';
+import leftbar from './components/leftbar.vue';
 
 export default {
   data() {
@@ -98,6 +114,9 @@ export default {
     cancelAdding() {
       this.$router.push('/po/pets');
     },
+  },
+  components: {
+    leftbar,
   },
 };
 </script>
