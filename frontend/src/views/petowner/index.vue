@@ -54,7 +54,7 @@
           <el-table :data="vacancies" border max-height="500">
             <el-table-column prop="realname" label="Caretaker Name" width="150">
             </el-table-column>
-            <el-table-column prop="realname" label="Caretaker Type" width="150">
+            <el-table-column prop="cttype" label="Caretaker Type" width="150">
             </el-table-column>
             <el-table-column prop="addres" label="Address" width="200">
             </el-table-column>
@@ -66,7 +66,7 @@
               <template slot-scope="scope">
                 <el-button @click="scope.row.reviewVisible=true; getCTReview(scope.row.username)"
                            type="text" size="small">
-                Get Caretaker Past Reviews
+                  Get Caretaker Past Reviews
                 </el-button>
               </template>
             </el-table-column>
@@ -92,7 +92,7 @@
                         </el-table-column>
                         <el-table-column prop="rating" label="Rating" width="100">
                         </el-table-column>
-                        <el-table-column prop="review" label="Review" width="200">
+                        <el-table-column prop="review" label="Review" width="400">
                         </el-table-column>
                     </el-table>
                 </el-row>
@@ -243,6 +243,11 @@ export default {
             thisData.rating = 'No rating given yet';
           } else {
             thisData.rating = Number.parseFloat(thisData.rating).toFixed(2);
+          }
+          if (thisData.fulltime) {
+            thisData.cttype = 'Full Time';
+          } else {
+            thisData.cttype = 'Part Time';
           }
           thisData.dialogVisible = false;
           thisData.reviewVisible = false;
