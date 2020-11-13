@@ -36,7 +36,8 @@
             <el-col :span="5">
               <div>
                 <el-select v-model="param.petcategory" placeholder="--select-pet-type--">
-                  <el-option v-for="(category,index) in categories" :key="index" :label="category" :value="category">
+                  <el-option v-for="(category,index) in categories" :key="index"
+                             :label="category" :value="category">
                   </el-option>
                 </el-select>
               </div>
@@ -50,39 +51,49 @@
         </el-form>
 
         <div>
-            <el-table :data="vacancies" border max-height="500">
-                <el-table-column prop="realname" label="Caretaker Name" width="150"></el-table-column>
-                <el-table-column prop="realname" label="Caretaker Type" width="150"></el-table-column>
-                <el-table-column prop="addres" label="Address" width="200"></el-table-column>
-                <el-table-column prop="rating" label="Rating" width="150"></el-table-column>
-                <el-table-column prop="totalprice" label="Total Price" width="100"></el-table-column>
-                <el-table-column label="Caretaker Details" width="200">
-                    <template slot-scope="scope">
-                        <el-button @click="scope.row.reviewVisible=true; getCTReview(scope.row.username)" type="text" size="small">
-                            Get Caretaker Past Reviews
-                        </el-button>
-                    </template>
-                </el-table-column>
-                <el-table-column label="Place Order" width="150">
-                    <template slot-scope="scope">
-                        <el-button @click="scope.row.dialogVisible=true" type="primary" size="small">
-                            Place Order
-                        </el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
+          <el-table :data="vacancies" border max-height="500">
+            <el-table-column prop="realname" label="Caretaker Name" width="150">
+            </el-table-column>
+            <el-table-column prop="realname" label="Caretaker Type" width="150">
+            </el-table-column>
+            <el-table-column prop="addres" label="Address" width="200">
+            </el-table-column>
+            <el-table-column prop="rating" label="Rating" width="150">
+            </el-table-column>
+            <el-table-column prop="totalprice" label="Total Price" width="100">
+            </el-table-column>
+            <el-table-column label="Caretaker Details" width="200">
+              <template slot-scope="scope">
+                <el-button @click="scope.row.reviewVisible=true; getCTReview(scope.row.username)"
+                           type="text" size="small">
+                Get Caretaker Past Reviews
+                </el-button>
+              </template>
+            </el-table-column>
+            <el-table-column label="Place Order" width="150">
+              <template slot-scope="scope">
+                <el-button @click="scope.row.dialogVisible=true" type="primary" size="small">
+                  Place Order
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
 
           <div v-for="(vacancy,index) in vacancies" v-bind:key="index">
 
-            <el-dialog title='All Reviews of this care taker' :visible.sync="vacancy.reviewVisible" width="50%">
+            <el-dialog title='All Reviews of this care taker' 
+                       :visible.sync="vacancy.reviewVisible" width="50%">
                 <el-row type="flex" justify="center" align="middle">
                     <div class='text'>{{ 'Care Taker Name: ' + vacancy.realname }}</div>
                 </el-row>
                 <el-row type="flex" justify="center" align="middle">
                     <el-table :data="pastorders" border max-height="250" style="width: 50%">
-                        <el-table-column prop="petcategory" label="Pet Category" width="100"></el-table-column>
-                        <el-table-column prop="rating" label="Rating" width="100"></el-table-column>
-                        <el-table-column prop="review" label="Review" width="200"></el-table-column>
+                        <el-table-column prop="petcategory" label="Pet Category" width="100">
+                        </el-table-column>
+                        <el-table-column prop="rating" label="Rating" width="100">
+                        </el-table-column>
+                        <el-table-column prop="review" label="Review" width="200">
+                        </el-table-column>
                     </el-table>
                 </el-row>
             </el-dialog>

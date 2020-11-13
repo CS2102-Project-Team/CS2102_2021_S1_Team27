@@ -9,7 +9,9 @@
           <el-card class="box-card" shadow="hover">
             <div slot="header" class="clearfix">
               <span class="text item">{{ 'Username: ' + username }}</span>
-              <el-button style="float: right; padding: 3px 0" type="text" @click="goToEdit()">Edit Profile</el-button>
+              <el-button style="float: right; padding: 3px 0" type="text" @click="goToEdit()">
+                Edit Profile
+              </el-button>
             </div>
             <div class="text item">{{ 'Email: ' + email }}</div>
             <div class="text item">{{ 'Address: ' + address }}</div>
@@ -19,9 +21,13 @@
         </el-col>
         <el-col :span="10" align="center">
           <div class="text item">My Credit Cards</div>
-          <el-card class="box-card" v-for="(card,index) in cards" v-bind:key="index" shadow="hover">
+          <el-card class="box-card" v-for="(card,index) in cards" v-bind:key="index"
+                   shadow="hover">
             <span class="text item">{{ 'Card Number: ' + card.cardnumber }}</span> 
-            <el-button style="float: right; padding: 3px 0" type="text" @click="deleteCard(card.cardnumber)">Delete Card</el-button>
+            <el-button style="float: right; padding: 3px 0" type="text"
+                       @click="deleteCard(card.cardnumber)">
+              Delete Card
+            </el-button>
           </el-card>
           <el-button type="primary" v-on:click="goToAddCard()">Add Card</el-button>
         </el-col>
