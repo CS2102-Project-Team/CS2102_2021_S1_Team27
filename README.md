@@ -7,7 +7,7 @@ This project consists of 4 parts:
 - [PetAnything Frontend](#petanything-frontend-petowner-and-caretaker-website)
 - [PetAnything Admin Management System](#petanything-admin-management-system-pcs-admin-website)
 - [PetAnything Backend](#petanything-backend)
-- [PetAnything API Documentation](#petanything-pi-documentation)
+- [PetAnything API Documentation](#petanything-api-documentation)
 
 A demo video can be found [here](https://www.youtube.com/watch?v=dLSqwT24ySQ/)
 
@@ -30,7 +30,7 @@ Source code can be found in [backend branch](https://github.com/CS2102-Project-T
 
 The APIs are served at <https://pet-anything.herokuapp.com/api/v1/>
 
-## PetAnything PI documentation
+## PetAnything API documentation
 
 Source code can be found in [swaggerhub branch](https://github.com/CS2102-Project-Team/CS2102_2021_S1_Team27/tree/swaggerhub)
 
