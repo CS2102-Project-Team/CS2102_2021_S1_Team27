@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container>
-    
+
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
       <leftbar/>
     </el-aside>
