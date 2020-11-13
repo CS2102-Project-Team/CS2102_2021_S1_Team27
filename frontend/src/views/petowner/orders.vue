@@ -24,37 +24,58 @@
         </el-table>
 
         <div v-for="(order,index) in orders" v-bind:key="index">
-          <el-dialog title='Give Rating' :visible.sync="order.ratingVisible" width="50%">
-            <div class='text'>Rating</div>
-            <br/>
-            <el-select v-model.number="param.rating" placeholder="--select-rating--">
-              <el-option v-for="(mark,index) in [1,2,3,4,5]" :key="index"
-              :label="mark" :value="mark">
-              </el-option>
-            </el-select>
-            <br/>
-            <div class='text'>Feedback</div>
-            <br/>
-            <el-input v-model="param.feedback">
-              <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
-            </el-input>
-            <span>
-              <el-button type="primary" v-on:click="placeRating(order)">Confirm</el-button>
-              <el-button v-on:click="order.ratingVisible=false">Cancel</el-button>
-            </span>
-          </el-dialog>
+            <el-dialog title='Give Rating' :visible.sync="order.ratingVisible" width="50%">
+                <el-row :gutter="20" align="middle">
+                    <el-col :span="3">
+                        <div class='text'>Rating</div>
+                    </el-col>
+                    <el-col :span="2">
+                        <el-select v-model.number="param.rating" placeholder="--select-rating--">
+                            <el-option v-for="(mark,index) in [1,2,3,4,5]" :key="index" :label="mark" :value="mark">
+                            </el-option>
+                        </el-select>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20" align="middle">
+                    <el-col :span="3">
+                        <div class='text'>Feedback</div>
+                    </el-col>
+                    <el-col :span="17">
+                        <el-input v-model="param.feedback">
+                            <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
+                        </el-input>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20" align="middle">
+                    <el-col :span="3">
+                        <el-button type="primary" v-on:click="placeRating(order)">Confirm</el-button>
+                    </el-col>
+                    <el-col :span="3">
+                        <el-button v-on:click="order.ratingVisible=false">Cancel</el-button>
+                    </el-col>
+                </el-row>
+            </el-dialog>
+
           <el-dialog title='Make payment' :visible.sync="order.paymentVisible" width="50%">
-            <div class='text'>Select Card</div>
-            <el-select v-model="selectedCard" placeholder="--select-card--">
-              <el-option v-for="(card, index) in myCards" :key="index"
-              :label="card.cardnumber" :value="card.cardnumber">
-              </el-option>
-            </el-select>
-            <br/>
-            <span>
-              <el-button type="primary" v-on:click="makePayment(order)">Confirm</el-button>
-              <el-button v-on:click="order.paymentVisible=false">Cancel</el-button>
-            </span>
+              <el-row :gutter="20" align="middle">
+                  <el-col :span="5">
+                      <div class='text'>Select Card</div>
+                  </el-col>
+                  <el-col :span="10">
+                      <el-select v-model="selectedCard" placeholder="--select-card--">
+                          <el-option v-for="(card, index) in myCards" :key="index" :label="card.cardnumber" :value="card.cardnumber">
+                          </el-option>
+                      </el-select>
+                  </el-col>
+              </el-row>
+              <el-row :gutter="20" align="middle">
+                  <el-col :span="3">
+                      <el-button type="primary" v-on:click="makePayment(order)">Confirm</el-button>
+                  </el-col>
+                  <el-col :span="3">
+                      <el-button v-on:click="order.paymentVisible=false">Cancel</el-button>
+                  </el-col>
+              </el-row>
           </el-dialog>
         </div>
 

@@ -75,11 +75,11 @@
           <div v-for="(vacancy,index) in vacancies" v-bind:key="index">
 
             <el-dialog title='All Reviews of this care taker' :visible.sync="vacancy.reviewVisible" width="50%">
-                <el-row>
+                <el-row type="flex" justify="center" align="middle">
                     <div class='text'>{{ 'Care Taker Name: ' + vacancy.realname }}</div>
                 </el-row>
-                <el-row>
-                    <el-table :data="pastorders" border max-height="250">
+                <el-row type="flex" justify="center" align="middle">
+                    <el-table :data="pastorders" border max-height="250" style="width: 50%">
                         <el-table-column prop="petcategory" label="Pet Category" width="100"></el-table-column>
                         <el-table-column prop="rating" label="Rating" width="100"></el-table-column>
                         <el-table-column prop="review" label="Review" width="200"></el-table-column>
