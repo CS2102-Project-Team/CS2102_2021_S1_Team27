@@ -1,5 +1,4 @@
 import axios from 'axios';
-import store from '@/store';
 import { getToken } from './auth';
 
 const service = axios.create({
@@ -9,7 +8,7 @@ const service = axios.create({
 
 service.interceptors.request.use(
   (config) => {
-    if (store.getters.token) {
+    if (getToken()) {
       // eslint-disable-next-line no-param-reassign
       config.headers.Authorization = `Bearer ${getToken()}`;
     }
