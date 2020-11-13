@@ -55,14 +55,14 @@ export default {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #AAB7B8;
+    background-color:rgb(59, 89, 152);
   }
 
   .title-text {
     position: relative;
     top: -2px;
     font-family: 'Kaushan Script', cursive;
-    color: slateblue;
+    color: #fff;
     font-weight: bold;
   }
 
@@ -74,7 +74,7 @@ export default {
 
   li p {
     display: block;
-    color: #5B2C6F;
+    color: #fff;
     text-align: center;
     padding: 16px 16px;
     text-decoration: none;
@@ -82,11 +82,11 @@ export default {
   }
 
   li p:hover:not(.active):not(.title-text) {
-    background-color: wheat;
+    background-color: #87CEEB;
   }
 
   .active {
-    background-color: sandybrown;
+    background-color: #87CEEB;
   }
 
   .title {

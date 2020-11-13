@@ -24,29 +24,46 @@
                   >
                     <el-table-column
                         fixed
+                        sortable
                         label = "start date"
                         prop = "startdate"
-                        width = "100">
+                        width = "110">
                     </el-table-column>
                     <el-table-column
                         fixed
+                        sortable
                         label = "end date"
                         prop = "enddate"
                         width = "100">
                     </el-table-column>
                     <el-table-column
+                        sortable
                         label = "status"
                         prop = "status"
                         width = "130">
                     </el-table-column>
                     <el-table-column
+                        sortable
                         label = "pet name"
                         prop = "petname"
                         width = "120">
                     </el-table-column>
                     <el-table-column
+                        sortable
                         label = "pet owner"
                         prop = "ownerusername"
+                        width = "150">
+                    </el-table-column>
+                    <el-table-column
+                        sortable
+                        label = "pet type"
+                        prop = "petcategory"
+                        width = "100">
+                    </el-table-column>
+                    <el-table-column
+                        sortable
+                        label = "delivery mode"
+                        prop = "deliverymode"
                         width = "150">
                     </el-table-column>
                     <el-table-column
@@ -55,19 +72,9 @@
                         width = "300">
                     </el-table-column>
                     <el-table-column
-                        label = "pet type"
-                        prop = "petcategory"
-                        width = "100">
-                    </el-table-column>
-                    <el-table-column
-                        label = "delivery mode"
-                        prop = "deliverymode"
-                        width = "150">
-                    </el-table-column>
-                    <el-table-column
                         fixed = "right"
                         label = "action"
-                        width = "100">
+                        width = "130">
                         <template slot-scope="scope">
                           <el-button
                             v-if = "scope.row.status.trim() === 'Pending Payment'"
@@ -149,7 +156,7 @@ export default {
       data: {
         startdate: '',
         enddate: '',
-        pettype: '',
+        petname: '',
         ownerusername: '',
       },
       formLabelWidth: '120px',
@@ -171,7 +178,7 @@ export default {
     paymentReceivedBtn(row) {
       this.data.startdate = row.startdate;
       this.data.enddate = row.enddate;
-      this.data.pettype = row.pettype;
+      this.data.petname = row.petname;
       this.data.ownerusername = row.ownerusername;
       this.paymentReceivedDialogVisible = true;
     },

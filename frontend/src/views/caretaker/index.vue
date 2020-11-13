@@ -38,19 +38,21 @@
                 <!-- added in max height for the table -->
                 <el-table
                   :data = "pendingorders"
-                  max-height="400"
+                  max-height="250"
                   border
                   empty-text= "empty"
                   :key = "pdTableKey"
                   >
                     <el-table-column
                         fixed
+                        sortable
                         label = "start date"
                         prop = "startdate"
-                        width = "100">
+                        width = "110">
                     </el-table-column>
                     <el-table-column
                         fixed
+                        sortable
                         label = "end date"
                         prop = "enddate"
                         width = "100">
@@ -61,26 +63,31 @@
                         width = "300">
                     </el-table-column>
                     <el-table-column
+                        sortable
                         label = "pet type"
                         prop = "petcategory"
                         width = "100">
                     </el-table-column>
                     <el-table-column
+                        sortable
                         label = "pet name"
                         prop = "petname"
                         width = "120">
                     </el-table-column>
                     <el-table-column
+                        sortable
                         label = "pet owner"
                         prop = "ownerusername"
                         width = "150">
                     </el-table-column>
                     <el-table-column
+                        sortable
                         label = "status"
                         prop = "status"
                         width = "130">
                     </el-table-column>
                     <el-table-column
+                        sortable
                         label = "delivery mode"
                         prop = "deliverymode"
                         width = "150">
@@ -119,7 +126,7 @@
                 <el-table
                   :data = "petcategory"
                   border
-                  max-height="250"
+                  max-height="200"
                   empty-text= "empty"
                   :key = "pcTableKey">
                     <el-table-column
@@ -382,7 +389,7 @@ export default {
         // remove this entry from showing
         this.deleteRow(index, this.pendingorders);
         this.pdTableKey += 1;
-        this.$message.success('accepted an order');
+        this.$message.success('declined an order');
       }).catch((error) => {
         this.$message.error(error.response.data.error);
       });
@@ -493,7 +500,7 @@ export default {
   }
 
   .item {
-    padding: 18px 0;
+    padding: 5px 0;
   }
   .ptct_petcategory {
     height: 350px;
