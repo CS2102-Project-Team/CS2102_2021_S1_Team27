@@ -81,7 +81,7 @@
 
           <div v-for="(vacancy,index) in vacancies" v-bind:key="index">
 
-            <el-dialog title='All Reviews of this care taker' 
+            <el-dialog title='All Reviews of this care taker'
                        :visible.sync="vacancy.reviewVisible" width="50%">
                 <el-row type="flex" justify="center" align="middle">
                     <div class='text'>{{ 'Care Taker Name: ' + vacancy.realname }}</div>

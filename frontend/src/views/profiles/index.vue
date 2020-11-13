@@ -23,7 +23,7 @@
           <div class="text item">My Credit Cards</div>
           <el-card class="box-card" v-for="(card,index) in cards" v-bind:key="index"
                    shadow="hover">
-            <span class="text item">{{ 'Card Number: ' + card.cardnumber }}</span> 
+            <span class="text item">{{ 'Card Number: ' + card.cardnumber }}</span>
             <el-button style="float: right; padding: 3px 0" type="text"
                        @click="deleteCard(card.cardnumber)">
               Delete Card
