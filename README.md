@@ -1,5 +1,8 @@
 # CS2102_2021_S1_Team27 Frontend
 
+![test build](https://github.com/CS2102-Project-Team/CS2102_2021_S1_Team27/workflows/Test%20build/badge.svg)
+![lint](https://github.com/CS2102-Project-Team/CS2102_2021_S1_Team27/workflows/lint-fe/badge.svg)
+
 <https://pet-anything.ml/>
 
 This branch hosts the frontend of CS2102_2021_S1_Team27 project. **Do not merge this branch to master**!
