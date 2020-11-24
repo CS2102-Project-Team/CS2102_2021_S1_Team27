@@ -1,5 +1,7 @@
 # CS2102_2021_S1_Team27 Backend
 
+![crash check](https://github.com/CS2102-Project-Team/CS2102_2021_S1_Team27/workflows/Test%20if%20it%20crashes%20XD/badge.svg)
+![lint](https://github.com/CS2102-Project-Team/CS2102_2021_S1_Team27/workflows/ESlint/badge.svg)
 
 This branch hosts the backend of CS2102_2021_S1_Team27 project. **Do not merge this branch to master**!
 
