@@ -42,7 +42,8 @@ async function deleteCategory(username, pettype) {
 }
 
 async function getOrders(username, pastorder) {
-  console.log(typeof pastorder)
+  // eslint-disable-next-line no-console
+  console.log(typeof pastorder);
   if (pastorder === 'true') {
     const { rows } = await db.query('SELECT sdate startdate, edate enddate, remark specialrequirement, ptype petcategory, pname petname, powner ownerusername, status, delivery deliverymode, rating, review FROM orders WHERE ctaker=$1', [username]);
     return rows;
@@ -120,9 +121,14 @@ async function getSalary(username) {
   const today = new Date();
   const res = await getSalaryMonth(username, today.toISOString().substring(0, 7));
   return res;
-  // eslint-disable-next-line max-len
-  /* const { rows } = await db.query('SELECT SUM(edate - sdate + 1) FROM orders WHERE ctaker=$1 AND EXTRACT(MONTH FROM sdate) = EXTRACT(MONTH FROM current_timestamp)', [username]);
-  return rows; */
+  // const { rows } = await db.query(
+  //  `SELECT SUM(edate - sdate + 1)
+  //  FROM orders
+  //  WHERE ctaker=$1
+  //  AND EXTRACT(MONTH FROM sdate) = EXTRACT(MONTH FROM current_timestamp)`,
+  //  [username]
+  // );
+  // return rows;
 }
 
 async function checkFull(username, startdate, enddate) {
